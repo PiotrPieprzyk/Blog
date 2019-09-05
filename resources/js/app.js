@@ -69,7 +69,15 @@ const store = new Vuex.Store({
                 title: "Drawing",
                 content: "lorem lorem lorem "
 
+            },
+            {
+                id: 3,
+                href: "",
+                title: "Contact",
+                content: "886168943",
             }
+
+
         ],
     },
     mutations: {
@@ -79,7 +87,7 @@ const store = new Vuex.Store({
         loadCardStatus(state, conditional) {
             state.loadedCard = conditional;
         },
-        changecurrentCard(state, index){
+        changecurrentCard(state, index) {
             state.currentCard = index;
         }
     }

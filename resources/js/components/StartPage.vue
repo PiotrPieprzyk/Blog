@@ -6,7 +6,7 @@
 		<nav>
 			<div class="navBarWrapper"></div>
 		</nav>
-		<main class="df f1">
+		<main class="mainWrapper df f1">
 			<div class="startWebWrapper mt60">
 				<!-- PAGINATION -->
 				<div class="startWebWrapperPagination">
@@ -19,6 +19,9 @@
 				</transition>
 			</div>
 		</main>
+		<footer class="footerWrapper">
+			<p>Check this ;)</p>
+		</footer>
 	</div>
 </template>
 

@@ -55,10 +55,17 @@
       }
     }
 
-    .Image0 {
+    .Image0,
+    .Image1,
+    .Image2 {
       z-index: 0;
       height: 93vh;
-      box-shadow: 1px 2px 3px 3px #0000009e;
+      box-shadow: 1px 2px 3px 4px rgba(0, 0, 0, 0.301);
+    }
+
+
+    .Image3 {
+      background-color: rgb(10, 41, 23);
     }
 
 
@@ -166,6 +173,20 @@
 
 
       }
+    }
+
+  }
+
+  .footerWrapper {
+    height: 7vh;
+    color: rgba(255, 255, 255, 0.534);
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      margin: 0;
     }
 
   }

@@ -19,6 +19,7 @@ export default {
 				let activeImgIndex = activeImg._prevClass.substring(
 					activeImg._prevClass.length - 1
 				);
+				// ActivationPagin //
 				document
 					.querySelector(".activePagination")
 					.classList.remove("activePagination");
@@ -70,7 +71,7 @@ export default {
 						this.$store.commit("changeAnimationStatus", false);
 						this.$store.commit("loadCardStatus", true);
 						this.$store.commit("changecurrentCard", index);
-					}, 1300);
+					}, 1000);
 				}
 			}
 		}

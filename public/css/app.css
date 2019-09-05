@@ -10701,10 +10701,16 @@ a.text-dark:focus {
   bottom: 0;
 }
 
-.webClass .start-web-wrapper-img .Image0 {
+.webClass .start-web-wrapper-img .Image0,
+.webClass .start-web-wrapper-img .Image1,
+.webClass .start-web-wrapper-img .Image2 {
   z-index: 0;
   height: 93vh;
-  box-shadow: 1px 2px 3px 3px #0000009e;
+  box-shadow: 1px 2px 3px 4px rgba(0, 0, 0, 0.301);
+}
+
+.webClass .start-web-wrapper-img .Image3 {
+  background-color: #0a2917;
 }
 
 .webClass .start-web-wrapper-img .oldImg {
@@ -10805,6 +10811,19 @@ a.text-dark:focus {
   flex: 1;
   font-size: 0.6em;
   text-align: center;
+}
+
+.webClass .footerWrapper {
+  height: 7vh;
+  color: rgba(255, 255, 255, 0.534);
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.webClass .footerWrapper p {
+  margin: 0;
 }
 
 .webClass .borRed {

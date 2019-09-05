@@ -1860,7 +1860,8 @@ __webpack_require__.r(__webpack_exports__);
         var activeImg = document.querySelector(".active");
         var nextImg = document.querySelector(".Image" + index);
 
-        var activeImgIndex = activeImg._prevClass.substring(activeImg._prevClass.length - 1);
+        var activeImgIndex = activeImg._prevClass.substring(activeImg._prevClass.length - 1); // ActivationPagin //
+
 
         document.querySelector(".activePagination").classList.remove("activePagination");
         document.getElementById("pagination " + index).classList.add("activePagination");
@@ -1902,7 +1903,7 @@ __webpack_require__.r(__webpack_exports__);
             _this.$store.commit("loadCardStatus", true);
 
             _this.$store.commit("changecurrentCard", index);
-          }, 1300);
+          }, 1000);
         }
       }
     }
@@ -1946,6 +1947,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
+//
 //
 //
 //
@@ -37409,7 +37413,7 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("main", { staticClass: "df f1" }, [
+      _c("main", { staticClass: "mainWrapper df f1" }, [
         _c(
           "div",
           { staticClass: "startWebWrapper mt60" },
@@ -37434,7 +37438,9 @@ var render = function() {
           ],
           1
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(1)
     ],
     1
   )
@@ -37445,6 +37451,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("nav", [_c("div", { staticClass: "navBarWrapper" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("footer", { staticClass: "footerWrapper" }, [
+      _c("p", [_vm._v("Check this ;)")])
+    ])
   }
 ]
 render._withStripped = true
@@ -53659,6 +53673,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       href: "http://cdn.wallpapername.com/1920x1080/20121114/trees%20creatures%20spotlight%20slender%20man%20aliens%20ambient%201920x1080%20wallpaper_www.wallpapername.com_11.jpg",
       title: "Drawing",
       content: "lorem lorem lorem "
+    }, {
+      id: 3,
+      href: "",
+      title: "Contact",
+      content: "886168943"
     }]
   },
   mutations: {
