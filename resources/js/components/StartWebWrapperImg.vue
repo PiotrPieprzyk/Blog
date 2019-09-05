@@ -1,5 +1,5 @@
 <template>
-	<div class="start-web-wrapper-img borRed">
+	<div class="start-web-wrapper-img">
 		<div
 			class="cardWrapper"
 			v-for="item in backgroundImages"
@@ -7,7 +7,7 @@
 			:class="'Image'+item.id"
 			:style="'z-index:-'+item.id"
 		>
-			<img :src="item.href" />
+			<img :style="'background-image: url('+item.href+');'" />
 		</div>
 	</div>
 </template>

@@ -1,6 +1,6 @@
 <template>
-	<div class>
-		<div class="paginationItem borRed" @click="changeBackground(keyImg)">{{keyImg+1}}</div>
+	<div class="paginationDropper">
+		<div :id="'pagination '+keyImg" class="paginationItem" @click="changeBackground(keyImg)"></div>
 	</div>
 </template>
 <script>
@@ -19,6 +19,12 @@ export default {
 				let activeImgIndex = activeImg._prevClass.substring(
 					activeImg._prevClass.length - 1
 				);
+				document
+					.querySelector(".activePagination")
+					.classList.remove("activePagination");
+				document
+					.getElementById("pagination " + index)
+					.classList.add("activePagination");
 
 				if (activeImgIndex != index && !this.animationStatus) {
 					// AnimationStatus //
@@ -62,9 +68,8 @@ export default {
 					// AnimationStatus //
 					setTimeout(() => {
 						this.$store.commit("changeAnimationStatus", false);
-						if (index == 0) {
-							this.$store.commit("loadCardStatus", true);
-						}
+						this.$store.commit("loadCardStatus", true);
+						this.$store.commit("changecurrentCard", index);
 					}, 1300);
 				}
 			}

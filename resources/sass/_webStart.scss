@@ -21,7 +21,7 @@
       bottom: 0;
       left: 0;
       opacity: 0.6;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.5);
       z-index: 1;
     }
 
@@ -35,33 +35,30 @@
       justify-content: center;
       align-items: center;
 
+
       img {
-        @media (min-aspect-ratio:16/9) {
-          position: absolute;
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-position: center;
-
-
-        }
-
-        @media (max-aspect-ratio: 16/9) {
-
-          position: absolute;
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-position: center;
-
-
-        }
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-size: cover;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        background-repeat: no-repeat;
+        background-position: center;
 
         p {
           position: absolute;
           bottom: 0;
         }
       }
+    }
 
-
+    .Image0 {
+      z-index: 0;
+      height: 93vh;
+      box-shadow: 1px 2px 3px 3px #0000009e;
     }
 
 
@@ -92,9 +89,12 @@
 
     .startWebWrapperPagination {
       width: 60px;
+      height: 100vh;
       display: flex;
       align-items: center;
       z-index: 1;
+      position: absolute;
+      top: 0px;
 
 
       .startWebWrapperPaginationContent {
@@ -102,10 +102,24 @@
         flex-direction: column;
         flex: 1;
 
-        .paginationItem {
-          height: 50px;
-          color: white;
+        .paginationDropper {
+          display: flex;
+          justify-content: end;
+
+          .paginationItem {
+            color: white;
+            border-radius: 50%;
+            border: white 2px solid;
+            width: 20px;
+            height: 20px;
+            margin: 10px;
+          }
+
+          .activePagination {
+            background-color: rgba(255, 255, 255, 0.152);
+          }
         }
+
       }
 
     }
@@ -115,14 +129,29 @@
       flex: 1;
       flex-direction: column;
       width: 100vw;
-      left: -60px;
+      max-width: 500px;
       position: relative;
       color: white;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      font-size: calc(2vw + 14px);
+      left: 0;
+      right: 0;
+      margin: auto;
+      margin-top: 0;
+
+      @media (min-width: 1300px) {
+        font-size: 45px;
+      }
 
       .wrapperContentTitle {
         display: flex;
         justify-content: center;
-        height: 100px;
+        align-items: center;
+        text-align: center;
+
+        h1 {
+          font-size: 3em;
+        }
 
       }
 
@@ -131,6 +160,10 @@
         position: relative;
         justify-content: center;
         flex: 1;
+        font-size: 0.6em;
+        text-align: center;
+
+
 
       }
     }

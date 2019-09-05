@@ -47,23 +47,21 @@ Vue.use(VueRouter);
 
 const store = new Vuex.Store({
     state: {
-        count: 0,
-        backgroundImgIndex: 0,
-        currentImgIndex: 0,
+        currentCard: 0,
         animationStatus: false,
         loadedCard: false,
         cards: [
             {
-                id: 0, href: "https://i.etsystatic.com/6300003/r/il/498a6f/1360564546/il_fullxfull.1360564546_kabo.jpg",
+                id: 0, href: "https://images.pexels.com/photos/754082/pexels-photo-754082.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
                 title: "OurBlog",
-                content: "lorem lorem lorem "
+                content: "Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!"
             },
             {
                 id: 1,
                 href:
-                    "https://wallpapercave.com/wp/wp2661560.jpg",
+                    "https://images.pexels.com/photos/1670035/pexels-photo-1670035.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
                 title: "Graphic",
-                content: "lorem lorem lorem "
+                content: "Zabawa z prostymi narzędziami"
             },
             {
                 id: 2,
@@ -77,11 +75,12 @@ const store = new Vuex.Store({
     mutations: {
         changeAnimationStatus(state, conditional) {
             state.animationStatus = conditional;
-            console.log(state.animationStatus)
         },
         loadCardStatus(state, conditional) {
             state.loadedCard = conditional;
-            console.log(state.loadedCard)
+        },
+        changecurrentCard(state, index){
+            state.currentCard = index;
         }
     }
 });

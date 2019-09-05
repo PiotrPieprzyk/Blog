@@ -1,15 +1,15 @@
 <template>
-	<div class="startWebWrapperContent borRed">
-		<div class="wrapperContentTitle">
-			<h1>{{ cards[0].title }}</h1>
+	<div class="startWebWrapperContent">
+		<div class="wrapperContentTitle mt60">
+			<h1>{{ cards[currentCard].title }}</h1>
 		</div>
-		<div class="wrapperContent">{{ cards[0].content }}</div>
+		<div class="wrapperContent" v-html="cards[currentCard].content"></div>
 	</div>
 </template>
 <script>
 import { mapState } from "vuex";
 
 export default {
-	computed: mapState(["cards"])
+	computed: mapState(["cards", "currentCard"])
 };
 </script>

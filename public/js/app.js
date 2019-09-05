@@ -1862,6 +1862,9 @@ __webpack_require__.r(__webpack_exports__);
 
         var activeImgIndex = activeImg._prevClass.substring(activeImg._prevClass.length - 1);
 
+        document.querySelector(".activePagination").classList.remove("activePagination");
+        document.getElementById("pagination " + index).classList.add("activePagination");
+
         if (activeImgIndex != index && !this.animationStatus) {
           // AnimationStatus //
           this.$store.commit("changeAnimationStatus", true);
@@ -1896,9 +1899,9 @@ __webpack_require__.r(__webpack_exports__);
           Object(timers__WEBPACK_IMPORTED_MODULE_1__["setTimeout"])(function () {
             _this.$store.commit("changeAnimationStatus", false);
 
-            if (index == 0) {
-              _this.$store.commit("loadCardStatus", true);
-            }
+            _this.$store.commit("loadCardStatus", true);
+
+            _this.$store.commit("changecurrentCard", index);
           }, 1300);
         }
       }
@@ -1928,7 +1931,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["cards"])
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["cards", "currentCard"])
 });
 
 /***/ }),
@@ -1976,6 +1979,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     document.querySelector(".Image0").classList.add("active");
     this.$store.commit("loadCardStatus", true);
+    document.getElementById("pagination " + 0).classList.add("activePagination");
   }
 });
 
@@ -37330,19 +37334,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c(
-      "div",
-      {
-        staticClass: "paginationItem borRed",
-        on: {
-          click: function($event) {
-            return _vm.changeBackground(_vm.keyImg)
-          }
+  return _c("div", { staticClass: "paginationDropper" }, [
+    _c("div", {
+      staticClass: "paginationItem",
+      attrs: { id: "pagination " + _vm.keyImg },
+      on: {
+        click: function($event) {
+          return _vm.changeBackground(_vm.keyImg)
         }
-      },
-      [_vm._v(_vm._s(_vm.keyImg + 1))]
-    )
+      }
+    })
   ])
 }
 var staticRenderFns = []
@@ -37367,14 +37368,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "startWebWrapperContent borRed" }, [
-    _c("div", { staticClass: "wrapperContentTitle" }, [
-      _c("h1", [_vm._v(_vm._s(_vm.cards[0].title))])
+  return _c("div", { staticClass: "startWebWrapperContent" }, [
+    _c("div", { staticClass: "wrapperContentTitle mt60" }, [
+      _c("h1", [_vm._v(_vm._s(_vm.cards[_vm.currentCard].title))])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "wrapperContent" }, [
-      _vm._v(_vm._s(_vm.cards[0].content))
-    ])
+    _c("div", {
+      staticClass: "wrapperContent",
+      domProps: { innerHTML: _vm._s(_vm.cards[_vm.currentCard].content) }
+    })
   ])
 }
 var staticRenderFns = []
@@ -37407,14 +37409,14 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("main", { staticClass: "df f1 borRed" }, [
+      _c("main", { staticClass: "df f1" }, [
         _c(
           "div",
-          { staticClass: "startWebWrapper mt60 borRed" },
+          { staticClass: "startWebWrapper mt60" },
           [
             _c(
               "div",
-              { staticClass: "startWebWrapperPagination borRed" },
+              { staticClass: "startWebWrapperPagination" },
               [
                 _c("start-web-pagination", {
                   attrs: { backgroundImages: _vm.cards }
@@ -37442,7 +37444,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("nav", [_c("div", { staticClass: "navBarWrapper borRed" })])
+    return _c("nav", [_c("div", { staticClass: "navBarWrapper" })])
   }
 ]
 render._withStripped = true
@@ -37502,7 +37504,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "start-web-wrapper-img borRed" },
+    { staticClass: "start-web-wrapper-img" },
     _vm._l(_vm.backgroundImages, function(item) {
       return _c(
         "div",
@@ -37512,7 +37514,7 @@ var render = function() {
           class: "Image" + item.id,
           style: "z-index:-" + item.id
         },
-        [_c("img", { attrs: { src: item.href } })]
+        [_c("img", { style: "background-image: url(" + item.href + ");" })]
       )
     }),
     0
@@ -53639,21 +53641,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    count: 0,
-    backgroundImgIndex: 0,
-    currentImgIndex: 0,
+    currentCard: 0,
     animationStatus: false,
     loadedCard: false,
     cards: [{
       id: 0,
-      href: "https://i.etsystatic.com/6300003/r/il/498a6f/1360564546/il_fullxfull.1360564546_kabo.jpg",
+      href: "https://images.pexels.com/photos/754082/pexels-photo-754082.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
       title: "OurBlog",
-      content: "lorem lorem lorem "
+      content: "Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!"
     }, {
       id: 1,
-      href: "https://wallpapercave.com/wp/wp2661560.jpg",
+      href: "https://images.pexels.com/photos/1670035/pexels-photo-1670035.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
       title: "Graphic",
-      content: "lorem lorem lorem "
+      content: "Zabawa z prostymi narzędziami"
     }, {
       id: 2,
       href: "http://cdn.wallpapername.com/1920x1080/20121114/trees%20creatures%20spotlight%20slender%20man%20aliens%20ambient%201920x1080%20wallpaper_www.wallpapername.com_11.jpg",
@@ -53664,11 +53664,12 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   mutations: {
     changeAnimationStatus: function changeAnimationStatus(state, conditional) {
       state.animationStatus = conditional;
-      console.log(state.animationStatus);
     },
     loadCardStatus: function loadCardStatus(state, conditional) {
       state.loadedCard = conditional;
-      console.log(state.loadedCard);
+    },
+    changecurrentCard: function changecurrentCard(state, index) {
+      state.currentCard = index;
     }
   }
 });
