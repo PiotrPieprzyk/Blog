@@ -19,6 +19,8 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+Vue.component('custom-header', require('./components/CustomHeader.vue').default);
+
 // StartPage // 
 Vue.component('start-page', require('./components/StartPage/StartPage.vue').default);
 Vue.component('start-web-wrapper-img', require('./components/StartPage/StartWebWrapperImg.vue').default);

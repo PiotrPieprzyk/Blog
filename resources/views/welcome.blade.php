@@ -23,30 +23,9 @@
 <body>
     <div id="app">
         <!-- NAVBAR -->
-        <nav class="navBarOuter">
-            <div class="navBarWrapper">
-                <router-link to="/">
-                    <div class="logoWrapper">
-                        <p>
-                            OurBlog
-                        </p>
-                    </div>
-                </router-link>
-                <div class="buttonWrapper">
-                    <div class="loginButton">
-                        <div class="responsiveLoginCard">
-                            <p>Zaloguj</p>
-                        </div>
-                    </div>
-                    <div class="registerButton">
-                        <div class="responsiveRegisterCard">
-                            <p>Zarejestruj</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <router-view></router-view>
+        <custom-header></custom-header>
+        <router-view>
+        </router-view>
     </div>
 </body>
 </html>

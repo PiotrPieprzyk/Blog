@@ -13,6 +13,7 @@
     .logoWrapper {
       height: 100%;
 
+
       @media (min-width: 600px) {
         margin-left: 10px;
 
@@ -44,26 +45,40 @@
         margin: 0;
         display: flex;
         justify-content: center;
+        position: absolute;
 
       }
 
       .loginButton {
         margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        border: white 2px solid;
+        border-radius: 25px;
+        padding: 5px 20px;
+        width: 60px;
+        box-sizing: content-box;
+        cursor: pointer;
+
 
         .responsiveLoginCard {
-          border: white 2px solid;
-          padding: 5px 20px;
-          border-radius: 25px;
+
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 45px;
-
-
         }
       }
 
       .registerButton {
+        display: flex;
+        justify-content: center;
+        border: white 2px solid;
+        border-radius: 25px;
+        padding: 5px 20px;
+        width: 85px;
+        box-sizing: content-box;
+        cursor: pointer;
+
 
         @media (min-width: 600px) {
           margin-right: 10px;
@@ -71,14 +86,10 @@
         }
 
         .responsiveRegisterCard {
-          border: white 2px solid;
-          padding: 5px 20px;
-          border-radius: 25px;
+
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 45px;
-
 
         }
 
