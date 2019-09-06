@@ -2,12 +2,9 @@
 	<div class="webClass">
 		<!-- CARDS -->
 		<start-web-wrapper-img :backgroundImages="cards"></start-web-wrapper-img>
-		<!-- NAVBAR -->
-		<nav>
-			<div class="navBarWrapper"></div>
-		</nav>
+
 		<main class="mainWrapper df f1">
-			<div class="startWebWrapper mt60">
+			<div class="startWebWrapper">
 				<!-- PAGINATION -->
 				<div class="startWebWrapperPagination">
 					<start-web-pagination :backgroundImages="cards"></start-web-pagination>
@@ -29,15 +26,18 @@
 import { mapState } from "vuex";
 
 export default {
-	computed: mapState(["backgroundImgIndex", "cards", "loadedCard"]),
+	computed: mapState(["cards", "loadedCard", "currentCard"]),
 	data: function() {
 		return {};
 	},
 	mounted() {
-		document.querySelector(".Image0").classList.add("active");
+		document.querySelector(".Image" + this.currentCard).classList.add("active");
+		for (var i = 0; i < this.currentCard; i++) {
+			document.querySelector(".Image" + i).classList.add("position-top");
+		}
 		this.$store.commit("loadCardStatus", true);
 		document
-			.getElementById("pagination " + 0)
+			.getElementById("pagination " + this.currentCard)
 			.classList.add("activePagination");
 	}
 };

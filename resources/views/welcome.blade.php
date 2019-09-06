@@ -21,8 +21,18 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    <!-- NAVBAR -->
+	<nav>
+		<div class="navBarWrapper">
+            <div class="logoWrapper">
+            </div>
+            <div class="buttonWrapper"></div>
+        </div>
+	</nav>
     <div id="app">
-        <start-page></start-page>
+        <router-view></router-view>
     </div>
 </body>
 </html>
+<script>
+</script>

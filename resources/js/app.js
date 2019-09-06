@@ -19,15 +19,16 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('start-page', require('./components/StartPage.vue').default);
-Vue.component('start-web-wrapper-img', require('./components/StartWebWrapperImg.vue').default);
-Vue.component('start-web-pagination', require('./components/StartPagePagination.vue').default);
-Vue.component('pagination-item', require('./components/PaginationItem.vue').default);
-Vue.component('start-content', require('./components/StartContent.vue').default);
+// StartPage // 
+Vue.component('start-page', require('./components/StartPage/StartPage.vue').default);
+Vue.component('start-web-wrapper-img', require('./components/StartPage/StartWebWrapperImg.vue').default);
+Vue.component('start-web-pagination', require('./components/StartPage/StartPagePagination.vue').default);
+Vue.component('pagination-item', require('./components/StartPage/PaginationItem.vue').default);
+Vue.component('start-content', require('./components/StartPage/StartContent.vue').default);
 
-// Startcards
+// Galery //
 
-
+Vue.component('galery-page', require('./components/Galery/GaleryPage.vue').default);
 
 
 /**
@@ -39,8 +40,7 @@ Vue.component('start-content', require('./components/StartContent.vue').default)
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
-import { startCardRoutes } from './startCardRoutes'
-
+import { routes } from './routes'
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
@@ -54,20 +54,26 @@ const store = new Vuex.Store({
             {
                 id: 0, href: "https://images.pexels.com/photos/754082/pexels-photo-754082.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
                 title: "OurBlog",
-                content: "Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!"
+                content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
+                buttonText: "",
             },
             {
                 id: 1,
                 href:
                     "https://images.pexels.com/photos/1670035/pexels-photo-1670035.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
                 title: "Graphic",
-                content: "Zabawa z prostymi narzędziami"
+                content: "<p>Zabawa z prostymi narzędziami</p>",
+                buttonText: "Przejdź do Galerii",
+
+
             },
             {
                 id: 2,
                 href: "http://cdn.wallpapername.com/1920x1080/20121114/trees%20creatures%20spotlight%20slender%20man%20aliens%20ambient%201920x1080%20wallpaper_www.wallpapername.com_11.jpg",
                 title: "Drawing",
-                content: "lorem lorem lorem "
+                content: "<p>lorem lorem lorem</p>",
+                buttonText: "",
+
 
             },
             {
@@ -75,6 +81,8 @@ const store = new Vuex.Store({
                 href: "",
                 title: "Contact",
                 content: "886168943",
+                buttonText: "",
+
             }
 
 
@@ -94,7 +102,7 @@ const store = new Vuex.Store({
 });
 
 const router = new VueRouter({
-    startCardRoutes
+    routes,
 })
 
 const app = new Vue({

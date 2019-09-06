@@ -44,6 +44,9 @@ export default {
 								.classList.remove("slide-bottom");
 							document
 								.querySelector(".Image" + activeImgIndex)
+								.classList.remove("position-top");
+							document
+								.querySelector(".Image" + activeImgIndex)
 								.classList.add("slide-top");
 
 							activeImgIndex++;
@@ -58,6 +61,9 @@ export default {
 							document
 								.querySelector(".Image" + activeImgIndex)
 								.classList.remove("slide-top");
+							document
+								.querySelector(".Image" + activeImgIndex)
+								.classList.remove("position-top");
 							document
 								.querySelector(".Image" + activeImgIndex)
 								.classList.add("slide-bottom");

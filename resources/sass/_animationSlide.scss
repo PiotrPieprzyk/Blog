@@ -80,3 +80,40 @@
     transform: translateY(-150%);
   }
 }
+
+.position-top {
+  transform: translateY(-150%);
+}
+
+.slide-horizontally-enter {}
+
+.slide-horizontally-enter-active {
+  animation: slide-horizontally-in 1s ease-in forwards;
+}
+
+.slide-horizontally-leave {}
+
+.slide-horizontally-leave-active {
+  animation: slide-horizontally-out 1s ease-out forwards;
+}
+
+@keyframes slide-horizontally-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-horizontally-out {
+  from {
+    transform: translateX(0);
+
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}

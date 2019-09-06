@@ -8,9 +8,10 @@
 @import '~bootstrap/scss/bootstrap';
 
 // Pages scss
-@import 'webStart';
+@import 'StartPage';
 @import 'web';
-
+@import 'GaleryPage';
+@import 'header';
 // Animations
 
 @import 'animationSlide';
