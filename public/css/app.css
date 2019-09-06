@@ -10760,7 +10760,7 @@ a.text-dark:focus {
 
 .webClass .startWebWrapper .startWebWrapperPagination .startWebWrapperPaginationContent .paginationDropper .paginationItem {
   color: white;
-  border-radius: 50%;
+  border-radius: 10px;
   border: white 2px solid;
   width: 20px;
   height: 20px;
@@ -10969,9 +10969,85 @@ submit {
   flex: 1;
 }
 
-.navBarWrapper {
+.navBarOuter {
   position: absolute;
-  height: 60px;
+  width: 100vw;
+  height: 50px;
+}
+
+.navBarOuter .navBarWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  height: 45px;
+}
+
+.navBarOuter .navBarWrapper .logoWrapper {
+  height: 100%;
+}
+
+@media (min-width: 600px) {
+  .navBarOuter .navBarWrapper .logoWrapper {
+    margin-left: 10px;
+  }
+}
+
+.navBarOuter .navBarWrapper .logoWrapper p {
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  margin: 0;
+  color: white;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 31px;
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  color: white;
+  justify-content: right;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-size: 18px;
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper p {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper .loginButton {
+  margin-right: 20px;
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper .loginButton .responsiveLoginCard {
+  border: white 2px solid;
+  padding: 5px 20px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+}
+
+@media (min-width: 600px) {
+  .navBarOuter .navBarWrapper .buttonWrapper .registerButton {
+    margin-right: 10px;
+  }
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper .registerButton .responsiveRegisterCard {
+  border: white 2px solid;
+  padding: 5px 20px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
 }
 
 .slide-top {

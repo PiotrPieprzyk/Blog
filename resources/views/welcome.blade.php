@@ -21,15 +21,31 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <!-- NAVBAR -->
-	<nav>
-		<div class="navBarWrapper">
-            <div class="logoWrapper">
-            </div>
-            <div class="buttonWrapper"></div>
-        </div>
-	</nav>
     <div id="app">
+        <!-- NAVBAR -->
+        <nav class="navBarOuter">
+            <div class="navBarWrapper">
+                <router-link to="/">
+                    <div class="logoWrapper">
+                        <p>
+                            OurBlog
+                        </p>
+                    </div>
+                </router-link>
+                <div class="buttonWrapper">
+                    <div class="loginButton">
+                        <div class="responsiveLoginCard">
+                            <p>Zaloguj</p>
+                        </div>
+                    </div>
+                    <div class="registerButton">
+                        <div class="responsiveRegisterCard">
+                            <p>Zarejestruj</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
         <router-view></router-view>
     </div>
 </body>
