@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('custom-header', require('./components/CustomHeader.vue').default);
+Vue.component('login-form', require('./components/LoginForm.vue').default);
 
 // StartPage // 
 Vue.component('start-page', require('./components/StartPage/StartPage.vue').default);

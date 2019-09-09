@@ -100,4 +100,36 @@
       }
     }
   }
+
+  .formLogin {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .formGroup {
+      flex: 1;
+      justify-content: center;
+      display: flex;
+
+      .formInput {
+        width: 85%;
+        background-color: #fff0;
+        color: white;
+        border-bottom: white solid 2px;
+      }
+    }
+
+    .submitForm {
+      width: 20px;
+      background-color: #fff0;
+      padding: 0;
+
+      img {
+        filter: invert(1);
+        width: 20px;
+      }
+    }
+
+  }
 }

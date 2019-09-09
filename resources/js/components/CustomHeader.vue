@@ -8,10 +8,12 @@
 			</router-link>
 			<div class="buttonWrapper">
 				<div @click="sizingDown(2)" class="closeSizing"></div>
-				<div @click="sizingUp(1)" class="loginButton" style="width: 60px;">
+				<div @click="sizingUp(1)" class="loginButton" style="width: 60px; height: 31px;">
 					<p>Zaloguj</p>
 					<transition name="opacity">
-						<div v-if="loginOrRegister == 1" class="responsiveLoginCard"></div>
+						<div v-if="loginOrRegister == 1" class="responsiveLoginCard">
+							<login-form></login-form>
+						</div>
 					</transition>
 				</div>
 				<div class="registerButton" style="width: 85px;">
@@ -32,10 +34,13 @@ let sizingUpDiv = (index, changerWrapper, storage) => {
 
 	if (changerWrapper != "") {
 		let currentWidth = parseInt(changerWrapper.style.width);
+		let currentHeight = parseInt(changerWrapper.style.height);
 		let round = 1;
 
 		const interval = setInterval(() => {
 			changerWrapper.style.width = currentWidth + round * 10 + "px";
+			changerWrapper.style.height = currentHeight + round * 5 + "px";
+
 			round++;
 
 			if (round > 30) {
@@ -52,12 +57,16 @@ let sizingDownDiv = (index, defaulting, storage) => {
 	}
 	if (defaulting != "") {
 		let currentWidthDefaulting = parseInt(defaulting.style.width);
+		let currentHeightDefaulting = parseInt(defaulting.style.height);
+
 		let roundDefaulting = 1;
 		console.log(currentWidthDefaulting);
 
 		const intervalDefaulting = setInterval(() => {
 			defaulting.style.width =
 				currentWidthDefaulting - roundDefaulting * 10 + "px";
+			defaulting.style.height =
+				currentHeightDefaulting - roundDefaulting * 5 + "px";
 			roundDefaulting++;
 
 			console.log(roundDefaulting);
