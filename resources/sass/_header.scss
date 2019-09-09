@@ -43,41 +43,44 @@
 
       p {
         margin: 0;
-        display: flex;
-        justify-content: center;
-        position: absolute;
+      }
 
+      .closeSizing {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: 0;
       }
 
       .loginButton {
         margin-right: 20px;
         display: flex;
-        justify-content: center;
         border: white 2px solid;
         border-radius: 25px;
         padding: 5px 20px;
-        width: 60px;
         box-sizing: content-box;
         cursor: pointer;
+        min-width: 65px;
+        z-index: 1;
 
 
         .responsiveLoginCard {
-
           display: flex;
           justify-content: center;
           align-items: center;
+          width: 100%;
         }
       }
 
       .registerButton {
         display: flex;
-        justify-content: center;
         border: white 2px solid;
         border-radius: 25px;
         padding: 5px 20px;
-        width: 85px;
         box-sizing: content-box;
         cursor: pointer;
+        min-width: 85px;
+
 
 
         @media (min-width: 600px) {
@@ -86,10 +89,10 @@
         }
 
         .responsiveRegisterCard {
-
           display: flex;
           justify-content: center;
           align-items: center;
+          width: 100%;
 
         }
 

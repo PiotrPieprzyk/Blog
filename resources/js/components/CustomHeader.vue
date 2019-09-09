@@ -1,23 +1,21 @@
 <template>
 	<nav class="navBarOuter">
 		<div class="navBarWrapper">
-			<router-link to="/">
+			<router-link to="/" style="z-index: 1;">
 				<div class="logoWrapper">
 					<p>OurBlog</p>
 				</div>
 			</router-link>
 			<div class="buttonWrapper">
-				<div @click="logOrRegChange(1,)" class="loginButton">
+				<div @click="sizingDown(2)" class="closeSizing"></div>
+				<div @click="sizingUp(1)" class="loginButton" style="width: 60px;">
 					<p>Zaloguj</p>
-					<transition @before-enter="beforeEnterLogin">
+					<transition name="opacity">
 						<div v-if="loginOrRegister == 1" class="responsiveLoginCard"></div>
 					</transition>
 				</div>
-				<div @click="logOrRegChange(2)" class="registerButton">
+				<div class="registerButton" style="width: 85px;">
 					<p>Zarejestruj</p>
-					<transition>
-						<div v-if="loginOrRegister == 2" class="responsiveRegisterCard"></div>
-					</transition>
 				</div>
 			</div>
 		</div>
@@ -26,8 +24,50 @@
 <script>
 import { setInterval, clearInterval } from "timers";
 
-let loginDiv = document.querySelector(".loginButton");
-console.log(loginDiv);
+let sizingUpDiv = (index, changerWrapper, storage) => {
+	if (index == 1) {
+		changerWrapper = document.querySelector(".loginButton");
+		console.log(changerWrapper.style.width);
+	}
+
+	if (changerWrapper != "") {
+		let currentWidth = parseInt(changerWrapper.style.width);
+		let round = 1;
+
+		const interval = setInterval(() => {
+			changerWrapper.style.width = currentWidth + round * 10 + "px";
+			round++;
+
+			if (round > 30) {
+				clearInterval(interval);
+				console.log("complited");
+			}
+		}, 10);
+	}
+};
+let sizingDownDiv = (index, defaulting, storage) => {
+	if (storage.loginOrRegister == 1) {
+		defaulting = document.querySelector(".loginButton");
+		console.log("login");
+	}
+	if (defaulting != "") {
+		let currentWidthDefaulting = parseInt(defaulting.style.width);
+		let roundDefaulting = 1;
+		console.log(currentWidthDefaulting);
+
+		const intervalDefaulting = setInterval(() => {
+			defaulting.style.width =
+				currentWidthDefaulting - roundDefaulting * 10 + "px";
+			roundDefaulting++;
+
+			console.log(roundDefaulting);
+			if (roundDefaulting > 30) {
+				clearInterval(intervalDefaulting);
+				console.log("complited");
+			}
+		}, 10);
+	}
+};
 export default {
 	data: function() {
 		return {
@@ -35,12 +75,20 @@ export default {
 		};
 	},
 	methods: {
-		logOrRegChange(index) {
+		sizingUp(index) {
+			let changerWrapper = "";
+			if (this.loginOrRegister != index) {
+				sizingUpDiv(index, changerWrapper, this);
+				this.loginOrRegister = index;
+			}
+		},
+		sizingDown(index) {
+			let defaulting = "";
+			sizingDownDiv(index, defaulting, this);
 			this.loginOrRegister = index;
 		},
 		beforeEnterLogin(el) {
 			let round = 1;
-			console.log(el.parentElement);
 			// const interval = setInterval(() => {
 			// 	let currentWidth = parseInt(
 			// 		document.querySelector(".loginButton").style.width
@@ -56,6 +104,7 @@ export default {
 			// 	}
 			// });
 		}
-	}
+	},
+	mounted() {}
 };
 </script>
