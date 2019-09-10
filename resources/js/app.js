@@ -44,7 +44,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import { routes } from './routes'
+import Vuelidate from 'vuelidate'
 
+Vue.use(Vuelidate);
 Vue.use(Vuex);
 Vue.use(VueRouter);
 
@@ -53,6 +55,8 @@ const store = new Vuex.Store({
         currentCard: 0,
         animationStatus: false,
         loadedCard: false,
+        csrf: document.querySelector('meta[name="csrf-token"]').content,
+        authCheck: {},
         cards: [
             {
                 id: 0, href: "https://images.pexels.com/photos/754082/pexels-photo-754082.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
@@ -100,6 +104,9 @@ const store = new Vuex.Store({
         },
         changecurrentCard(state, index) {
             state.currentCard = index;
+        },
+        changeAuthData(state, data) {
+            state.authCheck = data;
         }
     }
 });
@@ -112,6 +119,7 @@ const app = new Vue({
     el: '#app',
     store,
     router,
+
 
 });
 

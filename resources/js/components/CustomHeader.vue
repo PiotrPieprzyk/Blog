@@ -6,7 +6,7 @@
 					<p>OurBlog</p>
 				</div>
 			</router-link>
-			<div class="buttonWrapper">
+			<div class="buttonWrapper" v-if="authCheck==null">
 				<div @click="sizingDown(2)" class="closeSizing"></div>
 				<div @click="sizingUp(1)" class="loginButton" style="width: 60px; height: 31px;">
 					<p>Zaloguj</p>
@@ -18,6 +18,16 @@
 				</div>
 				<div class="registerButton" style="width: 85px;">
 					<p>Zarejestruj</p>
+				</div>
+			</div>
+			<div class="profileNavWrapper" v-if="authCheck!=null">
+				<div class="profileNav">
+					<p class="profileName">{{'Witaj! '+ authCheck.name }}</p>
+					<form id="logout-form" method="POST" action="/logout">
+						<input type="hidden" name="_token" :value="csrf" />
+						<router-link to="/">Profil</router-link>
+						<button type="submit" class="submitForm">Logout</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -47,7 +57,7 @@ let sizingUpDiv = (index, changerWrapper, storage) => {
 				clearInterval(interval);
 				console.log("complited");
 			}
-		}, 10);
+		}, 2);
 	}
 };
 let sizingDownDiv = (index, defaulting, storage) => {
@@ -74,15 +84,27 @@ let sizingDownDiv = (index, defaulting, storage) => {
 				clearInterval(intervalDefaulting);
 				console.log("complited");
 			}
-		}, 10);
+		}, 2);
 	}
 };
 export default {
+	// Sprawdzanie czy ktoś jest zalogowany
+	props: ["user"],
 	data: function() {
 		return {
 			loginOrRegister: 0
 		};
 	},
+	computed: {
+		authCheck() {
+			console.log(this.$store.state.authCheck);
+			return this.$store.state.authCheck;
+		},
+		csrf() {
+			return this.$store.state.csrf;
+		}
+	},
+
 	methods: {
 		sizingUp(index) {
 			let changerWrapper = "";
@@ -95,25 +117,10 @@ export default {
 			let defaulting = "";
 			sizingDownDiv(index, defaulting, this);
 			this.loginOrRegister = index;
-		},
-		beforeEnterLogin(el) {
-			let round = 1;
-			// const interval = setInterval(() => {
-			// 	let currentWidth = parseInt(
-			// 		document.querySelector(".loginButton").style.width
-			// 	);
-			// 	console.log(currentWidth);
-			// 	document.querySelector(".loginButton").style.width =
-			// 		currentWidth + round * 10 + "px";
-			// 	console.log(round);
-			// 	round++;
-			// 	if (round > 20) {
-			// 		clearInterval(interval);
-			// 		console.log("complited");
-			// 	}
-			// });
 		}
 	},
-	mounted() {}
+	created() {
+		this.$store.commit("changeAuthData", this.user);
+	}
 };
 </script>

@@ -23,11 +23,13 @@
 <body>
     <div id="app">
         <!-- NAVBAR -->
-        <custom-header></custom-header>
+        <custom-header :user="{{ auth()->check() ? auth()->user() : 'null' }}"></custom-header>
         <router-view>
         </router-view>
     </div>
 </body>
 </html>
 <script>
+
+
 </script>

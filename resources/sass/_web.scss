@@ -10,3 +10,12 @@ button,
 submit {
   border: none;
 }
+
+a {
+  color: white;
+
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+}

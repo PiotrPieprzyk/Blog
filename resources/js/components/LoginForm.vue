@@ -1,5 +1,6 @@
 <template>
-	<form class="formLogin">
+	<form class="formLogin" method="POST" action="/login">
+		<input type="hidden" name="_token" :value="csrf" />
 		<div class="formGroup">
 			<input
 				type="email"
@@ -10,6 +11,7 @@
 				v-model="userData.email"
 			/>
 		</div>
+		<p>{{ errorEmail? "":"Zły email" }}</p>
 		<div class="formGroup">
 			<input
 				type="password"
@@ -33,9 +35,29 @@ export default {
 			image_src: "./images/header/send-icon.svg",
 			userData: {
 				email: "",
-				password: ""
+				password: "",
+				csrf: ""
 			}
 		};
+	},
+	computed: {
+		errorEmail() {
+			let thisIsEmail = email => {
+				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				return re.test(String(email).toLowerCase());
+			};
+			let empty = email => {
+				return email == "" ? true : false;
+			};
+			if (empty(this.userData.email) || thisIsEmail(this.userData.email)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		csrf() {
+			return this.$store.state.csrf;
+		}
 	}
 };
 </script>

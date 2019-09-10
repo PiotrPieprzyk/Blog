@@ -132,4 +132,37 @@
     }
 
   }
+
+  .profileNavWrapper {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+
+    @media (min-width: 600px) {
+      margin-right: 10px;
+
+    }
+
+    .profileNav {
+      display: flex;
+      justify-content: space-evenly;
+      border: white 2px solid;
+      border-radius: 25px;
+      align-items: center;
+      padding: 0 20px;
+
+      .profileName {
+        color: white;
+        font-size: 20px;
+        margin: 0;
+        margin-right: 40px;
+
+      }
+
+      button {
+        background-color: #fff0;
+        color: white;
+      }
+    }
+  }
 }
