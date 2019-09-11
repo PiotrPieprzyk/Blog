@@ -16,9 +16,9 @@
 						</div>
 					</transition>
 				</div>
-				<div class="registerButton" style="width: 85px;">
+				<router-link to="/register" @click="sizingDown(2)" class="registerButton" style="width: 85px;">
 					<p>Zarejestruj</p>
-				</div>
+				</router-link>
 			</div>
 			<div class="profileNavWrapper" v-if="authCheck!=null">
 				<div class="profileNav">
@@ -34,55 +34,83 @@
 	</nav>
 </template>
 <script>
-import { setInterval, clearInterval } from "timers";
-
+import { setInterval, clearInterval, setTimeout } from "timers";
+// Zwiększanie paska loguj
 let sizingUpDiv = (index, changerWrapper, storage) => {
+	// Który guzik zwiększyć?
 	if (index == 1) {
 		changerWrapper = document.querySelector(".loginButton");
-		console.log(changerWrapper.style.width);
 	}
-
+	// Czy ten guzik instnieje?
 	if (changerWrapper != "") {
+		// Sprawdź jego startową wielkość
 		let currentWidth = parseInt(changerWrapper.style.width);
 		let currentHeight = parseInt(changerWrapper.style.height);
 		let round = 1;
 
-		const interval = setInterval(() => {
-			changerWrapper.style.width = currentWidth + round * 10 + "px";
-			changerWrapper.style.height = currentHeight + round * 5 + "px";
-
+		// Funkcje
+		let changeHeight = () => {
+			round = 1;
+			interval = setInterval(() => {
+				changerWrapper.style.height = currentHeight + round * 15 + "px";
+				round++;
+				if (round > 10) {
+					clearInterval(interval);
+				}
+			}, 2);
+		};
+		// Wykonaj funkcję
+		let interval = setInterval(() => {
+			changerWrapper.style.width = currentWidth + round * 30 + "px";
 			round++;
 
-			if (round > 30) {
+			if (round > 10) {
 				clearInterval(interval);
-				console.log("complited");
+				changeHeight();
+				// Wskaż który guzik jest aktywny
+				storage.loginOrRegister = index;
 			}
 		}, 2);
 	}
 };
+
+// Zmniejszanie paska loguj
 let sizingDownDiv = (index, defaulting, storage) => {
+	// Który guzik zwiększyć?
 	if (storage.loginOrRegister == 1) {
 		defaulting = document.querySelector(".loginButton");
-		console.log("login");
 	}
+	// Czy ten guzik instnieje?
 	if (defaulting != "") {
+		// Sprawdź jego startową wielkość
 		let currentWidthDefaulting = parseInt(defaulting.style.width);
 		let currentHeightDefaulting = parseInt(defaulting.style.height);
-
 		let roundDefaulting = 1;
-		console.log(currentWidthDefaulting);
+		// Wskaż który guzik jest nie aktywny
+		storage.loginOrRegister = index;
+		// Funkcje
+		let heightDefaulting = () => {
+			roundDefaulting = 1;
+			intervalDefaulting = setInterval(() => {
+				defaulting.style.width =
+					currentWidthDefaulting - roundDefaulting * 30 + "px";
+				roundDefaulting++;
 
-		const intervalDefaulting = setInterval(() => {
-			defaulting.style.width =
-				currentWidthDefaulting - roundDefaulting * 10 + "px";
+				if (roundDefaulting > 10) {
+					clearInterval(intervalDefaulting);
+				}
+			}, 2);
+		};
+
+		// Wykonaj funkcję
+		let intervalDefaulting = setInterval(() => {
 			defaulting.style.height =
-				currentHeightDefaulting - roundDefaulting * 5 + "px";
+				currentHeightDefaulting - roundDefaulting * 15 + "px";
 			roundDefaulting++;
 
-			console.log(roundDefaulting);
-			if (roundDefaulting > 30) {
+			if (roundDefaulting > 10) {
 				clearInterval(intervalDefaulting);
-				console.log("complited");
+				heightDefaulting();
 			}
 		}, 2);
 	}
@@ -97,7 +125,6 @@ export default {
 	},
 	computed: {
 		authCheck() {
-			console.log(this.$store.state.authCheck);
 			return this.$store.state.authCheck;
 		},
 		csrf() {
@@ -110,13 +137,11 @@ export default {
 			let changerWrapper = "";
 			if (this.loginOrRegister != index) {
 				sizingUpDiv(index, changerWrapper, this);
-				this.loginOrRegister = index;
 			}
 		},
 		sizingDown(index) {
 			let defaulting = "";
 			sizingDownDiv(index, defaulting, this);
-			this.loginOrRegister = index;
 		}
 	},
 	created() {

@@ -33,6 +33,10 @@ Vue.component('start-content', require('./components/StartPage/StartContent.vue'
 
 Vue.component('galery-page', require('./components/Galery/GaleryPage.vue').default);
 
+// Auth //
+Vue.component('register-page', require('./components/Auth/RegisterPage.vue').default);
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
