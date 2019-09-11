@@ -1,7 +1,7 @@
 <template>
 	<div class="registerWeb">
 		<transition name="opacity" appear>
-			<div class="registerCard">
+			<div class="registerCard" v-if="contentActive">
 				<div class="registerTitle">Register</div>
 				<div class="registerContent">
 					<form class="formLogin" method="POST" action="/register">
@@ -16,7 +16,8 @@
 								v-model="userData.name"
 							/>
 						</div>
-						<p>{{ errorEmail? "":"Zły email" }}</p>
+						<p>{{ userData.name!=""? "":"Wymagane Imię" }}</p>
+
 						<div class="formGroup">
 							<input
 								type="email"
@@ -27,7 +28,7 @@
 								v-model="userData.email"
 							/>
 						</div>
-						<p>{{ errorEmail? "":"Zły email" }}</p>
+						<p>{{ errorEmail? "":"Wymagany Email" }}</p>
 						<div class="formGroup">
 							<input
 								type="password"
@@ -38,21 +39,20 @@
 								v-model="userData.password"
 							/>
 						</div>
-						<p>{{ errorEmail? "":"Zły email" }}</p>
+						<p>{{ errorPassword? "":"Hasło musi mieć 8 liter" }}</p>
 						<div class="formGroup">
 							<input
-								type="passwordConfirm"
+								type="password"
 								class="formInput"
-								name="passwordConfirm"
-								id="passwordConfirm"
+								name="password_confirmation"
+								id="password-confirm"
 								placeholder="passwordConfirm"
 								v-model="userData.passwordConfirm"
 							/>
 						</div>
-						<p>{{ errorEmail? "":"Zły email" }}</p>
 
 						<div class="submitWraper">
-							<button type="submit" class="submitForm">
+							<button :disabled="!vaditionStatus" type="submit" class="submitForm" style>
 								<img :src="image_src" />
 							</button>
 						</div>
@@ -72,7 +72,8 @@ export default {
 				email: "",
 				password: "",
 				passwordConfirm: "",
-				csrf: ""
+				csrf: "",
+				contentActive: false
 			}
 		};
 	},
@@ -85,7 +86,27 @@ export default {
 			let empty = email => {
 				return email == "" ? true : false;
 			};
-			if (empty(this.userData.email) || thisIsEmail(this.userData.email)) {
+			if (!empty(this.userData.email) && thisIsEmail(this.userData.email)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		errorPassword() {
+			console.log(this.userData.password.length);
+
+			return this.userData.password.length > 7 ? true : false;
+		},
+		vaditionStatus() {
+			console.log("Password " + this.errorPassword);
+			console.log("Email2" + this.errorEmail);
+
+			if (
+				this.errorPassword &&
+				this.errorEmail &&
+				this.userData.password == this.userData.passwordConfirm &&
+				this.userData.name != ""
+			) {
 				return true;
 			} else {
 				return false;
@@ -94,6 +115,9 @@ export default {
 		csrf() {
 			return this.$store.state.csrf;
 		}
+	},
+	created() {
+		this.contentActive = true;
 	}
 };
 </script>

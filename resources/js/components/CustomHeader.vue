@@ -57,7 +57,7 @@ let sizingUpDiv = (index, changerWrapper, storage) => {
 				if (round > 10) {
 					clearInterval(interval);
 				}
-			}, 2);
+			}, 10);
 		};
 		// Wykonaj funkcję
 		let interval = setInterval(() => {
@@ -70,7 +70,7 @@ let sizingUpDiv = (index, changerWrapper, storage) => {
 				// Wskaż który guzik jest aktywny
 				storage.loginOrRegister = index;
 			}
-		}, 2);
+		}, 10);
 	}
 };
 
@@ -99,7 +99,7 @@ let sizingDownDiv = (index, defaulting, storage) => {
 				if (roundDefaulting > 10) {
 					clearInterval(intervalDefaulting);
 				}
-			}, 2);
+			}, 10);
 		};
 
 		// Wykonaj funkcję
@@ -112,7 +112,7 @@ let sizingDownDiv = (index, defaulting, storage) => {
 				clearInterval(intervalDefaulting);
 				heightDefaulting();
 			}
-		}, 2);
+		}, 10);
 	}
 };
 export default {

@@ -1911,7 +1911,8 @@ __webpack_require__.r(__webpack_exports__);
         email: "",
         password: "",
         passwordConfirm: "",
-        csrf: ""
+        csrf: "",
+        contentActive: false
       }
     };
   },
@@ -1926,7 +1927,21 @@ __webpack_require__.r(__webpack_exports__);
         return email == "" ? true : false;
       };
 
-      if (empty(this.userData.email) || thisIsEmail(this.userData.email)) {
+      if (!empty(this.userData.email) && thisIsEmail(this.userData.email)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    errorPassword: function errorPassword() {
+      console.log(this.userData.password.length);
+      return this.userData.password.length > 7 ? true : false;
+    },
+    vaditionStatus: function vaditionStatus() {
+      console.log("Password " + this.errorPassword);
+      console.log("Email2" + this.errorEmail);
+
+      if (this.errorPassword && this.errorEmail && this.userData.password == this.userData.passwordConfirm && this.userData.name != "") {
         return true;
       } else {
         return false;
@@ -1935,6 +1950,9 @@ __webpack_require__.r(__webpack_exports__);
     csrf: function csrf() {
       return this.$store.state.csrf;
     }
+  },
+  created: function created() {
+    this.contentActive = true;
   }
 });
 
@@ -2010,7 +2028,7 @@ var sizingUpDiv = function sizingUpDiv(index, changerWrapper, storage) {
         if (round > 10) {
           Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(interval);
         }
-      }, 2);
+      }, 10);
     }; // Wykonaj funkcję
 
 
@@ -2024,7 +2042,7 @@ var sizingUpDiv = function sizingUpDiv(index, changerWrapper, storage) {
 
         storage.loginOrRegister = index;
       }
-    }, 2);
+    }, 10);
   }
 }; // Zmniejszanie paska loguj
 
@@ -2053,7 +2071,7 @@ var sizingDownDiv = function sizingDownDiv(index, defaulting, storage) {
         if (roundDefaulting > 10) {
           Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(intervalDefaulting);
         }
-      }, 2);
+      }, 10);
     }; // Wykonaj funkcję
 
 
@@ -2065,7 +2083,7 @@ var sizingDownDiv = function sizingDownDiv(index, defaulting, storage) {
         Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(intervalDefaulting);
         heightDefaulting();
       }
-    }, 2);
+    }, 10);
   }
 };
 
@@ -37720,161 +37738,183 @@ var render = function() {
     { staticClass: "registerWeb" },
     [
       _c("transition", { attrs: { name: "opacity", appear: "" } }, [
-        _c("div", { staticClass: "registerCard" }, [
-          _c("div", { staticClass: "registerTitle" }, [_vm._v("Register")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "registerContent" }, [
-            _c(
-              "form",
-              {
-                staticClass: "formLogin",
-                attrs: { method: "POST", action: "/register" }
-              },
-              [
-                _c("input", {
-                  attrs: { type: "hidden", name: "_token" },
-                  domProps: { value: _vm.csrf }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "formGroup" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.userData.name,
-                        expression: "userData.name"
-                      }
-                    ],
-                    staticClass: "formInput",
-                    attrs: {
-                      type: "name",
-                      name: "name",
-                      id: "name",
-                      placeholder: "name"
-                    },
-                    domProps: { value: _vm.userData.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+        _vm.contentActive
+          ? _c("div", { staticClass: "registerCard" }, [
+              _c("div", { staticClass: "registerTitle" }, [_vm._v("Register")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "registerContent" }, [
+                _c(
+                  "form",
+                  {
+                    staticClass: "formLogin",
+                    attrs: { method: "POST", action: "/register" }
+                  },
+                  [
+                    _c("input", {
+                      attrs: { type: "hidden", name: "_token" },
+                      domProps: { value: _vm.csrf }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "formGroup" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.userData.name,
+                            expression: "userData.name"
+                          }
+                        ],
+                        staticClass: "formInput",
+                        attrs: {
+                          type: "name",
+                          name: "name",
+                          id: "name",
+                          placeholder: "name"
+                        },
+                        domProps: { value: _vm.userData.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.userData, "name", $event.target.value)
+                          }
                         }
-                        _vm.$set(_vm.userData, "name", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.errorEmail ? "" : "Zły email"))]),
-                _vm._v(" "),
-                _c("div", { staticClass: "formGroup" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.userData.email,
-                        expression: "userData.email"
-                      }
-                    ],
-                    staticClass: "formInput",
-                    attrs: {
-                      type: "email",
-                      name: "email",
-                      id: "email",
-                      placeholder: "email"
-                    },
-                    domProps: { value: _vm.userData.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        _vm._s(_vm.userData.name != "" ? "" : "Wymagane Imię")
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "formGroup" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.userData.email,
+                            expression: "userData.email"
+                          }
+                        ],
+                        staticClass: "formInput",
+                        attrs: {
+                          type: "email",
+                          name: "email",
+                          id: "email",
+                          placeholder: "email"
+                        },
+                        domProps: { value: _vm.userData.email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.userData, "email", $event.target.value)
+                          }
                         }
-                        _vm.$set(_vm.userData, "email", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.errorEmail ? "" : "Zły email"))]),
-                _vm._v(" "),
-                _c("div", { staticClass: "formGroup" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.userData.password,
-                        expression: "userData.password"
-                      }
-                    ],
-                    staticClass: "formInput",
-                    attrs: {
-                      type: "password",
-                      name: "password",
-                      id: "password",
-                      placeholder: "password"
-                    },
-                    domProps: { value: _vm.userData.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(_vm._s(_vm.errorEmail ? "" : "Wymagany Email"))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "formGroup" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.userData.password,
+                            expression: "userData.password"
+                          }
+                        ],
+                        staticClass: "formInput",
+                        attrs: {
+                          type: "password",
+                          name: "password",
+                          id: "password",
+                          placeholder: "password"
+                        },
+                        domProps: { value: _vm.userData.password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.userData,
+                              "password",
+                              $event.target.value
+                            )
+                          }
                         }
-                        _vm.$set(_vm.userData, "password", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.errorEmail ? "" : "Zły email"))]),
-                _vm._v(" "),
-                _c("div", { staticClass: "formGroup" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.userData.passwordConfirm,
-                        expression: "userData.passwordConfirm"
-                      }
-                    ],
-                    staticClass: "formInput",
-                    attrs: {
-                      type: "passwordConfirm",
-                      name: "passwordConfirm",
-                      id: "passwordConfirm",
-                      placeholder: "passwordConfirm"
-                    },
-                    domProps: { value: _vm.userData.passwordConfirm },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.userData,
-                          "passwordConfirm",
-                          $event.target.value
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.errorPassword ? "" : "Hasło musi mieć 8 liter"
                         )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.errorEmail ? "" : "Zły email"))]),
-                _vm._v(" "),
-                _c("div", { staticClass: "submitWraper" }, [
-                  _c(
-                    "button",
-                    { staticClass: "submitForm", attrs: { type: "submit" } },
-                    [_c("img", { attrs: { src: _vm.image_src } })]
-                  )
-                ])
-              ]
-            )
-          ])
-        ])
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "formGroup" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.userData.passwordConfirm,
+                            expression: "userData.passwordConfirm"
+                          }
+                        ],
+                        staticClass: "formInput",
+                        attrs: {
+                          type: "password",
+                          name: "password_confirmation",
+                          id: "password-confirm",
+                          placeholder: "passwordConfirm"
+                        },
+                        domProps: { value: _vm.userData.passwordConfirm },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.userData,
+                              "passwordConfirm",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "submitWraper" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "submitForm",
+                          attrs: {
+                            disabled: !_vm.vaditionStatus,
+                            type: "submit"
+                          }
+                        },
+                        [_c("img", { attrs: { src: _vm.image_src } })]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ])
+          : _vm._e()
       ])
     ],
     1
