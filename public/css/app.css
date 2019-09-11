@@ -10658,6 +10658,7 @@ a.text-dark:focus {
   width: 100vw;
   display: flex;
   justify-content: center;
+  border: 1px black solid;
 }
 
 .webClass .start-web-wrapper-img::before {
@@ -10665,7 +10666,7 @@ a.text-dark:focus {
   position: fixed;
   top: 0;
   right: 0;
-  bottom: 0;
+  bottom: 7vh;
   left: 0;
   opacity: 0.6;
   background-color: rgba(0, 0, 0, 0.5);
@@ -10707,10 +10708,6 @@ a.text-dark:focus {
   z-index: 0;
   height: 93vh;
   box-shadow: 1px 2px 3px 4px rgba(0, 0, 0, 0.301);
-}
-
-.webClass .start-web-wrapper-img .Image3 {
-  background-color: #0a2917;
 }
 
 .webClass .start-web-wrapper-img .oldImg {
@@ -10765,6 +10762,7 @@ a.text-dark:focus {
   width: 20px;
   height: 20px;
   margin: 10px;
+  cursor: pointer;
 }
 
 .webClass .startWebWrapper .startWebWrapperPagination .startWebWrapperPaginationContent .paginationDropper .activePagination {
@@ -10836,6 +10834,7 @@ a.text-dark:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: black 1px solid;
 }
 
 .webClass .footerWrapper p {
@@ -10953,6 +10952,7 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: "Work Sans", sans-serif;
+  background-color: #03070d;
 }
 
 input,
@@ -11018,7 +11018,7 @@ a:hover {
   height: 100%;
   display: flex;
   color: white;
-  justify-content: right;
+  justify-content: flex-end;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   font-size: 18px;
 }
@@ -11044,6 +11044,11 @@ a:hover {
   cursor: pointer;
   min-width: 65px;
   z-index: 1;
+  flex-direction: column;
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper .loginButton p {
+  text-align: center;
 }
 
 .navBarOuter .navBarWrapper .buttonWrapper .loginButton .responsiveLoginCard {
@@ -11051,6 +11056,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   width: 100%;
+  flex: 1;
 }
 
 .navBarOuter .navBarWrapper .buttonWrapper .registerButton {
@@ -11061,6 +11067,7 @@ a:hover {
   box-sizing: content-box;
   cursor: pointer;
   min-width: 85px;
+  z-index: 1;
 }
 
 @media (min-width: 600px) {
@@ -11081,12 +11088,19 @@ a:hover {
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.navBarOuter .formLogin p {
+  width: 85%;
+  height: 30px;
 }
 
 .navBarOuter .formLogin .formGroup {
-  flex: 1;
   justify-content: center;
   display: flex;
+  width: 100%;
 }
 
 .navBarOuter .formLogin .formGroup .formInput {
@@ -11094,15 +11108,22 @@ a:hover {
   background-color: #fff0;
   color: white;
   border-bottom: white solid 2px;
+  height: 30px;
 }
 
-.navBarOuter .formLogin .submitForm {
+.navBarOuter .formLogin .submitWraper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.navBarOuter .formLogin .submitWraper .submitForm {
   width: 20px;
   background-color: #fff0;
   padding: 0;
 }
 
-.navBarOuter .formLogin .submitForm img {
+.navBarOuter .formLogin .submitWraper .submitForm img {
   -webkit-filter: invert(1);
           filter: invert(1);
   width: 20px;
@@ -11141,6 +11162,102 @@ a:hover {
   color: white;
 }
 
+.registerWeb {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerWeb .registerCard {
+  height: 526px;
+  width: 327px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #fff0;
+  font-size: 30px;
+  border: white 2px solid;
+  border-bottom: 0;
+  flex-direction: column;
+  position: relative;
+}
+
+.registerWeb .registerCard::after {
+  content: "";
+  width: calc(100% + 4px);
+  border: 2px solid white;
+  height: 65px;
+  border-top: 0px;
+  transform: skew(-40deg);
+  position: absolute;
+  bottom: -65px;
+  left: -30px;
+  background-color: white;
+}
+
+.registerWeb .registerCard .registerTitle {
+  padding-top: 83px;
+}
+
+.registerWeb .registerCard .registerContent {
+  padding-bottom: 40px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 25px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin p {
+  width: 85%;
+  height: 30px;
+  margin: 0;
+  margin: 5px 0;
+  font-size: 0.6em;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .formGroup {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .formGroup .formInput {
+  width: 85%;
+  background-color: #fff0;
+  color: white;
+  border-bottom: white solid 2px;
+  height: 30px;
+  text-align: center;
+  font-size: 0.8em;
+  padding-bottom: 10px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm {
+  width: 20px;
+  background-color: #fff0;
+  padding: 0;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm img {
+  -webkit-filter: invert(1);
+          filter: invert(1);
+  width: 30px;
+}
+
 .slide-top {
   -webkit-animation: slide-top 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) both;
   animation: slide-top 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) both;
@@ -11165,7 +11282,7 @@ a:hover {
   }
 
   100% {
-    transform: translateY(-150%);
+    transform: translateY(-100%);
   }
 }
 
@@ -11175,7 +11292,7 @@ a:hover {
   }
 
   100% {
-    transform: translateY(-150%);
+    transform: translateY(-100%);
   }
 }
 
@@ -11203,7 +11320,7 @@ a:hover {
   }
 
   100% {
-    transform: translateY(-150%);
+    transform: translateY(-100%);
   }
 }
 
@@ -11213,27 +11330,29 @@ a:hover {
   }
 
   100% {
-    transform: translateY(-150%);
+    transform: translateY(-100%);
   }
 }
 
 .position-top {
-  transform: translateY(-150%);
+  transform: translateY(-100%);
 }
 
 .slide-horizontally-enter-active {
-  -webkit-animation: slide-horizontally-in 1s ease-in forwards;
-          animation: slide-horizontally-in 1s ease-in forwards;
+  -webkit-animation: slide-horizontally-in 0.7s ease-in forwards;
+          animation: slide-horizontally-in 0.7s ease-in forwards;
+  -webkit-animation-delay: 0.7s;
+          animation-delay: 0.7s;
 }
 
 .slide-horizontally-leave-active {
-  -webkit-animation: slide-horizontally-out 1s ease-out forwards;
-          animation: slide-horizontally-out 1s ease-out forwards;
+  -webkit-animation: slide-horizontally-out 0.7s ease-out forwards;
+          animation: slide-horizontally-out 0.7s ease-out forwards;
 }
 
 @-webkit-keyframes slide-horizontally-in {
   from {
-    transform: translateX(100%);
+    transform: translateX(-110%);
   }
 
   to {
@@ -11243,7 +11362,7 @@ a:hover {
 
 @keyframes slide-horizontally-in {
   from {
-    transform: translateX(100%);
+    transform: translateX(-110%);
   }
 
   to {
@@ -11257,7 +11376,7 @@ a:hover {
   }
 
   to {
-    transform: translateX(100%);
+    transform: translateX(-110%);
   }
 }
 
@@ -11267,7 +11386,7 @@ a:hover {
   }
 
   to {
-    transform: translateX(100%);
+    transform: translateX(-110%);
   }
 }
 

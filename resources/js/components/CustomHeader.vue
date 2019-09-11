@@ -7,7 +7,7 @@
 				</div>
 			</router-link>
 			<div class="buttonWrapper" v-if="authCheck==null">
-				<div @click="sizingDown(2)" class="closeSizing"></div>
+				<div @click="sizingDown(2)" v-if="loginOrRegister == 1" class="closeSizing"></div>
 				<div @click="sizingUp(1)" class="loginButton" style="width: 60px; height: 31px;">
 					<p>Zaloguj</p>
 					<transition name="opacity">

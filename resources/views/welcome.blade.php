@@ -24,8 +24,10 @@
     <div id="app">
         <!-- NAVBAR -->
         <custom-header :user="{{ auth()->check() ? auth()->user() : 'null' }}"></custom-header>
-        <router-view>
-        </router-view>
+        <transition name="slide-horizontally">
+        <router-view></router-view>
+        </transition>
+        
     </div>
 </body>
 </html>

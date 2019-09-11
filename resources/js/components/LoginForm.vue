@@ -22,10 +22,11 @@
 				v-model="userData.password"
 			/>
 		</div>
-
-		<button type="submit" class="submitForm">
-			<img :src="image_src" />
-		</button>
+		<div class="submitWraper">
+			<button type="submit" class="submitForm">
+				<img :src="image_src" />
+			</button>
+		</div>
 	</form>
 </template>
 <script>
