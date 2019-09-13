@@ -32,6 +32,8 @@ Vue.component('start-content', require('./components/StartPage/StartContent.vue'
 // Galery //
 
 Vue.component('galery-page', require('./components/Galery/GaleryPage.vue').default);
+Vue.component('galery-slider', require('./components/Galery/GalerySlider.vue').default);
+
 
 // Auth //
 Vue.component('register-page', require('./components/Auth/RegisterPage.vue').default);

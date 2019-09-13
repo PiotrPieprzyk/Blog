@@ -11038,7 +11038,13 @@ a:hover {
   margin: 20px;
 }
 
-.GaleryPage .GaleryGraphicWrapper .GraphicWrapper img {
+.GaleryPage .GaleryGraphicWrapper .GraphicWrapper .GraphicButton {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.GaleryPage .GaleryGraphicWrapper .GraphicWrapper .GraphicButton img {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

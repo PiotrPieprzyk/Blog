@@ -38,18 +38,25 @@
       height: 300px;
       margin: 20px;
 
-      img {
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+      .GraphicButton {
         width: 100%;
         height: 100%;
+        padding: 0;
 
+        img {
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+
+        }
       }
+
     }
   }
 }
