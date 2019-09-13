@@ -10736,11 +10736,9 @@ a.text-dark:focus {
 
 .webClass .startWebWrapper .startWebWrapperPagination {
   width: 60px;
-  height: 100vh;
   display: flex;
   align-items: center;
   z-index: 1;
-  position: absolute;
   top: 0px;
 }
 
@@ -10748,6 +10746,7 @@ a.text-dark:focus {
   display: flex;
   flex-direction: column;
   flex: 1;
+  position: relative;
 }
 
 .webClass .startWebWrapper .startWebWrapperPagination .startWebWrapperPaginationContent .paginationDropper {
@@ -10777,7 +10776,7 @@ a.text-dark:focus {
   color: white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   font-size: calc(2vw + 14px);
-  left: 0;
+  left: -30px;
   right: 0;
   margin: auto;
 }
@@ -10970,12 +10969,21 @@ a:hover {
   text-decoration: none;
 }
 
+.overflowAuto {
+  overflow-y: visible;
+}
+
 .GaleryPage {
   display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
   flex: 1;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.GaleryPage .GaleryGraphicWrapper {
+  background-color: white;
+  height: 1000px;
 }
 
 .navBarOuter {
@@ -11220,7 +11228,7 @@ a:hover {
   height: 30px;
   margin: 0;
   margin: 5px 0;
-  font-size: 0.6em;
+  font-size: 0.4em;
 }
 
 .registerWeb .registerCard .registerContent .formLogin .formGroup {
@@ -11338,58 +11346,6 @@ a:hover {
   transform: translateY(-100%);
 }
 
-.slide-horizontally-enter-active {
-  -webkit-animation: slide-horizontally-in 0.7s ease-in forwards;
-          animation: slide-horizontally-in 0.7s ease-in forwards;
-  -webkit-animation-delay: 0.7s;
-          animation-delay: 0.7s;
-}
-
-.slide-horizontally-leave-active {
-  -webkit-animation: slide-horizontally-out 0.7s ease-out forwards;
-          animation: slide-horizontally-out 0.7s ease-out forwards;
-}
-
-@-webkit-keyframes slide-horizontally-in {
-  from {
-    transform: translateX(-110%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-horizontally-in {
-  from {
-    transform: translateX(-110%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
-}
-
-@-webkit-keyframes slide-horizontally-out {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-110%);
-  }
-}
-
-@keyframes slide-horizontally-out {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-110%);
-  }
-}
-
 .opacity-enter {
   opacity: 0;
 }
@@ -11400,5 +11356,49 @@ a:hover {
 
 .opacity-leave-active {
   opacity: 0;
+}
+
+.opacity-web-enter-active {
+  -webkit-animation: opacity-web-in 0.6s ease-in forwards;
+          animation: opacity-web-in 0.6s ease-in forwards;
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+
+.opacity-web-leave-active {
+  -webkit-animation: opacity-web-out 0.6s ease-out forwards;
+          animation: opacity-web-out 0.6s ease-out forwards;
+}
+
+@-webkit-keyframes opacity-web-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity-web-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes opacity-web-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes opacity-web-out {
+  to {
+    opacity: 0;
+  }
 }
 

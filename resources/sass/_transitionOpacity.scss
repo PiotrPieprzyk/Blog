@@ -10,3 +10,34 @@
 .opacity-leave-active {
   opacity: 0;
 }
+
+.opacity-web-enter-active {
+  animation: opacity-web-in 0.6s ease-in forwards;
+  animation-delay: 0.6s;
+
+}
+
+.opacity-web-leave-active {
+  animation: opacity-web-out 0.6s ease-out forwards;
+
+}
+
+@keyframes opacity-web-in {
+  from {
+    opacity: 0;
+
+  }
+
+  to {
+    opacity: 1;
+
+  }
+}
+
+@keyframes opacity-web-out {
+  from {}
+
+  to {
+    opacity: 0;
+  }
+}

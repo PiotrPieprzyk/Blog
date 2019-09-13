@@ -1916,6 +1916,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  methods: {
+    isEmpty: function isEmpty(element) {
+      return element == "" ? true : false;
+    }
+  },
   computed: {
     errorEmail: function errorEmail() {
       var thisIsEmail = function thisIsEmail(email) {
@@ -1923,24 +1928,16 @@ __webpack_require__.r(__webpack_exports__);
         return re.test(String(email).toLowerCase());
       };
 
-      var empty = function empty(email) {
-        return email == "" ? true : false;
-      };
-
-      if (!empty(this.userData.email) && thisIsEmail(this.userData.email)) {
+      if (thisIsEmail(this.userData.email)) {
         return true;
       } else {
         return false;
       }
     },
     errorPassword: function errorPassword() {
-      console.log(this.userData.password.length);
       return this.userData.password.length > 7 ? true : false;
     },
     vaditionStatus: function vaditionStatus() {
-      console.log("Password " + this.errorPassword);
-      console.log("Email2" + this.errorEmail);
-
       if (this.errorPassword && this.errorEmail && this.userData.password == this.userData.passwordConfirm && this.userData.name != "") {
         return true;
       } else {
@@ -1949,10 +1946,50 @@ __webpack_require__.r(__webpack_exports__);
     },
     csrf: function csrf() {
       return this.$store.state.csrf;
+    },
+    errorInfoEmail: function errorInfoEmail() {
+      var infoEmail = "";
+
+      if (!this.errorEmail) {
+        infoEmail = "*Wpisz email";
+      }
+
+      if (this.userData.email == "") {
+        infoEmail = "";
+      }
+
+      return infoEmail;
+    },
+    errorInfoPassword: function errorInfoPassword() {
+      var infoPassword = "";
+
+      if (!this.errorPassword) {
+        infoPassword = "*Hasło musi mieć minimum 8 znaków";
+      }
+
+      if (this.userData.password == "") {
+        infoPassword = "";
+      }
+
+      return infoPassword;
+    },
+    errorInfoPasswordConfirm: function errorInfoPasswordConfirm() {
+      var errorInfoPasswordConfirm = "";
+
+      if (this.userData.password != this.userData.passwordConfirm) {
+        errorInfoPasswordConfirm = "*Powtórz hasło";
+      }
+
+      if (this.userData.passwordConfirm == "") {
+        errorInfoPasswordConfirm = "";
+      }
+
+      return errorInfoPasswordConfirm;
     }
   },
   created: function created() {
     this.contentActive = true;
+    document.body.classList.remove("overflowAuto");
   }
 });
 
@@ -2135,7 +2172,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["overflowType"],
+  mounted: function mounted() {
+    document.body.classList.add("overflowAuto");
+  }
+});
 
 /***/ }),
 
@@ -2371,6 +2420,7 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   mounted: function mounted() {
+    document.body.classList.remove("overflowAuto");
     document.querySelector(".Image" + this.currentCard).classList.add("active");
 
     for (var i = 0; i < this.currentCard; i++) {
@@ -37784,11 +37834,7 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        _vm._s(_vm.userData.name != "" ? "" : "Wymagane Imię")
-                      )
-                    ]),
+                    _c("p", { staticClass: "errorInfo" }, [_vm._v(_vm._s())]),
                     _vm._v(" "),
                     _c("div", { staticClass: "formGroup" }, [
                       _c("input", {
@@ -37819,8 +37865,8 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("p", [
-                      _vm._v(_vm._s(_vm.errorEmail ? "" : "Wymagany Email"))
+                    _c("p", { staticClass: "errorInfo" }, [
+                      _vm._v(_vm._s(_vm.errorInfoEmail))
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "formGroup" }, [
@@ -37856,12 +37902,8 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        _vm._s(
-                          _vm.errorPassword ? "" : "Hasło musi mieć 8 liter"
-                        )
-                      )
+                    _c("p", { staticClass: "errorInfo" }, [
+                      _vm._v(_vm._s(_vm.errorInfoPassword))
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "formGroup" }, [
@@ -37895,6 +37937,10 @@ var render = function() {
                           }
                         }
                       })
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "errorInfo" }, [
+                      _vm._v(_vm._s(_vm.errorInfoPasswordConfirm))
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "submitWraper" }, [
@@ -38084,9 +38130,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "GaleryPage" }, [_vm._v("707")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "GaleryPage" }, [
+      _c("div", { staticClass: "GaleryTitleWrapper" }, [
+        _c("div", { staticClass: "GaleryTitle" }, [_vm._v("OurGalery")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "GaleryGraphicWrapper" }, [
+        _c("div", { staticClass: "GraphicWrapper" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -56241,7 +56302,10 @@ var routes = [{
   component: _components_StartPage_StartPage_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: '/galery',
-  component: _components_Galery_GaleryPage_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  component: _components_Galery_GaleryPage_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+  props: {
+    overflowType: 'auto'
+  }
 }, {
   path: '/register',
   component: _components_Auth_RegisterPage_vue__WEBPACK_IMPORTED_MODULE_2__["default"]

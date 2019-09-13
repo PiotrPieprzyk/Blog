@@ -94,11 +94,9 @@
 
     .startWebWrapperPagination {
       width: 60px;
-      height: 100vh;
       display: flex;
       align-items: center;
       z-index: 1;
-      position: absolute;
       top: 0px;
 
 
@@ -106,6 +104,7 @@
         display: flex;
         flex-direction: column;
         flex: 1;
+        position: relative;
 
         .paginationDropper {
           display: flex;
@@ -138,7 +137,7 @@
       color: white;
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
       font-size: calc(2vw + 14px);
-      left: 0;
+      left: -30px;
       right: 0;
       margin: auto;
 

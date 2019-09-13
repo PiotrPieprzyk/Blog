@@ -4,7 +4,7 @@ import Register from './components/Auth/RegisterPage.vue'
 
 export const routes = [
   { path: '', component: StartPage },
-  { path: '/galery', component: Galery },
+  { path: '/galery', component: Galery, props: { overflowType: 'auto' } },
   { path: '/register', component: Register },
 
 ];

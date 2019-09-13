@@ -24,7 +24,7 @@
     <div id="app">
         <!-- NAVBAR -->
         <custom-header :user="{{ auth()->check() ? auth()->user() : 'null' }}"></custom-header>
-        <transition name="slide-horizontally">
+        <transition name="opacity-web">
         <router-view></router-view>
         </transition>
         
@@ -32,6 +32,5 @@
 </body>
 </html>
 <script>
-
 
 </script>

@@ -1,7 +1,18 @@
 .GaleryPage {
   display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
   flex: 1;
+  flex-direction: column;
+  overflow-x: hidden;
+
+  .GaleryTitleWrapper {
+    .GaleryTitle {}
+  }
+
+  .GaleryGraphicWrapper {
+    background-color: white;
+    height: 1000px;
+
+    .GraphicWrapper {}
+  }
 }

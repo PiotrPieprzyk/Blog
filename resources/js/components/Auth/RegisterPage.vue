@@ -16,7 +16,7 @@
 								v-model="userData.name"
 							/>
 						</div>
-						<p>{{ userData.name!=""? "":"Wymagane Imię" }}</p>
+						<p class="errorInfo">{{ }}</p>
 
 						<div class="formGroup">
 							<input
@@ -28,7 +28,7 @@
 								v-model="userData.email"
 							/>
 						</div>
-						<p>{{ errorEmail? "":"Wymagany Email" }}</p>
+						<p class="errorInfo">{{ errorInfoEmail }}</p>
 						<div class="formGroup">
 							<input
 								type="password"
@@ -39,7 +39,7 @@
 								v-model="userData.password"
 							/>
 						</div>
-						<p>{{ errorPassword? "":"Hasło musi mieć 8 liter" }}</p>
+						<p class="errorInfo">{{ errorInfoPassword }}</p>
 						<div class="formGroup">
 							<input
 								type="password"
@@ -50,7 +50,7 @@
 								v-model="userData.passwordConfirm"
 							/>
 						</div>
-
+						<p class="errorInfo">{{ errorInfoPasswordConfirm }}</p>
 						<div class="submitWraper">
 							<button :disabled="!vaditionStatus" type="submit" class="submitForm" style>
 								<img :src="image_src" />
@@ -77,30 +77,28 @@ export default {
 			}
 		};
 	},
+	methods: {
+		isEmpty(element) {
+			return element == "" ? true : false;
+		}
+	},
 	computed: {
 		errorEmail() {
 			let thisIsEmail = email => {
 				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 				return re.test(String(email).toLowerCase());
 			};
-			let empty = email => {
-				return email == "" ? true : false;
-			};
-			if (!empty(this.userData.email) && thisIsEmail(this.userData.email)) {
+
+			if (thisIsEmail(this.userData.email)) {
 				return true;
 			} else {
 				return false;
 			}
 		},
 		errorPassword() {
-			console.log(this.userData.password.length);
-
 			return this.userData.password.length > 7 ? true : false;
 		},
 		vaditionStatus() {
-			console.log("Password " + this.errorPassword);
-			console.log("Email2" + this.errorEmail);
-
 			if (
 				this.errorPassword &&
 				this.errorEmail &&
@@ -114,10 +112,42 @@ export default {
 		},
 		csrf() {
 			return this.$store.state.csrf;
+		},
+		errorInfoEmail() {
+			let infoEmail = "";
+			if (!this.errorEmail) {
+				infoEmail = "*Wpisz email";
+			}
+			if (this.userData.email == "") {
+				infoEmail = "";
+			}
+			return infoEmail;
+		},
+		errorInfoPassword() {
+			let infoPassword = "";
+			if (!this.errorPassword) {
+				infoPassword = "*Hasło musi mieć minimum 8 znaków";
+			}
+			if (this.userData.password == "") {
+				infoPassword = "";
+			}
+			return infoPassword;
+		},
+		errorInfoPasswordConfirm() {
+			let errorInfoPasswordConfirm = "";
+			if (this.userData.password != this.userData.passwordConfirm) {
+				errorInfoPasswordConfirm = "*Powtórz hasło";
+			}
+			if (this.userData.passwordConfirm == "") {
+				errorInfoPasswordConfirm = "";
+			}
+			return errorInfoPasswordConfirm;
 		}
 	},
 	created() {
 		this.contentActive = true;
+		
+		document.body.classList.remove("overflowAuto");
 	}
 };
 </script>
