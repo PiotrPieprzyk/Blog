@@ -1989,6 +1989,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.contentActive = true;
+    document.body.classList.remove("galeryBackground");
     document.body.classList.remove("overflowAuto");
   }
 });
@@ -2169,6 +2170,7 @@ var sizingDownDiv = function sizingDownDiv(index, defaulting, storage) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -2179,11 +2181,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["overflowType"],
   mounted: function mounted() {
     document.body.classList.add("overflowAuto");
-  }
+    document.body.classList.add("galeryBackground");
+  },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"])
 });
 
 /***/ }),
@@ -2292,7 +2299,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.animationStatus) {
         // Zmienne //
-        var activeImg = document.querySelector(".active");
+        var activeImg = document.querySelector(".activeCard");
         var nextImg = document.querySelector(".Image" + index);
 
         var activeImgIndex = activeImg._prevClass.substring(activeImg._prevClass.length - 1); // ActivationPagin //
@@ -2306,7 +2313,7 @@ __webpack_require__.r(__webpack_exports__);
           this.$store.commit("changeAnimationStatus", true);
           this.$store.commit("loadCardStatus", false); // Change active components
 
-          activeImg.classList.remove("active"); // DOWN //
+          activeImg.classList.remove("activeCard"); // DOWN //
 
           if (activeImgIndex < index) {
             while (activeImgIndex < index) {
@@ -2317,7 +2324,7 @@ __webpack_require__.r(__webpack_exports__);
               activeImgIndex++;
             }
 
-            nextImg.classList.add("active");
+            nextImg.classList.add("activeCard");
           } // UP //
 
 
@@ -2330,7 +2337,7 @@ __webpack_require__.r(__webpack_exports__);
               console.log(activeImgIndex);
             }
 
-            nextImg.classList.add("active");
+            nextImg.classList.add("activeCard");
           } // AnimationStatus //
 
 
@@ -2420,8 +2427,10 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   mounted: function mounted() {
+    console.log(this.currentCard);
     document.body.classList.remove("overflowAuto");
-    document.querySelector(".Image" + this.currentCard).classList.add("active");
+    document.body.classList.remove("galeryBackground");
+    document.querySelector(".Image" + this.currentCard).classList.add("activeCard");
 
     for (var i = 0; i < this.currentCard; i++) {
       document.querySelector(".Image" + i).classList.add("position-top");
@@ -38130,21 +38139,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "GaleryPage" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "GaleryGraphicWrapper" },
+      _vm._l(_vm.graphics, function(item) {
+        return _c(
+          "div",
+          {
+            key: item.id,
+            staticClass: "GraphicWrapper",
+            class: "Graphic" + item.id
+          },
+          [
+            _c("img", {
+              style: "background-image: url(./images/galery/" + item.href + ");"
+            })
+          ]
+        )
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "GaleryPage" }, [
-      _c("div", { staticClass: "GaleryTitleWrapper" }, [
-        _c("div", { staticClass: "GaleryTitle" }, [_vm._v("OurGalery")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "GaleryGraphicWrapper" }, [
-        _c("div", { staticClass: "GraphicWrapper" })
-      ])
+    return _c("div", { staticClass: "GaleryTitleWrapper" }, [
+      _c("div", { staticClass: "GaleryTitle" }, [_vm._v("Graphics")])
     ])
   }
 ]
@@ -38465,7 +38491,11 @@ var render = function() {
           class: "Image" + item.id,
           style: "z-index:-" + item.id
         },
-        [_c("img", { style: "background-image: url(" + item.href + ");" })]
+        [
+          _c("img", {
+            style: "background-image: url(./images/galery/" + item.href + ");"
+          })
+        ]
       )
     }),
     0
@@ -55565,19 +55595,19 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     authCheck: {},
     cards: [{
       id: 0,
-      href: "https://images.pexels.com/photos/754082/pexels-photo-754082.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+      href: "image11.jpg",
       title: "OurBlog",
       content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
       buttonText: ""
     }, {
       id: 1,
-      href: "https://images.pexels.com/photos/1670035/pexels-photo-1670035.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      href: "image1.jpg",
       title: "Graphic",
       content: "<p>Zabawa z prostymi narzędziami</p>",
       buttonText: "Przejdź do Galerii"
     }, {
       id: 2,
-      href: "http://cdn.wallpapername.com/1920x1080/20121114/trees%20creatures%20spotlight%20slender%20man%20aliens%20ambient%201920x1080%20wallpaper_www.wallpapername.com_11.jpg",
+      href: "image5.jpg",
       title: "Drawing",
       content: "<p>lorem lorem lorem</p>",
       buttonText: ""
@@ -55587,6 +55617,40 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       title: "Contact",
       content: "886168943",
       buttonText: ""
+    }],
+    graphics: [{
+      id: 1,
+      href: "image1.jpg"
+    }, {
+      id: 2,
+      href: "image2.png"
+    }, {
+      id: 3,
+      href: "image3.png"
+    }, {
+      id: 4,
+      href: "image4.jpg"
+    }, {
+      id: 5,
+      href: "image5.jpg"
+    }, {
+      id: 6,
+      href: "image6.jpg"
+    }, {
+      id: 7,
+      href: "image7.jpg"
+    }, {
+      id: 8,
+      href: "image8.png"
+    }, {
+      id: 9,
+      href: "image9.png"
+    }, {
+      id: 10,
+      href: "image10.png"
+    }, {
+      id: 11,
+      href: "image11.jpg"
     }]
   },
   mutations: {

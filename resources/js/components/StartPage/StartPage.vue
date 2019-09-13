@@ -31,9 +31,14 @@ export default {
 		return {};
 	},
 	mounted() {
-		document.body.classList.remove("overflowAuto");
+		console.log(this.currentCard);
 
-		document.querySelector(".Image" + this.currentCard).classList.add("active");
+		document.body.classList.remove("overflowAuto");
+		document.body.classList.remove("galeryBackground");
+
+		document
+			.querySelector(".Image" + this.currentCard)
+			.classList.add("activeCard");
 		for (var i = 0; i < this.currentCard; i++) {
 			document.querySelector(".Image" + i).classList.add("position-top");
 		}

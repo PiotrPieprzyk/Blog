@@ -24,3 +24,27 @@ a {
 .overflowAuto {
   overflow-y: visible;
 }
+
+.galeryBackground {
+  background-image: url("./images/galery/image1.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  widows: 100%;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.6;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

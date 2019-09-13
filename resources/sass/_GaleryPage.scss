@@ -4,15 +4,52 @@
   flex: 1;
   flex-direction: column;
   overflow-x: hidden;
+  align-items: center;
 
   .GaleryTitleWrapper {
-    .GaleryTitle {}
+    width: 100vw;
+    height: 250px;
+    position: relative;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+
+
+    .GaleryTitle {
+      bottom: 20px;
+      position: relative;
+      font-size: 70px;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      color: white;
+    }
   }
 
   .GaleryGraphicWrapper {
-    background-color: white;
-    height: 1000px;
 
-    .GraphicWrapper {}
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    z-index: 1;
+
+    .GraphicWrapper {
+      width: 300px;
+      height: 300px;
+      margin: 20px;
+
+      img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+      }
+    }
   }
 }

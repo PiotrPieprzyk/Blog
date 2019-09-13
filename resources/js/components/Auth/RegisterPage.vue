@@ -146,7 +146,7 @@ export default {
 	},
 	created() {
 		this.contentActive = true;
-		
+		document.body.classList.remove("galeryBackground");
 		document.body.classList.remove("overflowAuto");
 	}
 };

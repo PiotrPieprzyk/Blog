@@ -25,7 +25,7 @@
         <!-- NAVBAR -->
         <custom-header :user="{{ auth()->check() ? auth()->user() : 'null' }}"></custom-header>
         <transition name="opacity-web">
-        <router-view></router-view>
+            <router-view></router-view>
         </transition>
         
     </div>

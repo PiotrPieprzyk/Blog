@@ -63,7 +63,7 @@ const store = new Vuex.Store({
         authCheck: {},
         cards: [
             {
-                id: 0, href: "https://images.pexels.com/photos/754082/pexels-photo-754082.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+                id: 0, href: "image11.jpg",
                 title: "OurBlog",
                 content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
                 buttonText: "",
@@ -71,7 +71,7 @@ const store = new Vuex.Store({
             {
                 id: 1,
                 href:
-                    "https://images.pexels.com/photos/1670035/pexels-photo-1670035.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                    "image1.jpg",
                 title: "Graphic",
                 content: "<p>Zabawa z prostymi narzędziami</p>",
                 buttonText: "Przejdź do Galerii",
@@ -80,7 +80,7 @@ const store = new Vuex.Store({
             },
             {
                 id: 2,
-                href: "http://cdn.wallpapername.com/1920x1080/20121114/trees%20creatures%20spotlight%20slender%20man%20aliens%20ambient%201920x1080%20wallpaper_www.wallpapername.com_11.jpg",
+                href: "image5.jpg",
                 title: "Drawing",
                 content: "<p>lorem lorem lorem</p>",
                 buttonText: "",
@@ -98,6 +98,52 @@ const store = new Vuex.Store({
 
 
         ],
+        graphics: [{
+            id: 1,
+            href: "image1.jpg"
+        },
+        {
+            id: 2,
+            href: "image2.png"
+        },
+        {
+            id: 3,
+            href: "image3.png"
+        },
+        {
+            id: 4,
+            href: "image4.jpg"
+        },
+        {
+            id: 5,
+            href: "image5.jpg"
+        },
+        {
+            id: 6,
+            href: "image6.jpg"
+        },
+        {
+            id: 7,
+            href: "image7.jpg"
+        },
+        {
+            id: 8,
+            href: "image8.png"
+        },
+        {
+            id: 9,
+            href: "image9.png"
+        },
+        {
+            id: 10,
+            href: "image10.png"
+        },
+        {
+            id: 11,
+            href: "image11.jpg"
+        },
+
+        ]
     },
     mutations: {
         changeAnimationStatus(state, conditional) {

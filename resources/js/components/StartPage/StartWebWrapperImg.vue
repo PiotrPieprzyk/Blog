@@ -7,7 +7,7 @@
 			:class="'Image'+item.id"
 			:style="'z-index:-'+item.id"
 		>
-			<img :style="'background-image: url('+item.href+');'" />
+			<img :style="'background-image: url(./images/galery/'+item.href+');'" />
 		</div>
 	</div>
 </template>

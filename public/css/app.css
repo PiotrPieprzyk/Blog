@@ -10973,17 +10973,81 @@ a:hover {
   overflow-y: visible;
 }
 
+.galeryBackground {
+  background-image: url(/images/image1.jpg?8d1c61af18682bf4d7a5959ba62bb12e);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  widows: 100%;
+}
+
+.galeryBackground::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.6;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .GaleryPage {
   display: flex;
   min-height: 100vh;
   flex: 1;
   flex-direction: column;
   overflow-x: hidden;
+  align-items: center;
+}
+
+.GaleryPage .GaleryTitleWrapper {
+  width: 100vw;
+  height: 250px;
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.GaleryPage .GaleryTitleWrapper .GaleryTitle {
+  bottom: 20px;
+  position: relative;
+  font-size: 70px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  color: white;
 }
 
 .GaleryPage .GaleryGraphicWrapper {
-  background-color: white;
-  height: 1000px;
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.GaleryPage .GaleryGraphicWrapper .GraphicWrapper {
+  width: 300px;
+  height: 300px;
+  margin: 20px;
+}
+
+.GaleryPage .GaleryGraphicWrapper .GraphicWrapper img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .navBarOuter {
@@ -11053,6 +11117,7 @@ a:hover {
   min-width: 65px;
   z-index: 1;
   flex-direction: column;
+  background-color: black;
 }
 
 .navBarOuter .navBarWrapper .buttonWrapper .loginButton p {

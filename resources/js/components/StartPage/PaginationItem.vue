@@ -14,7 +14,7 @@ export default {
 		changeBackground(index) {
 			if (!this.animationStatus) {
 				// Zmienne //
-				let activeImg = document.querySelector(".active");
+				var activeImg = document.querySelector(".activeCard");
 				let nextImg = document.querySelector(".Image" + index);
 				let activeImgIndex = activeImg._prevClass.substring(
 					activeImg._prevClass.length - 1
@@ -33,7 +33,7 @@ export default {
 					this.$store.commit("loadCardStatus", false);
 
 					// Change active components
-					activeImg.classList.remove("active");
+					activeImg.classList.remove("activeCard");
 
 					// DOWN //
 					if (activeImgIndex < index) {
@@ -52,7 +52,7 @@ export default {
 							activeImgIndex++;
 						}
 
-						nextImg.classList.add("active");
+						nextImg.classList.add("activeCard");
 					}
 					// UP //
 					if (activeImgIndex > index) {
@@ -70,7 +70,7 @@ export default {
 							console.log(activeImgIndex);
 						}
 
-						nextImg.classList.add("active");
+						nextImg.classList.add("activeCard");
 					}
 					// AnimationStatus //
 					setTimeout(() => {
