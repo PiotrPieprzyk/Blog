@@ -2186,6 +2186,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["overflowType"],
@@ -2197,12 +2203,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       OnSlider: false,
-      currentGaleryImage: ""
+      activeGaleryId: ""
     };
   },
   methods: {
-    showSlider: function showSlider(href) {
-      this.currentGaleryImage = href;
+    showSlider: function showSlider(href, id) {
+      this.activeGaleryId = id;
       this.OnSlider = true;
     }
   }
@@ -2219,6 +2225,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -2228,8 +2235,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["GaleryImgSlot"]
+  props: ["GaleryImgSlot", "activeGaleryItem"],
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"])
 });
 
 /***/ }),
@@ -38186,10 +38208,16 @@ var render = function() {
       _vm._v(" "),
       _vm.OnSlider
         ? _c("galery-slider", {
-            attrs: { GaleryImgSlot: _vm.currentGaleryImage },
+            attrs: { activeGaleryItem: _vm.activeGaleryId },
             on: {
               close: function($event) {
                 _vm.OnSlider = false
+              },
+              previous: function($event) {
+                _vm.activeGaleryId--
+              },
+              next: function($event) {
+                _vm.activeGaleryId++
               }
             }
           })
@@ -38214,7 +38242,7 @@ var render = function() {
                   attrs: { slot: "GaleryImage" },
                   on: {
                     click: function($event) {
-                      return _vm.showSlider(item.href)
+                      return _vm.showSlider(item.href, item.id)
                     }
                   },
                   slot: "GaleryImage"
@@ -38270,11 +38298,71 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("transition", { attrs: { name: "modal" } }, [
     _c("div", { staticClass: "GalerySliderWrapper" }, [
-      _c("div", { staticClass: "modal-container" }, [
-        _c("img", {
-          style:
-            "background-image: url(./images/galery/" + _vm.GaleryImgSlot + ");"
-        })
+      _c("div", { staticClass: "GaleryContent" }, [
+        _c("div", { staticClass: "PreviousImg" }, [
+          _vm.activeGaleryItem > 1
+            ? _c("img", {
+                attrs: {
+                  src:
+                    "./images/galery/" +
+                    _vm.graphics[_vm.activeGaleryItem - 2].href
+                }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "ActiveImg" }, [
+          _c("img", {
+            attrs: {
+              src:
+                "./images/galery/" + _vm.graphics[_vm.activeGaleryItem - 1].href
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "NextImg" }, [
+          _vm.activeGaleryItem < 11
+            ? _c("img", {
+                attrs: {
+                  src:
+                    "./images/galery/" + _vm.graphics[_vm.activeGaleryItem].href
+                }
+              })
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "sliderNavigation" }, [
+        _vm.activeGaleryItem > 1
+          ? _c("button", {
+              staticClass: "arrow prev",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("previous")
+                }
+              }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _c("button", {
+          staticClass: "close",
+          on: {
+            click: function($event) {
+              return _vm.$emit("close")
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm.activeGaleryItem < 11
+          ? _c("button", {
+              staticClass: "arrow next",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("next")
+                }
+              }
+            })
+          : _vm._e()
       ])
     ])
   ])

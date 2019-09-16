@@ -27,7 +27,7 @@
         <transition name="opacity-web">
             <router-view></router-view>
         </transition>
-        
+
     </div>
 </body>
 </html>

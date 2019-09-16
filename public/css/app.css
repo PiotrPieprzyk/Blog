@@ -11004,6 +11004,7 @@ a:hover {
   flex-direction: column;
   overflow-x: hidden;
   align-items: center;
+  z-index: 1;
 }
 
 .GaleryPage .GaleryTitleWrapper {
@@ -11021,6 +11022,147 @@ a:hover {
   font-size: 70px;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   color: white;
+}
+
+.GaleryPage .GalerySliderWrapper {
+  z-index: 2;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000000f0;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  max-width: calc(100vw - 200px);
+  justify-content: center;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .PreviousImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  right: calc(100vw - 100px);
+  position: absolute;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .PreviousImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .NextImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  align-items: center;
+  position: absolute;
+  left: calc(100% - 100px);
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .NextImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation {
+  display: flex;
+  margin: 20px 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 200px;
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .close {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .close:hover {
+  opacity: 1;
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .close:before,
+.GaleryPage .GalerySliderWrapper .sliderNavigation .close:after {
+  position: absolute;
+  content: " ";
+  height: 50px;
+  width: 2px;
+  background-color: white;
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .close:before {
+  transform: rotate(45deg);
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .close:after {
+  transform: rotate(-45deg);
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .arrow {
+  display: inline-block;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  text-indent: -9999px;
+  border-top: 2px solid #bfbfbf;
+  border-left: 2px solid #bfbfbf;
+  text-decoration: none;
+  color: transparent;
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .arrow:before {
+  display: block;
+  height: 200%;
+  width: 200%;
+  margin-left: -50%;
+  margin-top: -50%;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .arrow.prev {
+  transform: rotate(-45deg);
+  left: 0;
+}
+
+.GaleryPage .GalerySliderWrapper .sliderNavigation .arrow.next {
+  transform: rotate(135deg);
+  right: 0;
 }
 
 .GaleryPage .GaleryGraphicWrapper {
