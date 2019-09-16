@@ -2,6 +2,7 @@
   position: absolute;
   width: 100vw;
   height: 50px;
+  z-index: 2;
 
   .navBarWrapper {
     position: relative;
@@ -10,14 +11,20 @@
     margin: 10px;
     height: 45px;
 
+    @media (max-width: 760px) {
+      justify-content: center;
+      background-color: black;
+      margin: 0;
+
+    }
+
     .logoWrapper {
       height: 100%;
 
-
-      @media (min-width: 600px) {
+      @media (min-width: 760px) {
         margin-left: 10px;
-
       }
+
 
       p {
         text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -41,16 +48,49 @@
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
       font-size: 18px;
 
+      @media (max-width:760px) {
+        display: none;
+      }
+
       p {
         margin: 0;
       }
 
       .closeSizing {
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        z-index: 0;
+        position: relative;
+        z-index: 2;
+        right: -400px;
+        top: 10px;
+
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
       }
+
+      .closeSizing:hover {
+        opacity: 1;
+      }
+
+      .closeSizing:before,
+      .closeSizing:after {
+        position: absolute;
+        content: ' ';
+        height: 20px;
+        width: 2px;
+        background-color: white;
+      }
+
+      .closeSizing:before {
+        transform: rotate(45deg);
+      }
+
+      .closeSizing:after {
+        transform: rotate(-45deg);
+      }
+
 
       .loginButton {
         margin-right: 20px;
@@ -107,6 +147,97 @@
 
       }
     }
+
+    // MOBILE
+    .ToggleMenuStyle {
+      width: 50px;
+      position: absolute;
+      height: 100%;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      @media (min-width:760px) {
+        display: none;
+      }
+
+
+      .toggleBar {
+        background-color: white;
+        width: 30px;
+        height: 3px;
+        margin: 3px;
+        border-radius: 1px;
+      }
+    }
+
+    .mobileMenyPopup {
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      position: absolute;
+      z-index: 2;
+      margin: auto;
+      display: flex;
+
+      .contentPopup {
+        margin: auto;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 60px;
+
+        h1 {
+          text-align: center;
+          color: white;
+        }
+
+        .mobileLoginWrapper {
+          width: 90%;
+          height: 200px;
+          margin-bottom: 20px;
+        }
+
+        .close {
+          position: absolute;
+          z-index: 2;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 30px;
+          top: 0;
+          right: 0;
+        }
+
+        .close:hover {
+          opacity: 1;
+        }
+
+        .close:before,
+        .close:after {
+          position: absolute;
+          content: ' ';
+          height: 20px;
+          width: 2px;
+          background-color: white;
+        }
+
+        .close:before {
+          transform: rotate(45deg);
+        }
+
+        .close:after {
+          transform: rotate(-45deg);
+        }
+      }
+    }
   }
 
   .formLogin {
@@ -140,12 +271,12 @@
     .submitWraper {
       display: flex;
       justify-content: center;
-      flex: 1;
 
       .submitForm {
         width: 20px;
         background-color: #fff0;
         padding: 0;
+        height: 80px;
 
         img {
           filter: invert(1);

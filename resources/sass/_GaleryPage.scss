@@ -51,7 +51,7 @@
         margin: auto;
         left: 0;
         right: 0;
-        max-width: calc(100vw - 200px);
+        max-width: calc(80vw);
         justify-content: center;
 
         img {
@@ -66,13 +66,12 @@
         max-height: 90vh;
         display: flex;
         align-items: center;
-        right: calc(100vw - 100px);
+        right: calc(100vw - 10vw);
         position: absolute;
 
         img {
           max-height: 80vh;
           max-width: 70vw;
-
 
         }
       }
@@ -83,7 +82,7 @@
         align-items: center;
         align-items: center;
         position: absolute;
-        left: calc(100% - 100px);
+        left: calc(100% - 10vw);
 
         img {
           max-height: 80vh;
@@ -114,8 +113,6 @@
         left: 0;
         right: 0;
         margin: auto;
-
-
 
       }
 

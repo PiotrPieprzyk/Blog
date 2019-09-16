@@ -11052,7 +11052,7 @@ a:hover {
   margin: auto;
   left: 0;
   right: 0;
-  max-width: calc(100vw - 200px);
+  max-width: calc(80vw);
   justify-content: center;
 }
 
@@ -11065,7 +11065,7 @@ a:hover {
   max-height: 90vh;
   display: flex;
   align-items: center;
-  right: calc(100vw - 100px);
+  right: calc(100vw - 10vw);
   position: absolute;
 }
 
@@ -11080,7 +11080,7 @@ a:hover {
   align-items: center;
   align-items: center;
   position: absolute;
-  left: calc(100% - 100px);
+  left: calc(100% - 10vw);
 }
 
 .GaleryPage .GalerySliderWrapper .GaleryContent .NextImg img {
@@ -11202,6 +11202,7 @@ a:hover {
   position: absolute;
   width: 100vw;
   height: 50px;
+  z-index: 2;
 }
 
 .navBarOuter .navBarWrapper {
@@ -11212,11 +11213,19 @@ a:hover {
   height: 45px;
 }
 
+@media (max-width: 760px) {
+  .navBarOuter .navBarWrapper {
+    justify-content: center;
+    background-color: black;
+    margin: 0;
+  }
+}
+
 .navBarOuter .navBarWrapper .logoWrapper {
   height: 100%;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 760px) {
   .navBarOuter .navBarWrapper .logoWrapper {
     margin-left: 10px;
   }
@@ -11243,15 +11252,48 @@ a:hover {
   font-size: 18px;
 }
 
+@media (max-width: 760px) {
+  .navBarOuter .navBarWrapper .buttonWrapper {
+    display: none;
+  }
+}
+
 .navBarOuter .navBarWrapper .buttonWrapper p {
   margin: 0;
 }
 
 .navBarOuter .navBarWrapper .buttonWrapper .closeSizing {
-  width: 100vw;
-  height: 100vh;
+  position: relative;
+  z-index: 2;
+  right: -400px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper .closeSizing:hover {
+  opacity: 1;
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper .closeSizing:before,
+.navBarOuter .navBarWrapper .buttonWrapper .closeSizing:after {
   position: absolute;
-  z-index: 0;
+  content: " ";
+  height: 20px;
+  width: 2px;
+  background-color: white;
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper .closeSizing:before {
+  transform: rotate(45deg);
+}
+
+.navBarOuter .navBarWrapper .buttonWrapper .closeSizing:after {
+  transform: rotate(-45deg);
 }
 
 .navBarOuter .navBarWrapper .buttonWrapper .loginButton {
@@ -11304,6 +11346,97 @@ a:hover {
   width: 100%;
 }
 
+.navBarOuter .navBarWrapper .ToggleMenuStyle {
+  width: 50px;
+  position: absolute;
+  height: 100%;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+@media (min-width: 760px) {
+  .navBarOuter .navBarWrapper .ToggleMenuStyle {
+    display: none;
+  }
+}
+
+.navBarOuter .navBarWrapper .ToggleMenuStyle .toggleBar {
+  background-color: white;
+  width: 30px;
+  height: 3px;
+  margin: 3px;
+  border-radius: 1px;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  position: absolute;
+  z-index: 2;
+  margin: auto;
+  display: flex;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup {
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup h1 {
+  text-align: center;
+  color: white;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .mobileLoginWrapper {
+  width: 90%;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .close {
+  position: absolute;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  top: 0;
+  right: 0;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .close:hover {
+  opacity: 1;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .close:before,
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .close:after {
+  position: absolute;
+  content: " ";
+  height: 20px;
+  width: 2px;
+  background-color: white;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .close:before {
+  transform: rotate(45deg);
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .close:after {
+  transform: rotate(-45deg);
+}
+
 .navBarOuter .formLogin {
   width: 100%;
   height: 100%;
@@ -11335,13 +11468,13 @@ a:hover {
 .navBarOuter .formLogin .submitWraper {
   display: flex;
   justify-content: center;
-  flex: 1;
 }
 
 .navBarOuter .formLogin .submitWraper .submitForm {
   width: 20px;
   background-color: #fff0;
   padding: 0;
+  height: 80px;
 }
 
 .navBarOuter .formLogin .submitWraper .submitForm img {

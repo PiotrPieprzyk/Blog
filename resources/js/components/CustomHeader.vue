@@ -30,6 +30,24 @@
 					</form>
 				</div>
 			</div>
+			<!-- Mobile -->
+			<div class="ToggleMenuStyle" @click="toggleMenu=!toggleMenu" v-if="authCheck==null">
+				<div class="toggleBar"></div>
+				<div class="toggleBar"></div>
+				<div class="toggleBar"></div>
+			</div>
+			<div v-if="toggleMenu==true" class="mobileMenyPopup">
+				<div class="contentPopup">
+					<h1>Logowanie</h1>
+					<div class="mobileLoginWrapper">
+						<login-form></login-form>
+					</div>
+					<router-link to="/register" @click="toggleMenu=!toggleMenu" class="mobileRegister">
+						<h1 @click="toggleMenu=!toggleMenu">Zarejestruj</h1>
+					</router-link>
+					<div class="close" @click="toggleMenu=!toggleMenu"></div>
+				</div>
+			</div>
 		</div>
 	</nav>
 </template>
@@ -120,7 +138,8 @@ export default {
 	props: ["user"],
 	data: function() {
 		return {
-			loginOrRegister: 0
+			loginOrRegister: 0,
+			toggleMenu: false
 		};
 	},
 	computed: {
@@ -142,6 +161,9 @@ export default {
 		sizingDown(index) {
 			let defaulting = "";
 			sizingDownDiv(index, defaulting, this);
+		},
+		changeToggleValue() {
+			this.toggleMenu = !this.toggleMenu;
 		}
 	},
 	created() {

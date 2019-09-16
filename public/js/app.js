@@ -2042,6 +2042,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
  // Zwiększanie paska loguj
 
 var sizingUpDiv = function sizingUpDiv(index, changerWrapper, storage) {
@@ -2130,7 +2148,8 @@ var sizingDownDiv = function sizingDownDiv(index, defaulting, storage) {
   props: ["user"],
   data: function data() {
     return {
-      loginOrRegister: 0
+      loginOrRegister: 0,
+      toggleMenu: false
     };
   },
   computed: {
@@ -2152,6 +2171,9 @@ var sizingDownDiv = function sizingDownDiv(index, defaulting, storage) {
     sizingDown: function sizingDown(index) {
       var defaulting = "";
       sizingDownDiv(index, defaulting, this);
+    },
+    changeToggleValue: function changeToggleValue() {
+      this.toggleMenu = !this.toggleMenu;
     }
   },
   created: function created() {
@@ -38171,6 +38193,82 @@ var render = function() {
                   1
                 )
               ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.authCheck == null
+          ? _c(
+              "div",
+              {
+                staticClass: "ToggleMenuStyle",
+                on: {
+                  click: function($event) {
+                    _vm.toggleMenu = !_vm.toggleMenu
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "toggleBar" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "toggleBar" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "toggleBar" })
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.toggleMenu == true
+          ? _c("div", { staticClass: "mobileMenyPopup" }, [
+              _c(
+                "div",
+                { staticClass: "contentPopup" },
+                [
+                  _c("h1", [_vm._v("Logowanie")]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "mobileLoginWrapper" },
+                    [_c("login-form")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "mobileRegister",
+                      attrs: { to: "/register" },
+                      on: {
+                        click: function($event) {
+                          _vm.toggleMenu = !_vm.toggleMenu
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "h1",
+                        {
+                          on: {
+                            click: function($event) {
+                              _vm.toggleMenu = !_vm.toggleMenu
+                            }
+                          }
+                        },
+                        [_vm._v("Zarejestruj")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "close",
+                    on: {
+                      click: function($event) {
+                        _vm.toggleMenu = !_vm.toggleMenu
+                      }
+                    }
+                  })
+                ],
+                1
+              )
             ])
           : _vm._e()
       ],
