@@ -66,7 +66,7 @@ const store = new Vuex.Store({
         cards: [
             {
                 id: 0, href: "image11.jpg",
-                title: "OurBlog",
+                title: "<h1 class='mt60'>OurBlog</h1>",
                 content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
                 buttonText: "",
             },
@@ -74,7 +74,7 @@ const store = new Vuex.Store({
                 id: 1,
                 href:
                     "image1.jpg",
-                title: "Graphic",
+                title: "<h1 class='mt60'>Grafiki</h1>",
                 content: "<p>Zabawa z prostymi narzędziami</p>",
                 buttonText: "Przejdź do Galerii",
 
@@ -83,7 +83,7 @@ const store = new Vuex.Store({
             {
                 id: 2,
                 href: "image5.jpg",
-                title: "Drawing",
+                title: "<h1 class='mt60'>Programowanie</h1>",
                 content: "<p>lorem lorem lorem</p>",
                 buttonText: "",
 
@@ -92,8 +92,21 @@ const store = new Vuex.Store({
             {
                 id: 3,
                 href: "",
-                title: "Contact",
-                content: "886168943",
+                title: "",
+                content:
+                    `
+                <div class="contactItems">
+                    <p class="contactTitle">Spodobała się strona?</p>
+                    <p class="contactText">Przy jej tworzeniu skorzystałem z współczesnych technologi</p>
+                    <div class="technologyList">
+                        <img class="technologyItem" src="./images/contactImg/Vue.png" />
+                        <img class="technologyItem" src="./images/contactImg/Laravel.png" />
+                    </div>
+                    <p class="contactTitle">Chcesz się skontaktować?</p>
+                    <p class="contactText">+48 886 168 943</p>
+                    <p class="contactText">piotr.pieprzyk.pp@gmail.com</p>
+                </div>
+                `,
                 buttonText: "",
 
             }

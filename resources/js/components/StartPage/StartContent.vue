@@ -1,8 +1,6 @@
 <template>
 	<div class="startWebWrapperContent">
-		<div class="wrapperContentTitle mt60">
-			<h1>{{ cards[currentCard].title }}</h1>
-		</div>
+		<div class="wrapperContentTitle" v-html="cards[currentCard].title"></div>
 		<div class="wrapperContent" v-html="cards[currentCard].content"></div>
 		<div class="buttonWrapper">
 			<router-link to="/galery" v-if="cards[currentCard].buttonText !=''">

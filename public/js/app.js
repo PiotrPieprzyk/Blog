@@ -2474,8 +2474,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["cards", "currentCard"])
@@ -38695,9 +38693,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "startWebWrapperContent" }, [
-    _c("div", { staticClass: "wrapperContentTitle mt60" }, [
-      _c("h1", [_vm._v(_vm._s(_vm.cards[_vm.currentCard].title))])
-    ]),
+    _c("div", {
+      staticClass: "wrapperContentTitle",
+      domProps: { innerHTML: _vm._s(_vm.cards[_vm.currentCard].title) }
+    }),
     _vm._v(" "),
     _c("div", {
       staticClass: "wrapperContent",
@@ -55963,26 +55962,26 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     cards: [{
       id: 0,
       href: "image11.jpg",
-      title: "OurBlog",
+      title: "<h1 class='mt60'>OurBlog</h1>",
       content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
       buttonText: ""
     }, {
       id: 1,
       href: "image1.jpg",
-      title: "Graphic",
+      title: "<h1 class='mt60'>Grafiki</h1>",
       content: "<p>Zabawa z prostymi narzędziami</p>",
       buttonText: "Przejdź do Galerii"
     }, {
       id: 2,
       href: "image5.jpg",
-      title: "Drawing",
+      title: "<h1 class='mt60'>Programowanie</h1>",
       content: "<p>lorem lorem lorem</p>",
       buttonText: ""
     }, {
       id: 3,
       href: "",
-      title: "Contact",
-      content: "886168943",
+      title: "",
+      content: "\n                <div class=\"contactItems\">\n                    <p class=\"contactTitle\">Spodoba\u0142a si\u0119 strona?</p>\n                    <p class=\"contactText\">Przy jej tworzeniu skorzysta\u0142em z wsp\xF3\u0142czesnych technologi</p>\n                    <div class=\"technologyList\">\n                        <img class=\"technologyItem\" src=\"./images/contactImg/Vue.png\" />\n                        <img class=\"technologyItem\" src=\"./images/contactImg/Laravel.png\" />\n                    </div>\n                    <p class=\"contactTitle\">Chcesz si\u0119 skontaktowa\u0107?</p>\n                    <p class=\"contactText\">+48 886 168 943</p>\n                    <p class=\"contactText\">piotr.pieprzyk.pp@gmail.com</p>\n                </div>\n                ",
       buttonText: ""
     }],
     graphics: [{
