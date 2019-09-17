@@ -19,6 +19,16 @@
     flex-direction: column;
     position: relative;
 
+    @media (max-width:500px) {
+      border: none;
+
+    }
+
+    @media (max-height:680px) {
+      border: none;
+
+    }
+
     &::after {
       content: "";
       width: calc(100% + 4px);
@@ -30,6 +40,18 @@
       bottom: -65px;
       left: -30px;
       background-color: white;
+
+      @media (max-width:500px) {
+        border: none;
+        background-color: #fff0;
+
+      }
+
+      @media (max-height:680px) {
+        border: none;
+        background-color: #fff0;
+
+      }
     }
 
     .registerTitle {

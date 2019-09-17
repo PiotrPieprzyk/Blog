@@ -16,8 +16,8 @@
 				</transition>
 			</div>
 		</main>
-		<footer class="footerWrapper">
-			<p>Check this ;)</p>
+		<footer @click="toContact(3)" class="footerWrapper">
+			<p>Kontakt ;)</p>
 		</footer>
 	</div>
 </template>
@@ -26,9 +26,81 @@
 import { mapState } from "vuex";
 
 export default {
-	computed: mapState(["cards", "loadedCard", "currentCard"]),
+	computed: mapState(["cards", "loadedCard", "currentCard", "animationStatus"]),
 	data: function() {
 		return {};
+	},
+	methods: {
+		toContact(index) {
+			if (!this.animationStatus) {
+				// Zmienne //
+				var activeImg = document.querySelector(".activeCard");
+				let nextImg = document.querySelector(".Image" + index);
+				let activeImgIndex = activeImg._prevClass.substring(
+					activeImg._prevClass.length - 1
+				);
+				// ActivationPagin //
+				document
+					.querySelector(".activePagination")
+					.classList.remove("activePagination");
+				document
+					.getElementById("pagination " + index)
+					.classList.add("activePagination");
+
+				if (activeImgIndex != index && !this.animationStatus) {
+					// AnimationStatus //
+					this.$store.commit("changeAnimationStatus", true);
+					this.$store.commit("loadCardStatus", false);
+
+					// Change active components
+					activeImg.classList.remove("activeCard");
+
+					// DOWN //
+					if (activeImgIndex < index) {
+						while (activeImgIndex < index) {
+							console.log(activeImgIndex);
+							document
+								.querySelector(".Image" + activeImgIndex)
+								.classList.remove("slide-bottom");
+							document
+								.querySelector(".Image" + activeImgIndex)
+								.classList.remove("position-top");
+							document
+								.querySelector(".Image" + activeImgIndex)
+								.classList.add("slide-top");
+
+							activeImgIndex++;
+						}
+
+						nextImg.classList.add("activeCard");
+					}
+					// UP //
+					if (activeImgIndex > index) {
+						while (activeImgIndex > index) {
+							activeImgIndex--;
+							document
+								.querySelector(".Image" + activeImgIndex)
+								.classList.remove("slide-top");
+							document
+								.querySelector(".Image" + activeImgIndex)
+								.classList.remove("position-top");
+							document
+								.querySelector(".Image" + activeImgIndex)
+								.classList.add("slide-bottom");
+							console.log(activeImgIndex);
+						}
+
+						nextImg.classList.add("activeCard");
+					}
+					// AnimationStatus //
+					setTimeout(() => {
+						this.$store.commit("changeAnimationStatus", false);
+						this.$store.commit("loadCardStatus", true);
+						this.$store.commit("changecurrentCard", index);
+					}, 1000);
+				}
+			}
+		}
 	},
 	mounted() {
 		console.log(this.currentCard);

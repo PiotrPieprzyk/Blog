@@ -10796,7 +10796,7 @@ a.text-dark:focus {
   color: white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   font-size: calc(2vw + 14px);
-  left: -30px;
+  left: -60px;
   right: 0;
   margin: auto;
   background-color: #000000db;
@@ -10840,12 +10840,18 @@ a.text-dark:focus {
 
 .webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems {
   width: 100vw;
-  max-height: calc(100vh - 110px - 50px);
+  max-height: calc(100vh - 110px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 1.5em;
+  font-size: 1.6em;
   padding: 20px 0;
+}
+
+@media (min-width: 1300px) {
+  .webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems {
+    font-size: 1.5em;
+  }
 }
 
 .webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .contactTitle {
@@ -10912,6 +10918,7 @@ a.text-dark:focus {
   justify-content: center;
   align-items: center;
   border-bottom: black 1px solid;
+  cursor: pointer;
 }
 
 .webClass .footerWrapper p {
@@ -11052,7 +11059,7 @@ a:hover {
 }
 
 .galeryBackground {
-  background-image: url(/images/image1.jpg?8d1c61af18682bf4d7a5959ba62bb12e);
+  background-image: url(/images/image5.jpg?988b7f22f8670214b80cecd508673de3);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -11409,6 +11416,7 @@ a:hover {
   cursor: pointer;
   min-width: 85px;
   z-index: 1;
+  background-color: black;
 }
 
 @media (min-width: 600px) {
@@ -11628,6 +11636,7 @@ a:hover {
   border-radius: 25px;
   align-items: center;
   padding: 0 20px;
+  background-color: black;
 }
 
 .navBarOuter .profileNavWrapper .profileNav .profileName {
@@ -11665,6 +11674,18 @@ a:hover {
   position: relative;
 }
 
+@media (max-width: 500px) {
+  .registerWeb .registerCard {
+    border: none;
+  }
+}
+
+@media (max-height: 680px) {
+  .registerWeb .registerCard {
+    border: none;
+  }
+}
+
 .registerWeb .registerCard::after {
   content: "";
   width: calc(100% + 4px);
@@ -11676,6 +11697,20 @@ a:hover {
   bottom: -65px;
   left: -30px;
   background-color: white;
+}
+
+@media (max-width: 500px) {
+  .registerWeb .registerCard::after {
+    border: none;
+    background-color: #fff0;
+  }
+}
+
+@media (max-height: 680px) {
+  .registerWeb .registerCard::after {
+    border: none;
+    background-color: #fff0;
+  }
 }
 
 .registerWeb .registerCard .registerTitle {

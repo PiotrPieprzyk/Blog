@@ -2517,9 +2517,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["cards", "loadedCard", "currentCard"]),
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["cards", "loadedCard", "currentCard", "animationStatus"]),
   data: function data() {
     return {};
+  },
+  methods: {
+    toContact: function toContact(index) {
+      var _this = this;
+
+      if (!this.animationStatus) {
+        // Zmienne //
+        var activeImg = document.querySelector(".activeCard");
+        var nextImg = document.querySelector(".Image" + index);
+
+        var activeImgIndex = activeImg._prevClass.substring(activeImg._prevClass.length - 1); // ActivationPagin //
+
+
+        document.querySelector(".activePagination").classList.remove("activePagination");
+        document.getElementById("pagination " + index).classList.add("activePagination");
+
+        if (activeImgIndex != index && !this.animationStatus) {
+          // AnimationStatus //
+          this.$store.commit("changeAnimationStatus", true);
+          this.$store.commit("loadCardStatus", false); // Change active components
+
+          activeImg.classList.remove("activeCard"); // DOWN //
+
+          if (activeImgIndex < index) {
+            while (activeImgIndex < index) {
+              console.log(activeImgIndex);
+              document.querySelector(".Image" + activeImgIndex).classList.remove("slide-bottom");
+              document.querySelector(".Image" + activeImgIndex).classList.remove("position-top");
+              document.querySelector(".Image" + activeImgIndex).classList.add("slide-top");
+              activeImgIndex++;
+            }
+
+            nextImg.classList.add("activeCard");
+          } // UP //
+
+
+          if (activeImgIndex > index) {
+            while (activeImgIndex > index) {
+              activeImgIndex--;
+              document.querySelector(".Image" + activeImgIndex).classList.remove("slide-top");
+              document.querySelector(".Image" + activeImgIndex).classList.remove("position-top");
+              document.querySelector(".Image" + activeImgIndex).classList.add("slide-bottom");
+              console.log(activeImgIndex);
+            }
+
+            nextImg.classList.add("activeCard");
+          } // AnimationStatus //
+
+
+          setTimeout(function () {
+            _this.$store.commit("changeAnimationStatus", false);
+
+            _this.$store.commit("loadCardStatus", true);
+
+            _this.$store.commit("changecurrentCard", index);
+          }, 1000);
+        }
+      }
+    }
   },
   mounted: function mounted() {
     console.log(this.currentCard);
@@ -38441,7 +38500,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "GaleryTitleWrapper" }, [
-      _c("div", { staticClass: "GaleryTitle" }, [_vm._v("Graphics")])
+      _c("div", { staticClass: "GaleryTitle" }, [_vm._v("Graphic")])
     ])
   }
 ]
@@ -38774,21 +38833,23 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c(
+        "footer",
+        {
+          staticClass: "footerWrapper",
+          on: {
+            click: function($event) {
+              return _vm.toContact(3)
+            }
+          }
+        },
+        [_c("p", [_vm._v("Kontakt ;)")])]
+      )
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("footer", { staticClass: "footerWrapper" }, [
-      _c("p", [_vm._v("Check this ;)")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -55967,13 +56028,13 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       buttonText: ""
     }, {
       id: 1,
-      href: "image1.jpg",
+      href: "image5.jpg",
       title: "<h1 >Graphic</h1>",
       content: "<p>Zabawa z prostymi narzędziami</p>",
       buttonText: "Przejdź do Galerii"
     }, {
       id: 2,
-      href: "image5.jpg",
+      href: "image1.jpg",
       title: "<h1 >Game</h1>",
       content: "<p>lorem lorem lorem</p>",
       buttonText: ""

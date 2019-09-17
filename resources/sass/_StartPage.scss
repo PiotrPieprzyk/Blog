@@ -151,7 +151,7 @@
       color: white;
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
       font-size: calc(2vw + 14px);
-      left: -30px;
+      left: -60px;
       right: 0;
       margin: auto;
       background-color: #000000db;
@@ -192,12 +192,18 @@
 
         .contactItems {
           width: 100vw;
-          max-height: calc(100vh - 110px - 50px);
+          max-height: calc(100vh - 110px);
           display: flex;
           flex-direction: column;
           align-items: center;
-          font-size: 1.5em;
+          font-size: 1.6em;
+
           padding: 20px 0;
+
+          @media (min-width: 1300px) {
+            font-size: 1.5em;
+
+          }
 
           .contactTitle {
             margin: 0;
@@ -277,6 +283,8 @@
     justify-content: center;
     align-items: center;
     border-bottom: black 1px solid;
+    cursor: pointer;
+
 
     p {
       margin: 0;

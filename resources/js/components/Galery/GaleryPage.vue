@@ -1,7 +1,7 @@
 <template>
 	<div class="GaleryPage">
 		<div class="GaleryTitleWrapper">
-			<div class="GaleryTitle">Graphics</div>
+			<div class="GaleryTitle">Graphic</div>
 		</div>
 		<galery-slider
 			v-if="OnSlider"

@@ -73,7 +73,7 @@ const store = new Vuex.Store({
             {
                 id: 1,
                 href:
-                    "image1.jpg",
+                    "image5.jpg",
                 title: "<h1 >Graphic</h1>",
                 content: "<p>Zabawa z prostymi narzędziami</p>",
                 buttonText: "Przejdź do Galerii",
@@ -82,7 +82,7 @@ const store = new Vuex.Store({
             },
             {
                 id: 2,
-                href: "image5.jpg",
+                href: "image1.jpg",
                 title: "<h1 >Game</h1>",
                 content: "<p>lorem lorem lorem</p>",
                 buttonText: "",
