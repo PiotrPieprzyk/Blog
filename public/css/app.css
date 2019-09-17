@@ -10791,7 +10791,7 @@ a.text-dark:focus {
 .webClass .startWebWrapper .startWebWrapperContent {
   display: flex;
   flex-direction: column;
-  width: calc(20vw + 180px);
+  width: 100vw;
   position: relative;
   color: white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -10799,21 +10799,21 @@ a.text-dark:focus {
   left: -30px;
   right: 0;
   margin: auto;
+  background-color: #000000db;
+  align-items: center;
 }
 
 @media (min-width: 1300px) {
   .webClass .startWebWrapper .startWebWrapperContent {
     font-size: 45px;
-    width: 500px;
   }
 }
 
 @media (max-width: 760px) {
   .webClass .startWebWrapper .startWebWrapperContent {
     left: 0;
-    width: auto;
+    width: 100vw;
     font-size: calc(3vw + 14px);
-    margin-top: 0px;
     align-items: center;
   }
 }
@@ -10845,7 +10845,7 @@ a.text-dark:focus {
   flex-direction: column;
   align-items: center;
   font-size: 1.5em;
-  padding-top: 20px;
+  padding: 20px 0;
 }
 
 .webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .contactTitle {
@@ -10879,7 +10879,7 @@ a.text-dark:focus {
 }
 
 .webClass .startWebWrapper .startWebWrapperContent .buttonWrapper .buttonItem {
-  width: 100%;
+  width: calc(20vw + 180px);
   height: 42px;
   font-size: 0.6em;
   border-radius: 50px;
@@ -10888,11 +10888,13 @@ a.text-dark:focus {
   border: 2px white solid;
   color: white;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  margin-bottom: 20px;
 }
 
 @media (min-width: 1300px) {
   .webClass .startWebWrapper .startWebWrapperContent .buttonWrapper .buttonItem {
     height: 50px;
+    width: 500px;
   }
 }
 

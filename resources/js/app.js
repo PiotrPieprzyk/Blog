@@ -66,7 +66,7 @@ const store = new Vuex.Store({
         cards: [
             {
                 id: 0, href: "image11.jpg",
-                title: "<h1 class='mt60'>OurBlog</h1>",
+                title: "<h1 >OurBlog</h1>",
                 content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
                 buttonText: "",
             },
@@ -74,7 +74,7 @@ const store = new Vuex.Store({
                 id: 1,
                 href:
                     "image1.jpg",
-                title: "<h1 class='mt60'>Grafiki</h1>",
+                title: "<h1 >Graphic</h1>",
                 content: "<p>Zabawa z prostymi narzędziami</p>",
                 buttonText: "Przejdź do Galerii",
 
@@ -83,7 +83,7 @@ const store = new Vuex.Store({
             {
                 id: 2,
                 href: "image5.jpg",
-                title: "<h1 class='mt60'>Programowanie</h1>",
+                title: "<h1 >Game</h1>",
                 content: "<p>lorem lorem lorem</p>",
                 buttonText: "",
 
