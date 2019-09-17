@@ -11437,6 +11437,47 @@ a:hover {
   transform: rotate(-45deg);
 }
 
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .mobileProfileNavWrapper {
+  display: flex;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  flex-direction: column;
+  align-items: center;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .mobileProfileNavWrapper .mobileProfileName {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 2em;
+  margin: 20px;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .mobileProfileNavWrapper .mobileProfileButton {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  margin: 20px;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .mobileProfileNavWrapper .mobileLogOutForm {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.navBarOuter .navBarWrapper .mobileMenyPopup .contentPopup .mobileProfileNavWrapper .mobileLogOutForm .mobileSubmitForm {
+  background-color: #fff0;
+  padding: 0;
+  color: white;
+  font-size: 2em;
+  width: 100%;
+}
+
 .navBarOuter .formLogin {
   width: 100%;
   height: 100%;
@@ -11492,6 +11533,12 @@ a:hover {
 @media (min-width: 600px) {
   .navBarOuter .profileNavWrapper {
     margin-right: 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  .navBarOuter .profileNavWrapper {
+    display: none;
   }
 }
 

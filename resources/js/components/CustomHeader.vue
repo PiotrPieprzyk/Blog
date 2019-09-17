@@ -31,13 +31,14 @@
 				</div>
 			</div>
 			<!-- Mobile -->
-			<div class="ToggleMenuStyle" @click="toggleMenu=!toggleMenu" v-if="authCheck==null">
+			<div class="ToggleMenuStyle" @click="toggleMenu=!toggleMenu">
 				<div class="toggleBar"></div>
 				<div class="toggleBar"></div>
 				<div class="toggleBar"></div>
 			</div>
 			<div v-if="toggleMenu==true" class="mobileMenyPopup">
-				<div class="contentPopup">
+				<!-- Guest -->
+				<div class="contentPopup" v-if="authCheck==null">
 					<h1>Logowanie</h1>
 					<div class="mobileLoginWrapper">
 						<login-form></login-form>
@@ -45,6 +46,19 @@
 					<router-link to="/register" @click="toggleMenu=!toggleMenu" class="mobileRegister">
 						<h1 @click="toggleMenu=!toggleMenu">Zarejestruj</h1>
 					</router-link>
+					<div class="close" @click="toggleMenu=!toggleMenu"></div>
+				</div>
+				<!-- Zalogowany -->
+				<div class="contentPopup" v-if="authCheck!=null">
+					<div class="mobileProfileNavWrapper">
+						<p class="mobileProfileName">{{authCheck.name}}</p>
+						<router-link to="/" class="mobileProfileButton">Profil</router-link>
+
+						<form id="logout-form" method="POST" action="/logout" class="mobileLogOutForm">
+							<input type="hidden" name="_token" :value="csrf" />
+							<button type="submit" class="mobileSubmitForm">Logout</button>
+						</form>
+					</div>
 					<div class="close" @click="toggleMenu=!toggleMenu"></div>
 				</div>
 			</div>

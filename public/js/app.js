@@ -2060,6 +2060,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
  // Zwiększanie paska loguj
 
 var sizingUpDiv = function sizingUpDiv(index, changerWrapper, storage) {
@@ -38196,79 +38210,139 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.authCheck == null
-          ? _c(
-              "div",
-              {
-                staticClass: "ToggleMenuStyle",
-                on: {
-                  click: function($event) {
-                    _vm.toggleMenu = !_vm.toggleMenu
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "toggleBar" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "toggleBar" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "toggleBar" })
-              ]
-            )
-          : _vm._e(),
+        _c(
+          "div",
+          {
+            staticClass: "ToggleMenuStyle",
+            on: {
+              click: function($event) {
+                _vm.toggleMenu = !_vm.toggleMenu
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "toggleBar" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "toggleBar" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "toggleBar" })
+          ]
+        ),
         _vm._v(" "),
         _vm.toggleMenu == true
           ? _c("div", { staticClass: "mobileMenyPopup" }, [
-              _c(
-                "div",
-                { staticClass: "contentPopup" },
-                [
-                  _c("h1", [_vm._v("Logowanie")]),
-                  _vm._v(" "),
-                  _c(
+              _vm.authCheck == null
+                ? _c(
                     "div",
-                    { staticClass: "mobileLoginWrapper" },
-                    [_c("login-form")],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "mobileRegister",
-                      attrs: { to: "/register" },
-                      on: {
-                        click: function($event) {
-                          _vm.toggleMenu = !_vm.toggleMenu
-                        }
-                      }
-                    },
+                    { staticClass: "contentPopup" },
                     [
+                      _c("h1", [_vm._v("Logowanie")]),
+                      _vm._v(" "),
                       _c(
-                        "h1",
+                        "div",
+                        { staticClass: "mobileLoginWrapper" },
+                        [_c("login-form")],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "router-link",
                         {
+                          staticClass: "mobileRegister",
+                          attrs: { to: "/register" },
                           on: {
                             click: function($event) {
                               _vm.toggleMenu = !_vm.toggleMenu
                             }
                           }
                         },
-                        [_vm._v("Zarejestruj")]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", {
-                    staticClass: "close",
-                    on: {
-                      click: function($event) {
-                        _vm.toggleMenu = !_vm.toggleMenu
+                        [
+                          _c(
+                            "h1",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.toggleMenu = !_vm.toggleMenu
+                                }
+                              }
+                            },
+                            [_vm._v("Zarejestruj")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", {
+                        staticClass: "close",
+                        on: {
+                          click: function($event) {
+                            _vm.toggleMenu = !_vm.toggleMenu
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.authCheck != null
+                ? _c("div", { staticClass: "contentPopup" }, [
+                    _c(
+                      "div",
+                      { staticClass: "mobileProfileNavWrapper" },
+                      [
+                        _c("p", { staticClass: "mobileProfileName" }, [
+                          _vm._v(_vm._s(_vm.authCheck.name))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "mobileProfileButton",
+                            attrs: { to: "/" }
+                          },
+                          [_vm._v("Profil")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "form",
+                          {
+                            staticClass: "mobileLogOutForm",
+                            attrs: {
+                              id: "logout-form",
+                              method: "POST",
+                              action: "/logout"
+                            }
+                          },
+                          [
+                            _c("input", {
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.csrf }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "mobileSubmitForm",
+                                attrs: { type: "submit" }
+                              },
+                              [_vm._v("Logout")]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "close",
+                      on: {
+                        click: function($event) {
+                          _vm.toggleMenu = !_vm.toggleMenu
+                        }
                       }
-                    }
-                  })
-                ],
-                1
-              )
+                    })
+                  ])
+                : _vm._e()
             ])
           : _vm._e()
       ],

@@ -192,6 +192,7 @@
         align-items: center;
         padding-top: 60px;
 
+        // Guest //
         h1 {
           text-align: center;
           color: white;
@@ -235,6 +236,53 @@
 
         .close:after {
           transform: rotate(-45deg);
+        }
+
+        // Zalogowany // 
+
+        .mobileProfileNavWrapper {
+          display: flex;
+          width: calc(100% - 30px);
+          height: calc(100% - 30px);
+          flex-direction: column;
+          align-items: center;
+
+          .mobileProfileName {
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 2em;
+            margin: 20px;
+          }
+
+          .mobileProfileButton {
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-size: 2em;
+            margin: 20px;
+
+          }
+
+          .mobileLogOutForm {
+            display: flex;
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+            margin: 20px;
+
+            .mobileSubmitForm {
+              background-color: #fff0;
+              padding: 0;
+              color: white;
+              font-size: 2em;
+              width: 100%;
+
+            }
+          }
+
+
         }
       }
     }
@@ -296,6 +344,10 @@
     @media (min-width: 600px) {
       margin-right: 10px;
 
+    }
+
+    @media(max-width:760px) {
+      display: none;
     }
 
     .profileNav {
