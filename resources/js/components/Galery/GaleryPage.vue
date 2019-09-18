@@ -40,6 +40,12 @@ export default {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
 		}
+	},
+	beforeRouteLeave(to, from, next) {
+		document.body.classList.remove("overflowAuto");
+		document.body.classList.remove("galeryBackground");
+		console.log("GALERY");
+		next();
 	}
 };
 </script>

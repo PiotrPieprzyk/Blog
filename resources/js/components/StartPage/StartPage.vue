@@ -104,10 +104,6 @@ export default {
 	},
 	mounted() {
 		console.log(this.currentCard);
-
-		document.body.classList.remove("overflowAuto");
-		document.body.classList.remove("galeryBackground");
-
 		document
 			.querySelector(".Image" + this.currentCard)
 			.classList.add("activeCard");

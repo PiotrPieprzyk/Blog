@@ -25,7 +25,7 @@
 					<p class="profileName">{{'Witaj! '+ authCheck.name }}</p>
 					<form id="logout-form" method="POST" action="/logout">
 						<input type="hidden" name="_token" :value="csrf" />
-						<router-link to="/">Profil</router-link>
+						<router-link :to="'/profile/'+authCheck.id">Profil</router-link>
 						<button type="submit" class="submitForm">Logout</button>
 					</form>
 				</div>
@@ -52,11 +52,15 @@
 				<div class="contentPopup" v-if="authCheck!=null">
 					<div class="mobileProfileNavWrapper">
 						<p class="mobileProfileName">{{authCheck.name}}</p>
-						<router-link to="/" class="mobileProfileButton">Profil</router-link>
+						<router-link :to="'/profile/'+authCheck.id" class="mobileProfileButton">
+							<p @click="toggleMenu=!toggleMenu">Profil</p>
+						</router-link>
 
 						<form id="logout-form" method="POST" action="/logout" class="mobileLogOutForm">
 							<input type="hidden" name="_token" :value="csrf" />
-							<button type="submit" class="mobileSubmitForm">Logout</button>
+							<button type="submit" class="mobileSubmitForm">
+								<p>Logout</p>
+							</button>
 						</form>
 					</div>
 					<div class="close" @click="toggleMenu=!toggleMenu"></div>

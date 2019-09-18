@@ -19,6 +19,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+// CustomHeader //
 Vue.component('custom-header', require('./components/CustomHeader.vue').default);
 Vue.component('login-form', require('./components/LoginForm.vue').default);
 
@@ -33,6 +34,12 @@ Vue.component('start-content', require('./components/StartPage/StartContent.vue'
 
 Vue.component('galery-page', require('./components/Galery/GaleryPage.vue').default);
 Vue.component('galery-slider', require('./components/Galery/GalerySlider.vue').default);
+
+// Profile //
+
+Vue.component('profile-page', require('./components/Profile/ProfilePage.vue').default);
+Vue.component('profile-graphic', require('./components/Profile/ProfileGraphic.vue').default);
+Vue.component('profile-game', require('./components/Profile/ProfileGame.vue').default);
 
 
 // Auth //
@@ -63,6 +70,10 @@ const store = new Vuex.Store({
         loadedCard: false,
         csrf: document.querySelector('meta[name="csrf-token"]').content,
         authCheck: {},
+        profileCardActive: '',
+        visibleProfileButton1: true,
+        visibleProfileButton2: true,
+        buttonProfileActive: false,
         cards: [
             {
                 id: 0, href: "image11.jpg",
@@ -172,7 +183,24 @@ const store = new Vuex.Store({
         },
         changeAuthData(state, data) {
             state.authCheck = data;
-        }
+        },
+        changeProfileCardActive(state, card) {
+            state.profileCardActive = card;
+        },
+        changeVisibleProfileButton1(state, conditional) {
+
+            state.visibleProfileButton1 = conditional;
+        },
+        changeVisibleProfileButton2(state, conditional) {
+
+            state.visibleProfileButton2 = conditional;
+        },
+        changebuttonProfileActive(state, conditional) {
+
+            state.buttonProfileActive = conditional;
+        },
+
+
     }
 });
 

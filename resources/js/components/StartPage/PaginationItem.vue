@@ -9,7 +9,7 @@ import { setTimeout } from "timers";
 
 export default {
 	props: ["keyImg"],
-	computed: mapState(["animationStatus"]),
+	computed: mapState(["profileCardActive"]),
 	methods: {
 		changeBackground(index) {
 			if (!this.animationStatus) {
