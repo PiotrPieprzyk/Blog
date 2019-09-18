@@ -10,7 +10,7 @@ export const routes = [
   { path: '/galery', component: Galery, props: { overflowType: 'auto' } },
   { path: '/register', component: Register },
   {
-    path: '/profile/:id', component: Profile, children: [
+    path: '/profile/:id', component: Profile, name: "profile", children: [
       { path: '/profile/:id/graphic', component: ProfileGraphic, name: 'profileGraphic' },
       { path: '/profile/:id/game', component: ProfileGame, name: 'profileGame' }
 

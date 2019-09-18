@@ -2395,15 +2395,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive"]),
   mounted: function mounted() {
+    var _this = this;
+
+    // Pojawianie się strony
     document.getElementById(2).classList.remove("scaleDownCenter");
     document.getElementById(2).classList.add("chooseButtonActive");
     document.getElementById(2).classList.add("scaleUpCenter");
-    this.$store.commit("changeVisibleProfileButton1", false);
     this.$store.commit("changeVisibleProfileButton2", true);
-    this.$store.commit("changeProfileCardActive", 2);
     this.$store.commit("changebuttonProfileActive", true);
+    setTimeout(function () {
+      _this.$store.commit("changeVisibleProfileButton1", false);
+
+      _this.$store.commit("changeProfileCardActive", 2);
+    }, 400);
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    // Wracanie do listy profil
     this.$store.commit("changeVisibleProfileButton1", true);
     this.$store.commit("changeVisibleProfileButton2", true);
     this.$store.commit("changebuttonProfileActive", false);
@@ -2434,15 +2441,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive"]),
   mounted: function mounted() {
+    var _this = this;
+
+    // Pojawianie się strony
     document.getElementById(1).classList.remove("scaleDownCenter");
     document.getElementById(1).classList.add("chooseButtonActive");
     document.getElementById(1).classList.add("scaleUpCenter");
-    this.$store.commit("changeVisibleProfileButton2", false);
     this.$store.commit("changeVisibleProfileButton1", true);
     this.$store.commit("changebuttonProfileActive", true);
-    this.$store.commit("changeProfileCardActive", 1);
+    setTimeout(function () {
+      _this.$store.commit("changeVisibleProfileButton2", false);
+
+      _this.$store.commit("changeProfileCardActive", 1);
+    }, 400);
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    // Wracanie do listy profil
     this.$store.commit("changeVisibleProfileButton1", true);
     this.$store.commit("changeVisibleProfileButton2", true);
     this.$store.commit("changebuttonProfileActive", false);
@@ -2510,7 +2524,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
-    next();
+    var path1 = to.fullPath;
+    var path2 = from.fullPath;
+    var splitPath1 = path1.split("/");
+    var splitPath2 = path2.split("/");
+
+    if (splitPath1.length == splitPath2.length) {
+      console.log("działa");
+      setTimeout(function () {
+        return next();
+      }, 1000);
+    } else {
+      next();
+    }
   }
 });
 
@@ -38936,7 +38962,7 @@ var render = function() {
       _vm.visibleProfileButton1
         ? _c("button", {
             staticClass: "profileGalery",
-            attrs: { disabled: _vm.buttonActive, id: "1" },
+            attrs: { disabled: _vm.buttonProfileActive, id: "1" },
             on: {
               click: function($event) {
                 return _vm.scaleUp(1)
@@ -38948,7 +38974,7 @@ var render = function() {
       _vm.visibleProfileButton2
         ? _c("button", {
             staticClass: "profileGame",
-            attrs: { disabled: _vm.buttonActive, id: "2" },
+            attrs: { disabled: _vm.buttonProfileActive, id: "2" },
             on: {
               click: function($event) {
                 return _vm.scaleUp(2)
@@ -57373,6 +57399,7 @@ var routes = [{
 }, {
   path: '/profile/:id',
   component: _components_Profile_ProfilePage_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  name: "profile",
   children: [{
     path: '/profile/:id/graphic',
     component: _components_Profile_ProfileGraphic_vue__WEBPACK_IMPORTED_MODULE_4__["default"],

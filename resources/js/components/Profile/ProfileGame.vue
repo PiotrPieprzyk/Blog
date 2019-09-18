@@ -13,15 +13,19 @@ export default {
 	]),
 
 	mounted() {
+		// Pojawianie się strony
 		document.getElementById(2).classList.remove("scaleDownCenter");
 		document.getElementById(2).classList.add("chooseButtonActive");
 		document.getElementById(2).classList.add("scaleUpCenter");
-		this.$store.commit("changeVisibleProfileButton1", false);
 		this.$store.commit("changeVisibleProfileButton2", true);
-		this.$store.commit("changeProfileCardActive", 2);
 		this.$store.commit("changebuttonProfileActive", true);
+		setTimeout(() => {
+			this.$store.commit("changeVisibleProfileButton1", false);
+			this.$store.commit("changeProfileCardActive", 2);
+		}, 400);
 	},
 	beforeRouteLeave(to, from, next) {
+		// Wracanie do listy profil
 		this.$store.commit("changeVisibleProfileButton1", true);
 		this.$store.commit("changeVisibleProfileButton2", true);
 		this.$store.commit("changebuttonProfileActive", false);

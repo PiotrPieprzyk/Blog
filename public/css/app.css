@@ -11781,6 +11781,7 @@ a:hover {
   width: 100vw;
   min-height: 100vh;
   justify-content: space-evenly;
+  position: relative;
 }
 
 .profileWebWrapper .ChooseButton {
@@ -11794,17 +11795,25 @@ a:hover {
 }
 
 .profileWebWrapper .profileGalery {
-  width: 200px;
-  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
   background-color: blue;
   box-shadow: inset 0 0 10px 0px black;
+  top: 15vh;
+  position: absolute;
+  width: 30vh;
+  height: 30vh;
 }
 
 .profileWebWrapper .profileGame {
-  width: 200px;
-  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
   background-color: white;
   box-shadow: inset 0 0 10px 0px black;
+  bottom: 15vh;
+  position: absolute;
+  width: 30vh;
+  height: 30vh;
 }
 
 .slide-top {
@@ -11946,6 +11955,7 @@ a:hover {
 .scaleUpCenter {
   -webkit-animation: scale-up-center 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) both;
   animation: scale-up-center 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  z-index: 2;
 }
 
 /* ----------------------------------------------
@@ -11963,52 +11973,71 @@ a:hover {
 
 @-webkit-keyframes scale-up-center {
   0% {
-    height: 200px;
-    width: 200px;
+    width: 30vh;
+    height: 30vh;
   }
 
   100% {
     height: 100vh;
     width: 100vw;
+    max-width: 100vw;
+    max-height: 5000vh;
+    top: 0;
+    bottom: 0;
   }
 }
 
 @keyframes scale-up-center {
   0% {
-    height: 200px;
-    width: 200px;
+    width: 30vh;
+    height: 30vh;
   }
 
   100% {
     height: 100vh;
     width: 100vw;
+    max-width: 100vw;
+    max-height: 5000vh;
+    top: 0;
+    bottom: 0;
   }
 }
 
 .scaleDownCenter {
   -webkit-animation: scale-down-center 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) reverse both;
-  animation: scale-down-center 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) reverse both;
+  animation: scale-down-center 0.4s cubic-bezier(1, 0.355, 0.61, 0.215) reverse both;
+  z-index: 1;
 }
 
 @-webkit-keyframes scale-down-center {
   0% {
-    transform: scale(0.5);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes scale-down-center {
-  0% {
-    height: 200px;
-    width: 200px;
+    width: 30vh;
+    height: 30vh;
   }
 
   100% {
     height: 100vh;
     width: 100vw;
+    max-width: 100vw;
+    max-height: 5000vh;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+@keyframes scale-down-center {
+  0% {
+    width: 30vh;
+    height: 30vh;
+  }
+
+  100% {
+    height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 5000vh;
+    top: 0;
+    bottom: 0;
   }
 }
 

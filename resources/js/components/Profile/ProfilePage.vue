@@ -1,14 +1,14 @@
 <template>
 	<div class="profileWebWrapper">
 		<button
-			:disabled="buttonActive"
+			:disabled="buttonProfileActive"
 			v-if="visibleProfileButton1"
 			id="1"
 			class="profileGalery"
 			@click="scaleUp(1)"
 		></button>
 		<button
-			:disabled="buttonActive"
+			:disabled="buttonProfileActive"
 			v-if="visibleProfileButton2"
 			id="2"
 			class="profileGame"
@@ -45,7 +45,19 @@ export default {
 	},
 	mounted() {},
 	beforeRouteUpdate(to, from, next) {
-		next();
+		let path1 = to.fullPath;
+		let path2 = from.fullPath;
+
+		let splitPath1 = path1.split("/");
+		let splitPath2 = path2.split("/");
+
+		if (splitPath1.length == splitPath2.length) {
+			console.log("działa");
+
+			setTimeout(() => next(), 1000);
+		} else {
+			next();
+		}
 	}
 };
 </script>
