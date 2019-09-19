@@ -9,14 +9,19 @@ export default {
 		"profileCardActive",
 		"visibleProfileButton2",
 		"visibleProfileButton1",
-		"buttonProfileActive"
+		"buttonProfileActive",
+		"jsAnimation"
 	]),
 
 	mounted() {
+		document.body.classList.add("overflowAuto");
 		// Pojawianie się strony
-		document.getElementById(1).classList.remove("scaleDownCenter");
-		document.getElementById(1).classList.add("chooseButtonActive");
-		document.getElementById(1).classList.add("scaleUpCenter");
+		// document.getElementById(1).classList.remove("scaleDownCenter");
+		// document.getElementById(1).classList.add("chooseButtonActive");
+		// document.getElementById(1).classList.add("scaleUpCenter");
+		// animaton //
+		this.jsAnimation.sizeUp(1);
+
 		this.$store.commit("changeVisibleProfileButton1", true);
 		this.$store.commit("changebuttonProfileActive", true);
 		setTimeout(() => {
@@ -25,17 +30,20 @@ export default {
 		}, 400);
 	},
 	beforeRouteLeave(to, from, next) {
+		document.body.classList.remove("overflowAuto");
 		// Wracanie do listy profil
 		this.$store.commit("changeVisibleProfileButton1", true);
 		this.$store.commit("changeVisibleProfileButton2", true);
 		this.$store.commit("changebuttonProfileActive", false);
 
-		document
-			.querySelector(".chooseButtonActive")
-			.classList.remove("chooseButtonActive");
-		let scaledElement = document.querySelector(".scaleUpCenter");
-		scaledElement.classList.remove("scaleUpCenter");
-		scaledElement.classList.add("scaleDownCenter");
+		this.jsAnimation.sizeDown(1);
+
+		// document
+		// 	.querySelector(".chooseButtonActive")
+		// 	.classList.remove("chooseButtonActive");
+		// let scaledElement = document.querySelector(".scaleUpCenter");
+		// scaledElement.classList.remove("scaleUpCenter");
+		// scaledElement.classList.add("scaleDownCenter");
 		next();
 	}
 };

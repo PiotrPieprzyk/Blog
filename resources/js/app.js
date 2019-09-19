@@ -52,7 +52,8 @@ Vue.component('register-page', require('./components/Auth/RegisterPage.vue').def
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+// moja próba animowania heh
+import jsAnimation from "./jsAnimation";
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
@@ -65,15 +66,25 @@ Vue.use(VueRouter);
 
 const store = new Vuex.Store({
     state: {
+        // homePage
         currentCard: 0,
         animationStatus: false,
         loadedCard: false,
+
+        // auth
         csrf: document.querySelector('meta[name="csrf-token"]').content,
         authCheck: {},
+
+        // profile
         profileCardActive: '',
         visibleProfileButton1: true,
         visibleProfileButton2: true,
         buttonProfileActive: false,
+
+        // jsAnimation
+        jsAnimation,
+
+        // dataBase
         cards: [
             {
                 id: 0, href: "image11.jpg",
@@ -212,6 +223,7 @@ const app = new Vue({
     el: '#app',
     store,
     router,
+
 
 
 });

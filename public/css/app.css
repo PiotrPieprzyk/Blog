@@ -11782,6 +11782,7 @@ a:hover {
   min-height: 100vh;
   justify-content: space-evenly;
   position: relative;
+  overflow: hidden;
 }
 
 .profileWebWrapper .ChooseButton {
