@@ -3686,37 +3686,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive", "jsAnimation"]),
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive"]),
   mounted: function mounted() {
-    var _this = this;
-
-    document.body.classList.add("overflowAuto"); // Pojawianie się strony
-    // document.getElementById(2).classList.remove("scaleDownCenter");
-    // document.getElementById(2).classList.add("chooseButtonActive");
-    // document.getElementById(2).classList.add("scaleUpCenter");
-
-    this.jsAnimation.sizeUp(2);
+    // Pojawianie się strony
+    document.getElementById(2).classList.add("activeProfilePage");
+    document.getElementById(1).classList.add("deActivateProfilePage");
     this.$store.commit("changeVisibleProfileButton2", true);
     this.$store.commit("changebuttonProfileActive", true);
-    setTimeout(function () {
-      _this.$store.commit("changeVisibleProfileButton1", false);
-
-      _this.$store.commit("changeProfileCardActive", 2);
-    }, 400);
+    this.$store.commit("changeVisibleProfileButton1", false);
+    this.$store.commit("changeProfileCardActive", 2);
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
-    this.jsAnimation.sizeDown(2);
-    document.body.classList.remove("overflowAuto"); // Wracanie do listy profil
+    document.getElementById(2).classList.remove("activeProfilePage");
+    document.getElementById(1).classList.remove("deActivateProfilePage"); // Wracanie do listy profil
 
     this.$store.commit("changeVisibleProfileButton1", true);
     this.$store.commit("changeVisibleProfileButton2", true);
-    this.$store.commit("changebuttonProfileActive", false); // document
-    // 	.querySelector(".chooseButtonActive")
-    // 	.classList.remove("chooseButtonActive");
-    // let scaledElement = document.querySelector(".scaleUpCenter");
-    // scaledElement.classList.remove("scaleUpCenter");
-    // scaledElement.classList.add("scaleDownCenter");
-
+    this.$store.commit("changebuttonProfileActive", false);
     next();
   }
 });
@@ -3738,38 +3724,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive", "jsAnimation"]),
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive"]),
   mounted: function mounted() {
-    var _this = this;
-
-    document.body.classList.add("overflowAuto"); // Pojawianie się strony
-    // document.getElementById(1).classList.remove("scaleDownCenter");
-    // document.getElementById(1).classList.add("chooseButtonActive");
-    // document.getElementById(1).classList.add("scaleUpCenter");
-    // animaton //
-
-    this.jsAnimation.sizeUp(1);
+    document.getElementById(1).classList.add("activeProfilePage");
+    document.getElementById(2).classList.add("deActivateProfilePage");
     this.$store.commit("changeVisibleProfileButton1", true);
     this.$store.commit("changebuttonProfileActive", true);
-    setTimeout(function () {
-      _this.$store.commit("changeVisibleProfileButton2", false);
-
-      _this.$store.commit("changeProfileCardActive", 1);
-    }, 400);
+    this.$store.commit("changeVisibleProfileButton2", false);
+    this.$store.commit("changeProfileCardActive", 1);
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
-    document.body.classList.remove("overflowAuto"); // Wracanie do listy profil
+    document.getElementById(1).classList.remove("activeProfilePage");
+    document.getElementById(2).classList.remove("deActivateProfilePage"); // Wracanie do listy profil
 
     this.$store.commit("changeVisibleProfileButton1", true);
     this.$store.commit("changeVisibleProfileButton2", true);
     this.$store.commit("changebuttonProfileActive", false);
-    this.jsAnimation.sizeDown(1); // document
-    // 	.querySelector(".chooseButtonActive")
-    // 	.classList.remove("chooseButtonActive");
-    // let scaledElement = document.querySelector(".scaleUpCenter");
-    // scaledElement.classList.remove("scaleUpCenter");
-    // scaledElement.classList.add("scaleDownCenter");
-
     next();
   }
 });
@@ -3802,28 +3772,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3831,7 +3779,7 @@ __webpack_require__.r(__webpack_exports__);
       buttonActive: false
     };
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive", "jsAnimation"]),
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive"]),
   methods: {
     scaleUp: function scaleUp(index) {
       if (index == 1) {
@@ -40280,51 +40228,36 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "profileWrapper" },
+    { staticClass: "profileWebWrapper" },
     [
-      _c("div", { staticClass: "profileWebWrapper" }, [
-        _vm.visibleProfileButton1
-          ? _c("button", {
-              staticClass: "button1",
-              staticStyle: {
-                "max-width": "200px",
-                "max-height": "200px",
-                "background-color": "blue",
-                "box-shadow": "black 0px 0px 10px 0px inset",
-                top: "15vh",
-                position: "absolute",
-                width: "30vh",
-                height: "30vh"
-              },
-              attrs: { disabled: _vm.buttonProfileActive, id: "1" },
-              on: {
-                click: function($event) {
-                  return _vm.scaleUp(1)
-                }
+      _c("div", { staticClass: "profileWrapperButton" }, [
+        _c(
+          "button",
+          {
+            staticClass: "profileGalery",
+            attrs: { disabled: !_vm.visibleProfileButton2, id: "1" },
+            on: {
+              click: function($event) {
+                return _vm.scaleUp(1)
               }
-            })
-          : _vm._e(),
+            }
+          },
+          [_vm._v("Graphic")]
+        ),
         _vm._v(" "),
-        _vm.visibleProfileButton2
-          ? _c("button", {
-              staticStyle: {
-                "max-width": "200px",
-                "max-height": "200px",
-                "background-color": "white",
-                "box-shadow": "inset 0 0 10px 0px black",
-                bottom: "15vh",
-                position: "absolute",
-                width: "30vh",
-                height: "30vh"
-              },
-              attrs: { disabled: _vm.buttonProfileActive, id: "2" },
-              on: {
-                click: function($event) {
-                  return _vm.scaleUp(2)
-                }
+        _c(
+          "button",
+          {
+            staticClass: "profileGame",
+            attrs: { disabled: !_vm.visibleProfileButton1, id: "2" },
+            on: {
+              click: function($event) {
+                return _vm.scaleUp(2)
               }
-            })
-          : _vm._e()
+            }
+          },
+          [_vm._v("Game")]
+        )
       ]),
       _vm._v(" "),
       _c("transition", { attrs: { name: "opacity" } }, [_c("router-view")], 1)

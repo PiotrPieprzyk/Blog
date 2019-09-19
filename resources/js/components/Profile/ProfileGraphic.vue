@@ -9,41 +9,26 @@ export default {
 		"profileCardActive",
 		"visibleProfileButton2",
 		"visibleProfileButton1",
-		"buttonProfileActive",
-		"jsAnimation"
+		"buttonProfileActive"
 	]),
 
 	mounted() {
-		document.body.classList.add("overflowAuto");
-		// Pojawianie się strony
-		// document.getElementById(1).classList.remove("scaleDownCenter");
-		// document.getElementById(1).classList.add("chooseButtonActive");
-		// document.getElementById(1).classList.add("scaleUpCenter");
-		// animaton //
-		this.jsAnimation.sizeUp(1);
+		document.getElementById(1).classList.add("activeProfilePage");
+		document.getElementById(2).classList.add("deActivateProfilePage");
 
 		this.$store.commit("changeVisibleProfileButton1", true);
 		this.$store.commit("changebuttonProfileActive", true);
-		setTimeout(() => {
-			this.$store.commit("changeVisibleProfileButton2", false);
-			this.$store.commit("changeProfileCardActive", 1);
-		}, 400);
+		this.$store.commit("changeVisibleProfileButton2", false);
+		this.$store.commit("changeProfileCardActive", 1);
 	},
 	beforeRouteLeave(to, from, next) {
-		document.body.classList.remove("overflowAuto");
+		document.getElementById(1).classList.remove("activeProfilePage");
+		document.getElementById(2).classList.remove("deActivateProfilePage");
 		// Wracanie do listy profil
 		this.$store.commit("changeVisibleProfileButton1", true);
 		this.$store.commit("changeVisibleProfileButton2", true);
 		this.$store.commit("changebuttonProfileActive", false);
 
-		this.jsAnimation.sizeDown(1);
-
-		// document
-		// 	.querySelector(".chooseButtonActive")
-		// 	.classList.remove("chooseButtonActive");
-		// let scaledElement = document.querySelector(".scaleUpCenter");
-		// scaledElement.classList.remove("scaleUpCenter");
-		// scaledElement.classList.add("scaleDownCenter");
 		next();
 	}
 };

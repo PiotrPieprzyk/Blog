@@ -18,26 +18,34 @@
     height: 100vh !important;
   }
 
-  .profileGalery {
-    max-width: 200px;
-    max-height: 200px;
-    background-color: blue;
-    box-shadow: inset 0 0 10px 0px black;
-    top: 15vh;
-    position: absolute;
-    width: 30vh;
-    height: 30vh;
+  .profileWrapperButton {
+    width: 100%;
+    top: 0;
+    display: flex;
+    margin-top: 50px;
+
+    .profileGalery {
+      position: relative;
+      flex: 1;
+      clip-path: circle(15% at 50% 50%);
+      height: 100vh;
+    }
+
+    .profileGame {
+      position: relative;
+      flex: 1;
+      clip-path: circle(15% at 50% 50%);
+      height: 100vh;
+
+    }
   }
 
-  .profileGame {
-    max-width: 200px;
-    max-height: 200px;
-    background-color: white;
-    box-shadow: inset 0 0 10px 0px black;
-    bottom: 15vh;
-    position: absolute;
-    width: 30vh;
-    height: 30vh;
-
+  .activeProfilePage {
+    clip-path: circle(100% at 50% 50%) !important;
   }
+
+  .deActivateProfilePage {
+    flex: 0 !important;
+  }
+
 }
