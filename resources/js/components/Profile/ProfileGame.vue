@@ -1,5 +1,5 @@
 <template>
-	<div class="GameProfile">Graphic</div>
+	<div class="GameProfile">game</div>
 </template>
 <script>
 import { mapState } from "vuex";
@@ -9,7 +9,8 @@ export default {
 		"profileCardActive",
 		"visibleProfileButton2",
 		"visibleProfileButton1",
-		"buttonProfileActive"
+		"buttonProfileActive",
+		"jsAnimation"
 	]),
 
 	mounted() {

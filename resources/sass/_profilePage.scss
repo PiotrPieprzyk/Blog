@@ -1,44 +1,172 @@
 .profileWebWrapper {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
   width: 100vw;
   min-height: 100vh;
-  justify-content: space-evenly;
   position: relative;
-  overflow: hidden;
+  
 
-  .ChooseButton {
-    width: 100%;
-    height: 100%;
-  }
 
-  .chooseButtonActive {
-    width: 100vw !important;
-    height: 100vh !important;
-  }
-
-  .profileWrapperButton {
-    width: 100%;
-    top: 0;
-    display: flex;
-    margin-top: 50px;
-
+  @media screen and (max-aspect-ratio:1/2) {
     .profileGalery {
-      position: relative;
-      flex: 1;
-      clip-path: circle(15% at 50% 50%);
-      height: 100vh;
+      position: absolute;
+      width: 50vw;
+      height: 50vw;
+      top: calc((50vh - 50vw) / 2);
     }
 
     .profileGame {
-      position: relative;
-      flex: 1;
-      clip-path: circle(15% at 50% 50%);
-      height: 100vh;
+      position: absolute;
+      width: 50vw;
+      height: 50vw;
+      bottom: calc((50vh - 50vw) / 2);
+    }
 
+  }
+
+  @media screen and (aspect-ratio:1/2) {
+    .profileGalery {
+      position: absolute;
+      width: 50vw;
+      height: 50vw;
+      top: calc((50vh - 50vw) / 2);
+    }
+
+    .profileGame {
+      position: absolute;
+      width: 50vw;
+      height: 50vw;
+      bottom: calc((50vh - 50vw) / 2);
+    }
+
+  }
+
+  @media screen and (min-aspect-ratio:1/2) and (max-aspect-ratio: 1/1) {
+    .profileGalery {
+      position: absolute;
+      width: 25vh;
+      height: 25vh;
+      top: 12.5vh;
+    }
+
+    .profileGame {
+      position: absolute;
+      width: 25vh;
+      height: 25vh;
+      bottom: 12.5vh;
+    }
+
+  }
+
+  @media screen and (aspect-ratio: 1/1) {
+
+    .profileGalery {
+      position: absolute;
+      width: 25vw;
+      height: 25vw;
+      left: 12.5vw;
+    }
+
+    .profileGame {
+      position: absolute;
+      width: 25vw;
+      height: 25vw;
+      right: 12.5vw;
     }
   }
+
+  @media screen and (min-aspect-ratio: 1/1) and (max-aspect-ratio: 2/1) {
+
+    .profileGalery {
+      position: absolute;
+      width: 25vw;
+      height: 25vw;
+      left: 12.5vw;
+    }
+
+    .profileGame {
+      position: absolute;
+      width: 25vw;
+      height: 25vw;
+      right: 12.5vw;
+    }
+  }
+
+  @media screen and (aspect-ratio: 2/1) {
+
+    .profileGalery {
+      position: absolute;
+      width: 50vh;
+      height: 50vh;
+      left: calc((50vw - 50vh) / 2);
+    }
+
+    .profileGame {
+      position: absolute;
+      width: 50vh;
+      height: 50vh;
+      right: calc((50vw - 50vh) / 2);
+    }
+  }
+
+  @media screen and (min-aspect-ratio: 2/1) {
+
+    .profileGalery {
+      position: absolute;
+      width: 50vh;
+      height: 50vh;
+      left: calc((50vw - 50vh) / 2);
+    }
+
+    .profileGame {
+      position: absolute;
+      width: 50vh;
+      height: 50vh;
+      right: calc((50vw - 50vh) / 2);
+    }
+  }
+
+  // @media (orientation: landscape) {
+  //   height: 35vw;
+  // }
+
+  // @media (orientation: portrait) {
+  //   height: 35vh;
+  // }
+
+  // .profileGalery {
+  //   @media (orientation: landscape) {
+  //     position: absolute;
+  //     left: 15vh;
+  //     width: 35vh;
+  //     height: 35vh;
+  //   }
+
+  //   @media (orientation: portrait) {
+  //     position: absolute;
+  //     top: 15vw;
+  //     width: 35vw;
+  //     height: 35vw;
+  //   }
+
+  // }
+
+  // .profileGame {
+  //   @media (orientation: landscape) {
+  //     position: absolute;
+  //     right: 15vh;
+  //     width: 35vh;
+  //     height: 45vh;
+  //   }
+
+  //   @media (orientation: portrait) {
+  //     position: absolute;
+  //     width: 35vw;
+  //     height: 35vw;
+  //   }
+
+
 
   .activeProfilePage {
     clip-path: circle(100% at 50% 50%) !important;

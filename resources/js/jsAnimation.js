@@ -6,244 +6,110 @@ let viewPortProperties = function viewPortProperties() {
   let arrProperties = [w, h];
   return arrProperties;
 };
-let sizeUp = function sizeUp(index) {
-  // variables //
-  let sizingElement = document.getElementById(index);
-  let widthElement = window.getComputedStyle(sizingElement).width;
-  let heightElement = window.getComputedStyle(sizingElement).height;
-  let viewPort = viewPortProperties();
-  let valueIncrement = 1;
-  let setStyle = sizingElement.style;
-  let positionAmount;
-  let positionElement;
 
-  // check position
-  if (index == 2) { positionElement = window.getComputedStyle(sizingElement).bottom }
-  if (index == 1) { positionElement = window.getComputedStyle(sizingElement).top }
-  // prepare for staling // 
-  setStyle.width = widthElement;
-  setStyle.height = heightElement;
-  setStyle.maxWidth = "10000px";
-  setStyle.maxHeight = "10000px";
-
-  if (index == 2) { setStyle.bottom = positionElement; }
-  if (index == 1) { setStyle.top = positionElement; }
-
-  // scaling // 
-  let intervalSizeUp = setInterval(() => {
-    setStyle.width = parseInt(setStyle.width.slice(0, -2)) + valueIncrement + "px";
-    setStyle.height = parseInt(setStyle.height.slice(0, -2)) + valueIncrement + "px";
-
-    if (index == 2) { setStyle.bottom = parseInt(setStyle.bottom.slice(0, -2)) - (valueIncrement / 3.6) + "px"; }
-    if (index == 1) { setStyle.top = parseInt(setStyle.top.slice(0, -2)) - (valueIncrement / 3.6) + "px"; }
-
-    valueIncrement++;
-
-    if (index == 2) { positionAmount = parseInt(setStyle.bottom.slice(0, -2)); }
-    if (index == 1) { positionAmount = parseInt(setStyle.top.slice(0, -2)); }
-
-    if (parseInt(setStyle.width.slice(0, -2)) > viewPort[0] + 30 && parseInt(setStyle.height.slice(0, -2)) > viewPort[1] - positionAmount) {
-      clearInterval(intervalSizeUp);
-      setStyle.width = "110vw";
-      setStyle.height = "110vh";
-      setStyle.maxWidth = "110vw";
-      setStyle.maxHeight = "110vh";
-      if (index == 2) {
-        setStyle.bottom = "-10px";
-      }
-      if (index == 1) {
-        setStyle.top = "-10px";
-      }
-
-
-    }
-  }, 15)
-
-}
-
-let sizeDown = function sizeUp(index) {
-  // variables //
-  let sizingElement = document.getElementById(index);
-  let widthElement = window.getComputedStyle(sizingElement).width;
-  let heightElement = window.getComputedStyle(sizingElement).height;
-  let viewPort = viewPortProperties();
-  let valueIncrement = 1;
-  let setStyle = sizingElement.style;
-  let positionAmount;
-  let positionElement;
-
-  // check position
-  if (index == 2) { positionElement = window.getComputedStyle(sizingElement).bottom }
-  if (index == 1) { positionElement = window.getComputedStyle(sizingElement).top }
-  // prepare for staling // 
-  setStyle.width = widthElement;
-  setStyle.height = heightElement;
-  setStyle.maxWidth = "10000px";
-  setStyle.maxHeight = "10000px";
-  setStyle.minWidth = "200px";
-  setStyle.minHeight = "200px";
-
-  if (index == 2) { setStyle.bottom = positionElement; }
-  if (index == 1) { setStyle.top = positionElement; }
-
-  // scaling // 
-  let intervalSizeUp = setInterval(() => {
-    setStyle.width = parseInt(setStyle.width.slice(0, -2)) - valueIncrement + "px";
-    setStyle.height = parseInt(setStyle.height.slice(0, -2)) - valueIncrement + "px";
-
-    if (index == 2) { setStyle.bottom = parseInt(setStyle.bottom.slice(0, -2)) + (valueIncrement / 4) + "px"; }
-    if (index == 1) { setStyle.top = parseInt(setStyle.top.slice(0, -2)) + (valueIncrement / 4) + "px"; }
-
-    valueIncrement++;
-
-    if (index == 2) { positionAmount = parseInt(setStyle.bottom.slice(0, -2)); }
-    if (index == 1) { positionAmount = parseInt(setStyle.top.slice(0, -2)); }
-
-    if (parseInt(setStyle.width.slice(0, -2)) < parseInt(setStyle.minWidth.slice(0, -2)) && parseInt(setStyle.height.slice(0, -2)) < parseInt(setStyle.minHeight.slice(0, -2))) {
-      clearInterval(intervalSizeUp);
-      setStyle.width = "30vh";
-      setStyle.height = "30vh";
-      setStyle.maxWidth = "200px";
-      setStyle.maxHeight = "200px";
-      setStyle.minWidth = "0";
-      setStyle.minHeight = "0";
-      if (index == 2) {
-        setStyle.bottom = "15vh";
-      }
-      if (index == 1) {
-        setStyle.top = "15vh";
-      }
-
-
-    }
-  }, 15)
-
-}
-export default {
-  viewPortProperties,
-  sizeUp,
-  sizeDown
-
+Math.easeOutExpo = function (t, b, c, d) {
+  return c * (-Math.pow(2, -10 * t / d) + 1) + b;
 };
 
-import anime from 'animejs/lib/anime.es.js';
 
-// let sizeUp = function sizeUp(index) {
-//   let element = document.getElementById(index);
-//   if (index == 1) {
-//     let startProperties = {
-//       maxWidth: '200px',
-//       maxHeight: ' 200px',
-//       top: '15vh',
-//       width: '30vh',
-//       height: ' 30vh',
-//     };
-//     anime({
-//       targets: startProperties,
-//       width: '100vw',
-//       height: '100vh',
-//       maxHeight: '100vh',
-//       maxWidth: '100vw',
-//       top: 0,
-//       duration: 400,
-//       easing: 'easeOutQuad',
-//       update: function () {
-//         element.style.maxWidth = startProperties.maxWidth;
-//         element.style.maxHeight = startProperties.maxHeight;
-//         element.style.width = startProperties.width;
-//         element.style.height = startProperties.height;
-//         element.style.top = startProperties.top;
-//       }
-//     });
-//   }
-//   if (index == 2) {
-//     let startProperties = {
-//       maxWidth: '200px',
-//       maxHeight: ' 200px',
-//       bottom: '15vh',
-//       width: '30vh',
-//       height: ' 30vh',
-//     };
-//     anime({
-//       targets: startProperties,
-//       width: '100vw',
-//       height: '100vh',
-//       maxHeight: '100vh',
-//       maxWidth: '100vw',
-//       bottom: 0,
-//       duration: 400,
-//       easing: 'easeOutQuad',
-//       update: function () {
-//         element.style.maxWidth = startProperties.maxWidth;
-//         element.style.maxHeight = startProperties.maxHeight;
-//         element.style.width = startProperties.width;
-//         element.style.height = startProperties.height;
-//         element.style.top = startProperties.top;
-//       }
-//     });
-//   }
 
-// }
-// let sizeDown = function sizeDown(index) {
+let sizeUp = function sizeUp(index) {
+  let viewPort = viewPortProperties();
+  if (viewPort[0] < viewPort[1]) {
+    console.log("phone");
+    if (index == 1) {
+      // variables //
+      let sizingElement = document.getElementById(index);
+      let positionElement = window.getComputedStyle(sizingElement).top;
+      let setStyle = sizingElement.style;
 
-//   let element = document.getElementById(index);
-//   if (index == 1) {
-//     let startProperties = {
-//       width: '100vw',
-//       height: '100vh',
-//       maxHeight: '100vh',
-//       maxWidth: '100vw',
-//       top: '0',
+      // prepare for sizing //
+      setStyle.top = positionElement;
+      let endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 4;
 
-//     };
-//     anime({
-//       targets: startProperties,
-//       maxWidth: '200px',
-//       maxHeight: ' 200px',
-//       top: '15vh',
-//       width: '30vh',
-//       height: ' 30vh',
-//       duration: 400,
-//       easing: 'easeOutQuad',
-//       direction: 'reverse',
-//       update: function () {
-//         element.style.maxWidth = startProperties.maxWidth;
-//         element.style.maxHeight = startProperties.maxHeight;
-//         element.style.width = startProperties.width;
-//         element.style.height = startProperties.height;
-//         element.style.top = startProperties.top;
-//       }
+      // sizing // 
+      let k = 1;
+      let positionInterval = setInterval(() => {
+        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120) + 'px';
+        k++;
+        if (k > 60) {
+          clearInterval(positionInterval);
+        }
+      }, 15);
 
-//     });
-//   }
-//   if (index == 2) {
-//     let startProperties = {
-//       width: '100vw',
-//       height: '100vh',
-//       maxHeight: '100vh',
-//       maxWidth: '100vw',
-//       bottom: '0',
-//     };
-//     anime({
-//       targets: startProperties,
-//       maxWidth: '200px',
-//       maxHeight: ' 200px',
-//       bottom: '15vh',
-//       width: '30vh',
-//       height: ' 30vh',
-//       duration: 400,
-//       easing: 'easeOutQuad',
-//       direction: 'reverse',
-//       update: function () {
-//         element.style.maxWidth = startProperties.maxWidth;
-//         element.style.maxHeight = startProperties.maxHeight;
-//         element.style.width = startProperties.width;
-//         element.style.height = startProperties.height;
-//         element.style.top = startProperties.top;
-//       }
+      console.log(setStyle.top);
+    }
+    if (index == 2) {
+      // variables //
+      let sizingElement = document.getElementById(index);
+      let positionElement = window.getComputedStyle(sizingElement).bottom;
+      let setStyle = sizingElement.style;
+      // prepare for sizing //
+      setStyle.bottom = positionElement;
+      let endBottom = parseInt(setStyle.bottom.slice(0, -2)) + viewPort[1] / 4;
 
-//     });
-//   }
+      // sizing // 
+      let k = 1;
+      let positionInterval = setInterval(() => {
+        setStyle.bottom = Math.easeOutExpo(k, parseInt(setStyle.bottom.slice(0, -2)), endBottom - parseInt(setStyle.bottom.slice(0, -2)), 240) + 'px';
+        k++;
+        if (k > 60) {
+          clearInterval(positionInterval);
+        }
+      }, 15);
 
-// }
 
+      console.log(setStyle.bottom);
+    }
+  }
+  if (viewPort[0] >= viewPort[1]) {
+    console.log("computer");
+    if (index == 1) {
+      // variables //
+      let sizingElement = document.getElementById(index);
+      let positionElement = window.getComputedStyle(sizingElement).left;
+      let setStyle = sizingElement.style;
+
+      // prepare for sizing //
+      setStyle.left = positionElement;
+      let endleft = parseInt(setStyle.left.slice(0, -2)) + viewPort[0] / 4;
+
+      // sizing //
+      let k = 1;
+      let positionInterval = setInterval(() => {
+        setStyle.left = Math.easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 120) + 'px';
+        k++;
+        console.log(Math.easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 120) + 'px');
+        if (k > 60) {
+          clearInterval(positionInterval);
+        }
+      }, 15);
+
+      console.log(setStyle.left);
+    }
+    if (index == 2) {
+      // variables //
+      let sizingElement = document.getElementById(index);
+      let positionElement = window.getComputedStyle(sizingElement).right;
+      let setStyle = sizingElement.style;
+
+      // prepare for sizing //
+      setStyle.right = positionElement;
+      let endright = parseInt(setStyle.right.slice(0, -2)) + viewPort[0] / 4;
+
+      // sizing //
+      let k = 1;
+      let positionInterval = setInterval(() => {
+        setStyle.right = Math.easeOutExpo(k, parseInt(setStyle.right.slice(0, -2)), endright - parseInt(setStyle.right.slice(0, -2)), 240) + 'px';
+        k++;
+        if (k > 60) {
+          clearInterval(positionInterval);
+        }
+      }, 15);
+    }
+  }
+}
+
+export default {
+  sizeUp
+};

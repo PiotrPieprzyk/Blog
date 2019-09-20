@@ -1,17 +1,15 @@
 <template>
 	<div class="profileWebWrapper">
-		<div class="profileWrapperButton">
-			<button
-				:disabled="!visibleProfileButton2"
-				id="1"
-				class="profileGalery"
-				@click="scaleUp(1)"
-			>Graphic</button>
-			<button :disabled="!visibleProfileButton1" id="2" class="profileGame" @click="scaleUp(2)">Game</button>
-		</div>
-		<transition name="opacity">
-			<router-view></router-view>
-		</transition>
+		<button :disabled="!visibleProfileButton2" id="1" class="profileGalery" @click="scaleUp(1)">
+			<transition name="opacity">
+				<router-view v-if="visibleProfileButton1"></router-view>
+			</transition>
+		</button>
+		<button :disabled="!visibleProfileButton1" id="2" class="profileGame" @click="scaleUp(2)">
+			<transition name="opacity">
+				<router-view v-if="visibleProfileButton2"></router-view>
+			</transition>
+		</button>
 	</div>
 </template>
 <script>
@@ -27,14 +25,17 @@ export default {
 		"profileCardActive",
 		"visibleProfileButton2",
 		"visibleProfileButton1",
-		"buttonProfileActive"
+		"buttonProfileActive",
+		"jsAnimation"
 	]),
 	methods: {
 		scaleUp(index) {
 			if (index == 1) {
 				this.$router.push({ name: "profileGraphic" });
+				this.jsAnimation.sizeUp(1);
 			} else {
 				this.$router.push({ name: "profileGame" });
+				this.jsAnimation.sizeUp(2);
 			}
 		}
 	},
