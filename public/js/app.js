@@ -2403,6 +2403,10 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.commit("changeVisibleProfileButton1", false);
     this.$store.commit("changeProfileCardActive", 2);
   },
+  beforeEnter: function beforeEnter(to, from, next) {
+    console.log(from);
+    next();
+  },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
     document.getElementById(2).classList.remove("activeProfilePage");
     document.getElementById(1).classList.remove("deActivateProfilePage"); // Wracanie do listy profil
@@ -2432,6 +2436,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive", "jsAnimation"]),
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    if (from.fullPath != "/profile/2/") {
+      var sizingElement = document.getElementById(1);
+      var setStyle = sizingElement.style;
+      setStyle.width = "100vw";
+      setStyle.height = "100vh";
+      setStyle.right = 0;
+      setStyle.top = 0;
+      setStyle.left = 0;
+      setStyle.bottom = 0;
+    }
+
+    next();
+  },
   mounted: function mounted() {
     document.getElementById(1).classList.add("activeProfilePage");
     document.getElementById(2).classList.add("deActivateProfilePage");
@@ -2441,6 +2459,7 @@ __webpack_require__.r(__webpack_exports__);
     this.$store.commit("changeProfileCardActive", 1);
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    console.log("działa");
     document.getElementById(1).classList.remove("activeProfilePage");
     document.getElementById(2).classList.remove("deActivateProfilePage"); // Wracanie do listy profil
 
@@ -2463,8 +2482,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-//
-//
 //
 //
 //
@@ -38933,10 +38950,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "profileWebWrapper" }, [
-    _c(
-      "button",
-      {
+  return _c(
+    "div",
+    { staticClass: "profileWebWrapper" },
+    [
+      _c("button", {
         staticClass: "profileGalery",
         attrs: { disabled: !_vm.visibleProfileButton2, id: "1" },
         on: {
@@ -38944,21 +38962,9 @@ var render = function() {
             return _vm.scaleUp(1)
           }
         }
-      },
-      [
-        _c(
-          "transition",
-          { attrs: { name: "opacity" } },
-          [_vm.visibleProfileButton1 ? _c("router-view") : _vm._e()],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
+      }),
+      _vm._v(" "),
+      _c("button", {
         staticClass: "profileGame",
         attrs: { disabled: !_vm.visibleProfileButton1, id: "2" },
         on: {
@@ -38966,18 +38972,24 @@ var render = function() {
             return _vm.scaleUp(2)
           }
         }
-      },
-      [
-        _c(
-          "transition",
-          { attrs: { name: "opacity" } },
-          [_vm.visibleProfileButton2 ? _c("router-view") : _vm._e()],
-          1
-        )
-      ],
-      1
-    )
-  ])
+      }),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "opacity" } },
+        [_vm.visibleProfileButton1 ? _c("router-view") : _vm._e()],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "opacity" } },
+        [_vm.visibleProfileButton2 ? _c("router-view") : _vm._e()],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57377,112 +57389,181 @@ var viewPortProperties = function viewPortProperties() {
   var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
   var arrProperties = [w, h];
   return arrProperties;
+}; // Easy // 
+
+
+Math.easeOutExpo = function (t, b, c, d, x) {
+  if (t <= x) {
+    return c * Math.sin(t / (d * 4) * (Math.PI / 2)) + b;
+  }
+
+  if (t > x) {
+    return (c + b) * Math.cos(Math.PI / 2 * ((t - x) / (d - x)));
+  }
 };
 
-Math.easeOutExpo = function (t, b, c, d) {
-  return c * (-Math.pow(2, -10 * t / d) + 1) + b;
+Math.easeInExpo = function (t, b, c, d) {
+  return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
 var sizeUp = function sizeUp(index) {
   var viewPort = viewPortProperties();
 
   if (viewPort[0] < viewPort[1]) {
-    console.log("phone");
+    console.log("phone"); // GraphicProfil //
 
     if (index == 1) {
       // variables //
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).top;
-      var setStyle = sizingElement.style; // prepare for sizing //
+      var setStyle = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height; // prepare for sizing //
 
       setStyle.top = positionElement;
-      var endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 4; // sizing // 
+      setStyle.width = widthElement;
+      setStyle.height = heightElement;
+      var endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 6;
+      var endWidth = viewPort[0];
+      var endHeight = viewPort[1];
+      console.log(viewPort[0]);
+      console.log(endHeight); // sizing // 
 
       var k = 1;
       var positionInterval = setInterval(function () {
-        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120) + 'px';
+        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 60, 30) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
         k++;
+        console.log(setStyle.top);
 
         if (k > 60) {
           clearInterval(positionInterval);
+          setTimeout(function () {
+            setStyle.width = "100vw";
+            setStyle.height = "100vh";
+            setStyle.right = 0;
+            setStyle.top = 0;
+            setStyle.left = 0;
+            setStyle.bottom = 0;
+          }, 500);
         }
-      }, 15);
-      console.log(setStyle.top);
-    }
+      }, 6);
+    } // GameProfil //
+
 
     if (index == 2) {
       // variables //
       var _sizingElement = document.getElementById(index);
 
       var _positionElement = window.getComputedStyle(_sizingElement).bottom;
-      var _setStyle = _sizingElement.style; // prepare for sizing //
+      var _setStyle = _sizingElement.style;
+      var _widthElement = window.getComputedStyle(_sizingElement).width;
+      var _heightElement = window.getComputedStyle(_sizingElement).height; // prepare for sizing //
 
+      _setStyle.width = _widthElement;
+      _setStyle.height = _heightElement;
       _setStyle.bottom = _positionElement;
-      var endBottom = parseInt(_setStyle.bottom.slice(0, -2)) + viewPort[1] / 4; // sizing // 
+      var endBottom = parseInt(_setStyle.bottom.slice(0, -2)) + viewPort[1] / 6;
+      var _endWidth = viewPort[0];
+      var _endHeight = viewPort[1]; // sizing // 
 
       var _k = 1;
 
       var _positionInterval = setInterval(function () {
-        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 240) + 'px';
+        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 60, 40) + 'px';
+        _setStyle.width = Math.easeInExpo(_k, parseInt(_setStyle.width.slice(0, -2)), _endWidth - parseInt(_setStyle.width.slice(0, -2)), 60) + 'px';
+        _setStyle.height = Math.easeInExpo(_k, parseInt(_setStyle.height.slice(0, -2)), _endHeight - parseInt(_setStyle.height.slice(0, -2)), 60) + 'px';
         _k++;
 
         if (_k > 60) {
           clearInterval(_positionInterval);
+          _setStyle.width = "100vw";
+          _setStyle.height = "100vh";
+          _setStyle.right = 0;
+          _setStyle.top = 0;
+          _setStyle.left = 0;
+          _setStyle.bottom = 0;
         }
-      }, 15);
-
-      console.log(_setStyle.bottom);
+      }, 6);
     }
   }
 
   if (viewPort[0] >= viewPort[1]) {
-    console.log("computer");
-
+    // GraphicProfil //
     if (index == 1) {
       // variables //
       var _sizingElement2 = document.getElementById(index);
 
       var _positionElement2 = window.getComputedStyle(_sizingElement2).left;
-      var _setStyle2 = _sizingElement2.style; // prepare for sizing //
+      var _setStyle2 = _sizingElement2.style;
+      var _widthElement2 = window.getComputedStyle(_sizingElement2).width;
+      var _heightElement2 = window.getComputedStyle(_sizingElement2).height; // prepare for sizing //
 
       _setStyle2.left = _positionElement2;
-      var endleft = parseInt(_setStyle2.left.slice(0, -2)) + viewPort[0] / 4; // sizing //
+      _setStyle2.width = _widthElement2;
+      _setStyle2.height = _heightElement2;
+      var endleft = parseInt(_setStyle2.left.slice(0, -2)) + viewPort[0] / 4;
+      var _endWidth2 = viewPort[0];
+      var _endHeight2 = viewPort[1]; // sizing //
 
       var _k2 = 1;
 
       var _positionInterval2 = setInterval(function () {
-        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 120) + 'px';
+        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 60, 40) + 'px';
+        _setStyle2.width = Math.easeInExpo(_k2, parseInt(_setStyle2.width.slice(0, -2)), _endWidth2 - parseInt(_setStyle2.width.slice(0, -2)), 60) + 'px';
+        _setStyle2.height = Math.easeInExpo(_k2, parseInt(_setStyle2.height.slice(0, -2)), _endHeight2 - parseInt(_setStyle2.height.slice(0, -2)), 60) + 'px';
         _k2++;
-        console.log(Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 120) + 'px');
 
         if (_k2 > 60) {
           clearInterval(_positionInterval2);
+          _setStyle2.width = "100vw";
+          _setStyle2.height = "100vh";
+          _setStyle2.right = 0;
+          _setStyle2.top = 0;
+          _setStyle2.left = 0;
+          _setStyle2.bottom = 0;
         }
-      }, 15);
+      }, 6);
 
       console.log(_setStyle2.left);
-    }
+    } // GameProfil //
+
 
     if (index == 2) {
       // variables //
       var _sizingElement3 = document.getElementById(index);
 
       var _positionElement3 = window.getComputedStyle(_sizingElement3).right;
-      var _setStyle3 = _sizingElement3.style; // prepare for sizing //
+      var _setStyle3 = _sizingElement3.style;
+      var _widthElement3 = window.getComputedStyle(_sizingElement3).width;
+      var _heightElement3 = window.getComputedStyle(_sizingElement3).height; // prepare for sizing //
 
       _setStyle3.right = _positionElement3;
-      var endright = parseInt(_setStyle3.right.slice(0, -2)) + viewPort[0] / 4; // sizing //
+      _setStyle3.width = _widthElement3;
+      _setStyle3.height = _heightElement3;
+      var endright = parseInt(_setStyle3.right.slice(0, -2)) + viewPort[0] / 4;
+      var _endWidth3 = viewPort[0];
+      var _endHeight3 = viewPort[1]; // sizing //
 
       var _k3 = 1;
 
       var _positionInterval3 = setInterval(function () {
-        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 240) + 'px';
+        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 60, 40) + 'px';
+        _setStyle3.width = Math.easeInExpo(_k3, parseInt(_setStyle3.width.slice(0, -2)), _endWidth3 - parseInt(_setStyle3.width.slice(0, -2)), 60) + 'px';
+        _setStyle3.height = Math.easeInExpo(_k3, parseInt(_setStyle3.height.slice(0, -2)), _endHeight3 - parseInt(_setStyle3.height.slice(0, -2)), 60) + 'px';
         _k3++;
 
         if (_k3 > 60) {
           clearInterval(_positionInterval3);
+          _setStyle3.width = "100vw";
+          _setStyle3.height = "100vh";
+          _setStyle3.right = 0;
+          _setStyle3.top = 0;
+          _setStyle3.left = 0;
+          _setStyle3.bottom = 0;
         }
-      }, 15);
+      }, 6);
     }
   }
 };

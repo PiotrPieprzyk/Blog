@@ -1,15 +1,13 @@
 <template>
 	<div class="profileWebWrapper">
-		<button :disabled="!visibleProfileButton2" id="1" class="profileGalery" @click="scaleUp(1)">
-			<transition name="opacity">
-				<router-view v-if="visibleProfileButton1"></router-view>
-			</transition>
-		</button>
-		<button :disabled="!visibleProfileButton1" id="2" class="profileGame" @click="scaleUp(2)">
-			<transition name="opacity">
-				<router-view v-if="visibleProfileButton2"></router-view>
-			</transition>
-		</button>
+		<button :disabled="!visibleProfileButton2" id="1" class="profileGalery" @click="scaleUp(1)"></button>
+		<button :disabled="!visibleProfileButton1" id="2" class="profileGame" @click="scaleUp(2)"></button>
+		<transition name="opacity">
+			<router-view v-if="visibleProfileButton1"></router-view>
+		</transition>
+		<transition name="opacity">
+			<router-view v-if="visibleProfileButton2"></router-view>
+		</transition>
 	</div>
 </template>
 <script>

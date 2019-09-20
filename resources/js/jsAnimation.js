@@ -7,8 +7,17 @@ let viewPortProperties = function viewPortProperties() {
   return arrProperties;
 };
 
-Math.easeOutExpo = function (t, b, c, d) {
-  return c * (-Math.pow(2, -10 * t / d) + 1) + b;
+// Easy // 
+Math.easeOutExpo = function (t, b, c, d, x) {
+  if (t <= x) {
+    return c * Math.sin(t / (d * 4) * (Math.PI / 2)) + b;
+  }
+  if (t > x) {
+    return (c + b) * (Math.cos((Math.PI / 2) * ((t - x) / (d - x))));
+  }
+};
+Math.easeInExpo = function (t, b, c, d) {
+  return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
 
@@ -17,95 +26,157 @@ let sizeUp = function sizeUp(index) {
   let viewPort = viewPortProperties();
   if (viewPort[0] < viewPort[1]) {
     console.log("phone");
+
+    // GraphicProfil //
     if (index == 1) {
       // variables //
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).top;
       let setStyle = sizingElement.style;
+      let widthElement = window.getComputedStyle(sizingElement).width;
+      let heightElement = window.getComputedStyle(sizingElement).height;
 
       // prepare for sizing //
       setStyle.top = positionElement;
-      let endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 4;
+      setStyle.width = widthElement;
+      setStyle.height = heightElement;
+      let endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 6;
+      let endWidth = viewPort[0];
+      let endHeight = viewPort[1];
+      console.log(viewPort[0]);
+      console.log(endHeight);
 
       // sizing // 
       let k = 1;
       let positionInterval = setInterval(() => {
-        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120) + 'px';
+        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 60, 30) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
         k++;
+        console.log(setStyle.top);
         if (k > 60) {
           clearInterval(positionInterval);
-        }
-      }, 15);
+          setTimeout(() => {
+            setStyle.width = "100vw";
+            setStyle.height = "100vh";
+            setStyle.right = 0;
+            setStyle.top = 0;
+            setStyle.left = 0;
+            setStyle.bottom = 0;
+          }, 500)
 
-      console.log(setStyle.top);
+
+        }
+      }, 6);
     }
+    // GameProfil //
     if (index == 2) {
       // variables //
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).bottom;
       let setStyle = sizingElement.style;
+      let widthElement = window.getComputedStyle(sizingElement).width;
+      let heightElement = window.getComputedStyle(sizingElement).height;
       // prepare for sizing //
+      setStyle.width = widthElement;
+      setStyle.height = heightElement;
       setStyle.bottom = positionElement;
-      let endBottom = parseInt(setStyle.bottom.slice(0, -2)) + viewPort[1] / 4;
+      let endBottom = parseInt(setStyle.bottom.slice(0, -2)) + viewPort[1] / 6;
+      let endWidth = viewPort[0];
+      let endHeight = viewPort[1];
 
       // sizing // 
       let k = 1;
       let positionInterval = setInterval(() => {
-        setStyle.bottom = Math.easeOutExpo(k, parseInt(setStyle.bottom.slice(0, -2)), endBottom - parseInt(setStyle.bottom.slice(0, -2)), 240) + 'px';
+        setStyle.bottom = Math.easeOutExpo(k, parseInt(setStyle.bottom.slice(0, -2)), endBottom - parseInt(setStyle.bottom.slice(0, -2)), 60, 40) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
         k++;
         if (k > 60) {
           clearInterval(positionInterval);
+          setStyle.width = "100vw";
+          setStyle.height = "100vh";
+          setStyle.right = 0;
+          setStyle.top = 0;
+          setStyle.left = 0;
+          setStyle.bottom = 0;
         }
-      }, 15);
-
-
-      console.log(setStyle.bottom);
+      }, 6);
     }
   }
   if (viewPort[0] >= viewPort[1]) {
-    console.log("computer");
+    // GraphicProfil //
     if (index == 1) {
       // variables //
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).left;
       let setStyle = sizingElement.style;
+      let widthElement = window.getComputedStyle(sizingElement).width;
+      let heightElement = window.getComputedStyle(sizingElement).height;
 
       // prepare for sizing //
       setStyle.left = positionElement;
+      setStyle.width = widthElement;
+      setStyle.height = heightElement;
       let endleft = parseInt(setStyle.left.slice(0, -2)) + viewPort[0] / 4;
+      let endWidth = viewPort[0];
+      let endHeight = viewPort[1];
 
       // sizing //
       let k = 1;
       let positionInterval = setInterval(() => {
-        setStyle.left = Math.easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 120) + 'px';
+        setStyle.left = Math.easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 60, 40) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
         k++;
-        console.log(Math.easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 120) + 'px');
         if (k > 60) {
           clearInterval(positionInterval);
+          setStyle.width = "100vw";
+          setStyle.height = "100vh";
+          setStyle.right = 0;
+          setStyle.top = 0;
+          setStyle.left = 0;
+          setStyle.bottom = 0;
         }
-      }, 15);
+      }, 6);
 
       console.log(setStyle.left);
     }
+
+    // GameProfil //
     if (index == 2) {
       // variables //
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).right;
       let setStyle = sizingElement.style;
+      let widthElement = window.getComputedStyle(sizingElement).width;
+      let heightElement = window.getComputedStyle(sizingElement).height;
 
       // prepare for sizing //
       setStyle.right = positionElement;
+      setStyle.width = widthElement;
+      setStyle.height = heightElement;
       let endright = parseInt(setStyle.right.slice(0, -2)) + viewPort[0] / 4;
+      let endWidth = viewPort[0];
+      let endHeight = viewPort[1];
 
       // sizing //
       let k = 1;
       let positionInterval = setInterval(() => {
-        setStyle.right = Math.easeOutExpo(k, parseInt(setStyle.right.slice(0, -2)), endright - parseInt(setStyle.right.slice(0, -2)), 240) + 'px';
+        setStyle.right = Math.easeOutExpo(k, parseInt(setStyle.right.slice(0, -2)), endright - parseInt(setStyle.right.slice(0, -2)), 60, 40) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
         k++;
         if (k > 60) {
           clearInterval(positionInterval);
+          setStyle.width = "100vw";
+          setStyle.height = "100vh";
+          setStyle.right = 0;
+          setStyle.top = 0;
+          setStyle.left = 0;
+          setStyle.bottom = 0;
         }
-      }, 15);
+      }, 6);
     }
   }
 }
