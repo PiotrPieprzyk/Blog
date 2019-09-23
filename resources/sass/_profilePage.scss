@@ -7,6 +7,13 @@
   position: relative;
 
 
+  .white {
+    background-color: white;
+  }
+
+  .profileGalery {
+    overflow-x: scroll;
+  }
 
   @media screen and (max-aspect-ratio:1/2) {
     .profileGalery {
@@ -127,53 +134,62 @@
     }
   }
 
-  // @media (orientation: landscape) {
-  //   height: 35vw;
-  // }
 
-  // @media (orientation: portrait) {
-  //   height: 35vh;
-  // }
-
-  // .profileGalery {
-  //   @media (orientation: landscape) {
-  //     position: absolute;
-  //     left: 15vh;
-  //     width: 35vh;
-  //     height: 35vh;
-  //   }
-
-  //   @media (orientation: portrait) {
-  //     position: absolute;
-  //     top: 15vw;
-  //     width: 35vw;
-  //     height: 35vw;
-  //   }
-
-  // }
-
-  // .profileGame {
-  //   @media (orientation: landscape) {
-  //     position: absolute;
-  //     right: 15vh;
-  //     width: 35vh;
-  //     height: 45vh;
-  //   }
-
-  //   @media (orientation: portrait) {
-  //     position: absolute;
-  //     width: 35vw;
-  //     height: 35vw;
-  //   }
-
-
-
-  .activeProfilePage {
-    clip-path: circle(100% at 50% 50%) !important;
+  .graphicTitleButton {
+    display: inline;
+    font-family: 'Mansalva', cursive;
+    font-size: calc(16px + 2vw);
+    font-weight: bold;
   }
 
-  .deActivateProfilePage {
-    flex: 0 !important;
+  .gameTitleButton {
+    font-family: 'Trade Winds', cursive;
+    display: inline;
+    font-size: calc(16px + 2vw);
+    font-weight: bold;
+
   }
+
+  .GraphicProfile {
+    display: block;
+    min-height: 100vh;
+    margin-top: 100px;
+    min-height: 100vh;
+    margin-top: 100px;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+
+    .graphicTitle {
+      display: block;
+      font-family: 'Mansalva', cursive;
+      font-size: calc(20px + 2vw);
+      font-weight: bold;
+      color: black;
+    }
+
+    .addGraphicButton {
+      display: block;
+      width: 90vw;
+      height: 50px;
+      max-width: 500px;
+      border: black 5px solid;
+    }
+
+  }
+
+  .yourGraphicListWrapper {
+    display: block;
+
+  }
+}
+
+.activeProfilePage {
+  z-index: 1;
+}
+
+.deActivateProfilePage {
+  z-index: 0;
+}
 
 }

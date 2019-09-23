@@ -370,7 +370,7 @@ let sizeDown = function sizeDown(index) {
           clearInterval(positionInterval);
           setStyle.width = null;
           setStyle.height = null;
-          setStyle.right = null;
+          setStyle.left = null;
 
 
         }

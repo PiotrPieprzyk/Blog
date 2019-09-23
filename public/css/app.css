@@ -11783,6 +11783,14 @@ a:hover {
   position: relative;
 }
 
+.profileWebWrapper .white {
+  background-color: white;
+}
+
+.profileWebWrapper .profileGalery {
+  overflow-x: scroll;
+}
+
 @media screen and (max-aspect-ratio: 1/2) {
   .profileWebWrapper .profileGalery {
     position: absolute;
@@ -11895,13 +11903,65 @@ a:hover {
   }
 }
 
+.profileWebWrapper .graphicTitleButton {
+  display: inline;
+  font-family: "Mansalva", cursive;
+  font-size: calc(16px + 2vw);
+  font-weight: bold;
+}
+
+.profileWebWrapper .gameTitleButton {
+  font-family: "Trade Winds", cursive;
+  display: inline;
+  font-size: calc(16px + 2vw);
+  font-weight: bold;
+}
+
+.profileWebWrapper .GraphicProfile {
+  display: block;
+  min-height: 100vh;
+  margin-top: 100px;
+  min-height: 100vh;
+  margin-top: 100px;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.profileWebWrapper .GraphicProfile .graphicTitle {
+  display: block;
+  font-family: "Mansalva", cursive;
+  font-size: calc(20px + 2vw);
+  font-weight: bold;
+  color: black;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton {
+  display: block;
+  width: 90vw;
+  height: 50px;
+  max-width: 500px;
+  border: black 5px solid;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton::after {
+  content: "";
+  background-color: white;
+  position: absolute;
+  width: 5px;
+  left: 0;
+}
+
+.profileWebWrapper .GraphicProfile .yourGraphicListWrapper {
+  display: block;
+}
+
 .profileWebWrapper .activeProfilePage {
-  -webkit-clip-path: circle(100% at 50% 50%) !important;
-          clip-path: circle(100% at 50% 50%) !important;
+  z-index: 1;
 }
 
 .profileWebWrapper .deActivateProfilePage {
-  flex: 0 !important;
+  z-index: 0;
 }
 
 .slide-top {

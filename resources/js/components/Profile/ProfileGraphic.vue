@@ -1,5 +1,9 @@
 <template>
-	<div class="GraphicProfile">graphic</div>
+	<div class="GraphicProfile">
+		<div class="graphicTitle">GRAPHIC</div>
+		<div class="addGraphicButton"></div>
+		<div class="yourGraphicListWrapper"></div>
+	</div>
 </template>
 <script>
 import { mapState } from "vuex";

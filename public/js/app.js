@@ -2418,6 +2418,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive", "jsAnimation"]),
@@ -2443,6 +2447,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
 //
 //
 //
@@ -38964,9 +38970,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "GraphicProfile" }, [_vm._v("graphic")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "GraphicProfile" }, [
+      _c("div", { staticClass: "graphicTitle" }, [_vm._v("GRAPHIC")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "addGraphicButton" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "yourGraphicListWrapper" })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -38992,7 +39011,7 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "profileGalery",
+        staticClass: "white profileGalery",
         attrs: { disabled: !_vm.visibleProfileButton2, id: "1" },
         on: {
           click: function($event) {
@@ -39004,7 +39023,15 @@ var render = function() {
         _c(
           "transition",
           { attrs: { name: "opacity" } },
-          [_vm.visibleProfileButton1 ? _c("router-view") : _vm._e()],
+          [
+            !_vm.visibleProfileButton2
+              ? _c("router-view", { key: "profileInfo" })
+              : _c(
+                  "div",
+                  { key: "profileTitle", staticClass: "graphicTitleButton" },
+                  [_vm._v("GRAPHIC")]
+                )
+          ],
           1
         )
       ],
@@ -39014,7 +39041,7 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "profileGame",
+        staticClass: "white profileGame",
         attrs: { disabled: !_vm.visibleProfileButton1, id: "2" },
         on: {
           click: function($event) {
@@ -39026,7 +39053,15 @@ var render = function() {
         _c(
           "transition",
           { attrs: { name: "opacity" } },
-          [_vm.visibleProfileButton2 ? _c("router-view") : _vm._e()],
+          [
+            !_vm.visibleProfileButton1
+              ? _c("router-view")
+              : _c(
+                  "div",
+                  { key: "profileTitle", staticClass: "gameTitleButton" },
+                  [_vm._v("GAME")]
+                )
+          ],
           1
         )
       ],
@@ -57811,7 +57846,7 @@ var sizeDown = function sizeDown(index) {
           clearInterval(_positionInterval6);
           _setStyle6.width = null;
           _setStyle6.height = null;
-          _setStyle6.right = null;
+          _setStyle6.left = null;
         }
       }, 10);
     }
@@ -57883,7 +57918,7 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\n\r\n}\r\n^\r\n      Expected \"{\".\n    ╷\n193 │ }\r\n    │  ^\n    ╵\n  resources\\sass\\_profilePage.scss 193:2  @import\n  stdin 16:9                              root stylesheet\r\n      in C:\\xampp\\htdocs\\Blog — kopia (2)\\resources\\sass\\_profilePage.scss (line 193, column 2)\n    at C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\webpack\\lib\\NormalModule.js:313:20\n    at C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass-loader\\dist\\index.js:89:7\n    at Function.call$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:53451:16)\n    at _render_closure1.call$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:33267:12)\n    at _RootZone.runBinary$3$3 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:19664:18)\n    at _RootZone.runBinary$3 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:19668:19)\n    at _FutureListener.handleError$1 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18136:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18421:40)\n    at Object._Future__propagateToListeners (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:3470:88)\n    at _Future._completeError$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18257:9)\n    at _SyncCompleter._completeError$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18123:19)\n    at _SyncCompleter.completeError$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18092:12)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:17629:25)\n    at Object._asyncRethrow (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:3226:17)\n    at C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:10407:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:3249:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:17664:12)\n    at _awaitOnObject_closure0.call$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:17656:25)\n    at _RootZone.runBinary$3$3 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:19664:18)\n    at _RootZone.runBinary$3 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:19668:19)\n    at _FutureListener.handleError$1 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18136:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18421:40)\n    at Object._Future__propagateToListeners (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:3470:88)\n    at _Future._completeError$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18257:9)\n    at _SyncCompleter._completeError$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18123:19)\n    at _SyncCompleter.completeError$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18092:12)\n    at Object.eval (eval at Closure_forwardCallTo (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:1:1), <anonymous>:3:41)\n    at _RootZone.runBinary$3$3 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:19664:18)\n    at _RootZone.runBinary$3 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:19668:19)\n    at _FutureListener.handleError$1 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18136:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18421:40)\n    at Object._Future__propagateToListeners (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:3470:88)\n    at _Future._completeError$2 (C:\\xampp\\htdocs\\Blog — kopia (2)\\node_modules\\sass\\sass.dart.js:18257:9)");
 
 /***/ }),
 
