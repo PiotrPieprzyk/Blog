@@ -13,26 +13,11 @@ export default {
 		"jsAnimation"
 	]),
 
-	mounted() {
-		// Pojawianie się strony
-		document.getElementById(2).classList.add("activeProfilePage");
-		document.getElementById(1).classList.add("deActivateProfilePage");
-		this.$store.commit("changeVisibleProfileButton2", true);
-		this.$store.commit("changebuttonProfileActive", true);
-		this.$store.commit("changeVisibleProfileButton1", false);
-		this.$store.commit("changeProfileCardActive", 2);
-	},
-	beforeEnter: (to, from, next) => {
-		console.log(from);
-		next();
-	},
+	mounted() {},
 	beforeRouteLeave(to, from, next) {
 		document.getElementById(2).classList.remove("activeProfilePage");
 		document.getElementById(1).classList.remove("deActivateProfilePage");
 		// Wracanie do listy profil
-		this.$store.commit("changeVisibleProfileButton1", true);
-		this.$store.commit("changeVisibleProfileButton2", true);
-		this.$store.commit("changebuttonProfileActive", false);
 
 		next();
 	}

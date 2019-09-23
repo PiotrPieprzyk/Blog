@@ -2394,26 +2394,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive", "jsAnimation"]),
-  mounted: function mounted() {
-    // Pojawianie się strony
-    document.getElementById(2).classList.add("activeProfilePage");
-    document.getElementById(1).classList.add("deActivateProfilePage");
-    this.$store.commit("changeVisibleProfileButton2", true);
-    this.$store.commit("changebuttonProfileActive", true);
-    this.$store.commit("changeVisibleProfileButton1", false);
-    this.$store.commit("changeProfileCardActive", 2);
-  },
-  beforeEnter: function beforeEnter(to, from, next) {
-    console.log(from);
-    next();
-  },
+  mounted: function mounted() {},
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
     document.getElementById(2).classList.remove("activeProfilePage");
     document.getElementById(1).classList.remove("deActivateProfilePage"); // Wracanie do listy profil
 
-    this.$store.commit("changeVisibleProfileButton1", true);
-    this.$store.commit("changeVisibleProfileButton2", true);
-    this.$store.commit("changebuttonProfileActive", false);
     next();
   }
 });
@@ -2436,36 +2421,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["profileCardActive", "visibleProfileButton2", "visibleProfileButton1", "buttonProfileActive", "jsAnimation"]),
-  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    if (from.fullPath != "/profile/2/") {
-      var sizingElement = document.getElementById(1);
-      var setStyle = sizingElement.style;
-      setStyle.width = "100vw";
-      setStyle.height = "100vh";
-      setStyle.right = 0;
-      setStyle.top = 0;
-      setStyle.left = 0;
-      setStyle.bottom = 0;
-    }
-
-    next();
-  },
-  mounted: function mounted() {
-    document.getElementById(1).classList.add("activeProfilePage");
-    document.getElementById(2).classList.add("deActivateProfilePage");
-    this.$store.commit("changeVisibleProfileButton1", true);
-    this.$store.commit("changebuttonProfileActive", true);
-    this.$store.commit("changeVisibleProfileButton2", false);
-    this.$store.commit("changeProfileCardActive", 1);
-  },
+  mounted: function mounted() {},
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
-    console.log("działa");
+    console.log("działa true");
     document.getElementById(1).classList.remove("activeProfilePage");
     document.getElementById(2).classList.remove("deActivateProfilePage"); // Wracanie do listy profil
 
-    this.$store.commit("changeVisibleProfileButton1", true);
-    this.$store.commit("changeVisibleProfileButton2", true);
-    this.$store.commit("changebuttonProfileActive", false);
     next();
   }
 });
@@ -2494,6 +2455,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2508,28 +2471,103 @@ __webpack_require__.r(__webpack_exports__);
         this.$router.push({
           name: "profileGraphic"
         });
-        this.jsAnimation.sizeUp(1);
       } else {
         this.$router.push({
           name: "profileGame"
         });
-        this.jsAnimation.sizeUp(2);
       }
     }
   },
   mounted: function mounted() {},
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
-    var path1 = to.fullPath;
-    var path2 = from.fullPath;
-    var splitPath1 = path1.split("/");
-    var splitPath2 = path2.split("/");
+    var _this = this;
 
-    if (splitPath1.length == splitPath2.length) {
-      console.log("działa");
+    // variables //
+    var toPath = to.fullPath;
+    var fromPath = from.fullPath;
+    var splitToPath = toPath.split("/");
+    var splitFromPath = fromPath.split("/"); // RegExp //
+
+    var regGraphic = new RegExp("/profile/+[0-9]+/graphic");
+    var regGame = new RegExp("/profile/+[0-9]+/game"); // which route //
+
+    if (regGraphic.test(fromPath)) {
+      this.jsAnimation.sizeDown(1);
+      this.$store.commit("changeVisibleProfileButton1", true);
+      this.$store.commit("changebuttonProfileActive", false);
       setTimeout(function () {
-        return next();
+        _this.$store.commit("changeVisibleProfileButton2", true);
+
+        next();
       }, 1000);
-    } else {
+    }
+
+    if (regGame.test(fromPath)) {
+      this.jsAnimation.sizeDown(2);
+      this.$store.commit("changeVisibleProfileButton2", true);
+      this.$store.commit("changebuttonProfileActive", false);
+      setTimeout(function () {
+        _this.$store.commit("changeVisibleProfileButton1", true);
+
+        next();
+      }, 1000);
+    }
+
+    if (splitToPath.length == splitFromPath.length) {
+      setTimeout(function () {
+        if (regGraphic.test(toPath)) {
+          _this.jsAnimation.sizeUp(1);
+
+          document.getElementById(1).classList.add("activeProfilePage");
+          document.getElementById(2).classList.add("deActivateProfilePage");
+
+          _this.$store.commit("changeVisibleProfileButton1", true);
+
+          _this.$store.commit("changebuttonProfileActive", true);
+
+          _this.$store.commit("changeVisibleProfileButton2", false);
+
+          _this.$store.commit("changeProfileCardActive", 1);
+        } else {
+          _this.jsAnimation.sizeUp(2);
+
+          document.getElementById(1).classList.add("activeProfilePage");
+          document.getElementById(2).classList.add("deActivateProfilePage");
+
+          _this.$store.commit("changeVisibleProfileButton1", true);
+
+          _this.$store.commit("changebuttonProfileActive", true);
+
+          _this.$store.commit("changeVisibleProfileButton2", false);
+
+          _this.$store.commit("changeProfileCardActive", 1);
+        }
+
+        setTimeout(function () {
+          return next();
+        }, 1000);
+      }, 300);
+    }
+
+    if (regGraphic.test(toPath) && !(splitToPath.length == splitFromPath.length)) {
+      this.jsAnimation.sizeUp(1);
+      document.getElementById(1).classList.add("activeProfilePage");
+      document.getElementById(2).classList.add("deActivateProfilePage");
+      this.$store.commit("changeVisibleProfileButton1", true);
+      this.$store.commit("changebuttonProfileActive", true);
+      this.$store.commit("changeVisibleProfileButton2", false);
+      this.$store.commit("changeProfileCardActive", 1);
+      next();
+    }
+
+    if (regGame.test(toPath) && !(splitToPath.length == splitFromPath.length)) {
+      this.jsAnimation.sizeUp(2);
+      document.getElementById(2).classList.add("activeProfilePage");
+      document.getElementById(1).classList.add("deActivateProfilePage");
+      this.$store.commit("changeVisibleProfileButton1", false);
+      this.$store.commit("changebuttonProfileActive", true);
+      this.$store.commit("changeVisibleProfileButton2", true);
+      this.$store.commit("changeProfileCardActive", 1);
       next();
     }
   }
@@ -38950,11 +38988,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "profileWebWrapper" },
-    [
-      _c("button", {
+  return _c("div", { staticClass: "profileWebWrapper" }, [
+    _c(
+      "button",
+      {
         staticClass: "profileGalery",
         attrs: { disabled: !_vm.visibleProfileButton2, id: "1" },
         on: {
@@ -38962,9 +38999,21 @@ var render = function() {
             return _vm.scaleUp(1)
           }
         }
-      }),
-      _vm._v(" "),
-      _c("button", {
+      },
+      [
+        _c(
+          "transition",
+          { attrs: { name: "opacity" } },
+          [_vm.visibleProfileButton1 ? _c("router-view") : _vm._e()],
+          1
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
         staticClass: "profileGame",
         attrs: { disabled: !_vm.visibleProfileButton1, id: "2" },
         on: {
@@ -38972,24 +39021,18 @@ var render = function() {
             return _vm.scaleUp(2)
           }
         }
-      }),
-      _vm._v(" "),
-      _c(
-        "transition",
-        { attrs: { name: "opacity" } },
-        [_vm.visibleProfileButton1 ? _c("router-view") : _vm._e()],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "transition",
-        { attrs: { name: "opacity" } },
-        [_vm.visibleProfileButton2 ? _c("router-view") : _vm._e()],
-        1
-      )
-    ],
-    1
-  )
+      },
+      [
+        _c(
+          "transition",
+          { attrs: { name: "opacity" } },
+          [_vm.visibleProfileButton2 ? _c("router-view") : _vm._e()],
+          1
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57394,7 +57437,7 @@ var viewPortProperties = function viewPortProperties() {
 
 Math.easeOutExpo = function (t, b, c, d, x) {
   if (t <= x) {
-    return c * Math.sin(t / (d * 4) * (Math.PI / 2)) + b;
+    return c * Math.sin(t / d / 4 * (Math.PI / 2)) + b;
   }
 
   if (t > x) {
@@ -57410,8 +57453,7 @@ var sizeUp = function sizeUp(index) {
   var viewPort = viewPortProperties();
 
   if (viewPort[0] < viewPort[1]) {
-    console.log("phone"); // GraphicProfil //
-
+    // GraphicProfil //
     if (index == 1) {
       // variables //
       var sizingElement = document.getElementById(index);
@@ -57425,9 +57467,7 @@ var sizeUp = function sizeUp(index) {
       setStyle.height = heightElement;
       var endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 6;
       var endWidth = viewPort[0];
-      var endHeight = viewPort[1];
-      console.log(viewPort[0]);
-      console.log(endHeight); // sizing // 
+      var endHeight = viewPort[1]; // sizing // 
 
       var k = 1;
       var positionInterval = setInterval(function () {
@@ -57435,20 +57475,16 @@ var sizeUp = function sizeUp(index) {
         setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
         setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
         k++;
-        console.log(setStyle.top);
 
         if (k > 60) {
           clearInterval(positionInterval);
           setTimeout(function () {
             setStyle.width = "100vw";
             setStyle.height = "100vh";
-            setStyle.right = 0;
             setStyle.top = 0;
-            setStyle.left = 0;
-            setStyle.bottom = 0;
-          }, 500);
+          }, 1000);
         }
-      }, 6);
+      }, 10);
     } // GameProfil //
 
 
@@ -57478,12 +57514,11 @@ var sizeUp = function sizeUp(index) {
 
         if (_k > 60) {
           clearInterval(_positionInterval);
-          _setStyle.width = "100vw";
-          _setStyle.height = "100vh";
-          _setStyle.right = 0;
-          _setStyle.top = 0;
-          _setStyle.left = 0;
-          _setStyle.bottom = 0;
+          setTimeout(function () {
+            _setStyle.width = "100vw";
+            _setStyle.height = "100vh";
+            _setStyle.bottom = 0;
+          }, 1000);
         }
       }, 6);
     }
@@ -57517,16 +57552,13 @@ var sizeUp = function sizeUp(index) {
 
         if (_k2 > 60) {
           clearInterval(_positionInterval2);
-          _setStyle2.width = "100vw";
-          _setStyle2.height = "100vh";
-          _setStyle2.right = 0;
-          _setStyle2.top = 0;
-          _setStyle2.left = 0;
-          _setStyle2.bottom = 0;
+          setTimeout(function () {
+            _setStyle2.width = "100vw";
+            _setStyle2.height = "100vh";
+            _setStyle2.left = 0;
+          }, 1000);
         }
       }, 6);
-
-      console.log(_setStyle2.left);
     } // GameProfil //
 
 
@@ -57556,20 +57588,239 @@ var sizeUp = function sizeUp(index) {
 
         if (_k3 > 60) {
           clearInterval(_positionInterval3);
-          _setStyle3.width = "100vw";
-          _setStyle3.height = "100vh";
-          _setStyle3.right = 0;
-          _setStyle3.top = 0;
-          _setStyle3.left = 0;
-          _setStyle3.bottom = 0;
+          setTimeout(function () {
+            _setStyle3.width = "100vw";
+            _setStyle3.height = "100vh";
+            _setStyle3.right = 0;
+          }, 1000);
         }
       }, 6);
     }
   }
 };
 
+var sizeDown = function sizeDown(index) {
+  var viewPort = viewPortProperties();
+
+  if (viewPort[0] < viewPort[1]) {
+    // GraphicProfil //
+    if (index == 1) {
+      // variables //
+      var sizingElement = document.getElementById(index);
+      var positionElement = window.getComputedStyle(sizingElement).top;
+      var setStyle = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height;
+      var endTop;
+      var endWidth;
+      var endHeight; // aspectRatio
+
+      var aspectRatio = viewPort[0] / viewPort[1];
+
+      if (aspectRatio <= 1 / 2) {
+        endTop = (viewPort[1] / 2 - viewPort[0] / 2) / 2;
+        endWidth = viewPort[0] / 2;
+        endHeight = viewPort[0] / 2;
+      }
+
+      if (aspectRatio > 1 / 2 && aspectRatio < 1) {
+        endTop = viewPort[1] / 8;
+        endWidth = viewPort[1] / 4;
+        endHeight = viewPort[1] / 4;
+      } // prepare for sizing //
+
+
+      setStyle.top = positionElement;
+      setStyle.width = widthElement;
+      setStyle.height = heightElement; // sizing // 
+
+      var k = 60;
+      var i = 1;
+      var positionInterval = setInterval(function () {
+        setStyle.top = Math.easeInExpo(i, 0, endTop, 60, 30) + 'px';
+        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 60) + 'px';
+        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 60) + 'px';
+        k--;
+        i++;
+
+        if (k == 1) {
+          clearInterval(positionInterval);
+          setStyle.width = null;
+          setStyle.height = null;
+          setStyle.top = null;
+        }
+      }, 10);
+    } // GameProfil //
+
+
+    if (index == 2) {
+      // variables //
+      var _sizingElement4 = document.getElementById(index);
+
+      var _positionElement4 = window.getComputedStyle(_sizingElement4).bottom;
+      var _setStyle4 = _sizingElement4.style;
+      var _widthElement4 = window.getComputedStyle(_sizingElement4).width;
+      var _heightElement4 = window.getComputedStyle(_sizingElement4).height;
+      var endBottom;
+
+      var _endWidth4;
+
+      var _endHeight4; // aspectRatio
+
+
+      var _aspectRatio = viewPort[0] / viewPort[1];
+
+      if (_aspectRatio <= 1 / 2) {
+        endBottom = (viewPort[1] / 2 - viewPort[0] / 2) / 2;
+        _endWidth4 = viewPort[0] / 2;
+        _endHeight4 = viewPort[0] / 2;
+      }
+
+      if (_aspectRatio > 1 / 2 && _aspectRatio < 1) {
+        endBottom = viewPort[1] / 8;
+        _endWidth4 = viewPort[1] / 4;
+        _endHeight4 = viewPort[1] / 4;
+      } // prepare for sizing //
+
+
+      _setStyle4.width = _widthElement4;
+      _setStyle4.height = _heightElement4;
+      _setStyle4.bottom = _positionElement4; // sizing // 
+
+      var _k4 = 60;
+      var _i = 1;
+
+      var _positionInterval4 = setInterval(function () {
+        _setStyle4.bottom = Math.easeInExpo(_i, 0, endBottom, 60, 30) + 'px';
+        _setStyle4.width = Math.easeInExpo(_k4, _endWidth4, viewPort[0] - _endWidth4, 60) + 'px';
+        _setStyle4.height = Math.easeInExpo(_k4, _endHeight4, viewPort[1] - _endHeight4, 60) + 'px';
+        _k4--;
+        _i++;
+
+        if (_k4 == 1) {
+          clearInterval(_positionInterval4);
+          _setStyle4.width = null;
+          _setStyle4.height = null;
+          _setStyle4.bottom = null;
+        }
+      }, 10);
+    }
+  }
+
+  if (viewPort[0] >= viewPort[1]) {
+    // GraphicProfil //
+    if (index == 1) {
+      // variables //
+      var _sizingElement5 = document.getElementById(index);
+
+      var _positionElement5 = window.getComputedStyle(_sizingElement5).left;
+      var _setStyle5 = _sizingElement5.style;
+      var _widthElement5 = window.getComputedStyle(_sizingElement5).width;
+      var _heightElement5 = window.getComputedStyle(_sizingElement5).height;
+      var endleft;
+
+      var _endWidth5;
+
+      var _endHeight5; // aspectRatio
+
+
+      var _aspectRatio2 = viewPort[0] / viewPort[1];
+
+      if (_aspectRatio2 >= 1 && _aspectRatio2 < 2 / 1) {
+        endleft = viewPort[0] / 8;
+        _endWidth5 = viewPort[0] / 4;
+        _endHeight5 = viewPort[0] / 4;
+      }
+
+      if (_aspectRatio2 > 2 / 1) {
+        endleft = viewPort[0] / 2 - viewPort[1] / 2 / 2;
+        _endWidth5 = viewPort[1] / 2;
+        _endHeight5 = viewPort[1] / 2;
+      } // prepare for sizing //
+
+
+      _setStyle5.left = _positionElement5;
+      _setStyle5.width = _widthElement5;
+      _setStyle5.height = _heightElement5; // sizing //
+
+      var _k5 = 60;
+      var _i2 = 1;
+
+      var _positionInterval5 = setInterval(function () {
+        _setStyle5.left = Math.easeInExpo(_i2, 0, endleft, 60, 30) + 'px';
+        _setStyle5.width = Math.easeInExpo(_k5, _endWidth5, viewPort[0] - _endWidth5, 60) + 'px';
+        _setStyle5.height = Math.easeInExpo(_k5, _endHeight5, viewPort[1] - _endHeight5, 60) + 'px';
+        _k5--;
+        _i2++;
+
+        if (_k5 == 1) {
+          clearInterval(_positionInterval5);
+          _setStyle5.width = null;
+          _setStyle5.height = null;
+          _setStyle5.left = null;
+        }
+      }, 10);
+    } // GameProfil //
+
+
+    if (index == 2) {
+      // variables //
+      var _sizingElement6 = document.getElementById(index);
+
+      var _positionElement6 = window.getComputedStyle(_sizingElement6).right;
+      var _setStyle6 = _sizingElement6.style;
+      var _widthElement6 = window.getComputedStyle(_sizingElement6).width;
+      var _heightElement6 = window.getComputedStyle(_sizingElement6).height;
+      var endRight;
+
+      var _endWidth6;
+
+      var _endHeight6; // aspectRatio
+
+
+      var _aspectRatio3 = viewPort[0] / viewPort[1];
+
+      if (_aspectRatio3 >= 1 && _aspectRatio3 < 2 / 1) {
+        endRight = viewPort[0] / 8;
+        _endWidth6 = viewPort[0] / 4;
+        _endHeight6 = viewPort[0] / 4;
+      }
+
+      if (_aspectRatio3 > 2 / 1) {
+        endRight = viewPort[0] / 2 - viewPort[1] / 2 / 2;
+        _endWidth6 = viewPort[1] / 2;
+        _endHeight6 = viewPort[1] / 2;
+      } // prepare for sizing //
+
+
+      _setStyle6.right = _positionElement6;
+      _setStyle6.width = _widthElement6;
+      _setStyle6.height = _heightElement6; // sizing //
+
+      var _k6 = 60;
+      var _i3 = 1;
+
+      var _positionInterval6 = setInterval(function () {
+        _setStyle6.right = Math.easeInExpo(_i3, 0, endRight, 60, 30) + 'px';
+        _setStyle6.width = Math.easeInExpo(_k6, _endWidth6, viewPort[0] - _endWidth6, 60) + 'px';
+        _setStyle6.height = Math.easeInExpo(_k6, _endHeight6, viewPort[1] - _endHeight6, 60) + 'px';
+        _k6--;
+        _i3++;
+
+        if (_k6 == 1) {
+          clearInterval(_positionInterval6);
+          _setStyle6.width = null;
+          _setStyle6.height = null;
+          _setStyle6.right = null;
+        }
+      }, 10);
+    }
+  }
+};
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  sizeUp: sizeUp
+  sizeUp: sizeUp,
+  sizeDown: sizeDown
 });
 
 /***/ }),
