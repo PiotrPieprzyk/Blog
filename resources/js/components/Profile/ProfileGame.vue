@@ -13,10 +13,11 @@ export default {
 		"jsAnimation"
 	]),
 
-	mounted() {},
+	mounted() {
+		console.log("hey im Game");
+	},
 	beforeRouteLeave(to, from, next) {
 		document.getElementById(2).classList.remove("activeProfilePage");
-		document.getElementById(1).classList.remove("deActivateProfilePage");
 		// Wracanie do listy profil
 
 		next();

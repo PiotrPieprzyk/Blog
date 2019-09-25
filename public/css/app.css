@@ -11931,37 +11931,79 @@ a:hover {
 .profileWebWrapper .GraphicProfile .graphicTitle {
   display: block;
   font-family: "Mansalva", cursive;
-  font-size: calc(20px + 2vw);
+  font-size: calc(40px + 2vw);
   font-weight: bold;
   color: black;
 }
 
 .profileWebWrapper .GraphicProfile .addGraphicButton {
-  display: block;
+  display: flex;
   width: 90vw;
   height: 50px;
   max-width: 500px;
   border: black 5px solid;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  position: relative;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton .formNewGraphic {
+  z-index: 1;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton .plusItem {
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
+  align-items: center;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton .plusItem .singleBar {
+  display: block;
+  display: block;
+  width: 20px;
+  height: 3px;
+  border-radius: 1px;
+  position: absolute;
+  background-color: black;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton .plusItem .singleBar:nth-child(1) {
+  transform: rotate(90deg);
 }
 
 .profileWebWrapper .GraphicProfile .addGraphicButton::after {
   content: "";
+  bottom: -10px;
+  width: calc(100% - 30px);
+  height: 15px;
   background-color: white;
   position: absolute;
-  width: 5px;
-  left: 0;
+  box-shadow: white 0 -45px;
 }
 
-.profileWebWrapper .GraphicProfile .yourGraphicListWrapper {
+.profileWebWrapper .GraphicProfile .addGraphicButton::before {
+  content: "";
+  width: calc(100% + 13px);
+  height: 20px;
+  background-color: white;
+  position: absolute;
+}
+
+.yourGraphicListWrapper {
   display: block;
 }
 
-.profileWebWrapper .activeProfilePage {
+.activeProfilePage {
   z-index: 1;
-}
-
-.profileWebWrapper .deActivateProfilePage {
-  z-index: 0;
+  width: 100vw !important;
+  min-height: 100vh !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
 }
 
 .slide-top {

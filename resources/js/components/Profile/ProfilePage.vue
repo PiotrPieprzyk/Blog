@@ -39,7 +39,24 @@ export default {
 			}
 		}
 	},
-	mounted() {},
+	mounted() {
+		console.log("hey im Profile");
+
+		if (this.$router.history.current.name == "profileGraphic") {
+			this.$store.commit("changeVisibleProfileButton1", true);
+			this.$store.commit("changebuttonProfileActive", true);
+			this.$store.commit("changeVisibleProfileButton2", false);
+			this.$store.commit("changeProfileCardActive", 1);
+			document.getElementById(1).classList.add("activeProfilePage");
+		}
+		if (this.$router.history.current.name == "profileGame") {
+			this.$store.commit("changeVisibleProfileButton2", true);
+			this.$store.commit("changebuttonProfileActive", true);
+			this.$store.commit("changeVisibleProfileButton1", false);
+			this.$store.commit("changeProfileCardActive", 2);
+			document.getElementById(2).classList.add("activeProfilePage");
+		}
+	},
 	beforeRouteUpdate(to, from, next) {
 		// variables //
 		let toPath = to.fullPath;
@@ -77,16 +94,14 @@ export default {
 			setTimeout(() => {
 				if (regGraphic.test(toPath)) {
 					this.jsAnimation.sizeUp(1);
-					document.getElementById(1).classList.add("activeProfilePage");
-					document.getElementById(2).classList.add("deActivateProfilePage");
+
 					this.$store.commit("changeVisibleProfileButton1", true);
 					this.$store.commit("changebuttonProfileActive", true);
 					this.$store.commit("changeVisibleProfileButton2", false);
 					this.$store.commit("changeProfileCardActive", 1);
 				} else {
 					this.jsAnimation.sizeUp(2);
-					document.getElementById(1).classList.add("activeProfilePage");
-					document.getElementById(2).classList.add("deActivateProfilePage");
+
 					this.$store.commit("changeVisibleProfileButton1", true);
 					this.$store.commit("changebuttonProfileActive", true);
 					this.$store.commit("changeVisibleProfileButton2", false);
@@ -101,8 +116,6 @@ export default {
 		) {
 			this.jsAnimation.sizeUp(1);
 
-			document.getElementById(1).classList.add("activeProfilePage");
-			document.getElementById(2).classList.add("deActivateProfilePage");
 			this.$store.commit("changeVisibleProfileButton1", true);
 			this.$store.commit("changebuttonProfileActive", true);
 			this.$store.commit("changeVisibleProfileButton2", false);
@@ -111,8 +124,7 @@ export default {
 		}
 		if (regGame.test(toPath) && !(splitToPath.length == splitFromPath.length)) {
 			this.jsAnimation.sizeUp(2);
-			document.getElementById(2).classList.add("activeProfilePage");
-			document.getElementById(1).classList.add("deActivateProfilePage");
+
 			this.$store.commit("changeVisibleProfileButton1", false);
 			this.$store.commit("changebuttonProfileActive", true);
 			this.$store.commit("changeVisibleProfileButton2", true);
