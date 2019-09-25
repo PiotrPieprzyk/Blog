@@ -41,3 +41,19 @@
     opacity: 0;
   }
 }
+
+.delay-enter {
+  opacity: 0;
+}
+
+.delay-enter-active {
+  transition: opacity 1s;
+}
+
+.delay-leave {}
+
+.delay-leave-active {
+  transition: opacity 1s;
+
+  opacity: 0;
+}

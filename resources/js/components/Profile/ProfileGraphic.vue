@@ -2,14 +2,21 @@
 	<div class="GraphicProfile">
 		<div class="graphicTitle">GRAPHIC</div>
 		<div class="addGraphicButton">
-			<form class="formNewGraphic" method="POST" action="/graphics" enctype="multipart/form-data">
+			<form
+				v-if="addButtonActive"
+				class="formNewGraphic"
+				method="POST"
+				action="/graphics"
+				enctype="multipart/form-data"
+			>
 				<input type="hidden" name="_token" :value="csrf" />
 				<input type="file" name="graphic" ref="file" @change="processFile($event)" />
 				<div class="submitWraper">
-					<button @click="sendPhoto" class="submitForm" style>PRESS</button>
+					<button @click="sendPhoto" class="submitForm">Dodaj</button>
 				</div>
 			</form>
-			<div class="plusItem">
+
+			<div class="plusItem" @click="activeAddButton()">
 				<div class="singleBar"></div>
 				<div class="singleBar"></div>
 			</div>
@@ -60,7 +67,8 @@ export default {
 			userId: this.$router.history.current.params.id,
 			listGraphics: "",
 			OnSlider: false,
-			activeGaleryId: ""
+			activeGaleryId: "",
+			addButtonActive: false
 		};
 	},
 	methods: {
@@ -68,6 +76,7 @@ export default {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
 		},
+		// Api
 		sendPhoto(e) {
 			e.preventDefault();
 			let objThis = this;
@@ -101,6 +110,19 @@ export default {
 		processFile(event) {
 			console.log("work");
 			this.graphic = this.$refs.file.files[0];
+		},
+
+		// Animation
+		activeAddButton() {
+			if (this.addButtonActive == false) {
+				let it = this;
+				this.jsAnimation.scale_widthUP(it);
+				this.jsAnimation.spin_the_crossUP();
+			} else {
+				let it = this;
+				this.jsAnimation.scale_widthDown(it);
+				this.jsAnimation.spin_the_crossDown();
+			}
 		}
 	},
 	mounted() {

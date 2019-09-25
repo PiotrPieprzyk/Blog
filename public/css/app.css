@@ -11950,6 +11950,8 @@ a:hover {
 
 .profileWebWrapper .GraphicProfile .addGraphicButton .formNewGraphic {
   z-index: 1;
+  display: flex;
+  overflow: hidden;
 }
 
 .profileWebWrapper .GraphicProfile .addGraphicButton .plusItem {
@@ -12316,6 +12318,19 @@ a:hover {
   to {
     opacity: 0;
   }
+}
+
+.delay-enter {
+  opacity: 0;
+}
+
+.delay-enter-active {
+  transition: opacity 1s;
+}
+
+.delay-leave-active {
+  transition: opacity 1s;
+  opacity: 0;
 }
 
 .scaleUpCenter {

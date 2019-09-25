@@ -2488,6 +2488,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2508,7 +2515,8 @@ __webpack_require__.r(__webpack_exports__);
       userId: this.$router.history.current.params.id,
       listGraphics: "",
       OnSlider: false,
-      activeGaleryId: ""
+      activeGaleryId: "",
+      addButtonActive: false
     };
   },
   methods: {
@@ -2516,6 +2524,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activeGaleryId = id;
       this.OnSlider = true;
     },
+    // Api
     sendPhoto: function sendPhoto(e) {
       var _this = this;
 
@@ -2544,6 +2553,19 @@ __webpack_require__.r(__webpack_exports__);
     processFile: function processFile(event) {
       console.log("work");
       this.graphic = this.$refs.file.files[0];
+    },
+    // Animation
+    activeAddButton: function activeAddButton() {
+      if (this.addButtonActive == false) {
+        var it = this;
+        this.jsAnimation.scale_widthUP(it);
+        this.jsAnimation.spin_the_crossUP();
+      } else {
+        var _it = this;
+
+        this.jsAnimation.scale_widthDown(_it);
+        this.jsAnimation.spin_the_crossDown();
+      }
     }
   },
   mounted: function mounted() {
@@ -47062,43 +47084,60 @@ var render = function() {
     _c("div", { staticClass: "graphicTitle" }, [_vm._v("GRAPHIC")]),
     _vm._v(" "),
     _c("div", { staticClass: "addGraphicButton" }, [
+      _vm.addButtonActive
+        ? _c(
+            "form",
+            {
+              staticClass: "formNewGraphic",
+              attrs: {
+                method: "POST",
+                action: "/graphics",
+                enctype: "multipart/form-data"
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "hidden", name: "_token" },
+                domProps: { value: _vm.csrf }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                ref: "file",
+                attrs: { type: "file", name: "graphic" },
+                on: {
+                  change: function($event) {
+                    return _vm.processFile($event)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "submitWraper" }, [
+                _c(
+                  "button",
+                  { staticClass: "submitForm", on: { click: _vm.sendPhoto } },
+                  [_vm._v("Dodaj")]
+                )
+              ])
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
-        "form",
+        "div",
         {
-          staticClass: "formNewGraphic",
-          attrs: {
-            method: "POST",
-            action: "/graphics",
-            enctype: "multipart/form-data"
+          staticClass: "plusItem",
+          on: {
+            click: function($event) {
+              return _vm.activeAddButton()
+            }
           }
         },
         [
-          _c("input", {
-            attrs: { type: "hidden", name: "_token" },
-            domProps: { value: _vm.csrf }
-          }),
+          _c("div", { staticClass: "singleBar" }),
           _vm._v(" "),
-          _c("input", {
-            ref: "file",
-            attrs: { type: "file", name: "graphic" },
-            on: {
-              change: function($event) {
-                return _vm.processFile($event)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "submitWraper" }, [
-            _c(
-              "button",
-              { staticClass: "submitForm", on: { click: _vm.sendPhoto } },
-              [_vm._v("PRESS")]
-            )
-          ])
+          _c("div", { staticClass: "singleBar" })
         ]
-      ),
-      _vm._v(" "),
-      _vm._m(0)
+      )
     ]),
     _vm._v(" "),
     _c(
@@ -47168,18 +47207,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "plusItem" }, [
-      _c("div", { staticClass: "singleBar" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "singleBar" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -64550,6 +64578,88 @@ function extend() {
 
 /***/ }),
 
+/***/ "./resources/js/animationJs/scale_width.js":
+/*!*************************************************!*\
+  !*** ./resources/js/animationJs/scale_width.js ***!
+  \*************************************************/
+/*! exports provided: scale_widthUP, spin_the_crossUP, scale_widthDown, spin_the_crossDown */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale_widthUP", function() { return scale_widthUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spin_the_crossUP", function() { return spin_the_crossUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale_widthDown", function() { return scale_widthDown; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spin_the_crossDown", function() { return spin_the_crossDown; });
+Math.easeOutQuart = function (t, b, c, d) {
+  t /= d;
+  t--;
+  return -c * (t * t * t * t - 1) + b;
+};
+
+function scale_widthUP(store) {
+  store.addButtonActive = true;
+  var element = document.querySelector('.formNewGraphic');
+  var button = document.querySelector('.addGraphicButton');
+  var buttonWidth = window.getComputedStyle(button).width;
+  var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.8;
+  var k = 1;
+  var interval1 = setInterval(function () {
+    element.style.width = Math.easeOutQuart(k, 1, maxElementWidth, 60) + "px";
+    k++;
+
+    if (k > 60) {
+      clearInterval(interval1);
+    }
+  }, 10);
+}
+function spin_the_crossUP() {
+  var cross = document.querySelector(".plusItem");
+  cross.style.transform = 'rotate(' + 0 + 'deg)';
+  var i = 1;
+  var interval2 = setInterval(function () {
+    console.log(cross.style.transform);
+    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 315, 60) + 'deg)';
+    i++;
+
+    if (i > 60) {
+      clearInterval(interval2);
+    }
+  }, 10);
+}
+function scale_widthDown(it) {
+  var element = document.querySelector('.formNewGraphic');
+  var button = document.querySelector('.addGraphicButton');
+  var buttonWidth = window.getComputedStyle(button).width;
+  var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.8;
+  var k = 59;
+  var interval3 = setInterval(function () {
+    element.style.width = Math.easeOutQuart(k, 0, maxElementWidth, 60) + "px";
+    k--;
+    console.log(element.style.width);
+
+    if (k < 0) {
+      clearInterval(interval3);
+      it.addButtonActive = false;
+    }
+  }, 10);
+}
+function spin_the_crossDown() {
+  var cross = document.querySelector(".plusItem");
+  cross.style.transform = 'rotate(' + 0 + 'deg)';
+  var i = 60;
+  var interval4 = setInterval(function () {
+    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 315, 60) + 'deg)';
+    i--;
+
+    if (i < 0) {
+      clearInterval(interval4);
+    }
+  }, 10);
+}
+
+/***/ }),
+
 /***/ "./resources/js/animationJs/sizeDown.js":
 /*!**********************************************!*\
   !*** ./resources/js/animationJs/sizeDown.js ***!
@@ -66134,11 +66244,17 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animationJs_sizeUp_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animationJs/sizeUp.js */ "./resources/js/animationJs/sizeUp.js");
 /* harmony import */ var _animationJs_sizeDown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animationJs/sizeDown.js */ "./resources/js/animationJs/sizeDown.js");
+/* harmony import */ var _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animationJs/scale_width.js */ "./resources/js/animationJs/scale_width.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   sizeUp: _animationJs_sizeUp_js__WEBPACK_IMPORTED_MODULE_0__["sizeUp"],
-  sizeDown: _animationJs_sizeDown_js__WEBPACK_IMPORTED_MODULE_1__["sizeDown"]
+  sizeDown: _animationJs_sizeDown_js__WEBPACK_IMPORTED_MODULE_1__["sizeDown"],
+  scale_widthUP: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["scale_widthUP"],
+  scale_widthDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["scale_widthDown"],
+  spin_the_crossUP: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossUP"],
+  spin_the_crossDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossDown"]
 });
 
 /***/ }),
