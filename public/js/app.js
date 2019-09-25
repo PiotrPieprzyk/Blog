@@ -2646,25 +2646,22 @@ __webpack_require__.r(__webpack_exports__);
     var regGame = new RegExp("/profile/+[0-9]+/game"); // which route //
 
     if (regGraphic.test(fromPath)) {
+      var it = this;
       this.jsAnimation.sizeDown(1);
       this.$store.commit("changeVisibleProfileButton1", true);
       this.$store.commit("changebuttonProfileActive", false);
-      setTimeout(function () {
-        _this.$store.commit("changeVisibleProfileButton2", true);
-
-        next();
-      }, 1000);
+      this.$store.commit("changeVisibleProfileButton2", true);
+      next();
     }
 
     if (regGame.test(fromPath)) {
+      var _it = this;
+
       this.jsAnimation.sizeDown(2);
       this.$store.commit("changeVisibleProfileButton2", true);
       this.$store.commit("changebuttonProfileActive", false);
-      setTimeout(function () {
-        _this.$store.commit("changeVisibleProfileButton1", true);
-
-        next();
-      }, 1000);
+      this.$store.commit("changeVisibleProfileButton1", true);
+      next();
     }
 
     if (splitToPath.length == splitFromPath.length) {
@@ -2698,20 +2695,16 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     if (regGraphic.test(toPath) && !(splitToPath.length == splitFromPath.length)) {
-      this.jsAnimation.sizeUp(1);
-      this.$store.commit("changeVisibleProfileButton1", true);
-      this.$store.commit("changebuttonProfileActive", true);
-      this.$store.commit("changeVisibleProfileButton2", false);
-      this.$store.commit("changeProfileCardActive", 1);
+      var _it2 = this;
+
+      this.jsAnimation.sizeUp(1, _it2);
       next();
     }
 
     if (regGame.test(toPath) && !(splitToPath.length == splitFromPath.length)) {
-      this.jsAnimation.sizeUp(2);
-      this.$store.commit("changeVisibleProfileButton1", false);
-      this.$store.commit("changebuttonProfileActive", true);
-      this.$store.commit("changeVisibleProfileButton2", true);
-      this.$store.commit("changeProfileCardActive", 1);
+      var _it3 = this;
+
+      this.jsAnimation.sizeUp(2, _it3);
       next();
     }
   }
@@ -64844,7 +64837,7 @@ Math.easeInExpo = function (t, b, c, d) {
   return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
-var sizeUp = function sizeUp(index) {
+var sizeUp = function sizeUp(index, store) {
   var viewPort = viewPortProperties();
 
   if (viewPort[0] < viewPort[1]) {
@@ -64874,6 +64867,12 @@ var sizeUp = function sizeUp(index) {
         if (k > 60) {
           clearInterval(positionInterval);
           document.getElementById(1).classList.add("activeProfilePage");
+          setTimeout(function () {
+            store.$store.commit("changeVisibleProfileButton1", true);
+            store.$store.commit("changebuttonProfileActive", true);
+            store.$store.commit("changeVisibleProfileButton2", false);
+            store.$store.commit("changeProfileCardActive", 1);
+          }, 200);
         }
       }, 10);
     } // GameProfil //
@@ -64906,6 +64905,12 @@ var sizeUp = function sizeUp(index) {
         if (_k > 60) {
           clearInterval(_positionInterval);
           document.getElementById(2).classList.add("activeProfilePage");
+          setTimeout(function () {
+            store.$store.commit("changeVisibleProfileButton1", false);
+            store.$store.commit("changebuttonProfileActive", true);
+            store.$store.commit("changeVisibleProfileButton2", true);
+            store.$store.commit("changeProfileCardActive", 1);
+          }, 200);
         }
       }, 6);
     }
@@ -64940,6 +64945,12 @@ var sizeUp = function sizeUp(index) {
         if (_k2 > 60) {
           clearInterval(_positionInterval2);
           document.getElementById(1).classList.add("activeProfilePage");
+          setTimeout(function () {
+            store.$store.commit("changeVisibleProfileButton1", true);
+            store.$store.commit("changebuttonProfileActive", true);
+            store.$store.commit("changeVisibleProfileButton2", false);
+            store.$store.commit("changeProfileCardActive", 1);
+          }, 200);
         }
       }, 6);
     } // GameProfil //
@@ -64972,6 +64983,12 @@ var sizeUp = function sizeUp(index) {
         if (_k3 > 60) {
           clearInterval(_positionInterval3);
           document.getElementById(2).classList.add("activeProfilePage");
+          setTimeout(function () {
+            store.$store.commit("changeVisibleProfileButton1", false);
+            store.$store.commit("changebuttonProfileActive", true);
+            store.$store.commit("changeVisibleProfileButton2", true);
+            store.$store.commit("changeProfileCardActive", 1);
+          }, 200);
         }
       }, 6);
     }

@@ -19,7 +19,7 @@ Math.easeInExpo = function (t, b, c, d) {
   return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
-export let sizeUp = function sizeUp(index) {
+export let sizeUp = function sizeUp(index, store) {
   let viewPort = viewPortProperties();
   if (viewPort[0] < viewPort[1]) {
 
@@ -50,6 +50,13 @@ export let sizeUp = function sizeUp(index) {
         if (k > 60) {
           clearInterval(positionInterval);
           document.getElementById(1).classList.add("activeProfilePage");
+          setTimeout(() => {
+            store.$store.commit("changeVisibleProfileButton1", true);
+            store.$store.commit("changebuttonProfileActive", true);
+            store.$store.commit("changeVisibleProfileButton2", false);
+            store.$store.commit("changeProfileCardActive", 1);
+          }, 200);
+
 
         }
       }, 10);
@@ -81,7 +88,12 @@ export let sizeUp = function sizeUp(index) {
           clearInterval(positionInterval);
 
           document.getElementById(2).classList.add("activeProfilePage");
-
+          setTimeout(() => {
+            store.$store.commit("changeVisibleProfileButton1", false);
+            store.$store.commit("changebuttonProfileActive", true);
+            store.$store.commit("changeVisibleProfileButton2", true);
+            store.$store.commit("changeProfileCardActive", 1);
+          }, 200);
 
         }
       }, 6);
@@ -116,6 +128,12 @@ export let sizeUp = function sizeUp(index) {
           clearInterval(positionInterval);
 
           document.getElementById(1).classList.add("activeProfilePage");
+          setTimeout(() => {
+            store.$store.commit("changeVisibleProfileButton1", true);
+            store.$store.commit("changebuttonProfileActive", true);
+            store.$store.commit("changeVisibleProfileButton2", false);
+            store.$store.commit("changeProfileCardActive", 1);
+          }, 200);
 
 
         }
@@ -151,7 +169,12 @@ export let sizeUp = function sizeUp(index) {
           clearInterval(positionInterval);
 
           document.getElementById(2).classList.add("activeProfilePage");
-
+          setTimeout(() => {
+            store.$store.commit("changeVisibleProfileButton1", false);
+            store.$store.commit("changebuttonProfileActive", true);
+            store.$store.commit("changeVisibleProfileButton2", true);
+            store.$store.commit("changeProfileCardActive", 1);
+          }, 200);
 
         }
       }, 6);

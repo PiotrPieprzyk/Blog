@@ -71,24 +71,22 @@ export default {
 		// which route //
 
 		if (regGraphic.test(fromPath)) {
+			let it = this;
 			this.jsAnimation.sizeDown(1);
 			this.$store.commit("changeVisibleProfileButton1", true);
 			this.$store.commit("changebuttonProfileActive", false);
-			setTimeout(() => {
-				this.$store.commit("changeVisibleProfileButton2", true);
+			this.$store.commit("changeVisibleProfileButton2", true);
 
-				next();
-			}, 1000);
+			next();
 		}
 		if (regGame.test(fromPath)) {
+			let it = this;
 			this.jsAnimation.sizeDown(2);
 			this.$store.commit("changeVisibleProfileButton2", true);
 			this.$store.commit("changebuttonProfileActive", false);
-			setTimeout(() => {
-				this.$store.commit("changeVisibleProfileButton1", true);
+			this.$store.commit("changeVisibleProfileButton1", true);
 
-				next();
-			}, 1000);
+			next();
 		}
 		if (splitToPath.length == splitFromPath.length) {
 			setTimeout(() => {
@@ -114,21 +112,15 @@ export default {
 			regGraphic.test(toPath) &&
 			!(splitToPath.length == splitFromPath.length)
 		) {
-			this.jsAnimation.sizeUp(1);
+			let it = this;
+			this.jsAnimation.sizeUp(1, it);
 
-			this.$store.commit("changeVisibleProfileButton1", true);
-			this.$store.commit("changebuttonProfileActive", true);
-			this.$store.commit("changeVisibleProfileButton2", false);
-			this.$store.commit("changeProfileCardActive", 1);
 			next();
 		}
 		if (regGame.test(toPath) && !(splitToPath.length == splitFromPath.length)) {
-			this.jsAnimation.sizeUp(2);
+			let it = this;
+			this.jsAnimation.sizeUp(2, it);
 
-			this.$store.commit("changeVisibleProfileButton1", false);
-			this.$store.commit("changebuttonProfileActive", true);
-			this.$store.commit("changeVisibleProfileButton2", true);
-			this.$store.commit("changeProfileCardActive", 1);
 			next();
 		}
 	}
