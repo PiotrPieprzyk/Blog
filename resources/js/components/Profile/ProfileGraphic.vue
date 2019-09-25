@@ -2,16 +2,16 @@
 	<div class="GraphicProfile">
 		<div class="graphicTitle">GRAPHIC</div>
 		<div class="addGraphicButton">
-			<form
-				v-if="addButtonActive"
-				class="formNewGraphic"
-				method="POST"
-				action="/graphics"
-				enctype="multipart/form-data"
-			>
-				<input type="hidden" name="_token" :value="csrf" />
-				<input type="file" name="graphic" ref="file" @change="processFile($event)" />
-				<div class="submitWraper">
+			<form class="formNewGraphic" method="POST" action="/graphics" enctype="multipart/form-data">
+				<input v-if="addButtonActive" type="hidden" name="_token" :value="csrf" />
+				<input
+					v-if="addButtonActive"
+					type="file"
+					name="graphic"
+					ref="file"
+					@change="processFile($event)"
+				/>
+				<div v-if="addButtonActive" class="submitWraper">
 					<button @click="sendPhoto" class="submitForm">Dodaj</button>
 				</div>
 			</form>

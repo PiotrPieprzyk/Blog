@@ -47084,24 +47084,26 @@ var render = function() {
     _c("div", { staticClass: "graphicTitle" }, [_vm._v("GRAPHIC")]),
     _vm._v(" "),
     _c("div", { staticClass: "addGraphicButton" }, [
-      _vm.addButtonActive
-        ? _c(
-            "form",
-            {
-              staticClass: "formNewGraphic",
-              attrs: {
-                method: "POST",
-                action: "/graphics",
-                enctype: "multipart/form-data"
-              }
-            },
-            [
-              _c("input", {
+      _c(
+        "form",
+        {
+          staticClass: "formNewGraphic",
+          attrs: {
+            method: "POST",
+            action: "/graphics",
+            enctype: "multipart/form-data"
+          }
+        },
+        [
+          _vm.addButtonActive
+            ? _c("input", {
                 attrs: { type: "hidden", name: "_token" },
                 domProps: { value: _vm.csrf }
-              }),
-              _vm._v(" "),
-              _c("input", {
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.addButtonActive
+            ? _c("input", {
                 ref: "file",
                 attrs: { type: "file", name: "graphic" },
                 on: {
@@ -47109,18 +47111,20 @@ var render = function() {
                     return _vm.processFile($event)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "submitWraper" }, [
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.addButtonActive
+            ? _c("div", { staticClass: "submitWraper" }, [
                 _c(
                   "button",
                   { staticClass: "submitForm", on: { click: _vm.sendPhoto } },
                   [_vm._v("Dodaj")]
                 )
               ])
-            ]
-          )
-        : _vm._e(),
+            : _vm._e()
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",

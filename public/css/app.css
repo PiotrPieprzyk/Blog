@@ -11952,6 +11952,7 @@ a:hover {
   z-index: 1;
   display: flex;
   overflow: hidden;
+  width: 0;
 }
 
 .profileWebWrapper .GraphicProfile .addGraphicButton .plusItem {
