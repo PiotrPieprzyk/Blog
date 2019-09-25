@@ -9,11 +9,17 @@
 			@previous="activeGaleryId--"
 			@next="activeGaleryId++"
 			:activeGaleryItem="activeGaleryId"
+			:listGraphicsProp="listGraphics"
 		></galery-slider>
 		<div class="GaleryGraphicWrapper">
-			<div v-for="item in graphics" :key="item.id" :class="'Graphic'+item.id" class="GraphicWrapper">
-				<button slot="GaleryImage" class="GraphicButton" @click="showSlider(item.href, item.id)">
-					<img :style="'background-image: url(./images/galery/'+item.href+');'" />
+			<div
+				v-for="item in listGraphics"
+				:key="item.id"
+				:class="'Graphic'+item.id"
+				class="GraphicWrapper"
+			>
+				<button slot="GaleryImage" class="GraphicButton" @click="showSlider(item.id)">
+					<img :style="'background-image: url(./storage/graphicNew/'+item.path+');'" />
 				</button>
 			</div>
 		</div>
@@ -24,22 +30,32 @@ import { mapState } from "vuex";
 
 export default {
 	props: ["overflowType"],
-	mounted() {
-		document.body.classList.add("overflowAuto");
-		document.body.classList.add("galeryBackground");
-	},
 	computed: mapState(["graphics"]),
 	data() {
 		return {
 			OnSlider: false,
-			activeGaleryId: ""
+			activeGaleryId: "",
+			listGraphics: ""
 		};
 	},
 	methods: {
-		showSlider(href, id) {
+		showSlider(id) {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
 		}
+	},
+	mounted() {
+		document.body.classList.add("overflowAuto");
+		document.body.classList.add("galeryBackground");
+		axios
+			.get("/graphics/" + 0)
+			.then(request => {
+				console.log(request.data);
+				this.listGraphics = request.data;
+			})
+			.catch(function() {
+				console.log("FAILURE!!");
+			});
 	},
 	beforeRouteLeave(to, from, next) {
 		document.body.classList.remove("overflowAuto");

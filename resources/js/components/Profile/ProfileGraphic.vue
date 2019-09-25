@@ -14,7 +14,20 @@
 				<div class="singleBar"></div>
 			</div>
 		</div>
-		<div class="yourGraphicListWrapper"></div>
+		<div class="yourGraphicListWrapper">
+			<div class="GaleryGraphicWrapper">
+				<div
+					v-for="item in listGraphics"
+					:key="item.id"
+					:class="'Graphic'+item.id"
+					class="GraphicWrapper"
+				>
+					<button slot="GaleryImage" class="GraphicButton" @click="showSlider(item.path, item.id)">
+						<img :style="'background-image: url(./storage/graphicNew/'+item.path+');'" />
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 <script>
@@ -35,10 +48,18 @@ export default {
 	},
 	data() {
 		return {
-			graphic: ""
+			graphic: "",
+			userId: this.$router.history.current.params.id,
+			listGraphics: "",
+			OnSlider: false,
+			activeGaleryId: ""
 		};
 	},
 	methods: {
+		showSlider(href, id) {
+			this.activeGaleryId = id;
+			this.OnSlider = true;
+		},
 		sendPhoto(e) {
 			e.preventDefault();
 			let objThis = this;
@@ -55,6 +76,15 @@ export default {
 				})
 				.then(request => {
 					console.log(request);
+					axios
+						.get("/graphics/" + this.userId)
+						.then(request => {
+							console.log(request.data);
+							this.listGraphics = request.data;
+						})
+						.catch(function() {
+							console.log("FAILURE!!");
+						});
 				})
 				.catch(function() {
 					console.log("FAILURE!!");
@@ -65,21 +95,18 @@ export default {
 			this.graphic = this.$refs.file.files[0];
 		}
 	},
-	beforeMount() {
-		console.log("hey im Graphic BEFORE MOUTED");
-	},
 	mounted() {
-		console.log("hey im Graphic MOUTED");
+		console.log(this.userId);
 		axios
-			.get("/graphics")
+			.get("/graphics/" + this.userId)
 			.then(request => {
 				console.log(request.data);
+				this.listGraphics = request.data;
 			})
 			.catch(function() {
 				console.log("FAILURE!!");
 			});
 	},
-
 	beforeRouteLeave(to, from, next) {
 		console.log("działa true");
 		document.getElementById(1).classList.remove("activeProfilePage");

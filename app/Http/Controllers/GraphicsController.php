@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Graphic;
 use DB;
 use Illuminate\Http\File;
@@ -15,9 +16,15 @@ class GraphicsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($user_id)
     {
-        $images = DB::table('graphics')->get();
+        if($user_id==0){
+            $images = DB::table("graphics")->get();
+        }
+        else{
+            $images = User::find($user_id)->graphics;
+        }
+       
         return $images;
     }
 
@@ -39,10 +46,11 @@ class GraphicsController extends Controller
      */
     public function store(Request $request)
     {
+
         $path = Storage::putFile('/public/graphicNew', new File($request->file), 'public');
         // $graphic_file_name = str_replace($upload_path . '/', "");
         Graphic::create([
-            'userId' => $request->id,
+            'user_id' => $request->id,
             'path' => str_replace('public/graphicNew/', '', $path),
         ]);
 

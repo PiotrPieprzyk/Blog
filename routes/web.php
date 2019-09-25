@@ -17,5 +17,5 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/graphics', 'GraphicsController@index')->name('graphics');
-Route::post('/graphics', 'GraphicsController@store')->name('graphics');
+Route::get('/graphics/{user_id}', 'GraphicsController@index')->name('getGraphic');
+Route::post('/graphics', 'GraphicsController@store')->name('postGraphic');

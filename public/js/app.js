@@ -2232,25 +2232,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["overflowType"],
-  mounted: function mounted() {
-    document.body.classList.add("overflowAuto");
-    document.body.classList.add("galeryBackground");
-  },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"]),
   data: function data() {
     return {
       OnSlider: false,
-      activeGaleryId: ""
+      activeGaleryId: "",
+      listGraphics: ""
     };
   },
   methods: {
-    showSlider: function showSlider(href, id) {
+    showSlider: function showSlider(id) {
       this.activeGaleryId = id;
       this.OnSlider = true;
     }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    document.body.classList.add("overflowAuto");
+    document.body.classList.add("galeryBackground");
+    axios.get("/graphics/" + 0).then(function (request) {
+      console.log(request.data);
+      _this.listGraphics = request.data;
+    })["catch"](function () {
+      console.log("FAILURE!!");
+    });
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
     document.body.classList.remove("overflowAuto");
@@ -2294,10 +2309,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["GaleryImgSlot", "activeGaleryItem"],
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"])
+  props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp"],
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"]),
+  mounted: function mounted() {
+    console.log(this.listGraphicsProp.length);
+  }
 });
 
 /***/ }),
@@ -2437,6 +2465,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2453,11 +2494,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      graphic: ""
+      graphic: "",
+      userId: this.$router.history.current.params.id,
+      listGraphics: "",
+      OnSlider: false,
+      activeGaleryId: ""
     };
   },
   methods: {
+    showSlider: function showSlider(href, id) {
+      this.activeGaleryId = id;
+      this.OnSlider = true;
+    },
     sendPhoto: function sendPhoto(e) {
+      var _this = this;
+
       e.preventDefault();
       var objThis = this;
       console.log([this.graphic, this.authCheck.id]);
@@ -2470,6 +2521,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (request) {
         console.log(request);
+        axios.get("/graphics/" + _this.userId).then(function (request) {
+          console.log(request.data);
+          _this.listGraphics = request.data;
+        })["catch"](function () {
+          console.log("FAILURE!!");
+        });
       })["catch"](function () {
         console.log("FAILURE!!");
       });
@@ -2479,13 +2536,13 @@ __webpack_require__.r(__webpack_exports__);
       this.graphic = this.$refs.file.files[0];
     }
   },
-  beforeMount: function beforeMount() {
-    console.log("hey im Graphic BEFORE MOUTED");
-  },
   mounted: function mounted() {
-    console.log("hey im Graphic MOUTED");
-    axios.get("/graphics").then(function (request) {
+    var _this2 = this;
+
+    console.log(this.userId);
+    axios.get("/graphics/" + this.userId).then(function (request) {
       console.log(request.data);
+      _this2.listGraphics = request.data;
     })["catch"](function () {
       console.log("FAILURE!!");
     });
@@ -46689,7 +46746,10 @@ var render = function() {
       _vm._v(" "),
       _vm.OnSlider
         ? _c("galery-slider", {
-            attrs: { activeGaleryItem: _vm.activeGaleryId },
+            attrs: {
+              activeGaleryItem: _vm.activeGaleryId,
+              listGraphicsProp: _vm.listGraphics
+            },
             on: {
               close: function($event) {
                 _vm.OnSlider = false
@@ -46707,7 +46767,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "GaleryGraphicWrapper" },
-        _vm._l(_vm.graphics, function(item) {
+        _vm._l(_vm.listGraphics, function(item) {
           return _c(
             "div",
             {
@@ -46723,7 +46783,7 @@ var render = function() {
                   attrs: { slot: "GaleryImage" },
                   on: {
                     click: function($event) {
-                      return _vm.showSlider(item.href, item.id)
+                      return _vm.showSlider(item.id)
                     }
                   },
                   slot: "GaleryImage"
@@ -46731,8 +46791,8 @@ var render = function() {
                 [
                   _c("img", {
                     style:
-                      "background-image: url(./images/galery/" +
-                      item.href +
+                      "background-image: url(./storage/graphicNew/" +
+                      item.path +
                       ");"
                   })
                 ]
@@ -46785,8 +46845,8 @@ var render = function() {
             ? _c("img", {
                 attrs: {
                   src:
-                    "./images/galery/" +
-                    _vm.graphics[_vm.activeGaleryItem - 2].href
+                    "./storage/graphicNew/" +
+                    _vm.listGraphicsProp[_vm.activeGaleryItem - 2].path
                 }
               })
             : _vm._e()
@@ -46796,17 +46856,19 @@ var render = function() {
           _c("img", {
             attrs: {
               src:
-                "./images/galery/" + _vm.graphics[_vm.activeGaleryItem - 1].href
+                "./storage/graphicNew/" +
+                _vm.listGraphicsProp[_vm.activeGaleryItem - 1].path
             }
           })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "NextImg" }, [
-          _vm.activeGaleryItem < 11
+          _vm.activeGaleryItem < this.listGraphicsProp.length
             ? _c("img", {
                 attrs: {
                   src:
-                    "./images/galery/" + _vm.graphics[_vm.activeGaleryItem].href
+                    "./storage/graphicNew/" +
+                    _vm.listGraphicsProp[_vm.activeGaleryItem].path
                 }
               })
             : _vm._e()
@@ -46834,7 +46896,7 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.activeGaleryItem < 11
+        _vm.activeGaleryItem < this.listGraphicsProp.length
           ? _c("button", {
               staticClass: "arrow next",
               on: {
@@ -47036,7 +47098,46 @@ var render = function() {
       _vm._m(0)
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "yourGraphicListWrapper" })
+    _c("div", { staticClass: "yourGraphicListWrapper" }, [
+      _c(
+        "div",
+        { staticClass: "GaleryGraphicWrapper" },
+        _vm._l(_vm.listGraphics, function(item) {
+          return _c(
+            "div",
+            {
+              key: item.id,
+              staticClass: "GraphicWrapper",
+              class: "Graphic" + item.id
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "GraphicButton",
+                  attrs: { slot: "GaleryImage" },
+                  on: {
+                    click: function($event) {
+                      return _vm.showSlider(item.path, item.id)
+                    }
+                  },
+                  slot: "GaleryImage"
+                },
+                [
+                  _c("img", {
+                    style:
+                      "background-image: url(./storage/graphicNew/" +
+                      item.path +
+                      ");"
+                  })
+                ]
+              )
+            ]
+          )
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [

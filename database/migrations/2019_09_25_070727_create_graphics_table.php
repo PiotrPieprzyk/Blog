@@ -15,7 +15,7 @@ class CreateGraphicsTable extends Migration
     {
         Schema::create('graphics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('userId');
+            $table->string('user_id');
             $table->string('path');
             $table->timestamps();
         });

@@ -11996,6 +11996,180 @@ a:hover {
   display: block;
 }
 
+.yourGraphicListWrapper .GalerySliderWrapper {
+  z-index: 2;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000000f0;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  max-width: calc(80vw);
+  justify-content: center;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .PreviousImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  right: calc(100vw - 10vw);
+  position: absolute;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .PreviousImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .NextImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  align-items: center;
+  position: absolute;
+  left: calc(100% - 10vw);
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .NextImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation {
+  display: flex;
+  margin: 20px 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 200px;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:hover {
+  opacity: 1;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:before,
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:after {
+  position: absolute;
+  content: " ";
+  height: 50px;
+  width: 2px;
+  background-color: white;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:before {
+  transform: rotate(45deg);
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:after {
+  transform: rotate(-45deg);
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow {
+  display: inline-block;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  text-indent: -9999px;
+  border-top: 2px solid #bfbfbf;
+  border-left: 2px solid #bfbfbf;
+  text-decoration: none;
+  color: transparent;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow:before {
+  display: block;
+  height: 200%;
+  width: 200%;
+  margin-left: -50%;
+  margin-top: -50%;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow.prev {
+  transform: rotate(-45deg);
+  left: 0;
+}
+
+.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow.next {
+  transform: rotate(135deg);
+  right: 0;
+}
+
+.yourGraphicListWrapper .GaleryGraphicWrapper {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper {
+  width: 300px;
+  height: 300px;
+  margin: 20px;
+}
+
+.yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .activeProfilePage {
   z-index: 1;
   width: 100vw !important;
