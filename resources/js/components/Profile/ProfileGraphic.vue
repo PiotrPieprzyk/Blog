@@ -15,14 +15,22 @@
 			</div>
 		</div>
 		<div class="yourGraphicListWrapper">
+			<galery-slider
+				v-if="OnSlider"
+				@close="OnSlider = false"
+				@previous="activeGaleryId--"
+				@next="activeGaleryId++"
+				:activeGaleryItem="activeGaleryId"
+				:listGraphicsProp="listGraphics"
+			></galery-slider>
 			<div class="GaleryGraphicWrapper">
 				<div
-					v-for="item in listGraphics"
-					:key="item.id"
-					:class="'Graphic'+item.id"
+					v-for="(item, index) in listGraphics"
+					:key="index"
+					:class="'Graphic'+index"
 					class="GraphicWrapper"
 				>
-					<button slot="GaleryImage" class="GraphicButton" @click="showSlider(item.path, item.id)">
+					<button slot="GaleryImage" class="GraphicButton" @click="showSlider(index)">
 						<img :style="'background-image: url(./storage/graphicNew/'+item.path+');'" />
 					</button>
 				</div>
@@ -56,7 +64,7 @@ export default {
 		};
 	},
 	methods: {
-		showSlider(href, id) {
+		showSlider(id) {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
 		},

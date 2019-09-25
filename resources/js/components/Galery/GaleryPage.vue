@@ -13,12 +13,12 @@
 		></galery-slider>
 		<div class="GaleryGraphicWrapper">
 			<div
-				v-for="item in listGraphics"
-				:key="item.id"
-				:class="'Graphic'+item.id"
+				v-for="(item, index) in listGraphics"
+				:key="index"
+				:class="'Graphic'+index"
 				class="GraphicWrapper"
 			>
-				<button slot="GaleryImage" class="GraphicButton" @click="showSlider(item.id)">
+				<button slot="GaleryImage" class="GraphicButton" @click="showSlider(index)">
 					<img :style="'background-image: url(./storage/graphicNew/'+item.path+');'" />
 				</button>
 			</div>

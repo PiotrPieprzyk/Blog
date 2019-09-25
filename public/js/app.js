@@ -2324,6 +2324,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp"],
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"]),
   mounted: function mounted() {
+    console.log(this.listGraphicsProp);
+    console.log(this.activeGaleryItem);
     console.log(this.listGraphicsProp.length);
   }
 });
@@ -2478,6 +2480,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2502,7 +2512,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    showSlider: function showSlider(href, id) {
+    showSlider: function showSlider(id) {
       this.activeGaleryId = id;
       this.OnSlider = true;
     },
@@ -46767,13 +46777,13 @@ var render = function() {
       _c(
         "div",
         { staticClass: "GaleryGraphicWrapper" },
-        _vm._l(_vm.listGraphics, function(item) {
+        _vm._l(_vm.listGraphics, function(item, index) {
           return _c(
             "div",
             {
-              key: item.id,
+              key: index,
               staticClass: "GraphicWrapper",
-              class: "Graphic" + item.id
+              class: "Graphic" + index
             },
             [
               _c(
@@ -46783,7 +46793,7 @@ var render = function() {
                   attrs: { slot: "GaleryImage" },
                   on: {
                     click: function($event) {
-                      return _vm.showSlider(item.id)
+                      return _vm.showSlider(index)
                     }
                   },
                   slot: "GaleryImage"
@@ -46841,12 +46851,12 @@ var render = function() {
     _c("div", { staticClass: "GalerySliderWrapper" }, [
       _c("div", { staticClass: "GaleryContent" }, [
         _c("div", { staticClass: "PreviousImg" }, [
-          _vm.activeGaleryItem > 1
+          _vm.activeGaleryItem > 0
             ? _c("img", {
                 attrs: {
                   src:
                     "./storage/graphicNew/" +
-                    _vm.listGraphicsProp[_vm.activeGaleryItem - 2].path
+                    _vm.listGraphicsProp[_vm.activeGaleryItem - 1].path
                 }
               })
             : _vm._e()
@@ -46857,18 +46867,18 @@ var render = function() {
             attrs: {
               src:
                 "./storage/graphicNew/" +
-                _vm.listGraphicsProp[_vm.activeGaleryItem - 1].path
+                _vm.listGraphicsProp[_vm.activeGaleryItem].path
             }
           })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "NextImg" }, [
-          _vm.activeGaleryItem < this.listGraphicsProp.length
+          _vm.activeGaleryItem < this.listGraphicsProp.length - 1
             ? _c("img", {
                 attrs: {
                   src:
                     "./storage/graphicNew/" +
-                    _vm.listGraphicsProp[_vm.activeGaleryItem].path
+                    _vm.listGraphicsProp[_vm.activeGaleryItem + 1].path
                 }
               })
             : _vm._e()
@@ -46876,7 +46886,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "sliderNavigation" }, [
-        _vm.activeGaleryItem > 1
+        _vm.activeGaleryItem > 0
           ? _c("button", {
               staticClass: "arrow prev",
               on: {
@@ -46896,7 +46906,7 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _vm.activeGaleryItem < this.listGraphicsProp.length
+        _vm.activeGaleryItem < this.listGraphicsProp.length - 1
           ? _c("button", {
               staticClass: "arrow next",
               on: {
@@ -47098,46 +47108,71 @@ var render = function() {
       _vm._m(0)
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "yourGraphicListWrapper" }, [
-      _c(
-        "div",
-        { staticClass: "GaleryGraphicWrapper" },
-        _vm._l(_vm.listGraphics, function(item) {
-          return _c(
-            "div",
-            {
-              key: item.id,
-              staticClass: "GraphicWrapper",
-              class: "Graphic" + item.id
-            },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "GraphicButton",
-                  attrs: { slot: "GaleryImage" },
-                  on: {
-                    click: function($event) {
-                      return _vm.showSlider(item.path, item.id)
-                    }
-                  },
-                  slot: "GaleryImage"
+    _c(
+      "div",
+      { staticClass: "yourGraphicListWrapper" },
+      [
+        _vm.OnSlider
+          ? _c("galery-slider", {
+              attrs: {
+                activeGaleryItem: _vm.activeGaleryId,
+                listGraphicsProp: _vm.listGraphics
+              },
+              on: {
+                close: function($event) {
+                  _vm.OnSlider = false
                 },
-                [
-                  _c("img", {
-                    style:
-                      "background-image: url(./storage/graphicNew/" +
-                      item.path +
-                      ");"
-                  })
-                ]
-              )
-            ]
-          )
-        }),
-        0
-      )
-    ])
+                previous: function($event) {
+                  _vm.activeGaleryId--
+                },
+                next: function($event) {
+                  _vm.activeGaleryId++
+                }
+              }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "GaleryGraphicWrapper" },
+          _vm._l(_vm.listGraphics, function(item, index) {
+            return _c(
+              "div",
+              {
+                key: index,
+                staticClass: "GraphicWrapper",
+                class: "Graphic" + index
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "GraphicButton",
+                    attrs: { slot: "GaleryImage" },
+                    on: {
+                      click: function($event) {
+                        return _vm.showSlider(index)
+                      }
+                    },
+                    slot: "GaleryImage"
+                  },
+                  [
+                    _c("img", {
+                      style:
+                        "background-image: url(./storage/graphicNew/" +
+                        item.path +
+                        ");"
+                    })
+                  ]
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [

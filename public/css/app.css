@@ -12006,6 +12006,8 @@ a:hover {
   flex-direction: column;
   align-items: center;
   background-color: #000000f0;
+  left: 0;
+  top: 0;
 }
 
 .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent {
