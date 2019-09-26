@@ -41,6 +41,9 @@ export default {
 	},
 	mounted() {
 		console.log("hey im Profile");
+		this.$store.commit("changeVisibleProfileButton1", true);
+		this.$store.commit("changebuttonProfileActive", false);
+		this.$store.commit("changeVisibleProfileButton2", true);
 
 		if (this.$router.history.current.name == "profileGraphic") {
 			this.$store.commit("changeVisibleProfileButton1", true);
@@ -72,6 +75,7 @@ export default {
 
 		if (regGraphic.test(fromPath)) {
 			let it = this;
+			document.getElementById(1).classList.remove("activeProfilePage");
 			this.jsAnimation.sizeDown(1);
 			this.$store.commit("changeVisibleProfileButton1", true);
 			this.$store.commit("changebuttonProfileActive", false);
@@ -81,6 +85,7 @@ export default {
 		}
 		if (regGame.test(fromPath)) {
 			let it = this;
+			document.getElementById(2).classList.remove("activeProfilePage");
 			this.jsAnimation.sizeDown(2);
 			this.$store.commit("changeVisibleProfileButton2", true);
 			this.$store.commit("changebuttonProfileActive", false);

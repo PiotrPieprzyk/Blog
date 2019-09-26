@@ -11,7 +11,7 @@ export let errorDisappear = function errorDisappear(element) {
   console.log(element.style.top);
   let k = 1;
   let apperInterval = setInterval(() => {
-    element.style.top = "-" + Math.easeOutQuart(k, 0, 32, 60) + "px";
+    element.style.top = "-" + Math.easeOutQuart(k, 0, 33, 60) + "px";
     k++;
     if (k > 60) {
       clearInterval(apperInterval);
@@ -23,7 +23,7 @@ export let errorAppear = function errorAppear(element) {
 
   let k = 60;
   let apperInterval = setInterval(() => {
-    element.style.top = "-" + Math.easeInExpo(k, 0, 32, 60) + "px";
+    element.style.top = "-" + Math.easeInExpo(k, 0, 33, 60) + "px";
     k--;
     if (k < 0) {
       clearInterval(apperInterval);

@@ -124,7 +124,7 @@ export default {
 				})
 				.then(() => {
 					let errorhook = document.querySelector(".errors");
-					if (window.getComputedStyle(errorhook).top == "-32px") {
+					if (window.getComputedStyle(errorhook).top == "-33px") {
 						if (this.errorFile != "Wysłano!") {
 							errorhook.style.color = "red";
 
@@ -147,7 +147,7 @@ export default {
 							setTimeout(() => {
 								console.log("YES");
 								this.jsAnimation.errorDisappear(errorhook);
-							}, 2000);
+							}, 1000);
 						}
 					}
 				});
@@ -160,6 +160,7 @@ export default {
 		// Animation
 		activeAddButton() {
 			let element = document.querySelector(".addGraphicButton");
+			let errorhook = document.querySelector(".errors");
 
 			if (this.addButtonActive == false) {
 				let it = this;
@@ -171,6 +172,10 @@ export default {
 				this.jsAnimation.scale_widthDown(it);
 				this.jsAnimation.spin_the_crossDown();
 				this.jsAnimation.deActiveShadowBlock(element);
+				if (window.getComputedStyle(errorhook).top != "-33px") {
+					console.log(document.querySelector(".errors"));
+					this.jsAnimation.errorDisappear(errorhook);
+				}
 			}
 		}
 	},
@@ -188,7 +193,6 @@ export default {
 	},
 	beforeRouteLeave(to, from, next) {
 		console.log("działa true");
-		document.getElementById(1).classList.remove("activeProfilePage");
 		// Wracanie do listy profil
 
 		next();

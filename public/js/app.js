@@ -2428,8 +2428,6 @@ __webpack_require__.r(__webpack_exports__);
     console.log("hey im Game");
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
-    document.getElementById(2).classList.remove("activeProfilePage"); // Wracanie do listy profil
-
     next();
   }
 });
@@ -2566,7 +2564,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {
         var errorhook = document.querySelector(".errors");
 
-        if (window.getComputedStyle(errorhook).top == "-32px") {
+        if (window.getComputedStyle(errorhook).top == "-33px") {
           if (_this.errorFile != "Wysłano!") {
             errorhook.style.color = "red";
 
@@ -2593,7 +2591,7 @@ __webpack_require__.r(__webpack_exports__);
               console.log("YES");
 
               _this.jsAnimation.errorDisappear(errorhook);
-            }, 2000);
+            }, 1000);
           }
         }
       });
@@ -2605,6 +2603,7 @@ __webpack_require__.r(__webpack_exports__);
     // Animation
     activeAddButton: function activeAddButton() {
       var element = document.querySelector(".addGraphicButton");
+      var errorhook = document.querySelector(".errors");
 
       if (this.addButtonActive == false) {
         var it = this;
@@ -2617,6 +2616,11 @@ __webpack_require__.r(__webpack_exports__);
         this.jsAnimation.scale_widthDown(_it);
         this.jsAnimation.spin_the_crossDown();
         this.jsAnimation.deActiveShadowBlock(element);
+
+        if (window.getComputedStyle(errorhook).top != "-33px") {
+          console.log(document.querySelector(".errors"));
+          this.jsAnimation.errorDisappear(errorhook);
+        }
       }
     }
   },
@@ -2632,8 +2636,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
-    console.log("działa true");
-    document.getElementById(1).classList.remove("activeProfilePage"); // Wracanie do listy profil
+    console.log("działa true"); // Wracanie do listy profil
 
     next();
   }
@@ -2690,6 +2693,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     console.log("hey im Profile");
+    this.$store.commit("changeVisibleProfileButton1", true);
+    this.$store.commit("changebuttonProfileActive", false);
+    this.$store.commit("changeVisibleProfileButton2", true);
 
     if (this.$router.history.current.name == "profileGraphic") {
       this.$store.commit("changeVisibleProfileButton1", true);
@@ -2721,6 +2727,7 @@ __webpack_require__.r(__webpack_exports__);
 
     if (regGraphic.test(fromPath)) {
       var it = this;
+      document.getElementById(1).classList.remove("activeProfilePage");
       this.jsAnimation.sizeDown(1);
       this.$store.commit("changeVisibleProfileButton1", true);
       this.$store.commit("changebuttonProfileActive", false);
@@ -2731,6 +2738,7 @@ __webpack_require__.r(__webpack_exports__);
     if (regGame.test(fromPath)) {
       var _it = this;
 
+      document.getElementById(2).classList.remove("activeProfilePage");
       this.jsAnimation.sizeDown(2);
       this.$store.commit("changeVisibleProfileButton2", true);
       this.$store.commit("changebuttonProfileActive", false);
@@ -64715,7 +64723,7 @@ var errorDisappear = function errorDisappear(element) {
   console.log(element.style.top);
   var k = 1;
   var apperInterval = setInterval(function () {
-    element.style.top = "-" + Math.easeOutQuart(k, 0, 32, 60) + "px";
+    element.style.top = "-" + Math.easeOutQuart(k, 0, 33, 60) + "px";
     k++;
 
     if (k > 60) {
@@ -64727,7 +64735,7 @@ var errorAppear = function errorAppear(element) {
   console.log(element.style.top);
   var k = 60;
   var apperInterval = setInterval(function () {
-    element.style.top = "-" + Math.easeInExpo(k, 0, 32, 60) + "px";
+    element.style.top = "-" + Math.easeInExpo(k, 0, 33, 60) + "px";
     k--;
 
     if (k < 0) {
@@ -64778,7 +64786,7 @@ function spin_the_crossUP() {
   cross.style.transform = 'rotate(' + 0 + 'deg)';
   var i = 1;
   var interval2 = setInterval(function () {
-    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 315, 60) + 'deg)';
+    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 225, 60) + 'deg)';
     i++;
 
     if (i > 60) {
@@ -64804,10 +64812,9 @@ function scale_widthDown(it) {
 }
 function spin_the_crossDown() {
   var cross = document.querySelector(".plusItem");
-  cross.style.transform = 'rotate(' + 0 + 'deg)';
   var i = 60;
   var interval4 = setInterval(function () {
-    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 315, 60) + 'deg)';
+    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 225, 60) + 'deg)';
     i--;
 
     if (i < 0) {
@@ -64900,6 +64907,7 @@ var sizeDown = function sizeDown(index) {
           setStyle.width = null;
           setStyle.height = null;
           setStyle.top = null;
+          document.getElementById(1).style.zIndex = 0;
         }
       }, 10);
     } // GameProfil //
@@ -64954,6 +64962,7 @@ var sizeDown = function sizeDown(index) {
           _setStyle.width = null;
           _setStyle.height = null;
           _setStyle.bottom = null;
+          document.getElementById(2).style.zIndex = 0;
         }
       }, 10);
     }
@@ -65010,6 +65019,7 @@ var sizeDown = function sizeDown(index) {
           _setStyle2.width = null;
           _setStyle2.height = null;
           _setStyle2.left = null;
+          document.getElementById(1).style.zIndex = 0;
         }
       }, 10);
     } // GameProfil //
@@ -65064,6 +65074,7 @@ var sizeDown = function sizeDown(index) {
           _setStyle3.width = null;
           _setStyle3.height = null;
           _setStyle3.left = null;
+          document.getElementById(2).style.zIndex = 0;
         }
       }, 10);
     }
@@ -65111,7 +65122,8 @@ var sizeUp = function sizeUp(index, store) {
   if (viewPort[0] < viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
-      // variables //
+      document.getElementById(1).style.zIndex = 1; // variables //
+
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).top;
       var setStyle = sizingElement.style;
@@ -65147,7 +65159,8 @@ var sizeUp = function sizeUp(index, store) {
 
 
     if (index == 2) {
-      // variables //
+      document.getElementById(2).style.zIndex = 1; // variables //
+
       var _sizingElement = document.getElementById(index);
 
       var _positionElement = window.getComputedStyle(_sizingElement).bottom;
@@ -65187,7 +65200,8 @@ var sizeUp = function sizeUp(index, store) {
   if (viewPort[0] >= viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
-      // variables //
+      document.getElementById(1).style.zIndex = 1; // variables //
+
       var _sizingElement2 = document.getElementById(index);
 
       var _positionElement2 = window.getComputedStyle(_sizingElement2).left;
@@ -65225,7 +65239,8 @@ var sizeUp = function sizeUp(index, store) {
 
 
     if (index == 2) {
-      // variables //
+      document.getElementById(2).style.zIndex = 1; // variables //
+
       var _sizingElement3 = document.getElementById(index);
 
       var _positionElement3 = window.getComputedStyle(_sizingElement3).right;

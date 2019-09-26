@@ -17,9 +17,6 @@ export default {
 		console.log("hey im Game");
 	},
 	beforeRouteLeave(to, from, next) {
-		document.getElementById(2).classList.remove("activeProfilePage");
-		// Wracanie do listy profil
-
 		next();
 	}
 };

@@ -30,7 +30,7 @@ export function spin_the_crossUP() {
 
   let i = 1;
   let interval2 = setInterval(() => {
-    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 315, 60) + 'deg)';
+    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 225, 60) + 'deg)';
     i++;
     if (i > 60) {
       clearInterval(interval2);
@@ -58,11 +58,10 @@ export function scale_widthDown(it) {
 
 export function spin_the_crossDown() {
   let cross = document.querySelector(".plusItem");
-  cross.style.transform = 'rotate(' + 0 + 'deg)';
 
   let i = 60;
   let interval4 = setInterval(() => {
-    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 315, 60) + 'deg)';
+    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 225, 60) + 'deg)';
     i--;
     if (i < 0) {
       clearInterval(interval4);

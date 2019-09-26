@@ -25,6 +25,8 @@ export let sizeUp = function sizeUp(index, store) {
 
     // GraphicProfil //
     if (index == 1) {
+      document.getElementById(1).style.zIndex = 1;
+
       // variables //
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).top;
@@ -63,6 +65,8 @@ export let sizeUp = function sizeUp(index, store) {
     }
     // GameProfil //
     if (index == 2) {
+      document.getElementById(2).style.zIndex = 1;
+
       // variables //
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).bottom;
@@ -102,6 +106,8 @@ export let sizeUp = function sizeUp(index, store) {
   if (viewPort[0] >= viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
+      document.getElementById(1).style.zIndex = 1;
+
       // variables //
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).left;
@@ -143,6 +149,8 @@ export let sizeUp = function sizeUp(index, store) {
 
     // GameProfil //
     if (index == 2) {
+      document.getElementById(2).style.zIndex = 1;
+
       // variables //
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).right;

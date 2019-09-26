@@ -69,6 +69,7 @@ export let sizeDown = function sizeDown(index) {
           setStyle.width = null;
           setStyle.height = null;
           setStyle.top = null;
+          document.getElementById(1).style.zIndex = 0;
 
 
         }
@@ -118,6 +119,8 @@ export let sizeDown = function sizeDown(index) {
           setStyle.width = null;
           setStyle.height = null;
           setStyle.bottom = null;
+          document.getElementById(2).style.zIndex = 0;
+
 
 
         }
@@ -169,6 +172,7 @@ export let sizeDown = function sizeDown(index) {
           setStyle.width = null;
           setStyle.height = null;
           setStyle.left = null;
+          document.getElementById(1).style.zIndex = 0;
 
 
         }
@@ -220,6 +224,7 @@ export let sizeDown = function sizeDown(index) {
           setStyle.width = null;
           setStyle.height = null;
           setStyle.left = null;
+          document.getElementById(2).style.zIndex = 0;
 
 
         }
