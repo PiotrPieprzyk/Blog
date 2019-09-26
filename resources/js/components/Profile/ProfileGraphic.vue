@@ -9,10 +9,16 @@
 					type="file"
 					name="graphic"
 					ref="file"
+					id="file"
 					@change="processFile($event)"
+					class="inputfile"
+					multiple
 				/>
+				<label for="file">Choose a file</label>
 				<div v-if="addButtonActive" class="submitWraper">
-					<button @click="sendPhoto" class="submitForm">Dodaj</button>
+					<button @click="sendPhoto" class="submitForm">
+						<img :src="image_src" />
+					</button>
 				</div>
 			</form>
 
@@ -21,6 +27,10 @@
 				<div class="singleBar"></div>
 			</div>
 		</div>
+		<div class="errors">
+			<p v-if="addButtonActive" class="errorFile">{{ errorFile }}</p>
+		</div>
+
 		<div class="yourGraphicListWrapper">
 			<galery-slider
 				v-if="OnSlider"
@@ -68,7 +78,9 @@ export default {
 			listGraphics: "",
 			OnSlider: false,
 			activeGaleryId: "",
-			addButtonActive: false
+			addButtonActive: false,
+			errorFile: "",
+			image_src: "./images/header/send-icon.svg"
 		};
 	},
 	methods: {
@@ -76,9 +88,10 @@ export default {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
 		},
-		// Api
+		// Upload Graphics
 		sendPhoto(e) {
 			e.preventDefault();
+
 			let objThis = this;
 			console.log([this.graphic, this.authCheck.id]);
 			let formData = new FormData();
@@ -93,6 +106,7 @@ export default {
 				})
 				.then(request => {
 					console.log(request);
+					this.errorFile = "Wysłano!";
 					axios
 						.get("/graphics/" + this.userId)
 						.then(request => {
@@ -103,8 +117,39 @@ export default {
 							console.log("FAILURE!!");
 						});
 				})
-				.catch(function() {
-					console.log("FAILURE!!");
+				.catch(error => {
+					if (error.response.status == 422) {
+						this.errorFile = error.response.data.errors.file[0];
+					}
+				})
+				.then(() => {
+					let errorhook = document.querySelector(".errors");
+					if (window.getComputedStyle(errorhook).top == "-32px") {
+						if (this.errorFile != "Wysłano!") {
+							errorhook.style.color = "red";
+
+							this.jsAnimation.errorAppear(errorhook);
+							console.log("NO");
+						}
+						if (this.errorFile == "Wysłano!") {
+							errorhook.style.color = "green";
+
+							this.jsAnimation.errorAppear(errorhook);
+							setTimeout(() => {
+								console.log("YES");
+								this.jsAnimation.errorDisappear(errorhook);
+							}, 2000);
+						}
+					} else {
+						if (this.errorFile == "Wysłano!") {
+							errorhook.style.color = "green";
+
+							setTimeout(() => {
+								console.log("YES");
+								this.jsAnimation.errorDisappear(errorhook);
+							}, 2000);
+						}
+					}
 				});
 		},
 		processFile(event) {
@@ -114,14 +159,18 @@ export default {
 
 		// Animation
 		activeAddButton() {
+			let element = document.querySelector(".addGraphicButton");
+
 			if (this.addButtonActive == false) {
 				let it = this;
 				this.jsAnimation.scale_widthUP(it);
 				this.jsAnimation.spin_the_crossUP();
+				this.jsAnimation.activeShadowBlock(element);
 			} else {
 				let it = this;
 				this.jsAnimation.scale_widthDown(it);
 				this.jsAnimation.spin_the_crossDown();
+				this.jsAnimation.deActiveShadowBlock(element);
 			}
 		}
 	},

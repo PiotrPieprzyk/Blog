@@ -11936,16 +11936,31 @@ a:hover {
   color: black;
 }
 
+.profileWebWrapper .GraphicProfile .errors {
+  min-height: 30px;
+  top: -32px;
+  margin-top: 10px;
+  position: relative;
+}
+
+.profileWebWrapper .GraphicProfile .errors .errorFile {
+  display: block;
+  margin: 0;
+}
+
 .profileWebWrapper .GraphicProfile .addGraphicButton {
   display: flex;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0);
   width: 90vw;
   height: 50px;
   max-width: 500px;
-  border: black 5px solid;
+  border: black 0px solid;
   justify-content: center;
   align-items: center;
   margin-top: 30px;
   position: relative;
+  background: white;
+  z-index: 1;
 }
 
 .profileWebWrapper .GraphicProfile .addGraphicButton .formNewGraphic {
@@ -11953,6 +11968,36 @@ a:hover {
   display: flex;
   overflow: hidden;
   width: 0;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton .inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton .inputfile,
+.profileWebWrapper .GraphicProfile .addGraphicButton label {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 0;
+  color: black;
+  display: inline-block;
+  cursor: pointer;
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton label {
+  min-width: 115px;
+}
+
+.profileWebWrapper .GraphicProfile .addGraphicButton .submitForm {
+  background: white;
+  height: 100%;
 }
 
 .profileWebWrapper .GraphicProfile .addGraphicButton .plusItem {
@@ -11975,24 +12020,6 @@ a:hover {
 
 .profileWebWrapper .GraphicProfile .addGraphicButton .plusItem .singleBar:nth-child(1) {
   transform: rotate(90deg);
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton::after {
-  content: "";
-  bottom: -10px;
-  width: calc(100% - 30px);
-  height: 15px;
-  background-color: white;
-  position: absolute;
-  box-shadow: white 0 -45px;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton::before {
-  content: "";
-  width: calc(100% + 13px);
-  height: 20px;
-  background-color: white;
-  position: absolute;
 }
 
 .yourGraphicListWrapper {
@@ -12319,19 +12346,6 @@ a:hover {
   to {
     opacity: 0;
   }
-}
-
-.delay-enter {
-  opacity: 0;
-}
-
-.delay-enter-active {
-  transition: opacity 1s;
-}
-
-.delay-leave-active {
-  transition: opacity 1s;
-  opacity: 0;
 }
 
 .scaleUpCenter {

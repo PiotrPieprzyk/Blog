@@ -12,7 +12,7 @@ export function scale_widthUP(store) {
   let element = document.querySelector('.formNewGraphic');
   let button = document.querySelector('.addGraphicButton');
   let buttonWidth = window.getComputedStyle(button).width;
-  let maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.8;
+  let maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
   let k = 1;
   let interval1 = setInterval(() => {
     element.style.width = Math.easeOutQuart(k, 1, maxElementWidth, 60) + "px";
@@ -30,7 +30,6 @@ export function spin_the_crossUP() {
 
   let i = 1;
   let interval2 = setInterval(() => {
-    console.log(cross.style.transform);
     cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 315, 60) + 'deg)';
     i++;
     if (i > 60) {
@@ -44,12 +43,11 @@ export function scale_widthDown(it) {
   let element = document.querySelector('.formNewGraphic');
   let button = document.querySelector('.addGraphicButton');
   let buttonWidth = window.getComputedStyle(button).width;
-  let maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.8;
-  let k = 59;
+  let maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
+  let k = 60;
   let interval3 = setInterval(() => {
     element.style.width = Math.easeOutQuart(k, 0, maxElementWidth, 60) + "px";
     k--;
-    console.log(element.style.width);
     if (k < 0) {
       clearInterval(interval3);
       it.addButtonActive = false;

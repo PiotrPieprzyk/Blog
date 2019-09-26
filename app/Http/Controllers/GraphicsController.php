@@ -46,6 +46,10 @@ class GraphicsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'id'=> 'required',
+            'file' => 'bail|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
         $path = Storage::putFile('/public/graphicNew', new File($request->file), 'public');
         // $graphic_file_name = str_replace($upload_path . '/', "");

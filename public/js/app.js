@@ -2495,6 +2495,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2516,7 +2526,9 @@ __webpack_require__.r(__webpack_exports__);
       listGraphics: "",
       OnSlider: false,
       activeGaleryId: "",
-      addButtonActive: false
+      addButtonActive: false,
+      errorFile: "",
+      image_src: "./images/header/send-icon.svg"
     };
   },
   methods: {
@@ -2524,7 +2536,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activeGaleryId = id;
       this.OnSlider = true;
     },
-    // Api
+    // Upload Graphics
     sendPhoto: function sendPhoto(e) {
       var _this = this;
 
@@ -2540,14 +2552,50 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (request) {
         console.log(request);
+        _this.errorFile = "Wysłano!";
         axios.get("/graphics/" + _this.userId).then(function (request) {
           console.log(request.data);
           _this.listGraphics = request.data;
         })["catch"](function () {
           console.log("FAILURE!!");
         });
-      })["catch"](function () {
-        console.log("FAILURE!!");
+      })["catch"](function (error) {
+        if (error.response.status == 422) {
+          _this.errorFile = error.response.data.errors.file[0];
+        }
+      }).then(function () {
+        var errorhook = document.querySelector(".errors");
+
+        if (window.getComputedStyle(errorhook).top == "-32px") {
+          if (_this.errorFile != "Wysłano!") {
+            errorhook.style.color = "red";
+
+            _this.jsAnimation.errorAppear(errorhook);
+
+            console.log("NO");
+          }
+
+          if (_this.errorFile == "Wysłano!") {
+            errorhook.style.color = "green";
+
+            _this.jsAnimation.errorAppear(errorhook);
+
+            setTimeout(function () {
+              console.log("YES");
+
+              _this.jsAnimation.errorDisappear(errorhook);
+            }, 2000);
+          }
+        } else {
+          if (_this.errorFile == "Wysłano!") {
+            errorhook.style.color = "green";
+            setTimeout(function () {
+              console.log("YES");
+
+              _this.jsAnimation.errorDisappear(errorhook);
+            }, 2000);
+          }
+        }
       });
     },
     processFile: function processFile(event) {
@@ -2556,15 +2604,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Animation
     activeAddButton: function activeAddButton() {
+      var element = document.querySelector(".addGraphicButton");
+
       if (this.addButtonActive == false) {
         var it = this;
         this.jsAnimation.scale_widthUP(it);
         this.jsAnimation.spin_the_crossUP();
+        this.jsAnimation.activeShadowBlock(element);
       } else {
         var _it = this;
 
         this.jsAnimation.scale_widthDown(_it);
         this.jsAnimation.spin_the_crossDown();
+        this.jsAnimation.deActiveShadowBlock(element);
       }
     }
   },
@@ -47105,7 +47157,13 @@ var render = function() {
           _vm.addButtonActive
             ? _c("input", {
                 ref: "file",
-                attrs: { type: "file", name: "graphic" },
+                staticClass: "inputfile",
+                attrs: {
+                  type: "file",
+                  name: "graphic",
+                  id: "file",
+                  multiple: ""
+                },
                 on: {
                   change: function($event) {
                     return _vm.processFile($event)
@@ -47114,12 +47172,14 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
+          _c("label", { attrs: { for: "file" } }, [_vm._v("Choose a file")]),
+          _vm._v(" "),
           _vm.addButtonActive
             ? _c("div", { staticClass: "submitWraper" }, [
                 _c(
                   "button",
                   { staticClass: "submitForm", on: { click: _vm.sendPhoto } },
-                  [_vm._v("Dodaj")]
+                  [_c("img", { attrs: { src: _vm.image_src } })]
                 )
               ])
             : _vm._e()
@@ -47142,6 +47202,12 @@ var render = function() {
           _c("div", { staticClass: "singleBar" })
         ]
       )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "errors" }, [
+      _vm.addButtonActive
+        ? _c("p", { staticClass: "errorFile" }, [_vm._v(_vm._s(_vm.errorFile))])
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c(
@@ -64582,6 +64648,96 @@ function extend() {
 
 /***/ }),
 
+/***/ "./resources/js/animationJs/activeShadowBlock.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/animationJs/activeShadowBlock.js ***!
+  \*******************************************************/
+/*! exports provided: activeShadowBlock, deActiveShadowBlock */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "activeShadowBlock", function() { return activeShadowBlock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deActiveShadowBlock", function() { return deActiveShadowBlock; });
+Math.easeOutQuart = function (t, b, c, d) {
+  t /= d;
+  t--;
+  return -c * (t * t * t * t - 1) + b;
+};
+
+var activeShadowBlock = function activeShadowBlock(element) {
+  var k = 1;
+  var shadowInterval = setInterval(function () {
+    element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + Math.easeOutQuart(k, 0, 0.1, 60) + ")";
+    k++;
+
+    if (k > 60) {
+      clearInterval(shadowInterval);
+    }
+  }, 10);
+};
+var deActiveShadowBlock = function activeShadowBlock(element) {
+  var k = 60;
+  var shadowInterval = setInterval(function () {
+    element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + Math.easeOutQuart(k, 0, 0.1, 60) + ")";
+    k--;
+
+    if (k < 0) {
+      clearInterval(shadowInterval);
+    }
+  }, 10);
+};
+
+/***/ }),
+
+/***/ "./resources/js/animationJs/errorMessage.js":
+/*!**************************************************!*\
+  !*** ./resources/js/animationJs/errorMessage.js ***!
+  \**************************************************/
+/*! exports provided: errorDisappear, errorAppear */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorDisappear", function() { return errorDisappear; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorAppear", function() { return errorAppear; });
+Math.easeOutQuart = function (t, b, c, d) {
+  t /= d;
+  t--;
+  return -c * (t * t * t * t - 1) + b;
+};
+
+Math.easeInExpo = function (t, b, c, d) {
+  return c * Math.pow(2, 10 * (t / d - 1)) + b;
+};
+
+var errorDisappear = function errorDisappear(element) {
+  console.log(element.style.top);
+  var k = 1;
+  var apperInterval = setInterval(function () {
+    element.style.top = "-" + Math.easeOutQuart(k, 0, 32, 60) + "px";
+    k++;
+
+    if (k > 60) {
+      clearInterval(apperInterval);
+    }
+  }, 7);
+};
+var errorAppear = function errorAppear(element) {
+  console.log(element.style.top);
+  var k = 60;
+  var apperInterval = setInterval(function () {
+    element.style.top = "-" + Math.easeInExpo(k, 0, 32, 60) + "px";
+    k--;
+
+    if (k < 0) {
+      clearInterval(apperInterval);
+    }
+  }, 7);
+};
+
+/***/ }),
+
 /***/ "./resources/js/animationJs/scale_width.js":
 /*!*************************************************!*\
   !*** ./resources/js/animationJs/scale_width.js ***!
@@ -64606,7 +64762,7 @@ function scale_widthUP(store) {
   var element = document.querySelector('.formNewGraphic');
   var button = document.querySelector('.addGraphicButton');
   var buttonWidth = window.getComputedStyle(button).width;
-  var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.8;
+  var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
   var k = 1;
   var interval1 = setInterval(function () {
     element.style.width = Math.easeOutQuart(k, 1, maxElementWidth, 60) + "px";
@@ -64622,7 +64778,6 @@ function spin_the_crossUP() {
   cross.style.transform = 'rotate(' + 0 + 'deg)';
   var i = 1;
   var interval2 = setInterval(function () {
-    console.log(cross.style.transform);
     cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 315, 60) + 'deg)';
     i++;
 
@@ -64635,12 +64790,11 @@ function scale_widthDown(it) {
   var element = document.querySelector('.formNewGraphic');
   var button = document.querySelector('.addGraphicButton');
   var buttonWidth = window.getComputedStyle(button).width;
-  var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.8;
-  var k = 59;
+  var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
+  var k = 60;
   var interval3 = setInterval(function () {
     element.style.width = Math.easeOutQuart(k, 0, maxElementWidth, 60) + "px";
     k--;
-    console.log(element.style.width);
 
     if (k < 0) {
       clearInterval(interval3);
@@ -66249,6 +66403,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animationJs_sizeUp_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animationJs/sizeUp.js */ "./resources/js/animationJs/sizeUp.js");
 /* harmony import */ var _animationJs_sizeDown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animationJs/sizeDown.js */ "./resources/js/animationJs/sizeDown.js");
 /* harmony import */ var _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animationJs/scale_width.js */ "./resources/js/animationJs/scale_width.js");
+/* harmony import */ var _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animationJs/activeShadowBlock.js */ "./resources/js/animationJs/activeShadowBlock.js");
+/* harmony import */ var _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animationJs/errorMessage.js */ "./resources/js/animationJs/errorMessage.js");
+
+
 
 
 
@@ -66258,7 +66416,11 @@ __webpack_require__.r(__webpack_exports__);
   scale_widthUP: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["scale_widthUP"],
   scale_widthDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["scale_widthDown"],
   spin_the_crossUP: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossUP"],
-  spin_the_crossDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossDown"]
+  spin_the_crossDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossDown"],
+  activeShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["activeShadowBlock"],
+  deActiveShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["deActiveShadowBlock"],
+  errorAppear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorAppear"],
+  errorDisappear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorDisappear"]
 });
 
 /***/ }),
