@@ -38,18 +38,18 @@ export let sizeUp = function sizeUp(index, store) {
       setStyle.top = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
-      let endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 6;
+      let endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 3;
       let endWidth = viewPort[0];
       let endHeight = viewPort[1];
 
       // sizing // 
       let k = 1;
       let positionInterval = setInterval(() => {
-        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 60, 30) + 'px';
-        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
+        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120, 80) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
         k++;
-        if (k > 60) {
+        if (k > 120) {
           clearInterval(positionInterval);
           document.getElementById(1).classList.add("activeProfilePage");
           setTimeout(() => {
@@ -57,11 +57,17 @@ export let sizeUp = function sizeUp(index, store) {
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", false);
             store.$store.commit("changeProfileCardActive", 1);
+            setStyle.top = null;
+            setStyle.bottom = null;
+            setStyle.left = null;
+            setStyle.right = null;
+            setStyle.width = null;
+            setStyle.height = null;
           }, 200);
 
 
         }
-      }, 10);
+      }, 2);
     }
     // GameProfil //
     if (index == 2) {
@@ -77,18 +83,18 @@ export let sizeUp = function sizeUp(index, store) {
       setStyle.width = widthElement;
       setStyle.height = heightElement;
       setStyle.bottom = positionElement;
-      let endBottom = parseInt(setStyle.bottom.slice(0, -2)) + viewPort[1] / 6;
+      let endBottom = parseInt(setStyle.bottom.slice(0, -2)) + viewPort[1] / 3;
       let endWidth = viewPort[0];
       let endHeight = viewPort[1];
 
       // sizing // 
       let k = 1;
       let positionInterval = setInterval(() => {
-        setStyle.bottom = Math.easeOutExpo(k, parseInt(setStyle.bottom.slice(0, -2)), endBottom - parseInt(setStyle.bottom.slice(0, -2)), 60, 40) + 'px';
-        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
+        setStyle.bottom = Math.easeOutExpo(k, parseInt(setStyle.bottom.slice(0, -2)), endBottom - parseInt(setStyle.bottom.slice(0, -2)), 120, 80) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
         k++;
-        if (k > 60) {
+        if (k > 120) {
           clearInterval(positionInterval);
 
           document.getElementById(2).classList.add("activeProfilePage");
@@ -97,10 +103,16 @@ export let sizeUp = function sizeUp(index, store) {
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", true);
             store.$store.commit("changeProfileCardActive", 1);
+            setStyle.top = null;
+            setStyle.bottom = null;
+            setStyle.left = null;
+            setStyle.right = null;
+            setStyle.width = null;
+            setStyle.height = null;
           }, 200);
 
         }
-      }, 6);
+      }, 2);
     }
   }
   if (viewPort[0] >= viewPort[1]) {
@@ -126,11 +138,11 @@ export let sizeUp = function sizeUp(index, store) {
       // sizing //
       let k = 1;
       let positionInterval = setInterval(() => {
-        setStyle.left = Math.easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 60, 40) + 'px';
-        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
+        setStyle.left = Math.easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 120, 80) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
         k++;
-        if (k > 60) {
+        if (k > 120) {
           clearInterval(positionInterval);
 
           document.getElementById(1).classList.add("activeProfilePage");
@@ -139,11 +151,17 @@ export let sizeUp = function sizeUp(index, store) {
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", false);
             store.$store.commit("changeProfileCardActive", 1);
+            setStyle.top = null;
+            setStyle.bottom = null;
+            setStyle.left = null;
+            setStyle.right = null;
+            setStyle.width = null;
+            setStyle.height = null;
           }, 200);
 
 
         }
-      }, 6);
+      }, 2);
 
     }
 
@@ -169,11 +187,11 @@ export let sizeUp = function sizeUp(index, store) {
       // sizing //
       let k = 1;
       let positionInterval = setInterval(() => {
-        setStyle.right = Math.easeOutExpo(k, parseInt(setStyle.right.slice(0, -2)), endright - parseInt(setStyle.right.slice(0, -2)), 60, 40) + 'px';
-        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
+        setStyle.right = Math.easeOutExpo(k, parseInt(setStyle.right.slice(0, -2)), endright - parseInt(setStyle.right.slice(0, -2)), 120, 80) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
         k++;
-        if (k > 60) {
+        if (k > 120) {
           clearInterval(positionInterval);
 
           document.getElementById(2).classList.add("activeProfilePage");
@@ -182,10 +200,16 @@ export let sizeUp = function sizeUp(index, store) {
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", true);
             store.$store.commit("changeProfileCardActive", 1);
+            setStyle.top = null;
+            setStyle.bottom = null;
+            setStyle.left = null;
+            setStyle.right = null;
+            setStyle.width = null;
+            setStyle.height = null;
           }, 200);
 
         }
-      }, 6);
+      }, 2);
     }
   }
 }

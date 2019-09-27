@@ -2253,6 +2253,11 @@ __webpack_require__.r(__webpack_exports__);
     showSlider: function showSlider(id) {
       this.activeGaleryId = id;
       this.OnSlider = true;
+      document.body.classList.remove("overflowAuto");
+    },
+    closeSlider: function closeSlider() {
+      this.OnSlider = false;
+      document.body.classList.add("overflowAuto");
     }
   },
   mounted: function mounted() {
@@ -2536,6 +2541,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       graphic: "",
+      fileName: "Choose a file",
       userId: this.$router.history.current.params.id,
       listGraphics: "",
       OnSlider: false,
@@ -2641,6 +2647,8 @@ __webpack_require__.r(__webpack_exports__);
     processFile: function processFile(event) {
       console.log("work");
       this.graphic = this.$refs.file.files[0];
+      this.fileName = this.graphic.name;
+      console.log(this.graphic);
     },
     // Animation
     activeAddButton: function activeAddButton() {
@@ -2782,16 +2790,18 @@ __webpack_require__.r(__webpack_exports__);
 
       document.getElementById(2).classList.remove("activeProfilePage");
       this.jsAnimation.sizeDown(2);
-      this.$store.commit("changeVisibleProfileButton2", true);
-      this.$store.commit("changebuttonProfileActive", false);
       this.$store.commit("changeVisibleProfileButton1", true);
+      this.$store.commit("changebuttonProfileActive", false);
+      this.$store.commit("changeVisibleProfileButton2", true);
       next();
     }
 
     if (splitToPath.length == splitFromPath.length) {
       setTimeout(function () {
+        var it = _this;
+
         if (regGraphic.test(toPath)) {
-          _this.jsAnimation.sizeUp(1);
+          _this.jsAnimation.sizeUp(1, it);
 
           _this.$store.commit("changeVisibleProfileButton1", true);
 
@@ -2801,7 +2811,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.$store.commit("changeProfileCardActive", 1);
         } else {
-          _this.jsAnimation.sizeUp(2);
+          _this.jsAnimation.sizeUp(2, it);
 
           _this.$store.commit("changeVisibleProfileButton1", true);
 
@@ -2815,7 +2825,7 @@ __webpack_require__.r(__webpack_exports__);
         setTimeout(function () {
           return next();
         }, 1000);
-      }, 300);
+      }, 600);
     }
 
     if (regGraphic.test(toPath) && !(splitToPath.length == splitFromPath.length)) {
@@ -46879,7 +46889,7 @@ var render = function() {
             },
             on: {
               close: function($event) {
-                _vm.OnSlider = false
+                return _vm.closeSlider()
               },
               previous: function($event) {
                 _vm.activeGaleryId--
@@ -47222,7 +47232,9 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          _c("label", { attrs: { for: "file" } }, [_vm._v("Choose a file")]),
+          _c("label", { attrs: { for: "file" } }, [
+            _vm._v(_vm._s(_vm.fileName))
+          ]),
           _vm._v(" "),
           _vm.addButtonActive
             ? _c("div", { staticClass: "submitWraper" }, [
@@ -47336,6 +47348,7 @@ var render = function() {
                             _c(
                               "button",
                               {
+                                staticStyle: { color: "white" },
                                 on: {
                                   click: function($event) {
                                     return _vm.showSlider(index)
@@ -47350,6 +47363,7 @@ var render = function() {
                             _c(
                               "button",
                               {
+                                staticStyle: { color: "white" },
                                 on: {
                                   "~click": function($event) {
                                     return _vm.deleteImage(item.id)
@@ -64960,7 +64974,11 @@ var sizeDown = function sizeDown(index) {
       var heightElement = window.getComputedStyle(sizingElement).height;
       var endTop;
       var endWidth;
-      var endHeight; // aspectRatio
+      var endHeight;
+      setStyle.top = null;
+      setStyle.bottom = null;
+      setStyle.left = null;
+      setStyle.right = null; // aspectRatio
 
       var aspectRatio = viewPort[0] / viewPort[1];
 
@@ -64981,12 +64999,12 @@ var sizeDown = function sizeDown(index) {
       setStyle.width = widthElement;
       setStyle.height = heightElement; // sizing // 
 
-      var k = 60;
+      var k = 120;
       var i = 1;
       var positionInterval = setInterval(function () {
-        setStyle.top = Math.easeInExpo(i, 0, endTop, 60, 30) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 60) + 'px';
+        setStyle.top = Math.easeInExpo(i, 0, endTop, 120, 60) + 'px';
+        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
         k--;
         i++;
 
@@ -64995,9 +65013,12 @@ var sizeDown = function sizeDown(index) {
           setStyle.width = null;
           setStyle.height = null;
           setStyle.top = null;
+          setStyle.bottom = null;
+          setStyle.left = null;
+          setStyle.right = null;
           document.getElementById(1).style.zIndex = 0;
         }
-      }, 10);
+      }, 2);
     } // GameProfil //
 
 
@@ -65013,8 +65034,12 @@ var sizeDown = function sizeDown(index) {
 
       var _endWidth;
 
-      var _endHeight; // aspectRatio
+      var _endHeight;
 
+      _setStyle.top = null;
+      _setStyle.bottom = null;
+      _setStyle.left = null;
+      _setStyle.right = null; // aspectRatio
 
       var _aspectRatio = viewPort[0] / viewPort[1];
 
@@ -65035,13 +65060,13 @@ var sizeDown = function sizeDown(index) {
       _setStyle.height = _heightElement;
       _setStyle.bottom = _positionElement; // sizing // 
 
-      var _k = 60;
+      var _k = 120;
       var _i = 1;
 
       var _positionInterval = setInterval(function () {
-        _setStyle.bottom = Math.easeInExpo(_i, 0, endBottom, 60, 30) + 'px';
-        _setStyle.width = Math.easeInExpo(_k, _endWidth, viewPort[0] - _endWidth, 60) + 'px';
-        _setStyle.height = Math.easeInExpo(_k, _endHeight, viewPort[1] - _endHeight, 60) + 'px';
+        _setStyle.bottom = Math.easeInExpo(_i, 0, endBottom, 120, 60) + 'px';
+        _setStyle.width = Math.easeInExpo(_k, _endWidth, viewPort[0] - _endWidth, 120) + 'px';
+        _setStyle.height = Math.easeInExpo(_k, _endHeight, viewPort[1] - _endHeight, 120) + 'px';
         _k--;
         _i++;
 
@@ -65049,10 +65074,13 @@ var sizeDown = function sizeDown(index) {
           clearInterval(_positionInterval);
           _setStyle.width = null;
           _setStyle.height = null;
+          _setStyle.top = null;
           _setStyle.bottom = null;
+          _setStyle.left = null;
+          _setStyle.right = null;
           document.getElementById(2).style.zIndex = 0;
         }
-      }, 10);
+      }, 2);
     }
   }
 
@@ -65070,8 +65098,12 @@ var sizeDown = function sizeDown(index) {
 
       var _endWidth2;
 
-      var _endHeight2; // aspectRatio
+      var _endHeight2;
 
+      _setStyle2.top = null;
+      _setStyle2.bottom = null;
+      _setStyle2.left = null;
+      _setStyle2.right = null; // aspectRatio
 
       var _aspectRatio2 = viewPort[0] / viewPort[1];
 
@@ -65092,13 +65124,14 @@ var sizeDown = function sizeDown(index) {
       _setStyle2.width = _widthElement2;
       _setStyle2.height = _heightElement2; // sizing //
 
-      var _k2 = 60;
+      var _k2 = 120;
       var _i2 = 1;
 
       var _positionInterval2 = setInterval(function () {
-        _setStyle2.left = Math.easeInExpo(_i2, 0, endleft, 60, 30) + 'px';
-        _setStyle2.width = Math.easeInExpo(_k2, _endWidth2, viewPort[0] - _endWidth2, 60) + 'px';
-        _setStyle2.height = Math.easeInExpo(_k2, _endHeight2, viewPort[1] - _endHeight2, 60) + 'px';
+        console.log(_setStyle2.left);
+        _setStyle2.left = Math.easeInExpo(_i2, 0, endleft, 120, 120) + 'px';
+        _setStyle2.width = Math.easeInExpo(_k2, _endWidth2, viewPort[0] - _endWidth2, 120) + 'px';
+        _setStyle2.height = Math.easeInExpo(_k2, _endHeight2, viewPort[1] - _endHeight2, 120) + 'px';
         _k2--;
         _i2++;
 
@@ -65106,10 +65139,13 @@ var sizeDown = function sizeDown(index) {
           clearInterval(_positionInterval2);
           _setStyle2.width = null;
           _setStyle2.height = null;
+          _setStyle2.top = null;
+          _setStyle2.bottom = null;
           _setStyle2.left = null;
+          _setStyle2.right = null;
           document.getElementById(1).style.zIndex = 0;
         }
-      }, 10);
+      }, 2);
     } // GameProfil //
 
 
@@ -65125,8 +65161,12 @@ var sizeDown = function sizeDown(index) {
 
       var _endWidth3;
 
-      var _endHeight3; // aspectRatio
+      var _endHeight3;
 
+      _setStyle3.top = null;
+      _setStyle3.bottom = null;
+      _setStyle3.left = null;
+      _setStyle3.right = null; // aspectRatio
 
       var _aspectRatio3 = viewPort[0] / viewPort[1];
 
@@ -65147,13 +65187,13 @@ var sizeDown = function sizeDown(index) {
       _setStyle3.width = _widthElement3;
       _setStyle3.height = _heightElement3; // sizing //
 
-      var _k3 = 60;
+      var _k3 = 120;
       var _i3 = 1;
 
       var _positionInterval3 = setInterval(function () {
-        _setStyle3.right = Math.easeInExpo(_i3, 0, endRight, 60, 30) + 'px';
-        _setStyle3.width = Math.easeInExpo(_k3, _endWidth3, viewPort[0] - _endWidth3, 60) + 'px';
-        _setStyle3.height = Math.easeInExpo(_k3, _endHeight3, viewPort[1] - _endHeight3, 60) + 'px';
+        _setStyle3.right = Math.easeInExpo(_i3, 0, endRight, 120, 60) + 'px';
+        _setStyle3.width = Math.easeInExpo(_k3, _endWidth3, viewPort[0] - _endWidth3, 120) + 'px';
+        _setStyle3.height = Math.easeInExpo(_k3, _endHeight3, viewPort[1] - _endHeight3, 120) + 'px';
         _k3--;
         _i3++;
 
@@ -65161,10 +65201,13 @@ var sizeDown = function sizeDown(index) {
           clearInterval(_positionInterval3);
           _setStyle3.width = null;
           _setStyle3.height = null;
+          _setStyle3.top = null;
+          _setStyle3.bottom = null;
           _setStyle3.left = null;
+          _setStyle3.right = null;
           document.getElementById(2).style.zIndex = 0;
         }
-      }, 10);
+      }, 2);
     }
   }
 };
@@ -65221,18 +65264,18 @@ var sizeUp = function sizeUp(index, store) {
       setStyle.top = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
-      var endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 6;
+      var endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 3;
       var endWidth = viewPort[0];
       var endHeight = viewPort[1]; // sizing // 
 
       var k = 1;
       var positionInterval = setInterval(function () {
-        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 60, 30) + 'px';
-        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 60) + 'px';
+        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120, 80) + 'px';
+        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
         k++;
 
-        if (k > 60) {
+        if (k > 120) {
           clearInterval(positionInterval);
           document.getElementById(1).classList.add("activeProfilePage");
           setTimeout(function () {
@@ -65240,9 +65283,15 @@ var sizeUp = function sizeUp(index, store) {
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", false);
             store.$store.commit("changeProfileCardActive", 1);
+            setStyle.top = null;
+            setStyle.bottom = null;
+            setStyle.left = null;
+            setStyle.right = null;
+            setStyle.width = null;
+            setStyle.height = null;
           }, 200);
         }
-      }, 10);
+      }, 2);
     } // GameProfil //
 
 
@@ -65259,19 +65308,19 @@ var sizeUp = function sizeUp(index, store) {
       _setStyle.width = _widthElement;
       _setStyle.height = _heightElement;
       _setStyle.bottom = _positionElement;
-      var endBottom = parseInt(_setStyle.bottom.slice(0, -2)) + viewPort[1] / 6;
+      var endBottom = parseInt(_setStyle.bottom.slice(0, -2)) + viewPort[1] / 3;
       var _endWidth = viewPort[0];
       var _endHeight = viewPort[1]; // sizing // 
 
       var _k = 1;
 
       var _positionInterval = setInterval(function () {
-        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 60, 40) + 'px';
-        _setStyle.width = Math.easeInExpo(_k, parseInt(_setStyle.width.slice(0, -2)), _endWidth - parseInt(_setStyle.width.slice(0, -2)), 60) + 'px';
-        _setStyle.height = Math.easeInExpo(_k, parseInt(_setStyle.height.slice(0, -2)), _endHeight - parseInt(_setStyle.height.slice(0, -2)), 60) + 'px';
+        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 120, 80) + 'px';
+        _setStyle.width = Math.easeInExpo(_k, parseInt(_setStyle.width.slice(0, -2)), _endWidth - parseInt(_setStyle.width.slice(0, -2)), 120) + 'px';
+        _setStyle.height = Math.easeInExpo(_k, parseInt(_setStyle.height.slice(0, -2)), _endHeight - parseInt(_setStyle.height.slice(0, -2)), 120) + 'px';
         _k++;
 
-        if (_k > 60) {
+        if (_k > 120) {
           clearInterval(_positionInterval);
           document.getElementById(2).classList.add("activeProfilePage");
           setTimeout(function () {
@@ -65279,9 +65328,15 @@ var sizeUp = function sizeUp(index, store) {
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", true);
             store.$store.commit("changeProfileCardActive", 1);
+            _setStyle.top = null;
+            _setStyle.bottom = null;
+            _setStyle.left = null;
+            _setStyle.right = null;
+            _setStyle.width = null;
+            _setStyle.height = null;
           }, 200);
         }
-      }, 6);
+      }, 2);
     }
   }
 
@@ -65307,12 +65362,12 @@ var sizeUp = function sizeUp(index, store) {
       var _k2 = 1;
 
       var _positionInterval2 = setInterval(function () {
-        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 60, 40) + 'px';
-        _setStyle2.width = Math.easeInExpo(_k2, parseInt(_setStyle2.width.slice(0, -2)), _endWidth2 - parseInt(_setStyle2.width.slice(0, -2)), 60) + 'px';
-        _setStyle2.height = Math.easeInExpo(_k2, parseInt(_setStyle2.height.slice(0, -2)), _endHeight2 - parseInt(_setStyle2.height.slice(0, -2)), 60) + 'px';
+        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 120, 80) + 'px';
+        _setStyle2.width = Math.easeInExpo(_k2, parseInt(_setStyle2.width.slice(0, -2)), _endWidth2 - parseInt(_setStyle2.width.slice(0, -2)), 120) + 'px';
+        _setStyle2.height = Math.easeInExpo(_k2, parseInt(_setStyle2.height.slice(0, -2)), _endHeight2 - parseInt(_setStyle2.height.slice(0, -2)), 120) + 'px';
         _k2++;
 
-        if (_k2 > 60) {
+        if (_k2 > 120) {
           clearInterval(_positionInterval2);
           document.getElementById(1).classList.add("activeProfilePage");
           setTimeout(function () {
@@ -65320,9 +65375,15 @@ var sizeUp = function sizeUp(index, store) {
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", false);
             store.$store.commit("changeProfileCardActive", 1);
+            _setStyle2.top = null;
+            _setStyle2.bottom = null;
+            _setStyle2.left = null;
+            _setStyle2.right = null;
+            _setStyle2.width = null;
+            _setStyle2.height = null;
           }, 200);
         }
-      }, 6);
+      }, 2);
     } // GameProfil //
 
 
@@ -65346,12 +65407,12 @@ var sizeUp = function sizeUp(index, store) {
       var _k3 = 1;
 
       var _positionInterval3 = setInterval(function () {
-        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 60, 40) + 'px';
-        _setStyle3.width = Math.easeInExpo(_k3, parseInt(_setStyle3.width.slice(0, -2)), _endWidth3 - parseInt(_setStyle3.width.slice(0, -2)), 60) + 'px';
-        _setStyle3.height = Math.easeInExpo(_k3, parseInt(_setStyle3.height.slice(0, -2)), _endHeight3 - parseInt(_setStyle3.height.slice(0, -2)), 60) + 'px';
+        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 120, 80) + 'px';
+        _setStyle3.width = Math.easeInExpo(_k3, parseInt(_setStyle3.width.slice(0, -2)), _endWidth3 - parseInt(_setStyle3.width.slice(0, -2)), 120) + 'px';
+        _setStyle3.height = Math.easeInExpo(_k3, parseInt(_setStyle3.height.slice(0, -2)), _endHeight3 - parseInt(_setStyle3.height.slice(0, -2)), 120) + 'px';
         _k3++;
 
-        if (_k3 > 60) {
+        if (_k3 > 120) {
           clearInterval(_positionInterval3);
           document.getElementById(2).classList.add("activeProfilePage");
           setTimeout(function () {
@@ -65359,9 +65420,15 @@ var sizeUp = function sizeUp(index, store) {
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", true);
             store.$store.commit("changeProfileCardActive", 1);
+            _setStyle3.top = null;
+            _setStyle3.bottom = null;
+            _setStyle3.left = null;
+            _setStyle3.right = null;
+            _setStyle3.width = null;
+            _setStyle3.height = null;
           }, 200);
         }
-      }, 6);
+      }, 2);
     }
   }
 };

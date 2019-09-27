@@ -14,7 +14,7 @@
 					class="inputfile"
 					multiple
 				/>
-				<label for="file">Choose a file</label>
+				<label for="file">{{ fileName }}</label>
 				<div v-if="addButtonActive" class="submitWraper">
 					<button @click="sendPhoto" class="submitForm">
 						<img :src="image_src" />
@@ -59,10 +59,10 @@
 								<button class="closeImageMenu" @click="showImageMenu(-1)"></button>
 							</div>
 							<div class="viewButton">
-								<button @click="showSlider(index)">View</button>
+								<button @click="showSlider(index)" style="color: white">View</button>
 							</div>
 							<div class="deleteButton">
-								<button @click.once="deleteImage(item.id)">Delete</button>
+								<button @click.once="deleteImage(item.id)" style="color: white">Delete</button>
 							</div>
 						</div>
 					</button>
@@ -90,6 +90,7 @@ export default {
 	data() {
 		return {
 			graphic: "",
+			fileName: "Choose a file",
 			userId: this.$router.history.current.params.id,
 			listGraphics: "",
 			OnSlider: false,
@@ -196,6 +197,8 @@ export default {
 		processFile(event) {
 			console.log("work");
 			this.graphic = this.$refs.file.files[0];
+			this.fileName = this.graphic.name;
+			console.log(this.graphic);
 		},
 
 		// Animation

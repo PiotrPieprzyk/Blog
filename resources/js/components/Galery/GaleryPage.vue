@@ -5,7 +5,7 @@
 		</div>
 		<galery-slider
 			v-if="OnSlider"
-			@close="OnSlider = false"
+			@close="closeSlider()"
 			@previous="activeGaleryId--"
 			@next="activeGaleryId++"
 			:activeGaleryItem="activeGaleryId"
@@ -42,6 +42,11 @@ export default {
 		showSlider(id) {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
+			document.body.classList.remove("overflowAuto");
+		},
+		closeSlider() {
+			this.OnSlider = false;
+			document.body.classList.add("overflowAuto");
 		}
 	},
 	mounted() {

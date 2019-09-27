@@ -35,6 +35,11 @@ export let sizeDown = function sizeDown(index) {
       let endWidth;
       let endHeight;
 
+      setStyle.top = null;
+      setStyle.bottom = null;
+      setStyle.left = null;
+      setStyle.right = null;
+
       // aspectRatio
       let aspectRatio = viewPort[0] / viewPort[1];
       if (aspectRatio <= 1 / 2) {
@@ -56,12 +61,12 @@ export let sizeDown = function sizeDown(index) {
 
 
       // sizing // 
-      let k = 60;
+      let k = 120;
       let i = 1;
       let positionInterval = setInterval(() => {
-        setStyle.top = Math.easeInExpo(i, 0, endTop, 60, 30) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 60) + 'px';
+        setStyle.top = Math.easeInExpo(i, 0, endTop, 120, 60) + 'px';
+        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
         k--;
         i++;
         if (k == 1) {
@@ -69,11 +74,14 @@ export let sizeDown = function sizeDown(index) {
           setStyle.width = null;
           setStyle.height = null;
           setStyle.top = null;
+          setStyle.bottom = null;
+          setStyle.left = null;
+          setStyle.right = null;
           document.getElementById(1).style.zIndex = 0;
 
 
         }
-      }, 10);
+      }, 2);
     }
     // GameProfil //
     if (index == 2) {
@@ -86,6 +94,11 @@ export let sizeDown = function sizeDown(index) {
       let endBottom;
       let endWidth;
       let endHeight;
+
+      setStyle.top = null;
+      setStyle.bottom = null;
+      setStyle.left = null;
+      setStyle.right = null;
 
       // aspectRatio
       let aspectRatio = viewPort[0] / viewPort[1];
@@ -106,25 +119,28 @@ export let sizeDown = function sizeDown(index) {
       setStyle.bottom = positionElement;
 
       // sizing // 
-      let k = 60;
+      let k = 120;
       let i = 1;
       let positionInterval = setInterval(() => {
-        setStyle.bottom = Math.easeInExpo(i, 0, endBottom, 60, 30) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 60) + 'px';
+        setStyle.bottom = Math.easeInExpo(i, 0, endBottom, 120, 60) + 'px';
+        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
         k--;
         i++;
         if (k == 1) {
           clearInterval(positionInterval);
           setStyle.width = null;
           setStyle.height = null;
+          setStyle.top = null;
           setStyle.bottom = null;
+          setStyle.left = null;
+          setStyle.right = null;
           document.getElementById(2).style.zIndex = 0;
 
 
 
         }
-      }, 10);
+      }, 2);
     }
   }
   if (viewPort[0] >= viewPort[1]) {
@@ -139,6 +155,11 @@ export let sizeDown = function sizeDown(index) {
       let endleft;
       let endWidth;
       let endHeight;
+
+      setStyle.top = null;
+      setStyle.bottom = null;
+      setStyle.left = null;
+      setStyle.right = null;
 
       // aspectRatio
       let aspectRatio = viewPort[0] / viewPort[1];
@@ -159,24 +180,28 @@ export let sizeDown = function sizeDown(index) {
       setStyle.height = heightElement;
 
       // sizing //
-      let k = 60;
+      let k = 120;
       let i = 1;
       let positionInterval = setInterval(() => {
-        setStyle.left = Math.easeInExpo(i, 0, endleft, 60, 30) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 60) + 'px';
+        console.log(setStyle.left);
+        setStyle.left = Math.easeInExpo(i, 0, endleft, 120, 120) + 'px';
+        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
         k--;
         i++;
         if (k == 1) {
           clearInterval(positionInterval);
           setStyle.width = null;
           setStyle.height = null;
+          setStyle.top = null;
+          setStyle.bottom = null;
           setStyle.left = null;
+          setStyle.right = null;
           document.getElementById(1).style.zIndex = 0;
 
 
         }
-      }, 10);
+      }, 2);
 
     }
 
@@ -191,6 +216,11 @@ export let sizeDown = function sizeDown(index) {
       let endRight;
       let endWidth;
       let endHeight;
+
+      setStyle.top = null;
+      setStyle.bottom = null;
+      setStyle.left = null;
+      setStyle.right = null;
 
       // aspectRatio
       let aspectRatio = viewPort[0] / viewPort[1];
@@ -211,24 +241,27 @@ export let sizeDown = function sizeDown(index) {
       setStyle.height = heightElement;
 
       // sizing //
-      let k = 60;
+      let k = 120;
       let i = 1;
       let positionInterval = setInterval(() => {
-        setStyle.right = Math.easeInExpo(i, 0, endRight, 60, 30) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 60) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 60) + 'px';
+        setStyle.right = Math.easeInExpo(i, 0, endRight, 120, 60) + 'px';
+        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
+        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
         k--;
         i++;
         if (k == 1) {
           clearInterval(positionInterval);
           setStyle.width = null;
           setStyle.height = null;
+          setStyle.top = null;
+          setStyle.bottom = null;
           setStyle.left = null;
+          setStyle.right = null;
           document.getElementById(2).style.zIndex = 0;
 
 
         }
-      }, 10);
+      }, 2);
     }
   }
 }

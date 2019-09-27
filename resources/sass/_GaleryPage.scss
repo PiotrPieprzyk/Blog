@@ -184,9 +184,11 @@
     z-index: 1;
 
     .GraphicWrapper {
-      width: 300px;
-      height: 300px;
+      max-width: 300px;
+      max-height: 300px;
       margin: 20px;
+      width: 95vw;
+      height: 95vw;
 
       .GraphicButton {
         width: 100%;

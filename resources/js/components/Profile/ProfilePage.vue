@@ -87,23 +87,25 @@ export default {
 			let it = this;
 			document.getElementById(2).classList.remove("activeProfilePage");
 			this.jsAnimation.sizeDown(2);
-			this.$store.commit("changeVisibleProfileButton2", true);
-			this.$store.commit("changebuttonProfileActive", false);
 			this.$store.commit("changeVisibleProfileButton1", true);
+			this.$store.commit("changebuttonProfileActive", false);
+			this.$store.commit("changeVisibleProfileButton2", true);
 
 			next();
 		}
 		if (splitToPath.length == splitFromPath.length) {
 			setTimeout(() => {
+				let it = this;
+
 				if (regGraphic.test(toPath)) {
-					this.jsAnimation.sizeUp(1);
+					this.jsAnimation.sizeUp(1, it);
 
 					this.$store.commit("changeVisibleProfileButton1", true);
 					this.$store.commit("changebuttonProfileActive", true);
 					this.$store.commit("changeVisibleProfileButton2", false);
 					this.$store.commit("changeProfileCardActive", 1);
 				} else {
-					this.jsAnimation.sizeUp(2);
+					this.jsAnimation.sizeUp(2, it);
 
 					this.$store.commit("changeVisibleProfileButton1", true);
 					this.$store.commit("changebuttonProfileActive", true);
@@ -111,7 +113,7 @@ export default {
 					this.$store.commit("changeProfileCardActive", 1);
 				}
 				setTimeout(() => next(), 1000);
-			}, 300);
+			}, 600);
 		}
 		if (
 			regGraphic.test(toPath) &&
