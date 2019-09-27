@@ -2922,7 +2922,7 @@ __webpack_require__.r(__webpack_exports__);
             _this.$store.commit("loadCardStatus", true);
 
             _this.$store.commit("changecurrentCard", index);
-          }, 1000);
+          }, 500);
         }
       }
     }
@@ -3053,7 +3053,7 @@ __webpack_require__.r(__webpack_exports__);
             _this.$store.commit("loadCardStatus", true);
 
             _this.$store.commit("changecurrentCard", index);
-          }, 1000);
+          }, 500);
         }
       }
     }

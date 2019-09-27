@@ -77,7 +77,7 @@ export default {
 						this.$store.commit("changeAnimationStatus", false);
 						this.$store.commit("loadCardStatus", true);
 						this.$store.commit("changecurrentCard", index);
-					}, 1000);
+					}, 500);
 				}
 			}
 		}

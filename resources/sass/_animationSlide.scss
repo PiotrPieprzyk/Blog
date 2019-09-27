@@ -1,6 +1,6 @@
 .slide-top {
-  -webkit-animation: slide-top 1.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) both;
-  animation: slide-top 1.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) both;
+  -webkit-animation: slide-top 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000) both;
+  animation: slide-top 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000) both;
 }
 
 
@@ -41,8 +41,8 @@
 }
 
 .slide-bottom {
-  -webkit-animation: slide-bottom 1.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) reverse both;
-  animation: slide-bottom 1.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) reverse both;
+  -webkit-animation: slide-bottom 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000) reverse both;
+  animation: slide-bottom 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000) reverse both;
 }
 
 /* ----------------------------------------------
