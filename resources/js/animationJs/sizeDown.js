@@ -19,7 +19,7 @@ Math.easeInExpo = function (t, b, c, d) {
   return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
-export let sizeDown = function sizeDown(index) {
+export let sizeDown = function sizeDown(index, store) {
   let viewPort = viewPortProperties();
   if (viewPort[0] < viewPort[1]) {
 
@@ -78,6 +78,8 @@ export let sizeDown = function sizeDown(index) {
           setStyle.left = null;
           setStyle.right = null;
           document.getElementById(1).style.zIndex = 0;
+
+          store.$store.commit("changeAnimationStatus", false);
 
 
         }
@@ -138,6 +140,7 @@ export let sizeDown = function sizeDown(index) {
           document.getElementById(2).style.zIndex = 0;
 
 
+          store.$store.commit("changeAnimationStatus", false);
 
         }
       }, 2);
@@ -199,6 +202,7 @@ export let sizeDown = function sizeDown(index) {
           setStyle.right = null;
           document.getElementById(1).style.zIndex = 0;
 
+          store.$store.commit("changeAnimationStatus", false);
 
         }
       }, 2);
@@ -259,6 +263,7 @@ export let sizeDown = function sizeDown(index) {
           setStyle.right = null;
           document.getElementById(2).style.zIndex = 0;
 
+          store.$store.commit("changeAnimationStatus", false);
 
         }
       }, 2);

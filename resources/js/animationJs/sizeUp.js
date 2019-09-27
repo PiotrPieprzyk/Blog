@@ -65,6 +65,7 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.height = null;
           }, 200);
 
+          store.$store.commit("changeAnimationStatus", false);
 
         }
       }, 2);
@@ -110,6 +111,8 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.width = null;
             setStyle.height = null;
           }, 200);
+          store.$store.commit("changeAnimationStatus", false);
+
 
         }
       }, 2);
@@ -158,6 +161,7 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.width = null;
             setStyle.height = null;
           }, 200);
+          store.$store.commit("changeAnimationStatus", false);
 
 
         }
@@ -207,6 +211,7 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.width = null;
             setStyle.height = null;
           }, 200);
+          store.$store.commit("changeAnimationStatus", false);
 
         }
       }, 2);

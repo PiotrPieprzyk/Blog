@@ -28,7 +28,8 @@ export default {
 		"visibleProfileButton2",
 		"visibleProfileButton1",
 		"buttonProfileActive",
-		"jsAnimation"
+		"jsAnimation",
+		"animationStatus"
 	]),
 	methods: {
 		scaleUp(index) {
@@ -72,63 +73,74 @@ export default {
 		const regGame = new RegExp("/profile/+[0-9]+/game");
 
 		// which route //
-
-		if (regGraphic.test(fromPath)) {
-			let it = this;
-			document.getElementById(1).classList.remove("activeProfilePage");
-			this.jsAnimation.sizeDown(1);
-			this.$store.commit("changeVisibleProfileButton1", true);
-			this.$store.commit("changebuttonProfileActive", false);
-			this.$store.commit("changeVisibleProfileButton2", true);
-
-			next();
-		}
-		if (regGame.test(fromPath)) {
-			let it = this;
-			document.getElementById(2).classList.remove("activeProfilePage");
-			this.jsAnimation.sizeDown(2);
-			this.$store.commit("changeVisibleProfileButton1", true);
-			this.$store.commit("changebuttonProfileActive", false);
-			this.$store.commit("changeVisibleProfileButton2", true);
-
-			next();
-		}
-		if (splitToPath.length == splitFromPath.length) {
-			setTimeout(() => {
+		if (!this.animationStatus) {
+			if (regGraphic.test(fromPath)) {
+				this.$store.commit("changeAnimationStatus", true);
 				let it = this;
+				document.getElementById(1).classList.remove("activeProfilePage");
+				this.jsAnimation.sizeDown(1, it);
+				this.$store.commit("changeVisibleProfileButton1", true);
+				this.$store.commit("changebuttonProfileActive", false);
+				this.$store.commit("changeVisibleProfileButton2", true);
 
-				if (regGraphic.test(toPath)) {
-					this.jsAnimation.sizeUp(1, it);
+				next();
+			}
+			if (regGame.test(fromPath)) {
+				this.$store.commit("changeAnimationStatus", true);
+				let it = this;
+				document.getElementById(2).classList.remove("activeProfilePage");
+				this.jsAnimation.sizeDown(2, it);
+				this.$store.commit("changeVisibleProfileButton1", true);
+				this.$store.commit("changebuttonProfileActive", false);
+				this.$store.commit("changeVisibleProfileButton2", true);
 
-					this.$store.commit("changeVisibleProfileButton1", true);
-					this.$store.commit("changebuttonProfileActive", true);
-					this.$store.commit("changeVisibleProfileButton2", false);
-					this.$store.commit("changeProfileCardActive", 1);
-				} else {
-					this.jsAnimation.sizeUp(2, it);
+				next();
+			}
+			if (splitToPath.length == splitFromPath.length) {
+				setTimeout(() => {
+					this.$store.commit("changeAnimationStatus", true);
+					let it = this;
 
-					this.$store.commit("changeVisibleProfileButton1", true);
-					this.$store.commit("changebuttonProfileActive", true);
-					this.$store.commit("changeVisibleProfileButton2", false);
-					this.$store.commit("changeProfileCardActive", 1);
-				}
-				setTimeout(() => next(), 1000);
-			}, 600);
-		}
-		if (
-			regGraphic.test(toPath) &&
-			!(splitToPath.length == splitFromPath.length)
-		) {
-			let it = this;
-			this.jsAnimation.sizeUp(1, it);
+					if (regGraphic.test(toPath)) {
+						this.jsAnimation.sizeUp(1, it);
 
-			next();
-		}
-		if (regGame.test(toPath) && !(splitToPath.length == splitFromPath.length)) {
-			let it = this;
-			this.jsAnimation.sizeUp(2, it);
+						this.$store.commit("changeVisibleProfileButton1", true);
+						this.$store.commit("changebuttonProfileActive", true);
+						this.$store.commit("changeVisibleProfileButton2", false);
+						this.$store.commit("changeProfileCardActive", 1);
+					} else {
+						this.jsAnimation.sizeUp(2, it);
 
-			next();
+						this.$store.commit("changeVisibleProfileButton1", true);
+						this.$store.commit("changebuttonProfileActive", true);
+						this.$store.commit("changeVisibleProfileButton2", false);
+						this.$store.commit("changeProfileCardActive", 1);
+					}
+					setTimeout(() => next(), 1000);
+				}, 600);
+			}
+			if (
+				regGraphic.test(toPath) &&
+				!(splitToPath.length == splitFromPath.length)
+			) {
+				this.$store.commit("changeAnimationStatus", true);
+				let it = this;
+				this.jsAnimation.sizeUp(1, it);
+
+				next();
+			}
+			if (
+				regGame.test(toPath) &&
+				!(splitToPath.length == splitFromPath.length)
+			) {
+				this.$store.commit("changeAnimationStatus", true);
+				let it = this;
+				this.jsAnimation.sizeUp(2, it);
+
+				next();
+			}
+		} else {
+			next(from);
 		}
 	}
 };
