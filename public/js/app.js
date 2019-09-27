@@ -3013,9 +3013,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["cards", "loadedCard", "currentCard", "animationStatus"]),
@@ -47657,20 +47654,7 @@ var render = function() {
           ],
           1
         )
-      ]),
-      _vm._v(" "),
-      _c(
-        "footer",
-        {
-          staticClass: "footerWrapper",
-          on: {
-            click: function($event) {
-              return _vm.toContact(3)
-            }
-          }
-        },
-        [_c("p", [_vm._v("Kontakt ;)")])]
-      )
+      ])
     ],
     1
   )

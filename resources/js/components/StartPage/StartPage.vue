@@ -16,9 +16,6 @@
 				</transition>
 			</div>
 		</main>
-		<footer @click="toContact(3)" class="footerWrapper">
-			<p>Kontakt ;)</p>
-		</footer>
 	</div>
 </template>
 

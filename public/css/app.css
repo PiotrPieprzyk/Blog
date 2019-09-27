@@ -10719,7 +10719,7 @@ a:hover {
   position: fixed;
   top: 0;
   right: 0;
-  bottom: 50px;
+  bottom: 0;
   left: 0;
   opacity: 0.6;
   background-color: rgba(0, 0, 0, 0.5);
@@ -10759,7 +10759,7 @@ a:hover {
 .webClass .start-web-wrapper-img .Image1,
 .webClass .start-web-wrapper-img .Image2 {
   z-index: 0;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 4px);
   box-shadow: 1px 2px 3px 4px rgba(0, 0, 0, 0.301);
 }
 
