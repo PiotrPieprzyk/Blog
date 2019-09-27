@@ -103,6 +103,29 @@ export default {
 		}
 	},
 	mounted() {
+		let it = this.currentCard;
+		let scrollValue = 0;
+		let activeScrollAnimation = true;
+
+		window.addEventListener("wheel", () => {
+			if (activeScrollAnimation == true) {
+				activeScrollAnimation = false;
+				if (event.deltaY < 0 && scrollValue > 0) {
+					scrollValue--;
+					this.toContact(scrollValue);
+				} else if (event.deltaY > 0 && scrollValue < 3) {
+					scrollValue++;
+					this.toContact(scrollValue);
+				}
+				setTimeout(() => {
+					activeScrollAnimation = true;
+					console.log("YEY");
+				}, 700);
+			} else {
+				console.log("EHHHH");
+			}
+		});
+
 		console.log(this.currentCard);
 		document
 			.querySelector(".Image" + this.currentCard)

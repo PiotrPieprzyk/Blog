@@ -85,6 +85,9 @@ export default {
 		},
 		authCheck() {
 			return this.$store.state.authCheck;
+		},
+		animationStatus() {
+			return this.$store.state.animationStatus;
 		}
 	},
 	data() {
@@ -169,7 +172,6 @@ export default {
 					if (window.getComputedStyle(errorhook).top == "-33px") {
 						if (this.errorFile != "Wysłano!") {
 							errorhook.style.color = "red";
-
 							this.jsAnimation.errorAppear(errorhook);
 							console.log("NO");
 						}
@@ -185,11 +187,14 @@ export default {
 					} else {
 						if (this.errorFile == "Wysłano!") {
 							errorhook.style.color = "green";
-
-							setTimeout(() => {
-								console.log("YES");
-								this.jsAnimation.errorDisappear(errorhook);
-							}, 1000);
+							if (!this.animationStatus) {
+								this.$store.commit("changeAnimationStatus", true);
+								setTimeout(() => {
+									console.log("YES");
+									this.jsAnimation.errorDisappear(errorhook);
+									this.$store.commit("changeAnimationStatus", false);
+								}, 1000);
+							}
 						}
 					}
 				});

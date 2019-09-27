@@ -10649,7 +10649,7 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: "Work Sans", sans-serif;
-  background-color: #03070d;
+  background-color: black;
 }
 
 input,
@@ -11944,8 +11944,8 @@ a:hover {
 }
 
 .slide-top {
-  -webkit-animation: slide-top 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) both;
-  animation: slide-top 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) both;
+  -webkit-animation: slide-top 1s cubic-bezier(0.645, 0.045, 0.355, 1) both;
+  animation: slide-top 1s cubic-bezier(0.645, 0.045, 0.355, 1) both;
 }
 
 /* ----------------------------------------------

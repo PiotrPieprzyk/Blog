@@ -68,7 +68,7 @@ export let sizeUp = function sizeUp(index, store) {
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 2);
+      }, 300 / 120);
     }
     // GameProfil //
     if (index == 2) {
@@ -115,7 +115,7 @@ export let sizeUp = function sizeUp(index, store) {
 
 
         }
-      }, 2);
+      }, 300 / 120);
     }
   }
   if (viewPort[0] >= viewPort[1]) {
@@ -165,7 +165,7 @@ export let sizeUp = function sizeUp(index, store) {
 
 
         }
-      }, 2);
+      }, 300 / 120);
 
     }
 
@@ -214,7 +214,7 @@ export let sizeUp = function sizeUp(index, store) {
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 2);
+      }, 300 / 120);
     }
   }
 }

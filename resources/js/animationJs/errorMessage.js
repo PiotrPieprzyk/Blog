@@ -8,7 +8,6 @@ Math.easeInExpo = function (t, b, c, d) {
 };
 
 export let errorDisappear = function errorDisappear(element) {
-  console.log(element.style.top);
   let k = 1;
   let apperInterval = setInterval(() => {
     element.style.top = "-" + Math.easeOutQuart(k, 0, 33, 60) + "px";
@@ -16,10 +15,9 @@ export let errorDisappear = function errorDisappear(element) {
     if (k > 60) {
       clearInterval(apperInterval);
     }
-  }, 7);
+  }, 500 / 60);
 }
 export let errorAppear = function errorAppear(element) {
-  console.log(element.style.top);
 
   let k = 60;
   let apperInterval = setInterval(() => {
@@ -28,5 +26,5 @@ export let errorAppear = function errorAppear(element) {
     if (k < 0) {
       clearInterval(apperInterval);
     }
-  }, 7);
+  }, 500 / 60);
 }

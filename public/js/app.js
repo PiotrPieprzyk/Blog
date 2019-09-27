@@ -2536,6 +2536,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     authCheck: function authCheck() {
       return this.$store.state.authCheck;
+    },
+    animationStatus: function animationStatus() {
+      return this.$store.state.animationStatus;
     }
   },
   data: function data() {
@@ -2635,11 +2638,18 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           if (_this3.errorFile == "Wysłano!") {
             errorhook.style.color = "green";
-            setTimeout(function () {
-              console.log("YES");
 
-              _this3.jsAnimation.errorDisappear(errorhook);
-            }, 1000);
+            if (!_this3.animationStatus) {
+              _this3.$store.commit("changeAnimationStatus", true);
+
+              setTimeout(function () {
+                console.log("YES");
+
+                _this3.jsAnimation.errorDisappear(errorhook);
+
+                _this3.$store.commit("changeAnimationStatus", false);
+              }, 1000);
+            }
           }
         }
       });
@@ -3072,6 +3082,33 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this2 = this;
+
+    var it = this.currentCard;
+    var scrollValue = 0;
+    var activeScrollAnimation = true;
+    window.addEventListener("wheel", function () {
+      if (activeScrollAnimation == true) {
+        activeScrollAnimation = false;
+
+        if (event.deltaY < 0 && scrollValue > 0) {
+          scrollValue--;
+
+          _this2.toContact(scrollValue);
+        } else if (event.deltaY > 0 && scrollValue < 3) {
+          scrollValue++;
+
+          _this2.toContact(scrollValue);
+        }
+
+        setTimeout(function () {
+          activeScrollAnimation = true;
+          console.log("YEY");
+        }, 700);
+      } else {
+        console.log("EHHHH");
+      }
+    });
     console.log(this.currentCard);
     document.querySelector(".Image" + this.currentCard).classList.add("activeCard");
 
@@ -64797,7 +64834,7 @@ var activeShadowBlock = function activeShadowBlock(element) {
     if (k > 60) {
       clearInterval(shadowInterval);
     }
-  }, 10);
+  }, 500 / 60);
 };
 var deActiveShadowBlock = function activeShadowBlock(element) {
   var k = 60;
@@ -64808,7 +64845,7 @@ var deActiveShadowBlock = function activeShadowBlock(element) {
     if (k < 0) {
       clearInterval(shadowInterval);
     }
-  }, 10);
+  }, 500 / 60);
 };
 
 /***/ }),
@@ -64835,7 +64872,6 @@ Math.easeInExpo = function (t, b, c, d) {
 };
 
 var errorDisappear = function errorDisappear(element) {
-  console.log(element.style.top);
   var k = 1;
   var apperInterval = setInterval(function () {
     element.style.top = "-" + Math.easeOutQuart(k, 0, 33, 60) + "px";
@@ -64844,10 +64880,9 @@ var errorDisappear = function errorDisappear(element) {
     if (k > 60) {
       clearInterval(apperInterval);
     }
-  }, 7);
+  }, 500 / 60);
 };
 var errorAppear = function errorAppear(element) {
-  console.log(element.style.top);
   var k = 60;
   var apperInterval = setInterval(function () {
     element.style.top = "-" + Math.easeInExpo(k, 0, 33, 60) + "px";
@@ -64856,7 +64891,7 @@ var errorAppear = function errorAppear(element) {
     if (k < 0) {
       clearInterval(apperInterval);
     }
-  }, 7);
+  }, 500 / 60);
 };
 
 /***/ }),
@@ -65032,7 +65067,7 @@ var sizeDown = function sizeDown(index, store) {
           document.getElementById(1).style.zIndex = 0;
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 2);
+      }, 400 / 120);
     } // GameProfil //
 
 
@@ -65095,7 +65130,7 @@ var sizeDown = function sizeDown(index, store) {
           document.getElementById(2).style.zIndex = 0;
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 2);
+      }, 400 / 120);
     }
   }
 
@@ -65143,7 +65178,6 @@ var sizeDown = function sizeDown(index, store) {
       var _i2 = 1;
 
       var _positionInterval2 = setInterval(function () {
-        console.log(_setStyle2.left);
         _setStyle2.left = Math.easeInExpo(_i2, 0, endleft, 120, 120) + 'px';
         _setStyle2.width = Math.easeInExpo(_k2, _endWidth2, viewPort[0] - _endWidth2, 120) + 'px';
         _setStyle2.height = Math.easeInExpo(_k2, _endHeight2, viewPort[1] - _endHeight2, 120) + 'px';
@@ -65161,7 +65195,7 @@ var sizeDown = function sizeDown(index, store) {
           document.getElementById(1).style.zIndex = 0;
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 2);
+      }, 400 / 120);
     } // GameProfil //
 
 
@@ -65224,7 +65258,7 @@ var sizeDown = function sizeDown(index, store) {
           document.getElementById(2).style.zIndex = 0;
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 2);
+      }, 400 / 120);
     }
   }
 };
@@ -65309,7 +65343,7 @@ var sizeUp = function sizeUp(index, store) {
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 2);
+      }, 300 / 120);
     } // GameProfil //
 
 
@@ -65355,7 +65389,7 @@ var sizeUp = function sizeUp(index, store) {
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 2);
+      }, 300 / 120);
     }
   }
 
@@ -65403,7 +65437,7 @@ var sizeUp = function sizeUp(index, store) {
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 2);
+      }, 300 / 120);
     } // GameProfil //
 
 
@@ -65449,7 +65483,7 @@ var sizeUp = function sizeUp(index, store) {
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 2);
+      }, 300 / 120);
     }
   }
 };

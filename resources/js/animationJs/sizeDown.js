@@ -83,7 +83,7 @@ export let sizeDown = function sizeDown(index, store) {
 
 
         }
-      }, 2);
+      }, 400 / 120);
     }
     // GameProfil //
     if (index == 2) {
@@ -143,7 +143,7 @@ export let sizeDown = function sizeDown(index, store) {
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 2);
+      }, 400 / 120);
     }
   }
   if (viewPort[0] >= viewPort[1]) {
@@ -186,7 +186,6 @@ export let sizeDown = function sizeDown(index, store) {
       let k = 120;
       let i = 1;
       let positionInterval = setInterval(() => {
-        console.log(setStyle.left);
         setStyle.left = Math.easeInExpo(i, 0, endleft, 120, 120) + 'px';
         setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
         setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
@@ -205,7 +204,7 @@ export let sizeDown = function sizeDown(index, store) {
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 2);
+      }, 400 / 120);
 
     }
 
@@ -266,7 +265,7 @@ export let sizeDown = function sizeDown(index, store) {
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 2);
+      }, 400 / 120);
     }
   }
 }
