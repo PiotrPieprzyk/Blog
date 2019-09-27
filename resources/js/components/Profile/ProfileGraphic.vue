@@ -47,8 +47,24 @@
 					:class="'Graphic'+index"
 					class="GraphicWrapper"
 				>
-					<button slot="GaleryImage" class="GraphicButton" @click="showSlider(index)">
+					<button
+						:disabled="activeMenuImage==index"
+						slot="GaleryImage"
+						class="GraphicButton"
+						@click="showImageMenu(index)"
+					>
 						<img :style="'background-image: url(./storage/graphicNew/'+item.path+');'" />
+						<div class="imageMenu" v-if="activeMenuImage==index">
+							<div class="closeWrapper">
+								<button class="closeImageMenu" @click="showImageMenu(-1)"></button>
+							</div>
+							<div class="viewButton">
+								<button @click="showSlider(index)">View</button>
+							</div>
+							<div class="deleteButton">
+								<button @click.once="deleteImage(item.id)">Delete</button>
+							</div>
+						</div>
 					</button>
 				</div>
 			</div>
@@ -80,13 +96,38 @@ export default {
 			activeGaleryId: "",
 			addButtonActive: false,
 			errorFile: "",
-			image_src: "./images/header/send-icon.svg"
+			image_src: "./images/header/send-icon.svg",
+			activeMenuImage: -1
 		};
 	},
 	methods: {
 		showSlider(id) {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
+		},
+		showImageMenu(id, e) {
+			if (id == -1) {
+				setTimeout(() => {
+					this.activeMenuImage = id;
+				}, 1);
+			} else {
+				this.activeMenuImage = id;
+				console.log(this.activeMenuImage);
+			}
+		},
+		deleteImage(id) {
+			axios.delete(`/graphics/${id}`).then(request => {
+				axios
+					.get("/graphics/" + this.userId)
+					.then(request => {
+						console.log(request.data);
+						this.listGraphics = request.data;
+						this.activeMenuImage = -1;
+					})
+					.catch(function() {
+						console.log("FAILURE!!");
+					});
+			});
 		},
 		// Upload Graphics
 		sendPhoto(e) {

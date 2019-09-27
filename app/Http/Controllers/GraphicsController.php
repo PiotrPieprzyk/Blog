@@ -79,7 +79,7 @@ class GraphicsController extends Controller
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function edit(Image $image)
+    public function edit(Graphic $graphic)
     {
         //
     }
@@ -91,7 +91,7 @@ class GraphicsController extends Controller
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Image $image)
+    public function update(Request $request, Graphic $graphic)
     {
         //
     }
@@ -102,8 +102,12 @@ class GraphicsController extends Controller
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy($id)
     {
-        //
+        $file_name = Graphic::where('id', $id)->get()[0]->path;
+        $file_path = 'public/graphicNew/'.$file_name;
+        Storage::delete($file_path);
+        Graphic::where('id', $id)->delete();
+        return $file_path;
     }
 }

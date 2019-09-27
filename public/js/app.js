@@ -2503,6 +2503,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2526,7 +2542,8 @@ __webpack_require__.r(__webpack_exports__);
       activeGaleryId: "",
       addButtonActive: false,
       errorFile: "",
-      image_src: "./images/header/send-icon.svg"
+      image_src: "./images/header/send-icon.svg",
+      activeMenuImage: -1
     };
   },
   methods: {
@@ -2534,9 +2551,34 @@ __webpack_require__.r(__webpack_exports__);
       this.activeGaleryId = id;
       this.OnSlider = true;
     },
+    showImageMenu: function showImageMenu(id, e) {
+      var _this = this;
+
+      if (id == -1) {
+        setTimeout(function () {
+          _this.activeMenuImage = id;
+        }, 1);
+      } else {
+        this.activeMenuImage = id;
+        console.log(this.activeMenuImage);
+      }
+    },
+    deleteImage: function deleteImage(id) {
+      var _this2 = this;
+
+      axios["delete"]("/graphics/".concat(id)).then(function (request) {
+        axios.get("/graphics/" + _this2.userId).then(function (request) {
+          console.log(request.data);
+          _this2.listGraphics = request.data;
+          _this2.activeMenuImage = -1;
+        })["catch"](function () {
+          console.log("FAILURE!!");
+        });
+      });
+    },
     // Upload Graphics
     sendPhoto: function sendPhoto(e) {
-      var _this = this;
+      var _this3 = this;
 
       e.preventDefault();
       var objThis = this;
@@ -2550,47 +2592,47 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (request) {
         console.log(request);
-        _this.errorFile = "Wysłano!";
-        axios.get("/graphics/" + _this.userId).then(function (request) {
+        _this3.errorFile = "Wysłano!";
+        axios.get("/graphics/" + _this3.userId).then(function (request) {
           console.log(request.data);
-          _this.listGraphics = request.data;
+          _this3.listGraphics = request.data;
         })["catch"](function () {
           console.log("FAILURE!!");
         });
       })["catch"](function (error) {
         if (error.response.status == 422) {
-          _this.errorFile = error.response.data.errors.file[0];
+          _this3.errorFile = error.response.data.errors.file[0];
         }
       }).then(function () {
         var errorhook = document.querySelector(".errors");
 
         if (window.getComputedStyle(errorhook).top == "-33px") {
-          if (_this.errorFile != "Wysłano!") {
+          if (_this3.errorFile != "Wysłano!") {
             errorhook.style.color = "red";
 
-            _this.jsAnimation.errorAppear(errorhook);
+            _this3.jsAnimation.errorAppear(errorhook);
 
             console.log("NO");
           }
 
-          if (_this.errorFile == "Wysłano!") {
+          if (_this3.errorFile == "Wysłano!") {
             errorhook.style.color = "green";
 
-            _this.jsAnimation.errorAppear(errorhook);
+            _this3.jsAnimation.errorAppear(errorhook);
 
             setTimeout(function () {
               console.log("YES");
 
-              _this.jsAnimation.errorDisappear(errorhook);
+              _this3.jsAnimation.errorDisappear(errorhook);
             }, 2000);
           }
         } else {
-          if (_this.errorFile == "Wysłano!") {
+          if (_this3.errorFile == "Wysłano!") {
             errorhook.style.color = "green";
             setTimeout(function () {
               console.log("YES");
 
-              _this.jsAnimation.errorDisappear(errorhook);
+              _this3.jsAnimation.errorDisappear(errorhook);
             }, 1000);
           }
         }
@@ -2625,12 +2667,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this4 = this;
 
     console.log(this.userId);
     axios.get("/graphics/" + this.userId).then(function (request) {
       console.log(request.data);
-      _this2.listGraphics = request.data;
+      _this4.listGraphics = request.data;
     })["catch"](function () {
       console.log("FAILURE!!");
     });
@@ -47258,10 +47300,13 @@ var render = function() {
                   "button",
                   {
                     staticClass: "GraphicButton",
-                    attrs: { slot: "GaleryImage" },
+                    attrs: {
+                      slot: "GaleryImage",
+                      disabled: _vm.activeMenuImage == index
+                    },
                     on: {
                       click: function($event) {
-                        return _vm.showSlider(index)
+                        return _vm.showImageMenu(index)
                       }
                     },
                     slot: "GaleryImage"
@@ -47272,7 +47317,50 @@ var render = function() {
                         "background-image: url(./storage/graphicNew/" +
                         item.path +
                         ");"
-                    })
+                    }),
+                    _vm._v(" "),
+                    _vm.activeMenuImage == index
+                      ? _c("div", { staticClass: "imageMenu" }, [
+                          _c("div", { staticClass: "closeWrapper" }, [
+                            _c("button", {
+                              staticClass: "closeImageMenu",
+                              on: {
+                                click: function($event) {
+                                  return _vm.showImageMenu(-1)
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "viewButton" }, [
+                            _c(
+                              "button",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showSlider(index)
+                                  }
+                                }
+                              },
+                              [_vm._v("View")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "deleteButton" }, [
+                            _c(
+                              "button",
+                              {
+                                on: {
+                                  "~click": function($event) {
+                                    return _vm.deleteImage(item.id)
+                                  }
+                                }
+                              },
+                              [_vm._v("Delete")]
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               ]

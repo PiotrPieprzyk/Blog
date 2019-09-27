@@ -8,14 +8,17 @@
 @import '~bootstrap/scss/bootstrap';
 
 // Pages scss
-@import 'StartPage';
 @import 'web';
-@import 'GaleryPage';
-@import 'header';
-@import 'registerWeb';
+
+@import 'startPage';
+@import 'galeryPage';
+@import 'registerPage';
 @import 'profilePage';
+@import 'profileGaleryPage';
 // Animations
 
 @import 'animationSlide';
 @import 'transitionOpacity';
-@import 'scaleUp';
+
+// Elements 
+@import 'header';

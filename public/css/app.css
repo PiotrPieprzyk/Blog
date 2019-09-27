@@ -10644,6 +10644,59 @@ a.text-dark:focus {
   }
 }
 
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Work Sans", sans-serif;
+  background-color: #03070d;
+}
+
+input,
+button,
+submit {
+  border: none;
+  color: black;
+  background: none;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.overflowAuto {
+  overflow-y: visible;
+}
+
+.galeryBackground {
+  background-image: url(/images/image5.jpg?988b7f22f8670214b80cecd508673de3);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  widows: 100%;
+}
+
+.galeryBackground::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.6;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .webClass {
   display: flex;
   flex-direction: column;
@@ -11034,57 +11087,6 @@ a.text-dark:focus {
   position: relative !important;
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  font-family: "Work Sans", sans-serif;
-  background-color: #03070d;
-}
-
-input,
-button,
-submit {
-  border: none;
-}
-
-a {
-  color: white;
-}
-
-a:hover {
-  color: white;
-  text-decoration: none;
-}
-
-.overflowAuto {
-  overflow-y: visible;
-}
-
-.galeryBackground {
-  background-image: url(/images/image5.jpg?988b7f22f8670214b80cecd508673de3);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  widows: 100%;
-}
-
-.galeryBackground::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 0.6;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 .GaleryPage {
   display: flex;
   min-height: 100vh;
@@ -11284,6 +11286,795 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.registerWeb {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerWeb .registerCard {
+  height: 526px;
+  width: 327px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #fff0;
+  font-size: 30px;
+  border: white 2px solid;
+  border-bottom: 0;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (max-width: 500px) {
+  .registerWeb .registerCard {
+    border: none;
+  }
+}
+
+@media (max-height: 680px) {
+  .registerWeb .registerCard {
+    border: none;
+  }
+}
+
+.registerWeb .registerCard::after {
+  content: "";
+  width: calc(100% + 4px);
+  border: 2px solid white;
+  height: 65px;
+  border-top: 0px;
+  transform: skew(-40deg);
+  position: absolute;
+  bottom: -65px;
+  left: -30px;
+  background-color: white;
+}
+
+@media (max-width: 500px) {
+  .registerWeb .registerCard::after {
+    border: none;
+    background-color: #fff0;
+  }
+}
+
+@media (max-height: 680px) {
+  .registerWeb .registerCard::after {
+    border: none;
+    background-color: #fff0;
+  }
+}
+
+.registerWeb .registerCard .registerTitle {
+  padding-top: 83px;
+}
+
+.registerWeb .registerCard .registerContent {
+  padding-bottom: 40px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 25px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin p {
+  width: 85%;
+  height: 30px;
+  margin: 0;
+  margin: 5px 0;
+  font-size: 0.4em;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .formGroup {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .formGroup .formInput {
+  width: 85%;
+  background-color: #fff0;
+  color: white;
+  border-bottom: white solid 2px;
+  height: 30px;
+  text-align: center;
+  font-size: 0.8em;
+  padding-bottom: 10px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm {
+  width: 20px;
+  background-color: #fff0;
+  padding: 0;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm img {
+  -webkit-filter: invert(1);
+          filter: invert(1);
+  width: 30px;
+}
+
+.profileWebWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
+
+.profileWebWrapper .white {
+  background-color: white;
+}
+
+.profileWebWrapper .profileGalery {
+  overflow-x: scroll;
+}
+
+@media screen and (max-aspect-ratio: 1/2) {
+  .profileWebWrapper .profileGalery {
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    top: calc((50vh - 50vw) / 2);
+  }
+
+  .profileWebWrapper .profileGame {
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    bottom: calc((50vh - 50vw) / 2);
+  }
+}
+
+@media screen and (aspect-ratio: 1/2) {
+  .profileWebWrapper .profileGalery {
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    top: calc((50vh - 50vw) / 2);
+  }
+
+  .profileWebWrapper .profileGame {
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    bottom: calc((50vh - 50vw) / 2);
+  }
+}
+
+@media screen and (min-aspect-ratio: 1/2) and (max-aspect-ratio: 1/1) {
+  .profileWebWrapper .profileGalery {
+    position: absolute;
+    width: 25vh;
+    height: 25vh;
+    top: 12.5vh;
+  }
+
+  .profileWebWrapper .profileGame {
+    position: absolute;
+    width: 25vh;
+    height: 25vh;
+    bottom: 12.5vh;
+  }
+}
+
+@media screen and (aspect-ratio: 1/1) {
+  .profileWebWrapper .profileGalery {
+    position: absolute;
+    width: 25vw;
+    height: 25vw;
+    left: 12.5vw;
+  }
+
+  .profileWebWrapper .profileGame {
+    position: absolute;
+    width: 25vw;
+    height: 25vw;
+    right: 12.5vw;
+  }
+}
+
+@media screen and (min-aspect-ratio: 1/1) and (max-aspect-ratio: 2/1) {
+  .profileWebWrapper .profileGalery {
+    position: absolute;
+    width: 25vw;
+    height: 25vw;
+    left: 12.5vw;
+  }
+
+  .profileWebWrapper .profileGame {
+    position: absolute;
+    width: 25vw;
+    height: 25vw;
+    right: 12.5vw;
+  }
+}
+
+@media screen and (aspect-ratio: 2/1) {
+  .profileWebWrapper .profileGalery {
+    position: absolute;
+    width: 50vh;
+    height: 50vh;
+    left: calc((50vw - 50vh) / 2);
+  }
+
+  .profileWebWrapper .profileGame {
+    position: absolute;
+    width: 50vh;
+    height: 50vh;
+    right: calc((50vw - 50vh) / 2);
+  }
+}
+
+@media screen and (min-aspect-ratio: 2/1) {
+  .profileWebWrapper .profileGalery {
+    position: absolute;
+    width: 50vh;
+    height: 50vh;
+    left: calc((50vw - 50vh) / 2);
+  }
+
+  .profileWebWrapper .profileGame {
+    position: absolute;
+    width: 50vh;
+    height: 50vh;
+    right: calc((50vw - 50vh) / 2);
+  }
+}
+
+.profileWebWrapper .graphicTitleButton {
+  display: inline;
+  font-family: "Mansalva", cursive;
+  font-size: calc(16px + 2vw);
+  font-weight: bold;
+}
+
+.profileWebWrapper .gameTitleButton {
+  font-family: "Trade Winds", cursive;
+  display: inline;
+  font-size: calc(16px + 2vw);
+  font-weight: bold;
+}
+
+.activeProfilePage {
+  z-index: 1;
+  width: 100vw !important;
+  min-height: 100vh !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+.GraphicProfile {
+  display: block;
+  min-height: 100vh;
+  margin-top: 100px;
+  min-height: 100vh;
+  margin-top: 100px;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.GraphicProfile .graphicTitle {
+  display: block;
+  font-family: "Mansalva", cursive;
+  font-size: calc(40px + 2vw);
+  font-weight: bold;
+  color: black;
+}
+
+@media (min-width: 1200px) {
+  .GraphicProfile .graphicTitle {
+    transform: scale(1.3);
+  }
+}
+
+.GraphicProfile .errors {
+  min-height: 30px;
+  top: -33px;
+  margin-top: 10px;
+  position: relative;
+}
+
+@media (min-width: 1200px) {
+  .GraphicProfile .errors {
+    transform: scale(1.3);
+    margin-top: 20px;
+  }
+}
+
+.GraphicProfile .errors .errorFile {
+  display: block;
+  margin: 0;
+}
+
+.GraphicProfile .addGraphicButton {
+  display: flex;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0);
+  width: 90vw;
+  height: 50px;
+  max-width: 500px;
+  border: black 0px solid;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  position: relative;
+  background: white;
+  z-index: 1;
+}
+
+@media (min-width: 1200px) {
+  .GraphicProfile .addGraphicButton {
+    transform: scale(1.3);
+    margin-top: 50px;
+  }
+}
+
+.GraphicProfile .addGraphicButton .formNewGraphic {
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+  width: 0;
+}
+
+.GraphicProfile .addGraphicButton .inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.GraphicProfile .addGraphicButton .inputfile,
+.GraphicProfile .addGraphicButton label {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 0;
+  color: black;
+  display: inline-block;
+  cursor: pointer;
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.GraphicProfile .addGraphicButton label {
+  min-width: 115px;
+}
+
+.GraphicProfile .addGraphicButton .submitForm {
+  background: white;
+  height: 100%;
+}
+
+.GraphicProfile .addGraphicButton .plusItem {
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
+  align-items: center;
+}
+
+.GraphicProfile .addGraphicButton .plusItem .singleBar {
+  display: block;
+  display: block;
+  width: 20px;
+  height: 3px;
+  border-radius: 1px;
+  position: absolute;
+  background-color: black;
+}
+
+.GraphicProfile .addGraphicButton .plusItem .singleBar:nth-child(1) {
+  transform: rotate(90deg);
+}
+
+.GraphicProfile .yourGraphicListWrapper {
+  display: block;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper {
+  z-index: 2;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000000f0;
+  left: 0;
+  top: 0;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  max-width: calc(80vw);
+  justify-content: center;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .PreviousImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  right: calc(100vw - 10vw);
+  position: absolute;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .PreviousImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .NextImg {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  align-items: center;
+  position: absolute;
+  left: calc(100% - 10vw);
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .NextImg img {
+  max-height: 80vh;
+  max-width: 70vw;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation {
+  display: flex;
+  margin: 20px 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 200px;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:hover {
+  opacity: 1;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:before,
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:after {
+  position: absolute;
+  content: " ";
+  height: 50px;
+  width: 2px;
+  background-color: white;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:before {
+  transform: rotate(45deg);
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:after {
+  transform: rotate(-45deg);
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow {
+  display: inline-block;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  text-indent: -9999px;
+  border-top: 2px solid #bfbfbf;
+  border-left: 2px solid #bfbfbf;
+  text-decoration: none;
+  color: transparent;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow:before {
+  display: block;
+  height: 200%;
+  width: 200%;
+  margin-left: -50%;
+  margin-top: -50%;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow.prev {
+  transform: rotate(-45deg);
+  left: 0;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow.next {
+  transform: rotate(135deg);
+  right: 0;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper {
+  width: 300px;
+  height: 300px;
+  margin: 20px;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  position: relative;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu {
+  display: flex;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  flex-direction: column;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .viewButton {
+  position: relative;
+  display: flex;
+  background: rgba(0, 0, 0, 0.8);
+  width: inherit;
+  height: 60%;
+  color: white;
+  font-size: 4em;
+  justify-content: center;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .deleteButton {
+  position: relative;
+  display: flex;
+  background: rgba(0, 0, 0, 0.8);
+  width: inherit;
+  bottom: 0;
+  height: 30%;
+  color: white;
+  font-size: 2.5em;
+  justify-content: center;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .closeWrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 15%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: flex-end;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .closeWrapper .closeImageMenu {
+  position: absolute;
+  width: 45px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .closeWrapper .closeImageMenu:hover {
+  opacity: 1;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .closeWrapper .closeImageMenu:before,
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .closeWrapper .closeImageMenu:after {
+  position: absolute;
+  content: " ";
+  height: 25px;
+  width: 2px;
+  background-color: white;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .closeWrapper .closeImageMenu:before {
+  transform: rotate(45deg);
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton .imageMenu .closeWrapper .closeImageMenu:after {
+  transform: rotate(-45deg);
+}
+
+.GraphicProfile .yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-top {
+  -webkit-animation: slide-top 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) both;
+  animation: slide-top 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) both;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2019-9-2 11:15:39
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation slide-top
+ * ----------------------------------------
+ */
+
+@-webkit-keyframes slide-top {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes slide-top {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.slide-bottom {
+  -webkit-animation: slide-bottom 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) reverse both;
+  animation: slide-bottom 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) reverse both;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2019-9-2 14:54:18
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation slide-bottom
+ * ----------------------------------------
+ */
+
+@-webkit-keyframes slide-bottom {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.position-top {
+  transform: translateY(-100%);
+}
+
+.opacity-enter {
+  opacity: 0;
+}
+
+.opacity-enter-active {
+  transition: opacity 1.2s;
+}
+
+.opacity-leave-active {
+  opacity: 0;
+}
+
+.opacity-web-enter-active {
+  -webkit-animation: opacity-web-in 0.6s ease-in forwards;
+          animation: opacity-web-in 0.6s ease-in forwards;
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+
+.opacity-web-leave-active {
+  -webkit-animation: opacity-web-out 0.6s ease-out forwards;
+          animation: opacity-web-out 0.6s ease-out forwards;
+}
+
+@-webkit-keyframes opacity-web-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity-web-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes opacity-web-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes opacity-web-out {
+  to {
+    opacity: 0;
+  }
 }
 
 .navBarOuter {
@@ -11650,810 +12441,5 @@ a:hover {
 .navBarOuter .profileNavWrapper .profileNav button {
   background-color: #fff0;
   color: white;
-}
-
-.registerWeb {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.registerWeb .registerCard {
-  height: 526px;
-  width: 327px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  background-color: #fff0;
-  font-size: 30px;
-  border: white 2px solid;
-  border-bottom: 0;
-  flex-direction: column;
-  position: relative;
-}
-
-@media (max-width: 500px) {
-  .registerWeb .registerCard {
-    border: none;
-  }
-}
-
-@media (max-height: 680px) {
-  .registerWeb .registerCard {
-    border: none;
-  }
-}
-
-.registerWeb .registerCard::after {
-  content: "";
-  width: calc(100% + 4px);
-  border: 2px solid white;
-  height: 65px;
-  border-top: 0px;
-  transform: skew(-40deg);
-  position: absolute;
-  bottom: -65px;
-  left: -30px;
-  background-color: white;
-}
-
-@media (max-width: 500px) {
-  .registerWeb .registerCard::after {
-    border: none;
-    background-color: #fff0;
-  }
-}
-
-@media (max-height: 680px) {
-  .registerWeb .registerCard::after {
-    border: none;
-    background-color: #fff0;
-  }
-}
-
-.registerWeb .registerCard .registerTitle {
-  padding-top: 83px;
-}
-
-.registerWeb .registerCard .registerContent {
-  padding-bottom: 40px;
-}
-
-.registerWeb .registerCard .registerContent .formLogin {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 25px;
-}
-
-.registerWeb .registerCard .registerContent .formLogin p {
-  width: 85%;
-  height: 30px;
-  margin: 0;
-  margin: 5px 0;
-  font-size: 0.4em;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .formGroup {
-  justify-content: center;
-  display: flex;
-  width: 100%;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .formGroup .formInput {
-  width: 85%;
-  background-color: #fff0;
-  color: white;
-  border-bottom: white solid 2px;
-  height: 30px;
-  text-align: center;
-  font-size: 0.8em;
-  padding-bottom: 10px;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .submitWraper {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm {
-  width: 20px;
-  background-color: #fff0;
-  padding: 0;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm img {
-  -webkit-filter: invert(1);
-          filter: invert(1);
-  width: 30px;
-}
-
-.profileWebWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  min-height: 100vh;
-  position: relative;
-}
-
-.profileWebWrapper .white {
-  background-color: white;
-}
-
-.profileWebWrapper .profileGalery {
-  overflow-x: scroll;
-}
-
-@media screen and (max-aspect-ratio: 1/2) {
-  .profileWebWrapper .profileGalery {
-    position: absolute;
-    width: 50vw;
-    height: 50vw;
-    top: calc((50vh - 50vw) / 2);
-  }
-
-  .profileWebWrapper .profileGame {
-    position: absolute;
-    width: 50vw;
-    height: 50vw;
-    bottom: calc((50vh - 50vw) / 2);
-  }
-}
-
-@media screen and (aspect-ratio: 1/2) {
-  .profileWebWrapper .profileGalery {
-    position: absolute;
-    width: 50vw;
-    height: 50vw;
-    top: calc((50vh - 50vw) / 2);
-  }
-
-  .profileWebWrapper .profileGame {
-    position: absolute;
-    width: 50vw;
-    height: 50vw;
-    bottom: calc((50vh - 50vw) / 2);
-  }
-}
-
-@media screen and (min-aspect-ratio: 1/2) and (max-aspect-ratio: 1/1) {
-  .profileWebWrapper .profileGalery {
-    position: absolute;
-    width: 25vh;
-    height: 25vh;
-    top: 12.5vh;
-  }
-
-  .profileWebWrapper .profileGame {
-    position: absolute;
-    width: 25vh;
-    height: 25vh;
-    bottom: 12.5vh;
-  }
-}
-
-@media screen and (aspect-ratio: 1/1) {
-  .profileWebWrapper .profileGalery {
-    position: absolute;
-    width: 25vw;
-    height: 25vw;
-    left: 12.5vw;
-  }
-
-  .profileWebWrapper .profileGame {
-    position: absolute;
-    width: 25vw;
-    height: 25vw;
-    right: 12.5vw;
-  }
-}
-
-@media screen and (min-aspect-ratio: 1/1) and (max-aspect-ratio: 2/1) {
-  .profileWebWrapper .profileGalery {
-    position: absolute;
-    width: 25vw;
-    height: 25vw;
-    left: 12.5vw;
-  }
-
-  .profileWebWrapper .profileGame {
-    position: absolute;
-    width: 25vw;
-    height: 25vw;
-    right: 12.5vw;
-  }
-}
-
-@media screen and (aspect-ratio: 2/1) {
-  .profileWebWrapper .profileGalery {
-    position: absolute;
-    width: 50vh;
-    height: 50vh;
-    left: calc((50vw - 50vh) / 2);
-  }
-
-  .profileWebWrapper .profileGame {
-    position: absolute;
-    width: 50vh;
-    height: 50vh;
-    right: calc((50vw - 50vh) / 2);
-  }
-}
-
-@media screen and (min-aspect-ratio: 2/1) {
-  .profileWebWrapper .profileGalery {
-    position: absolute;
-    width: 50vh;
-    height: 50vh;
-    left: calc((50vw - 50vh) / 2);
-  }
-
-  .profileWebWrapper .profileGame {
-    position: absolute;
-    width: 50vh;
-    height: 50vh;
-    right: calc((50vw - 50vh) / 2);
-  }
-}
-
-.profileWebWrapper .graphicTitleButton {
-  display: inline;
-  font-family: "Mansalva", cursive;
-  font-size: calc(16px + 2vw);
-  font-weight: bold;
-}
-
-.profileWebWrapper .gameTitleButton {
-  font-family: "Trade Winds", cursive;
-  display: inline;
-  font-size: calc(16px + 2vw);
-  font-weight: bold;
-}
-
-.profileWebWrapper .GraphicProfile {
-  display: block;
-  min-height: 100vh;
-  margin-top: 100px;
-  min-height: 100vh;
-  margin-top: 100px;
-  flex-direction: column;
-  align-items: center;
-  display: flex;
-}
-
-.profileWebWrapper .GraphicProfile .graphicTitle {
-  display: block;
-  font-family: "Mansalva", cursive;
-  font-size: calc(40px + 2vw);
-  font-weight: bold;
-  color: black;
-}
-
-@media (min-width: 1200px) {
-  .profileWebWrapper .GraphicProfile .graphicTitle {
-    transform: scale(1.3);
-  }
-}
-
-.profileWebWrapper .GraphicProfile .errors {
-  min-height: 30px;
-  top: -33px;
-  margin-top: 10px;
-  position: relative;
-}
-
-@media (min-width: 1200px) {
-  .profileWebWrapper .GraphicProfile .errors {
-    transform: scale(1.3);
-    margin-top: 20px;
-  }
-}
-
-.profileWebWrapper .GraphicProfile .errors .errorFile {
-  display: block;
-  margin: 0;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton {
-  display: flex;
-  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0);
-  width: 90vw;
-  height: 50px;
-  max-width: 500px;
-  border: black 0px solid;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  position: relative;
-  background: white;
-  z-index: 1;
-}
-
-@media (min-width: 1200px) {
-  .profileWebWrapper .GraphicProfile .addGraphicButton {
-    transform: scale(1.3);
-    margin-top: 50px;
-  }
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton .formNewGraphic {
-  z-index: 1;
-  display: flex;
-  overflow: hidden;
-  width: 0;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton .inputfile {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton .inputfile,
-.profileWebWrapper .GraphicProfile .addGraphicButton label {
-  font-size: 1.25em;
-  font-weight: 700;
-  margin: 0;
-  color: black;
-  display: inline-block;
-  cursor: pointer;
-  outline: 1px dotted #000;
-  outline: -webkit-focus-ring-color auto 5px;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton label {
-  min-width: 115px;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton .submitForm {
-  background: white;
-  height: 100%;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton .plusItem {
-  display: flex;
-  height: 30px;
-  justify-content: center;
-  width: 30px;
-  align-items: center;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton .plusItem .singleBar {
-  display: block;
-  display: block;
-  width: 20px;
-  height: 3px;
-  border-radius: 1px;
-  position: absolute;
-  background-color: black;
-}
-
-.profileWebWrapper .GraphicProfile .addGraphicButton .plusItem .singleBar:nth-child(1) {
-  transform: rotate(90deg);
-}
-
-.yourGraphicListWrapper {
-  display: block;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper {
-  z-index: 2;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  background-color: #000000f0;
-  left: 0;
-  top: 0;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  position: relative;
-  align-items: center;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg {
-  max-height: 90vh;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  margin: auto;
-  left: 0;
-  right: 0;
-  max-width: calc(80vw);
-  justify-content: center;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg img {
-  max-height: 80vh;
-  max-width: 70vw;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .PreviousImg {
-  max-height: 90vh;
-  display: flex;
-  align-items: center;
-  right: calc(100vw - 10vw);
-  position: absolute;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .PreviousImg img {
-  max-height: 80vh;
-  max-width: 70vw;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .NextImg {
-  max-height: 90vh;
-  display: flex;
-  align-items: center;
-  align-items: center;
-  position: absolute;
-  left: calc(100% - 10vw);
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .NextImg img {
-  max-height: 80vh;
-  max-width: 70vw;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation {
-  display: flex;
-  margin: 20px 0;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 200px;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 30px;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:hover {
-  opacity: 1;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:before,
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:after {
-  position: absolute;
-  content: " ";
-  height: 50px;
-  width: 2px;
-  background-color: white;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:before {
-  transform: rotate(45deg);
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .close:after {
-  transform: rotate(-45deg);
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow {
-  display: inline-block;
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  background: transparent;
-  text-indent: -9999px;
-  border-top: 2px solid #bfbfbf;
-  border-left: 2px solid #bfbfbf;
-  text-decoration: none;
-  color: transparent;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow:before {
-  display: block;
-  height: 200%;
-  width: 200%;
-  margin-left: -50%;
-  margin-top: -50%;
-  content: "";
-  transform: rotate(45deg);
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow.prev {
-  transform: rotate(-45deg);
-  left: 0;
-}
-
-.yourGraphicListWrapper .GalerySliderWrapper .sliderNavigation .arrow.next {
-  transform: rotate(135deg);
-  right: 0;
-}
-
-.yourGraphicListWrapper .GaleryGraphicWrapper {
-  width: 100%;
-  min-height: 300px;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  z-index: 1;
-}
-
-.yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper {
-  width: 300px;
-  height: 300px;
-  margin: 20px;
-}
-
-.yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-}
-
-.yourGraphicListWrapper .GaleryGraphicWrapper .GraphicWrapper .GraphicButton img {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.activeProfilePage {
-  z-index: 1;
-  width: 100vw !important;
-  min-height: 100vh !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-}
-
-.slide-top {
-  -webkit-animation: slide-top 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) both;
-  animation: slide-top 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) both;
-}
-
-/* ----------------------------------------------
- * Generated by Animista on 2019-9-2 11:15:39
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-/**
- * ----------------------------------------
- * animation slide-top
- * ----------------------------------------
- */
-
-@-webkit-keyframes slide-top {
-  0% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-@keyframes slide-top {
-  0% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-.slide-bottom {
-  -webkit-animation: slide-bottom 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) reverse both;
-  animation: slide-bottom 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) reverse both;
-}
-
-/* ----------------------------------------------
- * Generated by Animista on 2019-9-2 14:54:18
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-/**
- * ----------------------------------------
- * animation slide-bottom
- * ----------------------------------------
- */
-
-@-webkit-keyframes slide-bottom {
-  0% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-@keyframes slide-bottom {
-  0% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-.position-top {
-  transform: translateY(-100%);
-}
-
-.opacity-enter {
-  opacity: 0;
-}
-
-.opacity-enter-active {
-  transition: opacity 1.2s;
-}
-
-.opacity-leave-active {
-  opacity: 0;
-}
-
-.opacity-web-enter-active {
-  -webkit-animation: opacity-web-in 0.6s ease-in forwards;
-          animation: opacity-web-in 0.6s ease-in forwards;
-  -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s;
-}
-
-.opacity-web-leave-active {
-  -webkit-animation: opacity-web-out 0.6s ease-out forwards;
-          animation: opacity-web-out 0.6s ease-out forwards;
-}
-
-@-webkit-keyframes opacity-web-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes opacity-web-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes opacity-web-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes opacity-web-out {
-  to {
-    opacity: 0;
-  }
-}
-
-.scaleUpCenter {
-  -webkit-animation: scale-up-center 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) both;
-  animation: scale-up-center 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) both;
-  z-index: 2;
-}
-
-/* ----------------------------------------------
- * Generated by Animista on 2019-9-18 9:47:22
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-/**
- * ----------------------------------------
- * animation scale-up-center
- * ----------------------------------------
- */
-
-@-webkit-keyframes scale-up-center {
-  0% {
-    width: 30vh;
-    height: 30vh;
-  }
-
-  100% {
-    height: 100vh;
-    width: 100vw;
-    max-width: 100vw;
-    max-height: 5000vh;
-    top: 0;
-    bottom: 0;
-  }
-}
-
-@keyframes scale-up-center {
-  0% {
-    width: 30vh;
-    height: 30vh;
-  }
-
-  100% {
-    height: 100vh;
-    width: 100vw;
-    max-width: 100vw;
-    max-height: 5000vh;
-    top: 0;
-    bottom: 0;
-  }
-}
-
-.scaleDownCenter {
-  -webkit-animation: scale-down-center 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) reverse both;
-  animation: scale-down-center 0.4s cubic-bezier(1, 0.355, 0.61, 0.215) reverse both;
-  z-index: 1;
-}
-
-@-webkit-keyframes scale-down-center {
-  0% {
-    width: 30vh;
-    height: 30vh;
-  }
-
-  100% {
-    height: 100vh;
-    width: 100vw;
-    max-width: 100vw;
-    max-height: 5000vh;
-    top: 0;
-    bottom: 0;
-  }
-}
-
-@keyframes scale-down-center {
-  0% {
-    width: 30vh;
-    height: 30vh;
-  }
-
-  100% {
-    height: 100vh;
-    width: 100vw;
-    max-width: 100vw;
-    max-height: 5000vh;
-    top: 0;
-    bottom: 0;
-  }
 }
 
