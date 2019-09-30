@@ -20,3 +20,6 @@ Auth::routes();
 Route::get('/graphics/{user_id}', 'GraphicsController@index')->name('getGraphic');
 Route::post('/graphics', 'GraphicsController@store')->name('postGraphic');
 Route::delete('/graphics/{id}', 'GraphicsController@destroy')->name('destroyGraphic');
+
+
+Route::get('/graphics/description/{graphic_id}', 'DescriptionController@index')->name('getDescription');

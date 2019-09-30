@@ -2245,6 +2245,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["overflowType"],
@@ -2253,18 +2258,23 @@ __webpack_require__.r(__webpack_exports__);
     return {
       OnSlider: false,
       activeGaleryId: "",
-      listGraphics: ""
+      listGraphics: "",
+      idGraphic: ""
     };
   },
   methods: {
-    showSlider: function showSlider(id) {
+    showSlider: function showSlider(id, graphic_id) {
       this.activeGaleryId = id;
       this.OnSlider = true;
       document.body.classList.remove("overflowAuto");
+      this.idGraphic = graphic_id;
     },
     closeSlider: function closeSlider() {
       this.OnSlider = false;
       document.body.classList.add("overflowAuto");
+    },
+    activeMinus: function activeMinus() {
+      activeGaleryId--;
     }
   },
   mounted: function mounted() {
@@ -2331,10 +2341,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp"],
+  props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp", "graphicID"],
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"]),
+  data: function data() {
+    return {
+      descriptionVisible: true,
+      description: ""
+    };
+  },
+  methods: {
+    viewDescription: function viewDescription() {
+      var _this = this;
+
+      axios.get("/graphics/description/" + this.graphicID).then(function (request) {
+        console.log(request.data);
+        _this.description = request.data;
+        _this.descriptionVisible = false;
+      })["catch"](function () {
+        console.log("FAILURE!!");
+      });
+    }
+  },
   mounted: function mounted() {
     console.log(this.listGraphicsProp);
     console.log(this.activeGaleryItem);
@@ -46939,14 +46998,15 @@ var render = function() {
         ? _c("galery-slider", {
             attrs: {
               activeGaleryItem: _vm.activeGaleryId,
-              listGraphicsProp: _vm.listGraphics
+              listGraphicsProp: _vm.listGraphics,
+              graphicID: _vm.idGraphic
             },
             on: {
               close: function($event) {
                 return _vm.closeSlider()
               },
               previous: function($event) {
-                _vm.activeGaleryId--
+                return _vm.activeMinus()
               },
               next: function($event) {
                 _vm.activeGaleryId++
@@ -46974,7 +47034,7 @@ var render = function() {
                   attrs: { slot: "GaleryImage" },
                   on: {
                     click: function($event) {
-                      return _vm.showSlider(index)
+                      return _vm.showSlider(index, _vm.listGraphics[index].id)
                     }
                   },
                   slot: "GaleryImage"
@@ -47044,13 +47104,65 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "ActiveImg" }, [
-          _c("img", {
-            attrs: {
-              src:
-                "./storage/graphicNew/" +
-                _vm.listGraphicsProp[_vm.activeGaleryItem].path
-            }
-          })
+          _c("div", { staticClass: "ActiveImgContent" }, [
+            _c("img", {
+              attrs: {
+                src:
+                  "./storage/graphicNew/" +
+                  _vm.listGraphicsProp[_vm.activeGaleryItem].path
+              },
+              on: { click: _vm.viewDescription }
+            }),
+            _vm._v(" "),
+            !_vm.descriptionVisible
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "GraphicDescription",
+                    on: {
+                      click: function($event) {
+                        _vm.descriptionVisible = !_vm.descriptionVisible
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "descriptionHeader" }, [
+                      _c("p", [_vm._v("The")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "customeTitle" }, [
+                        _vm._v(_vm._s(_vm.description.title))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "descriptionMain" }, [
+                      _c("p", [_vm._v("Content")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "customeContentWrapper" }, [
+                        _vm._v(_vm._s(_vm.description.info))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "descriptionFooter" }, [
+                      _c("div", { staticClass: "creatorNickWrapper" }, [
+                        _c("p", [_vm._v("Creator:")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "customNick" }, [
+                          _vm._v(_vm._s(_vm.description.creator))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "dataCreateWrapper" }, [
+                        _c("p", [_vm._v("Data:")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "customNick" }, [
+                          _vm._v(_vm._s(_vm.description.date))
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              : _vm._e()
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "NextImg" }, [

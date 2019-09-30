@@ -153,10 +153,21 @@
           max-width: calc(80vw);
           justify-content: center;
 
-          img {
-            max-height: 80vh;
-            max-width: 70vw;
+          .ActiveImgContent {
+            width: fit-content;
+            position: relative;
+            height: fit-content;
+            display: flex;
+
+            img {
+              max-height: 80vh;
+              max-width: 70vw;
+              display: inline;
+            }
+
+
           }
+
         }
 
         .PreviousImg {

@@ -11146,9 +11146,71 @@ a:hover {
   justify-content: center;
 }
 
-.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg img {
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: relative;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent img {
   max-height: 80vh;
   max-width: 70vw;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription {
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: grid;
+  grid-template-rows: 30% 60% 10%;
+  background: white;
+  padding: 20px;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription .descriptionHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 3em;
+  line-height: 40px;
+  justify-content: center;
+  text-align: center;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription .descriptionHeader p {
+  margin: 0;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription .descriptionHeader .customeTitle {
+  display: inline;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription .descriptionMain {
+  display: inline;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription .descriptionMain .customeContentWrapper {
+  display: inline;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription .descriptionFooter {
+  display: flex;
+  justify-content: space-between;
+  line-height: 13px;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription .descriptionFooter .creatorNickWrapper {
+  display: block;
+}
+
+.GaleryPage .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent .GraphicDescription .descriptionFooter .dataCreateWrapper {
+  display: inline;
 }
 
 .GaleryPage .GalerySliderWrapper .GaleryContent .PreviousImg {
@@ -11728,9 +11790,21 @@ a:hover {
   justify-content: center;
 }
 
-.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg img {
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: relative;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+}
+
+.GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .ActiveImg .ActiveImgContent img {
   max-height: 80vh;
   max-width: 70vw;
+  display: inline;
 }
 
 .GraphicProfile .yourGraphicListWrapper .GalerySliderWrapper .GaleryContent .PreviousImg {
