@@ -71,6 +71,13 @@
 </template>
 <script>
 import { setInterval, clearInterval, setTimeout } from "timers";
+
+Math.easeOutQuart = function(t, b, c, d) {
+	t /= d;
+	t--;
+	return -c * (t * t * t * t - 1) + b;
+};
+
 // Zwiększanie paska loguj
 let sizingUpDiv = (index, changerWrapper, storage) => {
 	// Który guzik zwiększyć?
@@ -88,25 +95,26 @@ let sizingUpDiv = (index, changerWrapper, storage) => {
 		let changeHeight = () => {
 			round = 1;
 			interval = setInterval(() => {
-				changerWrapper.style.height = currentHeight + round * 15 + "px";
+				changerWrapper.style.height =
+					Math.easeOutQuart(round, 31, 155, 60) + "px";
 				round++;
-				if (round > 10) {
+				if (round > 60) {
 					clearInterval(interval);
 				}
-			}, 10);
+			}, 50 / 60);
 		};
 		// Wykonaj funkcję
 		let interval = setInterval(() => {
-			changerWrapper.style.width = currentWidth + round * 30 + "px";
+			changerWrapper.style.width = Math.easeOutQuart(round, 70, 290, 60) + "px";
 			round++;
 
-			if (round > 10) {
+			if (round > 60) {
 				clearInterval(interval);
 				changeHeight();
 				// Wskaż który guzik jest aktywny
 				storage.loginOrRegister = index;
 			}
-		}, 10);
+		}, 50 / 60);
 	}
 };
 
@@ -121,34 +129,34 @@ let sizingDownDiv = (index, defaulting, storage) => {
 		// Sprawdź jego startową wielkość
 		let currentWidthDefaulting = parseInt(defaulting.style.width);
 		let currentHeightDefaulting = parseInt(defaulting.style.height);
-		let roundDefaulting = 1;
+		let roundDefaulting = 60;
 		// Wskaż który guzik jest nie aktywny
 		storage.loginOrRegister = index;
 		// Funkcje
 		let heightDefaulting = () => {
-			roundDefaulting = 1;
+			roundDefaulting = 60;
 			intervalDefaulting = setInterval(() => {
 				defaulting.style.width =
-					currentWidthDefaulting - roundDefaulting * 30 + "px";
-				roundDefaulting++;
+					Math.easeOutQuart(roundDefaulting, 70, 290, 60) + "px";
+				roundDefaulting--;
 
-				if (roundDefaulting > 10) {
+				if (roundDefaulting < 0) {
 					clearInterval(intervalDefaulting);
 				}
-			}, 10);
+			}, 50 / 60);
 		};
 
 		// Wykonaj funkcję
 		let intervalDefaulting = setInterval(() => {
 			defaulting.style.height =
-				currentHeightDefaulting - roundDefaulting * 15 + "px";
-			roundDefaulting++;
+				Math.easeOutQuart(roundDefaulting, 31, 155, 60) + "px";
+			roundDefaulting--;
 
-			if (roundDefaulting > 10) {
+			if (roundDefaulting < 0) {
 				clearInterval(intervalDefaulting);
 				heightDefaulting();
 			}
-		}, 10);
+		}, 50 / 60);
 	}
 };
 export default {

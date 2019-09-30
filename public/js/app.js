@@ -2078,7 +2078,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
- // Zwiększanie paska loguj
+
+
+Math.easeOutQuart = function (t, b, c, d) {
+  t /= d;
+  t--;
+  return -c * (t * t * t * t - 1) + b;
+}; // Zwiększanie paska loguj
+
 
 var sizingUpDiv = function sizingUpDiv(index, changerWrapper, storage) {
   // Który guzik zwiększyć?
@@ -2096,27 +2103,27 @@ var sizingUpDiv = function sizingUpDiv(index, changerWrapper, storage) {
     var changeHeight = function changeHeight() {
       round = 1;
       interval = Object(timers__WEBPACK_IMPORTED_MODULE_0__["setInterval"])(function () {
-        changerWrapper.style.height = currentHeight + round * 15 + "px";
+        changerWrapper.style.height = Math.easeOutQuart(round, 31, 155, 60) + "px";
         round++;
 
-        if (round > 10) {
+        if (round > 60) {
           Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(interval);
         }
-      }, 10);
+      }, 50 / 60);
     }; // Wykonaj funkcję
 
 
     var interval = Object(timers__WEBPACK_IMPORTED_MODULE_0__["setInterval"])(function () {
-      changerWrapper.style.width = currentWidth + round * 30 + "px";
+      changerWrapper.style.width = Math.easeOutQuart(round, 70, 290, 60) + "px";
       round++;
 
-      if (round > 10) {
+      if (round > 60) {
         Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(interval);
         changeHeight(); // Wskaż który guzik jest aktywny
 
         storage.loginOrRegister = index;
       }
-    }, 10);
+    }, 50 / 60);
   }
 }; // Zmniejszanie paska loguj
 
@@ -2132,32 +2139,32 @@ var sizingDownDiv = function sizingDownDiv(index, defaulting, storage) {
     // Sprawdź jego startową wielkość
     var currentWidthDefaulting = parseInt(defaulting.style.width);
     var currentHeightDefaulting = parseInt(defaulting.style.height);
-    var roundDefaulting = 1; // Wskaż który guzik jest nie aktywny
+    var roundDefaulting = 60; // Wskaż który guzik jest nie aktywny
 
     storage.loginOrRegister = index; // Funkcje
 
     var heightDefaulting = function heightDefaulting() {
-      roundDefaulting = 1;
+      roundDefaulting = 60;
       intervalDefaulting = Object(timers__WEBPACK_IMPORTED_MODULE_0__["setInterval"])(function () {
-        defaulting.style.width = currentWidthDefaulting - roundDefaulting * 30 + "px";
-        roundDefaulting++;
+        defaulting.style.width = Math.easeOutQuart(roundDefaulting, 70, 290, 60) + "px";
+        roundDefaulting--;
 
-        if (roundDefaulting > 10) {
+        if (roundDefaulting < 0) {
           Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(intervalDefaulting);
         }
-      }, 10);
+      }, 50 / 60);
     }; // Wykonaj funkcję
 
 
     var intervalDefaulting = Object(timers__WEBPACK_IMPORTED_MODULE_0__["setInterval"])(function () {
-      defaulting.style.height = currentHeightDefaulting - roundDefaulting * 15 + "px";
-      roundDefaulting++;
+      defaulting.style.height = Math.easeOutQuart(roundDefaulting, 31, 155, 60) + "px";
+      roundDefaulting--;
 
-      if (roundDefaulting > 10) {
+      if (roundDefaulting < 0) {
         Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(intervalDefaulting);
         heightDefaulting();
       }
-    }, 10);
+    }, 50 / 60);
   }
 };
 
