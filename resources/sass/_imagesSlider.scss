@@ -1,8 +1,6 @@
 .GalerySliderWrapper {
   z-index: 2;
   position: fixed;
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -10,6 +8,8 @@
   background-color: #000000f0;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
 
   .GaleryContent {
     height: 100%;

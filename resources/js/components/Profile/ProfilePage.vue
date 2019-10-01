@@ -38,6 +38,14 @@ export default {
 			} else {
 				this.$router.push({ name: "profileGame" });
 			}
+		},
+		activeMinus() {
+			this.activeGaleryId--;
+			this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+		},
+		activePlus() {
+			this.activeGaleryId++;
+			this.idGraphic = this.listGraphics[this.activeGaleryId].id;
 		}
 	},
 	mounted() {

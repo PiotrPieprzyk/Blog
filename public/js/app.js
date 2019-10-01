@@ -2598,6 +2598,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2626,13 +2629,17 @@ __webpack_require__.r(__webpack_exports__);
       addButtonActive: false,
       errorFile: "",
       image_src: "./images/header/send-icon.svg",
-      activeMenuImage: -1
+      activeMenuImage: -1,
+      idGraphic: ""
     };
   },
   methods: {
-    showSlider: function showSlider(id) {
+    showSlider: function showSlider(id, graphic_id) {
       this.activeGaleryId = id;
       this.OnSlider = true;
+      document.body.classList.remove("overflowAuto");
+      this.idGraphic = graphic_id;
+      console.log(this.listGraphics);
     },
     showImageMenu: function showImageMenu(id, e) {
       var _this = this;
@@ -2645,6 +2652,18 @@ __webpack_require__.r(__webpack_exports__);
         this.activeMenuImage = id;
         console.log(this.activeMenuImage);
       }
+    },
+    activeMinus: function activeMinus() {
+      this.activeGaleryId--;
+      this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+    },
+    activePlus: function activePlus() {
+      this.activeGaleryId++;
+      this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+    },
+    closeSlider: function closeSlider() {
+      this.OnSlider = false;
+      document.body.classList.add("overflowAuto");
     },
     deleteImage: function deleteImage(id) {
       var _this2 = this;
@@ -2823,6 +2842,14 @@ __webpack_require__.r(__webpack_exports__);
           name: "profileGame"
         });
       }
+    },
+    activeMinus: function activeMinus() {
+      this.activeGaleryId--;
+      this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+    },
+    activePlus: function activePlus() {
+      this.activeGaleryId++;
+      this.idGraphic = this.listGraphics[this.activeGaleryId].id;
     }
   },
   mounted: function mounted() {
@@ -3156,10 +3183,11 @@ __webpack_require__.r(__webpack_exports__);
     var _this2 = this;
 
     var it = this.currentCard;
-    var scrollValue = 0;
+    var scrollValue = this.currentCard;
     var activeScrollAnimation = true;
     window.addEventListener("wheel", function () {
       if (activeScrollAnimation == true) {
+        scrollValue = _this2.currentCard;
         activeScrollAnimation = false;
 
         if (event.deltaY < 0 && scrollValue > 0) {
@@ -47370,25 +47398,33 @@ var render = function() {
     "div",
     { staticClass: "GraphicProfile" },
     [
-      _vm.OnSlider
-        ? _c("galery-slider", {
-            attrs: {
-              activeGaleryItem: _vm.activeGaleryId,
-              listGraphicsProp: _vm.listGraphics
-            },
-            on: {
-              close: function($event) {
-                _vm.OnSlider = false
-              },
-              previous: function($event) {
-                _vm.activeGaleryId--
-              },
-              next: function($event) {
-                _vm.activeGaleryId++
-              }
-            }
-          })
-        : _vm._e(),
+      _c(
+        "transition",
+        { attrs: { name: "opacity" } },
+        [
+          _vm.OnSlider
+            ? _c("galery-slider", {
+                attrs: {
+                  activeGaleryItem: _vm.activeGaleryId,
+                  listGraphicsProp: _vm.listGraphics,
+                  graphicID: _vm.idGraphic
+                },
+                on: {
+                  close: function($event) {
+                    return _vm.closeSlider()
+                  },
+                  previous: function($event) {
+                    return _vm.activeMinus()
+                  },
+                  next: function($event) {
+                    return _vm.activePlus()
+                  }
+                }
+              })
+            : _vm._e()
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "graphicTitle" }, [_vm._v("GRAPHIC")]),
       _vm._v(" "),
@@ -47527,7 +47563,10 @@ var render = function() {
                                 staticStyle: { color: "white" },
                                 on: {
                                   click: function($event) {
-                                    return _vm.showSlider(index)
+                                    return _vm.showSlider(
+                                      index,
+                                      _vm.listGraphics[index].id
+                                    )
                                   }
                                 }
                               },

@@ -11747,7 +11747,13 @@ a:hover {
 }
 
 .opacity-enter-active {
-  transition: opacity 0.7s;
+  transition: opacity 0.3s;
+}
+
+.opacity-leave {
+  opacity: 1;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
 }
 
 .opacity-leave-active {
@@ -12167,8 +12173,6 @@ a:hover {
 .GalerySliderWrapper {
   z-index: 2;
   position: fixed;
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -12176,6 +12180,8 @@ a:hover {
   background-color: #000000f0;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .GalerySliderWrapper .GaleryContent {
