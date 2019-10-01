@@ -17,5 +17,8 @@ class Graphic extends Model
         'path'
     ];
 
-   
+    public function description()
+    {
+        return $this->hasOne('App\Description');
+    }
 }

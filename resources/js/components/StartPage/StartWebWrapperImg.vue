@@ -2,12 +2,12 @@
 	<div class="start-web-wrapper-img">
 		<div
 			class="cardWrapper"
-			v-for="item in backgroundImages"
+			v-for="(item, index) in backgroundImages"
 			:key="item.id"
 			:class="'Image'+item.id"
 			:style="'z-index:-'+item.id"
 		>
-			<img :style="'background-image: url(./images/galery/'+item.href+');'" />
+			<img v-if="index!=3" :style="'background-image: url(./images/galery/'+item.href+');'" />
 		</div>
 	</div>
 </template>

@@ -6,10 +6,11 @@
 		<galery-slider
 			v-if="OnSlider"
 			@close="closeSlider()"
-			@previous="activeGaleryId--"
-			@next="activeGaleryId++"
+			@previous="activeMinus()"
+			@next="activePlus()"
 			:activeGaleryItem="activeGaleryId"
 			:listGraphicsProp="listGraphics"
+			:graphicID="idGraphic"
 		></galery-slider>
 		<div class="GaleryGraphicWrapper">
 			<div
@@ -18,7 +19,11 @@
 				:class="'Graphic'+index"
 				class="GraphicWrapper"
 			>
-				<button slot="GaleryImage" class="GraphicButton" @click="showSlider(index)">
+				<button
+					slot="GaleryImage"
+					class="GraphicButton"
+					@click="showSlider(index, listGraphics[index].id)"
+				>
 					<img :style="'background-image: url(./storage/graphicNew/'+item.path+');'" />
 				</button>
 			</div>
@@ -35,18 +40,29 @@ export default {
 		return {
 			OnSlider: false,
 			activeGaleryId: "",
-			listGraphics: ""
+			listGraphics: "",
+			idGraphic: ""
 		};
 	},
 	methods: {
-		showSlider(id) {
+		showSlider(id, graphic_id) {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
 			document.body.classList.remove("overflowAuto");
+			this.idGraphic = graphic_id;
+			console.log(this.listGraphics);
 		},
 		closeSlider() {
 			this.OnSlider = false;
 			document.body.classList.add("overflowAuto");
+		},
+		activeMinus() {
+			this.activeGaleryId--;
+			this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+		},
+		activePlus() {
+			this.activeGaleryId++;
+			this.idGraphic = this.listGraphics[this.activeGaleryId].id;
 		}
 	},
 	mounted() {

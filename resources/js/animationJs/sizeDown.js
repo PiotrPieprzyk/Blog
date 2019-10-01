@@ -15,8 +15,8 @@ Math.easeOutExpo = function (t, b, c, d, x) {
     return (c + b) * (Math.cos((Math.PI / 2) * ((t - x) / (d - x))));
   }
 };
-Math.easeInExpo = function (t, b, c, d) {
-  return c * Math.pow(2, 10 * (t / d - 1)) + b;
+Math.easeOutSine = function (t, b, c, d) {
+  return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
 
 export let sizeDown = function sizeDown(index, store) {
@@ -43,7 +43,7 @@ export let sizeDown = function sizeDown(index, store) {
       // aspectRatio
       let aspectRatio = viewPort[0] / viewPort[1];
       if (aspectRatio <= 1 / 2) {
-        endTop = ((viewPort[1] / 2) - (viewPort[0] / 2)) / 2;
+        endTop = ((viewPort[1] / 2) - (viewPort[0] / 2)) / 4;
         endWidth = viewPort[0] / 2;
         endHeight = viewPort[0] / 2;
       }
@@ -58,15 +58,18 @@ export let sizeDown = function sizeDown(index, store) {
       setStyle.top = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
-
+      document.getElementById(1).classList.replace("activeProfilePage", "profileGalery");
 
       // sizing // 
-      let k = 120;
+      let k = 80;
       let i = 1;
       let positionInterval = setInterval(() => {
-        setStyle.top = Math.easeInExpo(i, 0, endTop, 120, 60) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
+        setStyle.top = Math.easeOutSine(i, 0, endTop, 80, 80) + 'px';
+        setStyle.width = Math.easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
+        setStyle.height = Math.easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
+        console.log(setStyle.width);
+        console.log(setStyle.height);
+        console.log(setStyle.right);
         k--;
         i++;
         if (k == 1) {
@@ -77,13 +80,16 @@ export let sizeDown = function sizeDown(index, store) {
           setStyle.bottom = null;
           setStyle.left = null;
           setStyle.right = null;
-          document.getElementById(1).style.zIndex = 0;
+          document.getElementById(2).style.zIndex = 0;
+          document.getElementById(1).classList.remove("activeProfilePage");
+          document.getElementById(2).classList.remove("deActiveProfilePage");
+          document.getElementById(1).classList.add("profileGalery");
 
           store.$store.commit("changeAnimationStatus", false);
 
 
         }
-      }, 400 / 120);
+      }, 250 / 80);
     }
     // GameProfil //
     if (index == 2) {
@@ -105,7 +111,7 @@ export let sizeDown = function sizeDown(index, store) {
       // aspectRatio
       let aspectRatio = viewPort[0] / viewPort[1];
       if (aspectRatio <= 1 / 2) {
-        endBottom = ((viewPort[1] / 2) - (viewPort[0] / 2)) / 2;
+        endBottom = ((viewPort[1] / 2) - (viewPort[0] / 2)) / 4;
         endWidth = viewPort[0] / 2;
         endHeight = viewPort[0] / 2;
       }
@@ -119,14 +125,18 @@ export let sizeDown = function sizeDown(index, store) {
       setStyle.width = widthElement;
       setStyle.height = heightElement;
       setStyle.bottom = positionElement;
+      document.getElementById(2).classList.replace("activeProfilePage", "profileGame");
 
       // sizing // 
-      let k = 120;
+      let k = 80;
       let i = 1;
       let positionInterval = setInterval(() => {
-        setStyle.bottom = Math.easeInExpo(i, 0, endBottom, 120, 60) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
+        setStyle.bottom = Math.easeOutSine(i, 0, endBottom, 80, 80) + 'px';
+        setStyle.width = Math.easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
+        setStyle.height = Math.easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
+        console.log(setStyle.width);
+        console.log(setStyle.height);
+        console.log(setStyle.right);
         k--;
         i++;
         if (k == 1) {
@@ -137,13 +147,15 @@ export let sizeDown = function sizeDown(index, store) {
           setStyle.bottom = null;
           setStyle.left = null;
           setStyle.right = null;
-          document.getElementById(2).style.zIndex = 0;
-
+          document.getElementById(1).style.zIndex = 0;
+          document.getElementById(2).classList.remove("activeProfilePage");
+          document.getElementById(1).classList.remove("deActiveProfilePage");
 
           store.$store.commit("changeAnimationStatus", false);
+          document.getElementById(2).classList.add("profileGame");
 
         }
-      }, 400 / 120);
+      }, 250 / 80);
     }
   }
   if (viewPort[0] >= viewPort[1]) {
@@ -170,25 +182,27 @@ export let sizeDown = function sizeDown(index, store) {
         endleft = viewPort[0] / 8;
         endWidth = viewPort[0] / 4;
         endHeight = viewPort[0] / 4;
+
       }
       if (aspectRatio > 2 / 1) {
-        endleft = ((viewPort[0] / 2) - (viewPort[1] / 2) / 2);
+        endleft = (((viewPort[0] / 2) - (viewPort[1] / 2)) / 2);
         endWidth = viewPort[1] / 2;
         endHeight = viewPort[1] / 2;
       }
-
       // prepare for sizing //
       setStyle.left = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
+      document.getElementById(1).classList.replace("activeProfilePage", "profileGalery");
 
       // sizing //
-      let k = 120;
+      let k = 80;
       let i = 1;
       let positionInterval = setInterval(() => {
-        setStyle.left = Math.easeInExpo(i, 0, endleft, 120, 120) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
+        setStyle.left = Math.easeOutSine(i, 0, endleft, 80) + 'px';
+        setStyle.width = Math.easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
+        setStyle.height = Math.easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
+
         k--;
         i++;
         if (k == 1) {
@@ -199,12 +213,12 @@ export let sizeDown = function sizeDown(index, store) {
           setStyle.bottom = null;
           setStyle.left = null;
           setStyle.right = null;
-          document.getElementById(1).style.zIndex = 0;
+          document.getElementById(2).style.zIndex = 0;
 
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 400 / 120);
+      }, 250 / 80);
 
     }
 
@@ -233,7 +247,7 @@ export let sizeDown = function sizeDown(index, store) {
         endHeight = viewPort[0] / 4;
       }
       if (aspectRatio > 2 / 1) {
-        endRight = ((viewPort[0] / 2) - (viewPort[1] / 2) / 2);
+        endRight = (((viewPort[0] / 2) - (viewPort[1] / 2)) / 2);
         endWidth = viewPort[1] / 2;
         endHeight = viewPort[1] / 2;
       }
@@ -242,14 +256,20 @@ export let sizeDown = function sizeDown(index, store) {
       setStyle.right = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
+      document.getElementById(2).classList.replace("activeProfilePage", "profileGame");
+
 
       // sizing //
-      let k = 120;
+      let k = 80;
       let i = 1;
       let positionInterval = setInterval(() => {
-        setStyle.right = Math.easeInExpo(i, 0, endRight, 120, 60) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
+        setStyle.right = Math.easeOutSine(i, 0, endRight, 80) + 'px';
+        setStyle.width = Math.easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
+        setStyle.height = Math.easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
+        console.log(setStyle.width);
+        console.log(setStyle.height);
+        console.log("RIGHT " + setStyle.right);
+
         k--;
         i++;
         if (k == 1) {
@@ -260,12 +280,12 @@ export let sizeDown = function sizeDown(index, store) {
           setStyle.bottom = null;
           setStyle.left = null;
           setStyle.right = null;
-          document.getElementById(2).style.zIndex = 0;
+          document.getElementById(1).style.zIndex = 0;
 
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 400 / 120);
+      }, 250 / 80);
     }
   }
 }

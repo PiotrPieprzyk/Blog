@@ -3,9 +3,13 @@
 }
 
 .opacity-enter-active {
-  transition: opacity 0.7s;
+  transition: opacity 0.3s;
 }
 
+.opacity-leave {
+  opacity: 1;
+  animation-delay: 0.3s;
+}
 
 .opacity-leave-active {
   opacity: 0;

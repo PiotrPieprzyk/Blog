@@ -101,11 +101,12 @@ export default {
 	},
 	mounted() {
 		let it = this.currentCard;
-		let scrollValue = 0;
+		let scrollValue = this.currentCard;
 		let activeScrollAnimation = true;
 
 		window.addEventListener("wheel", () => {
 			if (activeScrollAnimation == true) {
+				scrollValue = this.currentCard;
 				activeScrollAnimation = false;
 				if (event.deltaY < 0 && scrollValue > 0) {
 					scrollValue--;

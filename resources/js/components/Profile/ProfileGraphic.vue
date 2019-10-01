@@ -1,5 +1,18 @@
 <template>
 	<div class="GraphicProfile">
+		<!-- Modal -->
+		<transition name="opacity">
+			<galery-slider
+				v-if="OnSlider"
+				@close="closeSlider()"
+				@previous="activeMinus()"
+				@next="activePlus()"
+				:activeGaleryItem="activeGaleryId"
+				:listGraphicsProp="listGraphics"
+				:graphicID="idGraphic"
+			></galery-slider>
+		</transition>
+
 		<div class="graphicTitle">GRAPHIC</div>
 		<div class="addGraphicButton">
 			<form class="formNewGraphic" method="POST" action="/graphics" enctype="multipart/form-data">
@@ -32,14 +45,6 @@
 		</div>
 
 		<div class="yourGraphicListWrapper">
-			<galery-slider
-				v-if="OnSlider"
-				@close="OnSlider = false"
-				@previous="activeGaleryId--"
-				@next="activeGaleryId++"
-				:activeGaleryItem="activeGaleryId"
-				:listGraphicsProp="listGraphics"
-			></galery-slider>
 			<div class="GaleryGraphicWrapper">
 				<div
 					v-for="(item, index) in listGraphics"
@@ -59,7 +64,7 @@
 								<button class="closeImageMenu" @click="showImageMenu(-1)"></button>
 							</div>
 							<div class="viewButton">
-								<button @click="showSlider(index)" style="color: white">View</button>
+								<button @click="showSlider(index, listGraphics[index].id)" style="color: white">View</button>
 							</div>
 							<div class="deleteButton">
 								<button @click.once="deleteImage(item.id)" style="color: white">Delete</button>
@@ -101,13 +106,17 @@ export default {
 			addButtonActive: false,
 			errorFile: "",
 			image_src: "./images/header/send-icon.svg",
-			activeMenuImage: -1
+			activeMenuImage: -1,
+			idGraphic: ""
 		};
 	},
 	methods: {
-		showSlider(id) {
+		showSlider(id, graphic_id) {
 			this.activeGaleryId = id;
 			this.OnSlider = true;
+			document.body.classList.remove("overflowAuto");
+			this.idGraphic = graphic_id;
+			console.log(this.listGraphics);
 		},
 		showImageMenu(id, e) {
 			if (id == -1) {
@@ -118,6 +127,18 @@ export default {
 				this.activeMenuImage = id;
 				console.log(this.activeMenuImage);
 			}
+		},
+		activeMinus() {
+			this.activeGaleryId--;
+			this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+		},
+		activePlus() {
+			this.activeGaleryId++;
+			this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+		},
+		closeSlider() {
+			this.OnSlider = false;
+			document.body.classList.add("overflowAuto");
 		},
 		deleteImage(id) {
 			axios.delete(`/graphics/${id}`).then(request => {
