@@ -23,3 +23,5 @@ Route::delete('/graphics/{id}', 'GraphicsController@destroy')->name('destroyGrap
 
 
 Route::get('/graphics/description/{graphic_id}', 'DescriptionController@index')->name('getDescription');
+Route::post('/graphics/description/{graphic_id}', 'DescriptionController@store')->name('getDescription');
+Route::patch('/graphics/description/{graphic_id}', 'DescriptionController@edit')->name('getDescription');

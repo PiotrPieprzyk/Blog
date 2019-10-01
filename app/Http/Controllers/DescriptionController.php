@@ -24,9 +24,17 @@ class DescriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function edit(Request $request,$graphic_id)
     {
-        //
+        $graphic = Description::where('graphic_id', $graphic_id)->first();
+        $graphic->title = $request->title? $request->title:null;
+        $graphic->creator = $request->creator? $request->creator:null;
+        $graphic->date = $request->date? $request->date:null;
+        $graphic->info = $request->info? $request->info:null;
+        $graphic->image = $request->image? $request->image:null;
+
+        $graphic->save();
+        return $request;
     }
 
     /**
@@ -35,9 +43,22 @@ class DescriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($graphic_id)
     {
-        //
+        $graphic = Description::where('graphic_id', $graphic_id)->first();
+        if($graphic==""){
+            $description = Description::create([
+                'graphic_id' => $graphic_id,
+                'title' => null,
+                'creator' => null,
+                'date' => null,
+                'info'=>null,
+                'image'=>null
+                ]);
+        }
+    
+       
+        return $graphic;
     }
 
     /**
@@ -51,17 +72,7 @@ class DescriptionController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      *
