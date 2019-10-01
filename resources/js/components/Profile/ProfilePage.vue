@@ -51,14 +51,20 @@ export default {
 			this.$store.commit("changebuttonProfileActive", true);
 			this.$store.commit("changeVisibleProfileButton2", false);
 			this.$store.commit("changeProfileCardActive", 1);
-			document.getElementById(1).classList.add("activeProfilePage");
+			document
+				.getElementById(1)
+				.classList.replace("profileGalery", "activeProfilePage");
+			document.getElementById(2).classList.add("deActiveProfilePage");
 		}
 		if (this.$router.history.current.name == "profileGame") {
 			this.$store.commit("changeVisibleProfileButton2", true);
 			this.$store.commit("changebuttonProfileActive", true);
 			this.$store.commit("changeVisibleProfileButton1", false);
 			this.$store.commit("changeProfileCardActive", 2);
-			document.getElementById(2).classList.add("activeProfilePage");
+			document
+				.getElementById(2)
+				.classList.replace("profileGame", "activeProfilePage");
+			document.getElementById(1).classList.add("deActiveProfilePage");
 		}
 	},
 	beforeRouteUpdate(to, from, next) {
@@ -77,7 +83,7 @@ export default {
 			if (regGraphic.test(fromPath)) {
 				this.$store.commit("changeAnimationStatus", true);
 				let it = this;
-				document.getElementById(1).classList.remove("activeProfilePage");
+
 				this.jsAnimation.sizeDown(1, it);
 				this.$store.commit("changeVisibleProfileButton1", true);
 				this.$store.commit("changebuttonProfileActive", false);
@@ -88,7 +94,7 @@ export default {
 			if (regGame.test(fromPath)) {
 				this.$store.commit("changeAnimationStatus", true);
 				let it = this;
-				document.getElementById(2).classList.remove("activeProfilePage");
+
 				this.jsAnimation.sizeDown(2, it);
 				this.$store.commit("changeVisibleProfileButton1", true);
 				this.$store.commit("changebuttonProfileActive", false);

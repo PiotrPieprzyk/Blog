@@ -1,5 +1,15 @@
 <template>
 	<div class="GraphicProfile">
+		<!-- Modal -->
+		<galery-slider
+			v-if="OnSlider"
+			@close="OnSlider = false"
+			@previous="activeGaleryId--"
+			@next="activeGaleryId++"
+			:activeGaleryItem="activeGaleryId"
+			:listGraphicsProp="listGraphics"
+		></galery-slider>
+
 		<div class="graphicTitle">GRAPHIC</div>
 		<div class="addGraphicButton">
 			<form class="formNewGraphic" method="POST" action="/graphics" enctype="multipart/form-data">
@@ -32,14 +42,6 @@
 		</div>
 
 		<div class="yourGraphicListWrapper">
-			<galery-slider
-				v-if="OnSlider"
-				@close="OnSlider = false"
-				@previous="activeGaleryId--"
-				@next="activeGaleryId++"
-				:activeGaleryItem="activeGaleryId"
-				:listGraphicsProp="listGraphics"
-			></galery-slider>
 			<div class="GaleryGraphicWrapper">
 				<div
 					v-for="(item, index) in listGraphics"

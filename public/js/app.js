@@ -2103,27 +2103,27 @@ var sizingUpDiv = function sizingUpDiv(index, changerWrapper, storage) {
     var changeHeight = function changeHeight() {
       round = 1;
       interval = Object(timers__WEBPACK_IMPORTED_MODULE_0__["setInterval"])(function () {
-        changerWrapper.style.height = Math.easeOutQuart(round, 31, 155, 60) + "px";
+        changerWrapper.style.height = Math.easeOutQuart(round, 31, 155, 30) + "px";
         round++;
 
-        if (round > 60) {
+        if (round > 30) {
           Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(interval);
         }
-      }, 50 / 60);
+      }, 100 / 30);
     }; // Wykonaj funkcję
 
 
     var interval = Object(timers__WEBPACK_IMPORTED_MODULE_0__["setInterval"])(function () {
-      changerWrapper.style.width = Math.easeOutQuart(round, 70, 290, 60) + "px";
+      changerWrapper.style.width = Math.easeOutQuart(round, 70, 290, 30) + "px";
       round++;
 
-      if (round > 60) {
+      if (round > 30) {
         Object(timers__WEBPACK_IMPORTED_MODULE_0__["clearInterval"])(interval);
         changeHeight(); // Wskaż który guzik jest aktywny
 
         storage.loginOrRegister = index;
       }
-    }, 50 / 60);
+    }, 100 / 30);
   }
 }; // Zmniejszanie paska loguj
 
@@ -2268,13 +2268,19 @@ __webpack_require__.r(__webpack_exports__);
       this.OnSlider = true;
       document.body.classList.remove("overflowAuto");
       this.idGraphic = graphic_id;
+      console.log(this.listGraphics);
     },
     closeSlider: function closeSlider() {
       this.OnSlider = false;
       document.body.classList.add("overflowAuto");
     },
     activeMinus: function activeMinus() {
-      activeGaleryId--;
+      this.activeGaleryId--;
+      this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+    },
+    activePlus: function activePlus() {
+      this.activeGaleryId++;
+      this.idGraphic = this.listGraphics[this.activeGaleryId].id;
     }
   },
   mounted: function mounted() {
@@ -2590,6 +2596,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2828,7 +2836,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit("changebuttonProfileActive", true);
       this.$store.commit("changeVisibleProfileButton2", false);
       this.$store.commit("changeProfileCardActive", 1);
-      document.getElementById(1).classList.add("activeProfilePage");
+      document.getElementById(1).classList.replace("profileGalery", "activeProfilePage");
+      document.getElementById(2).classList.add("deActiveProfilePage");
     }
 
     if (this.$router.history.current.name == "profileGame") {
@@ -2836,7 +2845,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit("changebuttonProfileActive", true);
       this.$store.commit("changeVisibleProfileButton1", false);
       this.$store.commit("changeProfileCardActive", 2);
-      document.getElementById(2).classList.add("activeProfilePage");
+      document.getElementById(2).classList.replace("profileGame", "activeProfilePage");
+      document.getElementById(1).classList.add("deActiveProfilePage");
     }
   },
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
@@ -2855,7 +2865,6 @@ __webpack_require__.r(__webpack_exports__);
       if (regGraphic.test(fromPath)) {
         this.$store.commit("changeAnimationStatus", true);
         var it = this;
-        document.getElementById(1).classList.remove("activeProfilePage");
         this.jsAnimation.sizeDown(1, it);
         this.$store.commit("changeVisibleProfileButton1", true);
         this.$store.commit("changebuttonProfileActive", false);
@@ -2868,7 +2877,6 @@ __webpack_require__.r(__webpack_exports__);
 
         var _it = this;
 
-        document.getElementById(2).classList.remove("activeProfilePage");
         this.jsAnimation.sizeDown(2, _it);
         this.$store.commit("changeVisibleProfileButton1", true);
         this.$store.commit("changebuttonProfileActive", false);
@@ -47009,7 +47017,7 @@ var render = function() {
                 return _vm.activeMinus()
               },
               next: function($event) {
-                _vm.activeGaleryId++
+                return _vm.activePlus()
               }
             }
           })
@@ -47358,110 +47366,112 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "GraphicProfile" }, [
-    _c("div", { staticClass: "graphicTitle" }, [_vm._v("GRAPHIC")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "addGraphicButton" }, [
-      _c(
-        "form",
-        {
-          staticClass: "formNewGraphic",
-          attrs: {
-            method: "POST",
-            action: "/graphics",
-            enctype: "multipart/form-data"
-          }
-        },
-        [
-          _vm.addButtonActive
-            ? _c("input", {
-                attrs: { type: "hidden", name: "_token" },
-                domProps: { value: _vm.csrf }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.addButtonActive
-            ? _c("input", {
-                ref: "file",
-                staticClass: "inputfile",
-                attrs: {
-                  type: "file",
-                  name: "graphic",
-                  id: "file",
-                  multiple: ""
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.processFile($event)
-                  }
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "file" } }, [
-            _vm._v(_vm._s(_vm.fileName))
-          ]),
-          _vm._v(" "),
-          _vm.addButtonActive
-            ? _c("div", { staticClass: "submitWraper" }, [
-                _c(
-                  "button",
-                  { staticClass: "submitForm", on: { click: _vm.sendPhoto } },
-                  [_c("img", { attrs: { src: _vm.image_src } })]
-                )
-              ])
-            : _vm._e()
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "plusItem",
-          on: {
-            click: function($event) {
-              return _vm.activeAddButton()
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "singleBar" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "singleBar" })
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "errors" }, [
-      _vm.addButtonActive
-        ? _c("p", { staticClass: "errorFile" }, [_vm._v(_vm._s(_vm.errorFile))])
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "yourGraphicListWrapper" },
-      [
-        _vm.OnSlider
-          ? _c("galery-slider", {
-              attrs: {
-                activeGaleryItem: _vm.activeGaleryId,
-                listGraphicsProp: _vm.listGraphics
+  return _c(
+    "div",
+    { staticClass: "GraphicProfile" },
+    [
+      _vm.OnSlider
+        ? _c("galery-slider", {
+            attrs: {
+              activeGaleryItem: _vm.activeGaleryId,
+              listGraphicsProp: _vm.listGraphics
+            },
+            on: {
+              close: function($event) {
+                _vm.OnSlider = false
               },
-              on: {
-                close: function($event) {
-                  _vm.OnSlider = false
-                },
-                previous: function($event) {
-                  _vm.activeGaleryId--
-                },
-                next: function($event) {
-                  _vm.activeGaleryId++
-                }
+              previous: function($event) {
+                _vm.activeGaleryId--
+              },
+              next: function($event) {
+                _vm.activeGaleryId++
               }
-            })
-          : _vm._e(),
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "graphicTitle" }, [_vm._v("GRAPHIC")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "addGraphicButton" }, [
+        _c(
+          "form",
+          {
+            staticClass: "formNewGraphic",
+            attrs: {
+              method: "POST",
+              action: "/graphics",
+              enctype: "multipart/form-data"
+            }
+          },
+          [
+            _vm.addButtonActive
+              ? _c("input", {
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrf }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.addButtonActive
+              ? _c("input", {
+                  ref: "file",
+                  staticClass: "inputfile",
+                  attrs: {
+                    type: "file",
+                    name: "graphic",
+                    id: "file",
+                    multiple: ""
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.processFile($event)
+                    }
+                  }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "file" } }, [
+              _vm._v(_vm._s(_vm.fileName))
+            ]),
+            _vm._v(" "),
+            _vm.addButtonActive
+              ? _c("div", { staticClass: "submitWraper" }, [
+                  _c(
+                    "button",
+                    { staticClass: "submitForm", on: { click: _vm.sendPhoto } },
+                    [_c("img", { attrs: { src: _vm.image_src } })]
+                  )
+                ])
+              : _vm._e()
+          ]
+        ),
         _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "plusItem",
+            on: {
+              click: function($event) {
+                return _vm.activeAddButton()
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "singleBar" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "singleBar" })
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "errors" }, [
+        _vm.addButtonActive
+          ? _c("p", { staticClass: "errorFile" }, [
+              _vm._v(_vm._s(_vm.errorFile))
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "yourGraphicListWrapper" }, [
         _c(
           "div",
           { staticClass: "GaleryGraphicWrapper" },
@@ -47548,10 +47558,10 @@ var render = function() {
           }),
           0
         )
-      ],
-      1
-    )
-  ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47837,7 +47847,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "start-web-wrapper-img" },
-    _vm._l(_vm.backgroundImages, function(item) {
+    _vm._l(_vm.backgroundImages, function(item, index) {
       return _c(
         "div",
         {
@@ -47847,9 +47857,12 @@ var render = function() {
           style: "z-index:-" + item.id
         },
         [
-          _c("img", {
-            style: "background-image: url(./images/galery/" + item.href + ");"
-          })
+          index != 3
+            ? _c("img", {
+                style:
+                  "background-image: url(./images/galery/" + item.href + ");"
+              })
+            : _vm._e()
         ]
       )
     }),
@@ -65107,8 +65120,8 @@ Math.easeOutExpo = function (t, b, c, d, x) {
   }
 };
 
-Math.easeInExpo = function (t, b, c, d) {
-  return c * Math.pow(2, 10 * (t / d - 1)) + b;
+Math.easeOutSine = function (t, b, c, d) {
+  return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
 
 var sizeDown = function sizeDown(index, store) {
@@ -65134,7 +65147,7 @@ var sizeDown = function sizeDown(index, store) {
       var aspectRatio = viewPort[0] / viewPort[1];
 
       if (aspectRatio <= 1 / 2) {
-        endTop = (viewPort[1] / 2 - viewPort[0] / 2) / 2;
+        endTop = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
         endWidth = viewPort[0] / 2;
         endHeight = viewPort[0] / 2;
       }
@@ -65148,14 +65161,18 @@ var sizeDown = function sizeDown(index, store) {
 
       setStyle.top = positionElement;
       setStyle.width = widthElement;
-      setStyle.height = heightElement; // sizing // 
+      setStyle.height = heightElement;
+      document.getElementById(1).classList.replace("activeProfilePage", "profileGalery"); // sizing // 
 
-      var k = 120;
+      var k = 80;
       var i = 1;
       var positionInterval = setInterval(function () {
-        setStyle.top = Math.easeInExpo(i, 0, endTop, 120, 60) + 'px';
-        setStyle.width = Math.easeInExpo(k, endWidth, viewPort[0] - endWidth, 120) + 'px';
-        setStyle.height = Math.easeInExpo(k, endHeight, viewPort[1] - endHeight, 120) + 'px';
+        setStyle.top = Math.easeOutSine(i, 0, endTop, 80, 80) + 'px';
+        setStyle.width = Math.easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
+        setStyle.height = Math.easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
+        console.log(setStyle.width);
+        console.log(setStyle.height);
+        console.log(setStyle.right);
         k--;
         i++;
 
@@ -65167,10 +65184,13 @@ var sizeDown = function sizeDown(index, store) {
           setStyle.bottom = null;
           setStyle.left = null;
           setStyle.right = null;
-          document.getElementById(1).style.zIndex = 0;
+          document.getElementById(2).style.zIndex = 0;
+          document.getElementById(1).classList.remove("activeProfilePage");
+          document.getElementById(2).classList.remove("deActiveProfilePage");
+          document.getElementById(1).classList.add("profileGalery");
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 400 / 120);
+      }, 250 / 80);
     } // GameProfil //
 
 
@@ -65196,7 +65216,7 @@ var sizeDown = function sizeDown(index, store) {
       var _aspectRatio = viewPort[0] / viewPort[1];
 
       if (_aspectRatio <= 1 / 2) {
-        endBottom = (viewPort[1] / 2 - viewPort[0] / 2) / 2;
+        endBottom = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
         _endWidth = viewPort[0] / 2;
         _endHeight = viewPort[0] / 2;
       }
@@ -65210,15 +65230,19 @@ var sizeDown = function sizeDown(index, store) {
 
       _setStyle.width = _widthElement;
       _setStyle.height = _heightElement;
-      _setStyle.bottom = _positionElement; // sizing // 
+      _setStyle.bottom = _positionElement;
+      document.getElementById(2).classList.replace("activeProfilePage", "profileGame"); // sizing // 
 
-      var _k = 120;
+      var _k = 80;
       var _i = 1;
 
       var _positionInterval = setInterval(function () {
-        _setStyle.bottom = Math.easeInExpo(_i, 0, endBottom, 120, 60) + 'px';
-        _setStyle.width = Math.easeInExpo(_k, _endWidth, viewPort[0] - _endWidth, 120) + 'px';
-        _setStyle.height = Math.easeInExpo(_k, _endHeight, viewPort[1] - _endHeight, 120) + 'px';
+        _setStyle.bottom = Math.easeOutSine(_i, 0, endBottom, 80, 80) + 'px';
+        _setStyle.width = Math.easeOutSine(_k, _endWidth, viewPort[0] - _endWidth, 80) + 'px';
+        _setStyle.height = Math.easeOutSine(_k, _endHeight, viewPort[1] - _endHeight, 80) + 'px';
+        console.log(_setStyle.width);
+        console.log(_setStyle.height);
+        console.log(_setStyle.right);
         _k--;
         _i++;
 
@@ -65230,10 +65254,13 @@ var sizeDown = function sizeDown(index, store) {
           _setStyle.bottom = null;
           _setStyle.left = null;
           _setStyle.right = null;
-          document.getElementById(2).style.zIndex = 0;
+          document.getElementById(1).style.zIndex = 0;
+          document.getElementById(2).classList.remove("activeProfilePage");
+          document.getElementById(1).classList.remove("deActiveProfilePage");
           store.$store.commit("changeAnimationStatus", false);
+          document.getElementById(2).classList.add("profileGame");
         }
-      }, 400 / 120);
+      }, 250 / 80);
     }
   }
 
@@ -65267,7 +65294,7 @@ var sizeDown = function sizeDown(index, store) {
       }
 
       if (_aspectRatio2 > 2 / 1) {
-        endleft = viewPort[0] / 2 - viewPort[1] / 2 / 2;
+        endleft = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
         _endWidth2 = viewPort[1] / 2;
         _endHeight2 = viewPort[1] / 2;
       } // prepare for sizing //
@@ -65275,15 +65302,16 @@ var sizeDown = function sizeDown(index, store) {
 
       _setStyle2.left = _positionElement2;
       _setStyle2.width = _widthElement2;
-      _setStyle2.height = _heightElement2; // sizing //
+      _setStyle2.height = _heightElement2;
+      document.getElementById(1).classList.replace("activeProfilePage", "profileGalery"); // sizing //
 
-      var _k2 = 120;
+      var _k2 = 80;
       var _i2 = 1;
 
       var _positionInterval2 = setInterval(function () {
-        _setStyle2.left = Math.easeInExpo(_i2, 0, endleft, 120, 120) + 'px';
-        _setStyle2.width = Math.easeInExpo(_k2, _endWidth2, viewPort[0] - _endWidth2, 120) + 'px';
-        _setStyle2.height = Math.easeInExpo(_k2, _endHeight2, viewPort[1] - _endHeight2, 120) + 'px';
+        _setStyle2.left = Math.easeOutSine(_i2, 0, endleft, 80) + 'px';
+        _setStyle2.width = Math.easeOutSine(_k2, _endWidth2, viewPort[0] - _endWidth2, 80) + 'px';
+        _setStyle2.height = Math.easeOutSine(_k2, _endHeight2, viewPort[1] - _endHeight2, 80) + 'px';
         _k2--;
         _i2++;
 
@@ -65295,10 +65323,10 @@ var sizeDown = function sizeDown(index, store) {
           _setStyle2.bottom = null;
           _setStyle2.left = null;
           _setStyle2.right = null;
-          document.getElementById(1).style.zIndex = 0;
+          document.getElementById(2).style.zIndex = 0;
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 400 / 120);
+      }, 250 / 80);
     } // GameProfil //
 
 
@@ -65330,7 +65358,7 @@ var sizeDown = function sizeDown(index, store) {
       }
 
       if (_aspectRatio3 > 2 / 1) {
-        endRight = viewPort[0] / 2 - viewPort[1] / 2 / 2;
+        endRight = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
         _endWidth3 = viewPort[1] / 2;
         _endHeight3 = viewPort[1] / 2;
       } // prepare for sizing //
@@ -65338,15 +65366,19 @@ var sizeDown = function sizeDown(index, store) {
 
       _setStyle3.right = _positionElement3;
       _setStyle3.width = _widthElement3;
-      _setStyle3.height = _heightElement3; // sizing //
+      _setStyle3.height = _heightElement3;
+      document.getElementById(2).classList.replace("activeProfilePage", "profileGame"); // sizing //
 
-      var _k3 = 120;
+      var _k3 = 80;
       var _i3 = 1;
 
       var _positionInterval3 = setInterval(function () {
-        _setStyle3.right = Math.easeInExpo(_i3, 0, endRight, 120, 60) + 'px';
-        _setStyle3.width = Math.easeInExpo(_k3, _endWidth3, viewPort[0] - _endWidth3, 120) + 'px';
-        _setStyle3.height = Math.easeInExpo(_k3, _endHeight3, viewPort[1] - _endHeight3, 120) + 'px';
+        _setStyle3.right = Math.easeOutSine(_i3, 0, endRight, 80) + 'px';
+        _setStyle3.width = Math.easeOutSine(_k3, _endWidth3, viewPort[0] - _endWidth3, 80) + 'px';
+        _setStyle3.height = Math.easeOutSine(_k3, _endHeight3, viewPort[1] - _endHeight3, 80) + 'px';
+        console.log(_setStyle3.width);
+        console.log(_setStyle3.height);
+        console.log("RIGHT " + _setStyle3.right);
         _k3--;
         _i3++;
 
@@ -65358,10 +65390,10 @@ var sizeDown = function sizeDown(index, store) {
           _setStyle3.bottom = null;
           _setStyle3.left = null;
           _setStyle3.right = null;
-          document.getElementById(2).style.zIndex = 0;
+          document.getElementById(1).style.zIndex = 0;
           store.$store.commit("changeAnimationStatus", false);
         }
-      }, 400 / 120);
+      }, 250 / 80);
     }
   }
 };
@@ -65407,7 +65439,7 @@ var sizeUp = function sizeUp(index, store) {
   if (viewPort[0] < viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
-      document.getElementById(1).style.zIndex = 1; // variables //
+      document.getElementById(2).style.zIndex = -1; // variables //
 
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).top;
@@ -65418,7 +65450,7 @@ var sizeUp = function sizeUp(index, store) {
       setStyle.top = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
-      var endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 3;
+      var endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 4;
       var endWidth = viewPort[0];
       var endHeight = viewPort[1]; // sizing // 
 
@@ -65431,7 +65463,7 @@ var sizeUp = function sizeUp(index, store) {
 
         if (k > 120) {
           clearInterval(positionInterval);
-          document.getElementById(1).classList.add("activeProfilePage");
+          document.getElementById(1).classList.replace("profileGalery", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", true);
             store.$store.commit("changebuttonProfileActive", true);
@@ -65451,7 +65483,7 @@ var sizeUp = function sizeUp(index, store) {
 
 
     if (index == 2) {
-      document.getElementById(2).style.zIndex = 1; // variables //
+      document.getElementById(1).style.zIndex = -1; // variables //
 
       var _sizingElement = document.getElementById(index);
 
@@ -65463,7 +65495,7 @@ var sizeUp = function sizeUp(index, store) {
       _setStyle.width = _widthElement;
       _setStyle.height = _heightElement;
       _setStyle.bottom = _positionElement;
-      var endBottom = parseInt(_setStyle.bottom.slice(0, -2)) + viewPort[1] / 3;
+      var endBottom = parseInt(_setStyle.bottom.slice(0, -2)) + viewPort[1] / 4;
       var _endWidth = viewPort[0];
       var _endHeight = viewPort[1]; // sizing // 
 
@@ -65477,7 +65509,7 @@ var sizeUp = function sizeUp(index, store) {
 
         if (_k > 120) {
           clearInterval(_positionInterval);
-          document.getElementById(2).classList.add("activeProfilePage");
+          document.getElementById(2).classList.replace("profileGame", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", false);
             store.$store.commit("changebuttonProfileActive", true);
@@ -65499,7 +65531,7 @@ var sizeUp = function sizeUp(index, store) {
   if (viewPort[0] >= viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
-      document.getElementById(1).style.zIndex = 1; // variables //
+      document.getElementById(2).style.zIndex = -1; // variables //
 
       var _sizingElement2 = document.getElementById(index);
 
@@ -65511,7 +65543,7 @@ var sizeUp = function sizeUp(index, store) {
       _setStyle2.left = _positionElement2;
       _setStyle2.width = _widthElement2;
       _setStyle2.height = _heightElement2;
-      var endleft = parseInt(_setStyle2.left.slice(0, -2)) + viewPort[0] / 4;
+      var endleft = parseInt(_setStyle2.left.slice(0, -2)) + viewPort[0] / 6;
       var _endWidth2 = viewPort[0];
       var _endHeight2 = viewPort[1]; // sizing //
 
@@ -65525,7 +65557,7 @@ var sizeUp = function sizeUp(index, store) {
 
         if (_k2 > 120) {
           clearInterval(_positionInterval2);
-          document.getElementById(1).classList.add("activeProfilePage");
+          document.getElementById(1).classList.replace("profileGalery", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", true);
             store.$store.commit("changebuttonProfileActive", true);
@@ -65545,7 +65577,7 @@ var sizeUp = function sizeUp(index, store) {
 
 
     if (index == 2) {
-      document.getElementById(2).style.zIndex = 1; // variables //
+      document.getElementById(1).style.zIndex = -1; // variables //
 
       var _sizingElement3 = document.getElementById(index);
 
@@ -65557,7 +65589,7 @@ var sizeUp = function sizeUp(index, store) {
       _setStyle3.right = _positionElement3;
       _setStyle3.width = _widthElement3;
       _setStyle3.height = _heightElement3;
-      var endright = parseInt(_setStyle3.right.slice(0, -2)) + viewPort[0] / 4;
+      var endright = parseInt(_setStyle3.right.slice(0, -2)) + viewPort[0] / 6;
       var _endWidth3 = viewPort[0];
       var _endHeight3 = viewPort[1]; // sizing //
 
@@ -65571,7 +65603,7 @@ var sizeUp = function sizeUp(index, store) {
 
         if (_k3 > 120) {
           clearInterval(_positionInterval3);
-          document.getElementById(2).classList.add("activeProfilePage");
+          document.getElementById(2).classList.replace("profileGame", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", false);
             store.$store.commit("changebuttonProfileActive", true);
@@ -65585,6 +65617,7 @@ var sizeUp = function sizeUp(index, store) {
             _setStyle3.height = null;
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
+          document.getElementById(2).classList.remove("profileGame");
         }
       }, 300 / 120);
     }

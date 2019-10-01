@@ -7,7 +7,7 @@
 			v-if="OnSlider"
 			@close="closeSlider()"
 			@previous="activeMinus()"
-			@next="activeGaleryId++"
+			@next="activePlus()"
 			:activeGaleryItem="activeGaleryId"
 			:listGraphicsProp="listGraphics"
 			:graphicID="idGraphic"
@@ -50,13 +50,19 @@ export default {
 			this.OnSlider = true;
 			document.body.classList.remove("overflowAuto");
 			this.idGraphic = graphic_id;
+			console.log(this.listGraphics);
 		},
 		closeSlider() {
 			this.OnSlider = false;
 			document.body.classList.add("overflowAuto");
 		},
 		activeMinus() {
-			activeGaleryId--;
+			this.activeGaleryId--;
+			this.idGraphic = this.listGraphics[this.activeGaleryId].id;
+		},
+		activePlus() {
+			this.activeGaleryId++;
+			this.idGraphic = this.listGraphics[this.activeGaleryId].id;
 		}
 	},
 	mounted() {

@@ -25,7 +25,7 @@ export let sizeUp = function sizeUp(index, store) {
 
     // GraphicProfil //
     if (index == 1) {
-      document.getElementById(1).style.zIndex = 1;
+      document.getElementById(2).style.zIndex = -1;
 
       // variables //
       let sizingElement = document.getElementById(index);
@@ -38,7 +38,7 @@ export let sizeUp = function sizeUp(index, store) {
       setStyle.top = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
-      let endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 3;
+      let endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 4;
       let endWidth = viewPort[0];
       let endHeight = viewPort[1];
 
@@ -51,7 +51,7 @@ export let sizeUp = function sizeUp(index, store) {
         k++;
         if (k > 120) {
           clearInterval(positionInterval);
-          document.getElementById(1).classList.add("activeProfilePage");
+          document.getElementById(1).classList.replace("profileGalery", "activeProfilePage");
           setTimeout(() => {
             store.$store.commit("changeVisibleProfileButton1", true);
             store.$store.commit("changebuttonProfileActive", true);
@@ -72,7 +72,7 @@ export let sizeUp = function sizeUp(index, store) {
     }
     // GameProfil //
     if (index == 2) {
-      document.getElementById(2).style.zIndex = 1;
+      document.getElementById(1).style.zIndex = -1;
 
       // variables //
       let sizingElement = document.getElementById(index);
@@ -84,7 +84,7 @@ export let sizeUp = function sizeUp(index, store) {
       setStyle.width = widthElement;
       setStyle.height = heightElement;
       setStyle.bottom = positionElement;
-      let endBottom = parseInt(setStyle.bottom.slice(0, -2)) + viewPort[1] / 3;
+      let endBottom = parseInt(setStyle.bottom.slice(0, -2)) + viewPort[1] / 4;
       let endWidth = viewPort[0];
       let endHeight = viewPort[1];
 
@@ -98,7 +98,7 @@ export let sizeUp = function sizeUp(index, store) {
         if (k > 120) {
           clearInterval(positionInterval);
 
-          document.getElementById(2).classList.add("activeProfilePage");
+          document.getElementById(2).classList.replace("profileGame", "activeProfilePage");
           setTimeout(() => {
             store.$store.commit("changeVisibleProfileButton1", false);
             store.$store.commit("changebuttonProfileActive", true);
@@ -121,7 +121,7 @@ export let sizeUp = function sizeUp(index, store) {
   if (viewPort[0] >= viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
-      document.getElementById(1).style.zIndex = 1;
+      document.getElementById(2).style.zIndex = -1;
 
       // variables //
       let sizingElement = document.getElementById(index);
@@ -134,7 +134,7 @@ export let sizeUp = function sizeUp(index, store) {
       setStyle.left = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
-      let endleft = parseInt(setStyle.left.slice(0, -2)) + viewPort[0] / 4;
+      let endleft = parseInt(setStyle.left.slice(0, -2)) + viewPort[0] / 6;
       let endWidth = viewPort[0];
       let endHeight = viewPort[1];
 
@@ -147,8 +147,8 @@ export let sizeUp = function sizeUp(index, store) {
         k++;
         if (k > 120) {
           clearInterval(positionInterval);
+          document.getElementById(1).classList.replace("profileGalery", "activeProfilePage");
 
-          document.getElementById(1).classList.add("activeProfilePage");
           setTimeout(() => {
             store.$store.commit("changeVisibleProfileButton1", true);
             store.$store.commit("changebuttonProfileActive", true);
@@ -164,6 +164,8 @@ export let sizeUp = function sizeUp(index, store) {
           store.$store.commit("changeAnimationStatus", false);
 
 
+
+
         }
       }, 300 / 120);
 
@@ -171,7 +173,7 @@ export let sizeUp = function sizeUp(index, store) {
 
     // GameProfil //
     if (index == 2) {
-      document.getElementById(2).style.zIndex = 1;
+      document.getElementById(1).style.zIndex = -1;
 
       // variables //
       let sizingElement = document.getElementById(index);
@@ -184,7 +186,7 @@ export let sizeUp = function sizeUp(index, store) {
       setStyle.right = positionElement;
       setStyle.width = widthElement;
       setStyle.height = heightElement;
-      let endright = parseInt(setStyle.right.slice(0, -2)) + viewPort[0] / 4;
+      let endright = parseInt(setStyle.right.slice(0, -2)) + viewPort[0] / 6;
       let endWidth = viewPort[0];
       let endHeight = viewPort[1];
 
@@ -197,8 +199,7 @@ export let sizeUp = function sizeUp(index, store) {
         k++;
         if (k > 120) {
           clearInterval(positionInterval);
-
-          document.getElementById(2).classList.add("activeProfilePage");
+          document.getElementById(2).classList.replace("profileGame", "activeProfilePage");
           setTimeout(() => {
             store.$store.commit("changeVisibleProfileButton1", false);
             store.$store.commit("changebuttonProfileActive", true);
@@ -212,6 +213,8 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.height = null;
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
+          document.getElementById(2).classList.remove("profileGame");
+
 
         }
       }, 300 / 120);

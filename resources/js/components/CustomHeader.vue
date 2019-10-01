@@ -96,25 +96,25 @@ let sizingUpDiv = (index, changerWrapper, storage) => {
 			round = 1;
 			interval = setInterval(() => {
 				changerWrapper.style.height =
-					Math.easeOutQuart(round, 31, 155, 60) + "px";
+					Math.easeOutQuart(round, 31, 155, 30) + "px";
 				round++;
-				if (round > 60) {
+				if (round > 30) {
 					clearInterval(interval);
 				}
-			}, 50 / 60);
+			}, 100 / 30);
 		};
 		// Wykonaj funkcję
 		let interval = setInterval(() => {
-			changerWrapper.style.width = Math.easeOutQuart(round, 70, 290, 60) + "px";
+			changerWrapper.style.width = Math.easeOutQuart(round, 70, 290, 30) + "px";
 			round++;
 
-			if (round > 60) {
+			if (round > 30) {
 				clearInterval(interval);
 				changeHeight();
 				// Wskaż który guzik jest aktywny
 				storage.loginOrRegister = index;
 			}
-		}, 50 / 60);
+		}, 100 / 30);
 	}
 };
 
