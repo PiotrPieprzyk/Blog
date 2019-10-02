@@ -7,20 +7,29 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Pages scss
+
+// WEB
 @import 'web';
 
-@import 'pages/startPage';
-@import 'pages/galeryPage';
-@import 'pages/registerPage';
-@import 'pages/profilePage';
-@import 'pages/profileGaleryPage';
-// Animations
 
+// Start Page
+@import 'StartPage/startPage';
+
+// Galery Page
+@import 'Galery/galeryPage';
+
+// Profile Page
+@import 'Profile/profilePage';
+@import 'Profile/profileGaleryPage';
+
+// Auth 
+@import 'Auth/registerPage';
+
+// Animations
 @import 'animations/animationSlide';
 @import 'animations/transitionOpacity';
 @import 'animations/animationGraphicMenu';
 
 // Elements 
 @import 'elements/header';
-@import 'elements/imagesSlider';
+@import 'Galery/imagesSlider';

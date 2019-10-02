@@ -11149,128 +11149,6 @@ a:hover {
   height: 100%;
 }
 
-.registerWeb {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.registerWeb .registerCard {
-  height: 526px;
-  width: 327px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  background-color: #fff0;
-  font-size: 30px;
-  border: white 2px solid;
-  border-bottom: 0;
-  flex-direction: column;
-  position: relative;
-}
-
-@media (max-width: 500px) {
-  .registerWeb .registerCard {
-    border: none;
-  }
-}
-
-@media (max-height: 680px) {
-  .registerWeb .registerCard {
-    border: none;
-  }
-}
-
-.registerWeb .registerCard::after {
-  content: "";
-  width: calc(100% + 4px);
-  border: 2px solid white;
-  height: 65px;
-  border-top: 0px;
-  transform: skew(-40deg);
-  position: absolute;
-  bottom: -65px;
-  left: -30px;
-  background-color: white;
-}
-
-@media (max-width: 500px) {
-  .registerWeb .registerCard::after {
-    border: none;
-    background-color: #fff0;
-  }
-}
-
-@media (max-height: 680px) {
-  .registerWeb .registerCard::after {
-    border: none;
-    background-color: #fff0;
-  }
-}
-
-.registerWeb .registerCard .registerTitle {
-  padding-top: 83px;
-}
-
-.registerWeb .registerCard .registerContent {
-  padding-bottom: 40px;
-}
-
-.registerWeb .registerCard .registerContent .formLogin {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 25px;
-}
-
-.registerWeb .registerCard .registerContent .formLogin p {
-  width: 85%;
-  height: 30px;
-  margin: 0;
-  margin: 5px 0;
-  font-size: 0.4em;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .formGroup {
-  justify-content: center;
-  display: flex;
-  width: 100%;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .formGroup .formInput {
-  width: 85%;
-  background-color: #fff0;
-  color: white;
-  border-bottom: white solid 2px;
-  height: 30px;
-  text-align: center;
-  font-size: 0.8em;
-  padding-bottom: 10px;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .submitWraper {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm {
-  width: 20px;
-  background-color: #fff0;
-  padding: 0;
-}
-
-.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm img {
-  -webkit-filter: invert(1);
-          filter: invert(1);
-  width: 30px;
-}
-
 .profileWebWrapper {
   display: flex;
   align-items: center;
@@ -11660,6 +11538,128 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.registerWeb {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerWeb .registerCard {
+  height: 526px;
+  width: 327px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #fff0;
+  font-size: 30px;
+  border: white 2px solid;
+  border-bottom: 0;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (max-width: 500px) {
+  .registerWeb .registerCard {
+    border: none;
+  }
+}
+
+@media (max-height: 680px) {
+  .registerWeb .registerCard {
+    border: none;
+  }
+}
+
+.registerWeb .registerCard::after {
+  content: "";
+  width: calc(100% + 4px);
+  border: 2px solid white;
+  height: 65px;
+  border-top: 0px;
+  transform: skew(-40deg);
+  position: absolute;
+  bottom: -65px;
+  left: -30px;
+  background-color: white;
+}
+
+@media (max-width: 500px) {
+  .registerWeb .registerCard::after {
+    border: none;
+    background-color: #fff0;
+  }
+}
+
+@media (max-height: 680px) {
+  .registerWeb .registerCard::after {
+    border: none;
+    background-color: #fff0;
+  }
+}
+
+.registerWeb .registerCard .registerTitle {
+  padding-top: 83px;
+}
+
+.registerWeb .registerCard .registerContent {
+  padding-bottom: 40px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 25px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin p {
+  width: 85%;
+  height: 30px;
+  margin: 0;
+  margin: 5px 0;
+  font-size: 0.4em;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .formGroup {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .formGroup .formInput {
+  width: 85%;
+  background-color: #fff0;
+  color: white;
+  border-bottom: white solid 2px;
+  height: 30px;
+  text-align: center;
+  font-size: 0.8em;
+  padding-bottom: 10px;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm {
+  width: 20px;
+  background-color: #fff0;
+  padding: 0;
+}
+
+.registerWeb .registerCard .registerContent .formLogin .submitWraper .submitForm img {
+  -webkit-filter: invert(1);
+          filter: invert(1);
+  width: 30px;
 }
 
 .slide-top {
