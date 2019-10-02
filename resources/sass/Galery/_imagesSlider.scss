@@ -19,25 +19,26 @@
     align-items: center;
 
     .ActiveImg {
-      max-height: 90vh;
+      height: 90vh;
       display: flex;
       align-items: center;
       position: absolute;
       margin: auto;
       left: 0;
       right: 0;
-      max-width: calc(80vw);
+      max-width: 80vw;
       justify-content: center;
 
-      .ActiveImgContent {
-        width: fit-content;
+      .ProportionWrapper {
+        height: 80vh;
+        padding-right: 100%;
+        background: none;
         position: relative;
-        height: fit-content;
-        display: flex;
 
         img {
-          max-height: 80vh;
-          max-width: 70vw;
+          max-height: 100%;
+          max-width: 100%;
+          position: absolute;
         }
 
         .imageDescriptionMenuWrapper {
@@ -46,6 +47,16 @@
           right: -70px;
           height: 150px;
           flex-direction: column;
+
+          @media (max-width:800px) {
+            flex-direction: row;
+            bottom: 0;
+            left: 0;
+            width: calc(100% - 40px);
+            margin: 20px;
+            height: auto;
+            position: fixed;
+          }
 
           .viewDescription {
 
@@ -60,6 +71,8 @@
             align-items: center;
             justify-content: center;
             font-size: 2em;
+
+
           }
 
           .editDescription {
@@ -70,11 +83,15 @@
             border-radius: 25px;
             top: 20px;
             z-index: 0;
-            position: relative;
+            position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2em;
+
+            @media (max-width:800px) {
+              right: 0;
+            }
           }
         }
 
@@ -88,6 +105,10 @@
           grid-template-rows: 30% 60% 10%;
           background: white;
           padding: 20px;
+
+          .editBorder {
+            border: 1px dashed black
+          }
 
           .descriptionHeader {
             display: flex;
@@ -105,6 +126,7 @@
             .customeTitle {
               width: 100%;
               text-align: center;
+              white-space: pre-wrap;
             }
           }
 
@@ -114,6 +136,9 @@
             .customeContentWrapper {
               width: 100%;
               text-align: center;
+              height: 80%;
+              overflow: hidden;
+              white-space: pre-wrap;
             }
           }
 
@@ -124,19 +149,23 @@
 
             .creatorNickWrapper {
               display: inline;
+              flex: 1;
 
               .customNick {
                 width: 100%;
                 text-align: center;
+                white-space: pre-wrap;
               }
             }
 
             .dataCreateWrapper {
               display: inline;
+              flex: 1;
 
               .customeDate {
                 width: 100%;
                 text-align: center;
+                white-space: pre-wrap;
               }
             }
           }
@@ -154,8 +183,13 @@
       max-height: 90vh;
       display: flex;
       align-items: center;
-      right: calc(100vw - 10vw);
+      right: 100vw;
       position: absolute;
+
+      @media (max-width: 700px) {
+        right: calc(100%);
+
+      }
 
       img {
         max-height: 80vh;
@@ -170,7 +204,12 @@
       align-items: center;
       align-items: center;
       position: absolute;
-      left: calc(100% - 10vw);
+      left: 100%;
+
+      @media (max-width: 700px) {
+        left: calc(100%);
+
+      }
 
       img {
         max-height: 80vh;
@@ -189,6 +228,11 @@
     align-items: center;
     position: relative;
     width: 200px;
+
+    @media (max-width: 700px) {
+      max-width: 35vw;
+
+    }
 
     .close {
       position: absolute;

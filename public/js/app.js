@@ -2416,11 +2416,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp", "graphicID"],
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"]),
-  watch: {},
   data: function data() {
     return {
       descriptionVisible: true,
@@ -2429,6 +2440,34 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    checkProportions: function checkProportions(index) {
+      var graphic;
+
+      if (index == 1) {
+        graphic = document.querySelector(".GraphicPrevious");
+      } else if (index == 2) {
+        graphic = document.querySelector(".Graphic");
+      } else if (index == 3) {
+        graphic = document.querySelector(".GraphicNext");
+      }
+
+      var sizingElement = document.querySelector(".ProportionWrapper");
+      var wrapper = document.querySelector(".ActiveImg");
+      var widthElement = window.getComputedStyle(graphic).width;
+      var heightElement = window.getComputedStyle(graphic).height;
+      heightElement = parseInt(heightElement.slice(0, -2));
+      widthElement = parseInt(widthElement.slice(0, -2));
+      var h = window.getComputedStyle(wrapper).height;
+      var w = window.getComputedStyle(wrapper).width;
+      h = parseInt(h.slice(0, -2));
+      w = parseInt(w.slice(0, -2));
+      var proportion = widthElement / heightElement;
+      var procentWidth = proportion * heightElement / w;
+      var procentHeight = widthElement / proportion / h;
+      sizingElement.style.paddingRight = procentWidth * 100 + "%";
+      sizingElement.style.height = procentHeight * 100 + "%";
+      console.log(sizingElement, graphic, wrapper, widthElement, heightElement, h, w, proportion, procentWidth);
+    },
     viewDescription: function viewDescription() {
       var _this = this;
 
@@ -2447,6 +2486,32 @@ __webpack_require__.r(__webpack_exports__);
         this.descriptionVisible = true;
       }
     },
+    nextDescription: function nextDescription() {
+      var _this2 = this;
+
+      if (this.descriptionVisible == false) {
+        setTimeout(function () {
+          _this2.viewDescription();
+        }, 300);
+      }
+
+      this.descriptionVisible = true;
+      this.editActive = false;
+      this.checkProportions(3);
+    },
+    previousDescription: function previousDescription() {
+      var _this3 = this;
+
+      if (this.descriptionVisible == false) {
+        setTimeout(function () {
+          _this3.viewDescription();
+        }, 300);
+      }
+
+      this.descriptionVisible = true;
+      this.editActive = false;
+      this.checkProportions(1);
+    },
     storeDescription: function storeDescription() {
       axios.post("/graphics/description/" + this.graphicID).then(function (request) {
         console.log(request);
@@ -2455,11 +2520,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editDiscription: function editDiscription() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.patch("/graphics/description/" + this.graphicID, this.description).then(function (request) {
         console.log(request);
-        _this2.editActive = !_this2.editActive;
+        _this4.editActive = !_this4.editActive;
       })["catch"](function () {
         console.log("FAILURE!!");
       });
@@ -2469,7 +2534,9 @@ __webpack_require__.r(__webpack_exports__);
     console.log(this.listGraphicsProp);
     console.log(this.activeGaleryItem);
     console.log(this.listGraphicsProp.length);
-  }
+    this.checkProportions(2);
+  },
+  updated: function updated() {}
 });
 
 /***/ }),
@@ -2588,8 +2655,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! http */ "./node_modules/stream-http/index.js");
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(http__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
 //
 //
 //
@@ -2845,6 +2910,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this4 = this;
 
+    document.body.classList.add("overflowAuto");
     console.log(this.userId);
     axios.get("/graphics/" + this.userId).then(function (request) {
       console.log(request.data);
@@ -47195,6 +47261,7 @@ var render = function() {
         _c("div", { staticClass: "PreviousImg" }, [
           _vm.activeGaleryItem > 0
             ? _c("img", {
+                staticClass: "GraphicPrevious",
                 attrs: {
                   src:
                     "./storage/graphicNew/" +
@@ -47205,235 +47272,248 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "ActiveImg" }, [
-          _c("div", { staticClass: "ActiveImgContent" }, [
-            _c("img", {
-              attrs: {
-                src:
-                  "./storage/graphicNew/" +
-                  _vm.listGraphicsProp[_vm.activeGaleryItem].path
-              }
-            }),
-            _vm._v(" "),
-            !_vm.descriptionVisible
-              ? _c("div", { staticClass: "GraphicDescription" }, [
-                  _c("div", { staticClass: "descriptionHeader" }, [
-                    _c("p", [_vm._v("The")]),
-                    _vm._v(" "),
-                    !_vm.editActive
-                      ? _c("div", { staticClass: "customeTitle" }, [
-                          _vm._v(_vm._s(_vm.description.title))
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.editActive
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.description.title,
-                              expression: "description.title"
-                            }
-                          ],
-                          ref: "title",
-                          staticClass: "customeTitle",
-                          attrs: {
-                            type: "text",
-                            name: "title",
-                            id: "title",
-                            placeholder: _vm.description.title
-                          },
-                          domProps: { value: _vm.description.title },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.description,
-                                "title",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "descriptionMain" }, [
-                    _c("p", [_vm._v("Content")]),
-                    _vm._v(" "),
-                    !_vm.editActive
-                      ? _c("div", { staticClass: "customeContentWrapper" }, [
-                          _vm._v(_vm._s(_vm.description.info))
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.editActive
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.description.info,
-                              expression: "description.info"
-                            }
-                          ],
-                          ref: "info",
-                          staticClass: "customeContentWrapper",
-                          attrs: {
-                            type: "text",
-                            name: "info",
-                            id: "info",
-                            placeholder: _vm.description.info
-                          },
-                          domProps: { value: _vm.description.info },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.description,
-                                "info",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "descriptionFooter" }, [
-                    _c("div", { staticClass: "creatorNickWrapper" }, [
-                      _c("p", [_vm._v("Creator:")]),
-                      _vm._v(" "),
-                      !_vm.editActive
-                        ? _c("div", { staticClass: "customNick" }, [
-                            _vm._v(_vm._s(_vm.description.creator))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.editActive
-                        ? _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.description.creator,
-                                expression: "description.creator"
-                              }
-                            ],
-                            ref: "creator",
-                            staticClass: "customNick",
-                            attrs: {
-                              type: "text",
-                              name: "creator",
-                              id: "creator",
-                              placeholder: _vm.description.creator
-                            },
-                            domProps: { value: _vm.description.creator },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+          _c(
+            "div",
+            { staticClass: "ProportionWrapper" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "flip-in-ver-right", mode: "out-in" } },
+                [
+                  _vm.descriptionVisible
+                    ? _c("img", {
+                        staticClass: "Graphic",
+                        attrs: {
+                          src:
+                            "./storage/graphicNew/" +
+                            _vm.listGraphicsProp[_vm.activeGaleryItem].path
+                        }
+                      })
+                    : _c("div", { staticClass: "GraphicDescription" }, [
+                        _c("div", { staticClass: "descriptionHeader" }, [
+                          _c("p", [_vm._v("The")]),
+                          _vm._v(" "),
+                          !_vm.editActive
+                            ? _c("div", { staticClass: "customeTitle" }, [
+                                _vm._v(_vm._s(_vm.description.title))
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editActive
+                            ? _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.description.title,
+                                    expression: "description.title"
+                                  }
+                                ],
+                                ref: "title",
+                                staticClass: "customeTitle editBorder",
+                                attrs: {
+                                  type: "text",
+                                  name: "title",
+                                  id: "title",
+                                  placeholder: _vm.description.title
+                                },
+                                domProps: { value: _vm.description.title },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.description,
+                                      "title",
+                                      $event.target.value
+                                    )
+                                  }
                                 }
-                                _vm.$set(
-                                  _vm.description,
-                                  "creator",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "dataCreateWrapper" }, [
-                      _c("p", [_vm._v("Data:")]),
-                      _vm._v(" "),
-                      !_vm.editActive
-                        ? _c("div", { staticClass: "customNick" }, [
-                            _vm._v(_vm._s(_vm.description.date))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.editActive
-                        ? _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.description.date,
-                                expression: "description.date"
-                              }
-                            ],
-                            ref: "date",
-                            staticClass: "customeDate",
-                            attrs: {
-                              type: "data",
-                              name: "date",
-                              id: "date",
-                              placeholder: _vm.description.date
-                            },
-                            domProps: { value: _vm.description.date },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                              })
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "descriptionMain" }, [
+                          _c("p", [_vm._v("Content")]),
+                          _vm._v(" "),
+                          !_vm.editActive
+                            ? _c(
+                                "div",
+                                { staticClass: "customeContentWrapper" },
+                                [_vm._v(_vm._s(_vm.description.info))]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editActive
+                            ? _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.description.info,
+                                    expression: "description.info"
+                                  }
+                                ],
+                                ref: "info",
+                                staticClass: "customeContentWrapper editBorder",
+                                attrs: {
+                                  type: "text",
+                                  name: "info",
+                                  id: "info",
+                                  placeholder: _vm.description.info
+                                },
+                                domProps: { value: _vm.description.info },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.description,
+                                      "info",
+                                      $event.target.value
+                                    )
+                                  }
                                 }
-                                _vm.$set(
-                                  _vm.description,
-                                  "date",
-                                  $event.target.value
-                                )
+                              })
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "descriptionFooter" }, [
+                          _c("div", { staticClass: "creatorNickWrapper" }, [
+                            _c("p", [_vm._v("Creator:")]),
+                            _vm._v(" "),
+                            !_vm.editActive
+                              ? _c("div", { staticClass: "customNick" }, [
+                                  _vm._v(_vm._s(_vm.description.creator))
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.editActive
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.description.creator,
+                                      expression: "description.creator"
+                                    }
+                                  ],
+                                  ref: "creator",
+                                  staticClass: "customNick editBorder",
+                                  attrs: {
+                                    type: "text",
+                                    name: "creator",
+                                    id: "creator",
+                                    placeholder: _vm.description.creator
+                                  },
+                                  domProps: { value: _vm.description.creator },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.description,
+                                        "creator",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "dataCreateWrapper" }, [
+                            _c("p", [_vm._v("Data:")]),
+                            _vm._v(" "),
+                            !_vm.editActive
+                              ? _c("div", { staticClass: "customNick" }, [
+                                  _vm._v(_vm._s(_vm.description.date))
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.editActive
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.description.date,
+                                      expression: "description.date"
+                                    }
+                                  ],
+                                  ref: "date",
+                                  staticClass: "customeDate editBorder",
+                                  attrs: {
+                                    type: "data",
+                                    name: "date",
+                                    id: "date",
+                                    placeholder: _vm.description.date
+                                  },
+                                  domProps: { value: _vm.description.date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.description,
+                                        "date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              : _vm._e()
+                          ])
+                        ])
+                      ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "imageDescriptionMenuWrapper" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "viewDescription",
+                      on: { click: _vm.viewDescription }
+                    },
+                    [_vm._v("+")]
+                  ),
+                  _vm._v(" "),
+                  _c("transition", { attrs: { name: "roll-in-top" } }, [
+                    !_vm.descriptionVisible
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "editDescription",
+                            on: {
+                              click: function($event) {
+                                return _vm.editDiscription()
                               }
                             }
-                          })
-                        : _vm._e()
-                    ])
+                          },
+                          [_vm._v("Edit")]
+                        )
+                      : _vm._e()
                   ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "imageDescriptionMenuWrapper" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "viewDescription",
-                    on: { click: _vm.viewDescription }
-                  },
-                  [_vm._v("+")]
-                ),
-                _vm._v(" "),
-                _c("transition", { attrs: { name: "roll-in-top" } }, [
-                  !_vm.descriptionVisible
-                    ? _c(
-                        "div",
-                        {
-                          staticClass: "editDescription",
-                          on: {
-                            click: function($event) {
-                              return _vm.editDiscription()
-                            }
-                          }
-                        },
-                        [_vm._v("Edit")]
-                      )
-                    : _vm._e()
-                ])
-              ],
-              1
-            )
-          ])
+                ],
+                1
+              )
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "NextImg" }, [
           _vm.activeGaleryItem < this.listGraphicsProp.length - 1
             ? _c("img", {
+                staticClass: "GraphicNext",
                 attrs: {
                   src:
                     "./storage/graphicNew/" +
@@ -47450,7 +47530,8 @@ var render = function() {
               staticClass: "arrow prev",
               on: {
                 click: function($event) {
-                  return _vm.$emit("previous")
+                  _vm.$emit("previous")
+                  _vm.previousDescription()
                 }
               }
             })
@@ -47470,7 +47551,8 @@ var render = function() {
               staticClass: "arrow next",
               on: {
                 click: function($event) {
-                  return _vm.$emit("next")
+                  _vm.$emit("next")
+                  _vm.nextDescription()
                 }
               }
             })
@@ -47626,7 +47708,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "GraphicProfile" },
+    {
+      staticClass: "GraphicProfile",
+      on: {
+        mouseover: function($event) {
+          if ($event.target !== $event.currentTarget) {
+            return null
+          }
+          return _vm.showImageMenu(-1)
+        }
+      }
+    },
     [
       _c(
         "transition",
@@ -47737,97 +47829,102 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "yourGraphicListWrapper" }, [
-        _c(
-          "div",
-          { staticClass: "GaleryGraphicWrapper" },
-          _vm._l(_vm.listGraphics, function(item, index) {
-            return _c(
-              "div",
-              {
-                key: index,
-                staticClass: "GraphicWrapper",
-                class: "Graphic" + index
-              },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass: "GraphicButton",
-                    attrs: {
-                      slot: "GaleryImage",
-                      disabled: _vm.activeMenuImage == index
+      _c(
+        "div",
+        {
+          staticClass: "yourGraphicListWrapper",
+          on: {
+            mouseover: function($event) {
+              if ($event.target !== $event.currentTarget) {
+                return null
+              }
+              return _vm.showImageMenu(-1)
+            }
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "GaleryGraphicWrapper" },
+            _vm._l(_vm.listGraphics, function(item, index) {
+              return _c(
+                "div",
+                {
+                  key: index,
+                  staticClass: "GraphicWrapper",
+                  class: "Graphic" + index
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "GraphicButton",
+                      attrs: {
+                        slot: "GaleryImage",
+                        disabled: _vm.activeMenuImage == index
+                      },
+                      on: {
+                        mouseover: function($event) {
+                          return _vm.showImageMenu(index)
+                        }
+                      },
+                      slot: "GaleryImage"
                     },
-                    on: {
-                      click: function($event) {
-                        return _vm.showImageMenu(index)
-                      }
-                    },
-                    slot: "GaleryImage"
-                  },
-                  [
-                    _c("img", {
-                      style:
-                        "background-image: url(./storage/graphicNew/" +
-                        item.path +
-                        ");"
-                    }),
-                    _vm._v(" "),
-                    _vm.activeMenuImage == index
-                      ? _c("div", { staticClass: "imageMenu" }, [
-                          _c("div", { staticClass: "closeWrapper" }, [
-                            _c("button", {
-                              staticClass: "closeImageMenu",
-                              on: {
-                                click: function($event) {
-                                  return _vm.showImageMenu(-1)
-                                }
-                              }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "viewButton" }, [
-                            _c(
-                              "button",
-                              {
-                                staticStyle: { color: "white" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.showSlider(
-                                      index,
-                                      _vm.listGraphics[index].id
-                                    )
+                    [
+                      _c("img", {
+                        style:
+                          "background-image: url(./storage/graphicNew/" +
+                          item.path +
+                          ");"
+                      }),
+                      _vm._v(" "),
+                      _vm.activeMenuImage == index
+                        ? _c("div", { staticClass: "imageMenu" }, [
+                            _c("div", { staticClass: "closeWrapper" }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "viewButton" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticStyle: { color: "white" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.showSlider(
+                                        index,
+                                        _vm.listGraphics[index].id
+                                      )
+                                    }
                                   }
-                                }
-                              },
-                              [_vm._v("View")]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "deleteButton" }, [
-                            _c(
-                              "button",
-                              {
-                                staticStyle: { color: "white" },
-                                on: {
-                                  "~click": function($event) {
-                                    return _vm.deleteImage(item.id)
+                                },
+                                [_vm._v("View")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "deleteButton" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticStyle: { color: "white" },
+                                  on: {
+                                    "~click": function($event) {
+                                      return _vm.deleteImage(item.id)
+                                    }
                                   }
-                                }
-                              },
-                              [_vm._v("Delete")]
-                            )
+                                },
+                                [_vm._v("Delete")]
+                              )
+                            ])
                           ])
-                        ])
-                      : _vm._e()
-                  ]
-                )
-              ]
-            )
-          }),
-          0
-        )
-      ])
+                        : _vm._e()
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      )
     ],
     1
   )

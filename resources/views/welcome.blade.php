@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <!-- Tutaj będę rejestrował komponenty Vue -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -30,6 +29,8 @@
         </transition>
 
     </div>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
 </body>
 </html>
 <script>

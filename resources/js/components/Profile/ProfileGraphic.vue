@@ -1,5 +1,5 @@
 <template>
-	<div class="GraphicProfile">
+	<div class="GraphicProfile" @mouseover.self="showImageMenu(-1)">
 		<!-- Modal -->
 		<transition name="opacity">
 			<galery-slider
@@ -44,7 +44,7 @@
 			<p v-if="addButtonActive" class="errorFile">{{ errorFile }}</p>
 		</div>
 
-		<div class="yourGraphicListWrapper">
+		<div class="yourGraphicListWrapper" @mouseover.self="showImageMenu(-1)">
 			<div class="GaleryGraphicWrapper">
 				<div
 					v-for="(item, index) in listGraphics"
@@ -56,13 +56,11 @@
 						:disabled="activeMenuImage==index"
 						slot="GaleryImage"
 						class="GraphicButton"
-						@click="showImageMenu(index)"
+						@mouseover="showImageMenu(index)"
 					>
 						<img :style="'background-image: url(./storage/graphicNew/'+item.path+');'" />
 						<div class="imageMenu" v-if="activeMenuImage==index">
-							<div class="closeWrapper">
-								<button class="closeImageMenu" @click="showImageMenu(-1)"></button>
-							</div>
+							<div class="closeWrapper"></div>
 							<div class="viewButton">
 								<button @click="showSlider(index, listGraphics[index].id)" style="color: white">View</button>
 							</div>
@@ -250,6 +248,7 @@ export default {
 		}
 	},
 	mounted() {
+		document.body.classList.add("overflowAuto");
 		console.log(this.userId);
 		axios
 			.get("/graphics/" + this.userId)
