@@ -12566,6 +12566,7 @@ a:hover {
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .descriptionMain {
   overflow: auto;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .descriptionMain .customeContentWrapper {
@@ -12591,6 +12592,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   line-height: 13px;
+  text-align: center;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .descriptionFooter .creatorNickWrapper {

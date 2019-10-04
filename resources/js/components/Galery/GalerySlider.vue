@@ -143,7 +143,7 @@ export default {
 			descriptionVisible: true,
 			description: "",
 			editActive: false,
-			descriptionExist: true,
+			descriptionExist: false,
 			descriptionPrevent: true,
 			userAccess: false
 		};
@@ -178,6 +178,7 @@ export default {
 			sizingElement.style.height = procentHeight * 100 + "%";
 		},
 		viewDescription() {
+			this.currentUserAuth();
 			if (this.descriptionVisible == true && this.descriptionPrevent == true) {
 				axios
 					.get("/graphics/description/" + this.graphicID)
@@ -234,10 +235,7 @@ export default {
 				.get("/graphics/description/" + this.graphicID)
 				.then(request => {
 					this.description = request.data;
-					let crossWrapper = document.querySelector(
-						".animationIconDescription"
-					);
-					let ankle2 = document.querySelector(".angle2");
+
 					if (this.description != "") {
 						this.descriptionExist = true;
 						this.descriptionPrevent = true;
@@ -246,14 +244,18 @@ export default {
 					}
 				})
 				.then(() => {
-					let crossWrapper = document.querySelector(
-						".animationIconDescription"
-					);
-					let ankle2 = document.querySelector(".angle2");
 					if (this.description != "") {
+						let crossWrapper = document.querySelector(
+							".animationIconDescription"
+						);
+						let ankle2 = document.querySelector(".angle2");
 						crossWrapper.classList.add("animationIconDescription_DONE");
 						ankle2.classList.add("angle2_DONE");
 					} else {
+						let crossWrapper = document.querySelector(
+							".animationIconDescription"
+						);
+						let ankle2 = document.querySelector(".angle2");
 						crossWrapper.classList.remove("animationIconDescription_DONE");
 						ankle2.classList.remove("angle2_DONE");
 					}
@@ -269,6 +271,7 @@ export default {
 					this.authCheck.id
 				) {
 					this.userAccess = true;
+					this.descriptionPrevent = true;
 				} else {
 					this.userAccess = false;
 				}

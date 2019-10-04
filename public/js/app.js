@@ -2453,7 +2453,7 @@ __webpack_require__.r(__webpack_exports__);
       descriptionVisible: true,
       description: "",
       editActive: false,
-      descriptionExist: true,
+      descriptionExist: false,
       descriptionPrevent: true,
       userAccess: false
     };
@@ -2488,6 +2488,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     viewDescription: function viewDescription() {
       var _this = this;
+
+      this.currentUserAuth();
 
       if (this.descriptionVisible == true && this.descriptionPrevent == true) {
         axios.get("/graphics/description/" + this.graphicID).then(function (request) {
@@ -2542,8 +2544,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/graphics/description/" + this.graphicID).then(function (request) {
         _this5.description = request.data;
-        var crossWrapper = document.querySelector(".animationIconDescription");
-        var ankle2 = document.querySelector(".angle2");
 
         if (_this5.description != "") {
           _this5.descriptionExist = true;
@@ -2552,15 +2552,19 @@ __webpack_require__.r(__webpack_exports__);
           _this5.descriptionExist = false;
         }
       }).then(function () {
-        var crossWrapper = document.querySelector(".animationIconDescription");
-        var ankle2 = document.querySelector(".angle2");
-
         if (_this5.description != "") {
+          var crossWrapper = document.querySelector(".animationIconDescription");
+          var ankle2 = document.querySelector(".angle2");
           crossWrapper.classList.add("animationIconDescription_DONE");
           ankle2.classList.add("angle2_DONE");
         } else {
-          crossWrapper.classList.remove("animationIconDescription_DONE");
-          ankle2.classList.remove("angle2_DONE");
+          var _crossWrapper = document.querySelector(".animationIconDescription");
+
+          var _ankle = document.querySelector(".angle2");
+
+          _crossWrapper.classList.remove("animationIconDescription_DONE");
+
+          _ankle.classList.remove("angle2_DONE");
         }
       })["catch"](function (error) {
         console.log(error);
@@ -2570,6 +2574,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.authCheck != null) {
         if (this.listGraphicsProp[this.activeGaleryItem].user_id == this.authCheck.id) {
           this.userAccess = true;
+          this.descriptionPrevent = true;
         } else {
           this.userAccess = false;
         }
@@ -3295,11 +3300,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["cards", "loadedCard", "currentCard", "animationStatus"]),
   data: function data() {
-    return {};
+    return {
+      card: this.currentCard
+    };
+  },
+  watch: {
+    currentCard: function currentCard(oldCard, newCard) {
+      var _this = this;
+
+      console.log(oldCard);
+
+      if (!this.animationStatus) {
+        // Zmienne //
+        var activeImg = document.querySelector(".activeCard");
+        var nextImg = document.querySelector(".Image" + oldCard);
+
+        var activeImgIndex = activeImg._prevClass.substring(activeImg._prevClass.length - 1); // ActivationPagin //
+
+
+        document.querySelector(".activePagination").classList.remove("activePagination");
+        document.getElementById("pagination " + oldCard).classList.add("activePagination");
+
+        if (activeImgIndex != oldCard && !this.animationStatus) {
+          // AnimationStatus //
+          this.$store.commit("changeAnimationStatus", true);
+          this.$store.commit("loadCardStatus", false); // Change active components
+
+          activeImg.classList.remove("activeCard"); // DOWN //
+
+          if (activeImgIndex < oldCard) {
+            while (activeImgIndex < oldCard) {
+              console.log(activeImgIndex);
+              document.querySelector(".Image" + activeImgIndex).classList.remove("slide-bottom");
+              document.querySelector(".Image" + activeImgIndex).classList.remove("position-top");
+              document.querySelector(".Image" + activeImgIndex).classList.add("slide-top");
+              activeImgIndex++;
+            }
+
+            nextImg.classList.add("activeCard");
+          } // UP //
+
+
+          if (activeImgIndex > oldCard) {
+            while (activeImgIndex > oldCard) {
+              activeImgIndex--;
+              document.querySelector(".Image" + activeImgIndex).classList.remove("slide-top");
+              document.querySelector(".Image" + activeImgIndex).classList.remove("position-top");
+              document.querySelector(".Image" + activeImgIndex).classList.add("slide-bottom");
+              console.log(activeImgIndex);
+            }
+
+            nextImg.classList.add("activeCard");
+          } // AnimationStatus //
+
+
+          setTimeout(function () {
+            _this.$store.commit("changeAnimationStatus", false);
+
+            _this.$store.commit("loadCardStatus", true);
+
+            _this.$store.commit("changecurrentCard", oldCard);
+          }, 500);
+        }
+      }
+    }
   },
   methods: {
     toContact: function toContact(index) {
-      var _this = this;
+      var _this2 = this;
 
       if (!this.animationStatus) {
         // Zmienne //
@@ -3346,45 +3414,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
           setTimeout(function () {
-            _this.$store.commit("changeAnimationStatus", false);
+            _this2.$store.commit("changeAnimationStatus", false);
 
-            _this.$store.commit("loadCardStatus", true);
+            _this2.$store.commit("loadCardStatus", true);
 
-            _this.$store.commit("changecurrentCard", index);
+            _this2.$store.commit("changecurrentCard", index);
           }, 500);
         }
       }
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
-
-    var it = this.currentCard;
-    var scrollValue = this.currentCard;
-    var activeScrollAnimation = true;
-    var eventScroll = window.addEventListener("wheel", function () {
-      if (activeScrollAnimation == true) {
-        scrollValue = _this2.currentCard;
-        activeScrollAnimation = false;
-
-        if (event.deltaY < 0 && scrollValue > 0) {
-          scrollValue--;
-
-          _this2.toContact(scrollValue);
-        } else if (event.deltaY > 0 && scrollValue < 3) {
-          scrollValue++;
-
-          _this2.toContact(scrollValue);
-        }
-
-        setTimeout(function () {
-          activeScrollAnimation = true;
-          console.log("YEY");
-        }, 700);
-      } else {
-        console.log("EHHHH");
-      }
-    });
     console.log(this.currentCard);
     document.querySelector(".Image" + this.currentCard).classList.add("activeCard");
 
@@ -65947,7 +65987,7 @@ var sizeUp = function sizeUp(index, store) {
 
       var k = 1;
       var positionInterval = setInterval(function () {
-        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120, 80) + 'px';
+        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120, 40) + 'px';
         setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
         setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
         k++;
@@ -65993,7 +66033,7 @@ var sizeUp = function sizeUp(index, store) {
       var _k = 1;
 
       var _positionInterval = setInterval(function () {
-        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 120, 80) + 'px';
+        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 120, 40) + 'px';
         _setStyle.width = Math.easeInExpo(_k, parseInt(_setStyle.width.slice(0, -2)), _endWidth - parseInt(_setStyle.width.slice(0, -2)), 120) + 'px';
         _setStyle.height = Math.easeInExpo(_k, parseInt(_setStyle.height.slice(0, -2)), _endHeight - parseInt(_setStyle.height.slice(0, -2)), 120) + 'px';
         _k++;
@@ -66041,7 +66081,7 @@ var sizeUp = function sizeUp(index, store) {
       var _k2 = 1;
 
       var _positionInterval2 = setInterval(function () {
-        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 120, 80) + 'px';
+        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 120, 40) + 'px';
         _setStyle2.width = Math.easeInExpo(_k2, parseInt(_setStyle2.width.slice(0, -2)), _endWidth2 - parseInt(_setStyle2.width.slice(0, -2)), 120) + 'px';
         _setStyle2.height = Math.easeInExpo(_k2, parseInt(_setStyle2.height.slice(0, -2)), _endHeight2 - parseInt(_setStyle2.height.slice(0, -2)), 120) + 'px';
         _k2++;
@@ -66087,7 +66127,7 @@ var sizeUp = function sizeUp(index, store) {
       var _k3 = 1;
 
       var _positionInterval3 = setInterval(function () {
-        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 120, 80) + 'px';
+        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 120, 40) + 'px';
         _setStyle3.width = Math.easeInExpo(_k3, parseInt(_setStyle3.width.slice(0, -2)), _endWidth3 - parseInt(_setStyle3.width.slice(0, -2)), 120) + 'px';
         _setStyle3.height = Math.easeInExpo(_k3, parseInt(_setStyle3.height.slice(0, -2)), _endHeight3 - parseInt(_setStyle3.height.slice(0, -2)), 120) + 'px';
         _k3++;
@@ -66202,6 +66242,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     buttonProfileActive: false,
     // jsAnimation
     jsAnimation: _jsAnimation__WEBPACK_IMPORTED_MODULE_0__["default"],
+    scrollEventActive: true,
     // dataBase
     cards: [{
       id: 0,
@@ -66287,6 +66328,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     },
     changebuttonProfileActive: function changebuttonProfileActive(state, conditional) {
       state.buttonProfileActive = conditional;
+    },
+    changeScrollEventActive: function changeScrollEventActive(state, conditional) {
+      state.scrollEventActive = conditional;
     }
   }
 });
@@ -66298,6 +66342,63 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   store: store,
   router: router
 });
+
+function detectMouseWheelDirection(e) {
+  var delta = null,
+      direction = false;
+
+  if (!e) {
+    // if the event is not provided, we get it from the window object
+    e = window.event;
+  }
+
+  if (e.wheelDelta) {
+    // will work in most cases
+    delta = e.wheelDelta / 60;
+  } else if (e.detail) {
+    // fallback for Firefox
+    delta = -e.detail / 2;
+  }
+
+  if (delta !== null) {
+    direction = delta > 0 ? 'up' : 'down';
+  }
+
+  return direction;
+}
+
+function handleMouseWheelDirection(direction) {
+  console.log(direction); // see the direction in the console
+
+  var i;
+
+  if (direction == 'down') {
+    // do something, like show the next page
+    if (store.state.currentCard < 3) {
+      i = store.state.currentCard + 1;
+      store.commit("changecurrentCard", i);
+    }
+  } else if (direction == 'up') {
+    // do something, like show the previous page
+    if (store.state.currentCard > 0) {
+      i = store.state.currentCard - 1;
+      store.commit("changecurrentCard", i);
+    }
+  } else {// this means the direction of the mouse wheel could not be determined
+  }
+
+  console.log(store.state.currentCard);
+}
+
+document.onmousewheel = function (e) {
+  handleMouseWheelDirection(detectMouseWheelDirection(e));
+};
+
+if (window.addEventListener) {
+  document.addEventListener('DOMMouseScroll', function (e) {
+    handleMouseWheelDirection(detectMouseWheelDirection(e));
+  });
+}
 
 /***/ }),
 
