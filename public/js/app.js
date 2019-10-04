@@ -2268,7 +2268,6 @@ __webpack_require__.r(__webpack_exports__);
       this.OnSlider = true;
       document.body.classList.remove("overflowAuto");
       this.idGraphic = graphic_id;
-      console.log(this.listGraphics);
     },
     closeSlider: function closeSlider() {
       this.OnSlider = false;
@@ -2289,16 +2288,12 @@ __webpack_require__.r(__webpack_exports__);
     document.body.classList.add("overflowAuto");
     document.body.classList.add("galeryBackground");
     axios.get("/graphics/" + 0).then(function (request) {
-      console.log(request.data);
       _this.listGraphics = request.data;
-    })["catch"](function () {
-      console.log("FAILURE!!");
-    });
+    })["catch"](function () {});
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
     document.body.classList.remove("overflowAuto");
     document.body.classList.remove("galeryBackground");
-    console.log("GALERY");
     next();
   }
 });
@@ -2428,10 +2423,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp", "graphicID"],
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"]),
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics", "jsAnimation"]),
   data: function data() {
     return {
       descriptionVisible: true,
@@ -2466,21 +2468,22 @@ __webpack_require__.r(__webpack_exports__);
       var procentHeight = widthElement / proportion / h;
       sizingElement.style.paddingRight = procentWidth * 100 + "%";
       sizingElement.style.height = procentHeight * 100 + "%";
-      console.log(sizingElement, graphic, wrapper, widthElement, heightElement, h, w, proportion, procentWidth);
     },
     viewDescription: function viewDescription() {
       var _this = this;
 
       if (this.descriptionVisible == true) {
         axios.get("/graphics/description/" + this.graphicID).then(function (request) {
-          console.log(request.data);
           _this.description = request.data;
+          console.log(_this.description);
 
           _this.storeDescription();
 
-          _this.descriptionVisible = false;
-        })["catch"](function () {
-          console.log("FAILURE!!");
+          _this.descriptionVisible = false; //animation
+
+          _this.jsAnimation.crossToAnkle();
+        })["catch"](function (error) {
+          console.log(error);
         });
       } else {
         this.descriptionVisible = true;
@@ -2492,9 +2495,14 @@ __webpack_require__.r(__webpack_exports__);
       if (this.descriptionVisible == false) {
         setTimeout(function () {
           _this2.viewDescription();
+
+          _this2.checkDescriptionExist();
         }, 300);
       }
 
+      setTimeout(function () {
+        _this2.checkDescriptionExist();
+      }, 0);
       this.descriptionVisible = true;
       this.editActive = false;
       this.checkProportions(3);
@@ -2508,32 +2516,47 @@ __webpack_require__.r(__webpack_exports__);
         }, 300);
       }
 
+      setTimeout(function () {
+        _this3.checkDescriptionExist();
+      }, 0);
       this.descriptionVisible = true;
       this.editActive = false;
       this.checkProportions(1);
     },
     storeDescription: function storeDescription() {
-      axios.post("/graphics/description/" + this.graphicID).then(function (request) {
-        console.log(request);
-      })["catch"](function () {
-        console.log("FAILURE!!");
-      });
+      axios.post("/graphics/description/" + this.graphicID).then(function (request) {})["catch"](function () {});
     },
     editDiscription: function editDiscription() {
       var _this4 = this;
 
       axios.patch("/graphics/description/" + this.graphicID, this.description).then(function (request) {
-        console.log(request);
         _this4.editActive = !_this4.editActive;
-      })["catch"](function () {
-        console.log("FAILURE!!");
+      })["catch"](function () {});
+    },
+    checkDescriptionExist: function checkDescriptionExist() {
+      var _this5 = this;
+
+      axios.get("/graphics/description/" + this.graphicID).then(function (request) {
+        _this5.description = request.data;
+        console.log(_this5.description);
+        var crossWrapper = document.querySelector(".animationIconDescription");
+        var ankle2 = document.querySelector(".angle2");
+
+        if (_this5.description != "") {
+          console.log("YEY");
+          crossWrapper.classList.add("animationIconDescription_DONE");
+          ankle2.classList.add("angle2_DONE");
+        } else {
+          crossWrapper.classList.remove("animationIconDescription_DONE");
+          ankle2.classList.remove("angle2_DONE");
+        }
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   },
   mounted: function mounted() {
-    console.log(this.listGraphicsProp);
-    console.log(this.activeGaleryItem);
-    console.log(this.listGraphicsProp.length);
+    this.checkDescriptionExist();
     this.checkProportions(2);
   },
   updated: function updated() {}
@@ -47483,7 +47506,13 @@ var render = function() {
                       staticClass: "viewDescription",
                       on: { click: _vm.viewDescription }
                     },
-                    [_vm._v("+")]
+                    [
+                      _c("div", { staticClass: "animationIconDescription" }, [
+                        _c("div", { staticClass: "angle1" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "angle2" })
+                      ])
+                    ]
                   ),
                   _vm._v(" "),
                   _c("transition", { attrs: { name: "roll-in-top" } }, [
@@ -47498,7 +47527,13 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Edit")]
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: "./images/galery/navigation/pen-solid.svg"
+                              }
+                            })
+                          ]
                         )
                       : _vm._e()
                   ])
@@ -47829,102 +47864,98 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "yourGraphicListWrapper",
-          on: {
-            mouseover: function($event) {
-              if ($event.target !== $event.currentTarget) {
-                return null
+      _c("div", { staticClass: "yourGraphicListWrapper" }, [
+        _c(
+          "div",
+          {
+            staticClass: "GaleryGraphicWrapper",
+            on: {
+              mouseover: function($event) {
+                if ($event.target !== $event.currentTarget) {
+                  return null
+                }
+                return _vm.showImageMenu(-1)
               }
-              return _vm.showImageMenu(-1)
             }
-          }
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "GaleryGraphicWrapper" },
-            _vm._l(_vm.listGraphics, function(item, index) {
-              return _c(
-                "div",
-                {
-                  key: index,
-                  staticClass: "GraphicWrapper",
-                  class: "Graphic" + index
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "GraphicButton",
-                      attrs: {
-                        slot: "GaleryImage",
-                        disabled: _vm.activeMenuImage == index
-                      },
-                      on: {
-                        mouseover: function($event) {
-                          return _vm.showImageMenu(index)
-                        }
-                      },
-                      slot: "GaleryImage"
+          },
+          _vm._l(_vm.listGraphics, function(item, index) {
+            return _c(
+              "div",
+              {
+                key: index,
+                staticClass: "GraphicWrapper",
+                class: "Graphic" + index
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "GraphicButton",
+                    attrs: {
+                      slot: "GaleryImage",
+                      disabled: _vm.activeMenuImage == index
                     },
-                    [
-                      _c("img", {
-                        style:
-                          "background-image: url(./storage/graphicNew/" +
-                          item.path +
-                          ");"
-                      }),
-                      _vm._v(" "),
-                      _vm.activeMenuImage == index
-                        ? _c("div", { staticClass: "imageMenu" }, [
-                            _c("div", { staticClass: "closeWrapper" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "viewButton" }, [
-                              _c(
-                                "button",
-                                {
-                                  staticStyle: { color: "white" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.showSlider(
-                                        index,
-                                        _vm.listGraphics[index].id
-                                      )
-                                    }
+                    on: {
+                      mouseover: function($event) {
+                        return _vm.showImageMenu(index)
+                      }
+                    },
+                    slot: "GaleryImage"
+                  },
+                  [
+                    _c("img", {
+                      style:
+                        "background-image: url(./storage/graphicNew/" +
+                        item.path +
+                        ");"
+                    }),
+                    _vm._v(" "),
+                    _vm.activeMenuImage == index
+                      ? _c("div", { staticClass: "imageMenu" }, [
+                          _c("div", { staticClass: "closeWrapper" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "viewButton" }, [
+                            _c(
+                              "button",
+                              {
+                                staticStyle: { color: "white" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showSlider(
+                                      index,
+                                      _vm.listGraphics[index].id
+                                    )
                                   }
-                                },
-                                [_vm._v("View")]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "deleteButton" }, [
-                              _c(
-                                "button",
-                                {
-                                  staticStyle: { color: "white" },
-                                  on: {
-                                    "~click": function($event) {
-                                      return _vm.deleteImage(item.id)
-                                    }
+                                }
+                              },
+                              [_vm._v("View")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "deleteButton" }, [
+                            _c(
+                              "button",
+                              {
+                                staticStyle: { color: "white" },
+                                on: {
+                                  "~click": function($event) {
+                                    return _vm.deleteImage(item.id)
                                   }
-                                },
-                                [_vm._v("Delete")]
-                              )
-                            ])
+                                }
+                              },
+                              [_vm._v("Delete")]
+                            )
                           ])
-                        : _vm._e()
-                    ]
-                  )
-                ]
-              )
-            }),
-            0
-          )
-        ]
-      )
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ])
     ],
     1
   )
@@ -65378,6 +65409,70 @@ var errorAppear = function errorAppear(element) {
 
 /***/ }),
 
+/***/ "./resources/js/animationJs/graphicMenu.js":
+/*!*************************************************!*\
+  !*** ./resources/js/animationJs/graphicMenu.js ***!
+  \*************************************************/
+/*! exports provided: crossToAnkle, showGraphicMenu */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "crossToAnkle", function() { return crossToAnkle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showGraphicMenu", function() { return showGraphicMenu; });
+Math.easeOutQuart = function (t, b, c, d) {
+  t /= d;
+  t--;
+  return -c * (t * t * t * t - 1) + b;
+};
+
+Math.easeOutSine = function (t, b, c, d) {
+  return c * Math.sin(t / d * (Math.PI / 2)) + b;
+};
+
+Math.easeOutCos = function (t, b, c, d) {
+  return c * Math.cos(t / d * Math.PI) + b;
+};
+
+var crossToAnkle = function crossToAnkle() {
+  var crossWrapper = document.querySelector('.animationIconDescription');
+  var ankle2 = document.querySelector('.angle2');
+
+  var rotate2 = function rotate2() {
+    var i = 60;
+    var j = 60;
+    var rotate2Interval = setInterval(function () {
+      ankle2.style.transform = "rotate(0) scale(" + Math.easeOutSine(i, -1, 2, 60) + ") translate(" + Math.easeOutSine(j, 0, 5, 60) + "px, " + Math.easeOutSine(j, 0, 5, 60) + "px) ";
+      i--;
+      j--;
+
+      if (i < 1) {
+        clearInterval(rotate2Interval);
+        ankle2.classList.add("angle2_DONE");
+        ankle2.style.transform = null;
+        crossWrapper.style.transform = null;
+      }
+    }, 600 / 60);
+  };
+
+  var k = 1;
+  var rotateInterval = setInterval(function () {
+    crossWrapper.style.transform = "rotate(" + Math.easeOutSine(k, 0, 45, 60) + "deg)";
+    k++;
+
+    if (k > 60) {
+      clearInterval(rotateInterval);
+      crossWrapper.classList.add("animationIconDescription_DONE");
+      rotate2();
+    }
+  }, 200 / 60);
+};
+var showGraphicMenu = function showGraphicMenu() {
+  var GraphicWrapper = document.querySelector(".imageDescriptionMenuWrapper");
+};
+
+/***/ }),
+
 /***/ "./resources/js/animationJs/scale_width.js":
 /*!*************************************************!*\
   !*** ./resources/js/animationJs/scale_width.js ***!
@@ -67132,6 +67227,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animationJs/scale_width.js */ "./resources/js/animationJs/scale_width.js");
 /* harmony import */ var _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animationJs/activeShadowBlock.js */ "./resources/js/animationJs/activeShadowBlock.js");
 /* harmony import */ var _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animationJs/errorMessage.js */ "./resources/js/animationJs/errorMessage.js");
+/* harmony import */ var _animationJs_graphicMenu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./animationJs/graphicMenu.js */ "./resources/js/animationJs/graphicMenu.js");
+
 
 
 
@@ -67147,7 +67244,8 @@ __webpack_require__.r(__webpack_exports__);
   activeShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["activeShadowBlock"],
   deActiveShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["deActiveShadowBlock"],
   errorAppear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorAppear"],
-  errorDisappear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorDisappear"]
+  errorDisappear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorDisappear"],
+  crossToAnkle: _animationJs_graphicMenu_js__WEBPACK_IMPORTED_MODULE_5__["crossToAnkle"]
 });
 
 /***/ }),

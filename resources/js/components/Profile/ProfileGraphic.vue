@@ -44,8 +44,8 @@
 			<p v-if="addButtonActive" class="errorFile">{{ errorFile }}</p>
 		</div>
 
-		<div class="yourGraphicListWrapper" @mouseover.self="showImageMenu(-1)">
-			<div class="GaleryGraphicWrapper">
+		<div class="yourGraphicListWrapper">
+			<div class="GaleryGraphicWrapper" @mouseover.self="showImageMenu(-1)">
 				<div
 					v-for="(item, index) in listGraphics"
 					:key="index"

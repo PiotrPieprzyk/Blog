@@ -80,9 +80,16 @@
 							</div>
 						</transition>
 						<div class="imageDescriptionMenuWrapper">
-							<div class="viewDescription" @click="viewDescription">+</div>
+							<div class="viewDescription" @click="viewDescription">
+								<div class="animationIconDescription">
+									<div class="angle1"></div>
+									<div class="angle2"></div>
+								</div>
+							</div>
 							<transition name="roll-in-top">
-								<div v-if="!descriptionVisible" class="editDescription" @click="editDiscription()">Edit</div>
+								<div v-if="!descriptionVisible" class="editDescription" @click="editDiscription()">
+									<img :src="'./images/galery/navigation/pen-solid.svg'" />
+								</div>
 							</transition>
 						</div>
 					</div>
@@ -116,7 +123,7 @@ import { mapState } from "vuex";
 
 export default {
 	props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp", "graphicID"],
-	computed: mapState(["graphics"]),
+	computed: mapState(["graphics", "jsAnimation"]),
 	data() {
 		return {
 			descriptionVisible: true,
@@ -152,33 +159,22 @@ export default {
 
 			sizingElement.style.paddingRight = procentWidth * 100 + "%";
 			sizingElement.style.height = procentHeight * 100 + "%";
-
-			console.log(
-				sizingElement,
-				graphic,
-				wrapper,
-				widthElement,
-				heightElement,
-				h,
-				w,
-				proportion,
-				procentWidth
-			);
 		},
 		viewDescription() {
 			if (this.descriptionVisible == true) {
 				axios
 					.get("/graphics/description/" + this.graphicID)
 					.then(request => {
-						console.log(request.data);
 						this.description = request.data;
-
+						console.log(this.description);
 						this.storeDescription();
-
 						this.descriptionVisible = false;
+
+						//animation
+						this.jsAnimation.crossToAnkle();
 					})
-					.catch(function() {
-						console.log("FAILURE!!");
+					.catch(error => {
+						console.log(error);
 					});
 			} else {
 				this.descriptionVisible = true;
@@ -188,8 +184,12 @@ export default {
 			if (this.descriptionVisible == false) {
 				setTimeout(() => {
 					this.viewDescription();
+					this.checkDescriptionExist();
 				}, 300);
 			}
+			setTimeout(() => {
+				this.checkDescriptionExist();
+			}, 0);
 			this.descriptionVisible = true;
 			this.editActive = false;
 			this.checkProportions(3);
@@ -200,6 +200,9 @@ export default {
 					this.viewDescription();
 				}, 300);
 			}
+			setTimeout(() => {
+				this.checkDescriptionExist();
+			}, 0);
 			this.descriptionVisible = true;
 			this.editActive = false;
 			this.checkProportions(1);
@@ -207,29 +210,45 @@ export default {
 		storeDescription() {
 			axios
 				.post("/graphics/description/" + this.graphicID)
-				.then(request => {
-					console.log(request);
-				})
-				.catch(function() {
-					console.log("FAILURE!!");
-				});
+				.then(request => {})
+				.catch(function() {});
 		},
 		editDiscription() {
 			axios
 				.patch("/graphics/description/" + this.graphicID, this.description)
 				.then(request => {
-					console.log(request);
 					this.editActive = !this.editActive;
 				})
-				.catch(function() {
-					console.log("FAILURE!!");
+				.catch(function() {});
+		},
+		checkDescriptionExist() {
+			axios
+				.get("/graphics/description/" + this.graphicID)
+				.then(request => {
+					this.description = request.data;
+					console.log(this.description);
+					let crossWrapper = document.querySelector(
+						".animationIconDescription"
+					);
+					let ankle2 = document.querySelector(".angle2");
+					if (this.description != "") {
+						console.log("YEY");
+
+						crossWrapper.classList.add("animationIconDescription_DONE");
+						ankle2.classList.add("angle2_DONE");
+					} else {
+						crossWrapper.classList.remove("animationIconDescription_DONE");
+						ankle2.classList.remove("angle2_DONE");
+					}
+				})
+				.catch(error => {
+					console.log(error);
 				});
 		}
 	},
 	mounted() {
-		console.log(this.listGraphicsProp);
-		console.log(this.activeGaleryItem);
-		console.log(this.listGraphicsProp.length);
+		this.checkDescriptionExist();
+
 		this.checkProportions(2);
 	},
 	updated() {}

@@ -50,7 +50,6 @@ export default {
 			this.OnSlider = true;
 			document.body.classList.remove("overflowAuto");
 			this.idGraphic = graphic_id;
-			console.log(this.listGraphics);
 		},
 		closeSlider() {
 			this.OnSlider = false;
@@ -71,17 +70,13 @@ export default {
 		axios
 			.get("/graphics/" + 0)
 			.then(request => {
-				console.log(request.data);
 				this.listGraphics = request.data;
 			})
-			.catch(function() {
-				console.log("FAILURE!!");
-			});
+			.catch(function() {});
 	},
 	beforeRouteLeave(to, from, next) {
 		document.body.classList.remove("overflowAuto");
 		document.body.classList.remove("galeryBackground");
-		console.log("GALERY");
 		next();
 	}
 };

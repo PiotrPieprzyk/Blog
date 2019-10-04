@@ -11809,9 +11809,23 @@ a:hover {
   animation: roll-in-top 0.3s ease-out both;
 }
 
+@media (max-width: 800px) {
+  .roll-in-top-enter-active {
+    -webkit-animation: roll-in-right 0.3s ease-out both;
+    animation: roll-in-right 0.3s ease-out both;
+  }
+}
+
 .roll-in-top-leave-active {
   -webkit-animation: roll-in-top 0.3s ease-out both reverse;
   animation: roll-in-top 0.3s ease-out both reverse;
+}
+
+@media (max-width: 800px) {
+  .roll-in-top-leave-active {
+    -webkit-animation: roll-in-right 0.3s ease-out reverse both;
+    animation: roll-in-right 0.3s ease-out reverse both;
+  }
 }
 
 /* ----------------------------------------------
@@ -11844,6 +11858,26 @@ a:hover {
 
   100% {
     transform: translateY(0) rotate(0deg);
+  }
+}
+
+@-webkit-keyframes roll-in-right {
+  0% {
+    transform: translateX(0) rotate(-240deg);
+  }
+
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+@keyframes roll-in-right {
+  0% {
+    transform: translateX(70px) rotate(-240deg);
+  }
+
+  100% {
+    transform: translateX(0) rotate(0deg);
   }
 }
 
@@ -12331,6 +12365,7 @@ a:hover {
   left: 0;
   bottom: 0;
   right: 0;
+  font-size: calc(10px + 0.5vw);
 }
 
 .GalerySliderWrapper .GaleryContent {
@@ -12351,6 +12386,15 @@ a:hover {
   right: 0;
   max-width: 80vw;
   justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .GalerySliderWrapper .GaleryContent .ActiveImg {
+    max-width: 95vw;
+    margin: 0;
+    left: 2.5vw;
+    right: 2.5vw;
+  }
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper {
@@ -12377,9 +12421,9 @@ a:hover {
 @media (max-width: 800px) {
   .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper {
     flex-direction: row;
-    bottom: 0;
+    bottom: 10px;
     left: 0;
-    width: calc(100% - 40px);
+    width: calc(100vw - 40px);
     margin: 20px;
     height: auto;
     position: fixed;
@@ -12397,7 +12441,54 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2em;
+  font-size: 1em;
+}
+
+.GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper .viewDescription .animationIconDescription_DONE {
+  transform: rotate(45deg) !important;
+}
+
+.GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper .viewDescription .animationIconDescription {
+  display: block;
+  width: 40px;
+  justify-content: center;
+  height: 40px;
+  transform: rotate(0);
+}
+
+.GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper .viewDescription .animationIconDescription .angle1 {
+  display: block;
+  width: 12px;
+  height: 12px;
+  /* margin-left: 5px; */
+  /* margin-top: 5px; */
+  border-right: 2px black solid;
+  border-bottom: 2px black solid;
+  border-bottom-left-radius: 1px;
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  transform: translate(-5px, -5px);
+}
+
+.GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper .viewDescription .animationIconDescription .angle2 {
+  display: block;
+  /* width: 15px; */
+  /* height: 15px; */
+  width: 12px;
+  height: 12px;
+  /* margin-right: 6px; */
+  /* margin-bottom: 6px; */
+  border-left: 2px black solid;
+  border-top: 2px black solid;
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  transform: translate(5px, 5px);
+}
+
+.GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper .viewDescription .animationIconDescription .angle2_DONE {
+  transform: rotate(180deg) translate(0, 0) !important;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper .editDescription {
@@ -12407,7 +12498,7 @@ a:hover {
   border-radius: 25px;
   top: 20px;
   z-index: 0;
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12417,7 +12508,12 @@ a:hover {
 @media (max-width: 800px) {
   .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper .editDescription {
     right: 0;
+    position: absolute;
   }
+}
+
+.GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .imageDescriptionMenuWrapper .editDescription img {
+  transform: scale(0.4);
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription {
@@ -12439,10 +12535,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 3em;
-  line-height: 40px;
+  font-size: 2.25em;
+  line-height: calc(25px + 1.1vw);
   justify-content: center;
   text-align: center;
+  overflow: auto;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .descriptionHeader p {
@@ -12453,10 +12550,22 @@ a:hover {
   width: 100%;
   text-align: center;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .descriptionMain {
-  display: inline;
+  overflow: auto;
+  margin-bottom: 10px;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .descriptionMain .customeContentWrapper {
@@ -12465,6 +12574,17 @@ a:hover {
   height: 80%;
   overflow: hidden;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .descriptionFooter {
@@ -12482,6 +12602,17 @@ a:hover {
   width: 100%;
   text-align: center;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .descriptionFooter .dataCreateWrapper {
@@ -12493,6 +12624,17 @@ a:hover {
   width: 100%;
   text-align: center;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 .GalerySliderWrapper .GaleryContent .ActiveImg .ProportionWrapper .GraphicDescription .editButton {
