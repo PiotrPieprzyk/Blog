@@ -104,7 +104,7 @@ export default {
 		let scrollValue = this.currentCard;
 		let activeScrollAnimation = true;
 
-		window.addEventListener("wheel", () => {
+		let eventScroll = window.addEventListener("wheel", () => {
 			if (activeScrollAnimation == true) {
 				scrollValue = this.currentCard;
 				activeScrollAnimation = false;

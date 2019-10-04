@@ -39,7 +39,7 @@ export let crossToAnkle = function crossToAnkle() {
       crossWrapper.classList.add("animationIconDescription_DONE");
       rotate2();
     }
-  }, 200 / 60);
+  }, 400 / 60);
 
 }
 

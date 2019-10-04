@@ -2430,15 +2430,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp", "graphicID"],
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics", "jsAnimation"]),
+  computed: {
+    graphics: function graphics() {
+      return this.$store.state.graphics;
+    },
+    jsAnimation: function jsAnimation() {
+      return this.$store.state.jsAnimation;
+    },
+    authCheck: function authCheck() {
+      return this.$store.state.authCheck;
+    }
+  },
   data: function data() {
     return {
       descriptionVisible: true,
       description: "",
-      editActive: false
+      editActive: false,
+      descriptionExist: true,
+      descriptionPrevent: true,
+      userAccess: false
     };
   },
   methods: {
@@ -2472,10 +2489,9 @@ __webpack_require__.r(__webpack_exports__);
     viewDescription: function viewDescription() {
       var _this = this;
 
-      if (this.descriptionVisible == true) {
+      if (this.descriptionVisible == true && this.descriptionPrevent == true) {
         axios.get("/graphics/description/" + this.graphicID).then(function (request) {
           _this.description = request.data;
-          console.log(_this.description);
 
           _this.storeDescription();
 
@@ -2492,14 +2508,7 @@ __webpack_require__.r(__webpack_exports__);
     nextDescription: function nextDescription() {
       var _this2 = this;
 
-      if (this.descriptionVisible == false) {
-        setTimeout(function () {
-          _this2.viewDescription();
-
-          _this2.checkDescriptionExist();
-        }, 300);
-      }
-
+      this.descriptionPrevent = false;
       setTimeout(function () {
         _this2.checkDescriptionExist();
       }, 0);
@@ -2510,12 +2519,7 @@ __webpack_require__.r(__webpack_exports__);
     previousDescription: function previousDescription() {
       var _this3 = this;
 
-      if (this.descriptionVisible == false) {
-        setTimeout(function () {
-          _this3.viewDescription();
-        }, 300);
-      }
-
+      this.descriptionPrevent = false;
       setTimeout(function () {
         _this3.checkDescriptionExist();
       }, 0);
@@ -2538,12 +2542,20 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/graphics/description/" + this.graphicID).then(function (request) {
         _this5.description = request.data;
-        console.log(_this5.description);
         var crossWrapper = document.querySelector(".animationIconDescription");
         var ankle2 = document.querySelector(".angle2");
 
         if (_this5.description != "") {
-          console.log("YEY");
+          _this5.descriptionExist = true;
+          _this5.descriptionPrevent = true;
+        } else {
+          _this5.descriptionExist = false;
+        }
+      }).then(function () {
+        var crossWrapper = document.querySelector(".animationIconDescription");
+        var ankle2 = document.querySelector(".angle2");
+
+        if (_this5.description != "") {
           crossWrapper.classList.add("animationIconDescription_DONE");
           ankle2.classList.add("angle2_DONE");
         } else {
@@ -2553,11 +2565,22 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    currentUserAuth: function currentUserAuth() {
+      if (this.authCheck != null) {
+        if (this.listGraphicsProp[this.activeGaleryItem].user_id == this.authCheck.id) {
+          this.userAccess = true;
+        } else {
+          this.userAccess = false;
+        }
+      }
     }
   },
   mounted: function mounted() {
+    this.descriptionPrevent = false;
     this.checkDescriptionExist();
     this.checkProportions(2);
+    this.currentUserAuth();
   },
   updated: function updated() {}
 });
@@ -3339,7 +3362,7 @@ __webpack_require__.r(__webpack_exports__);
     var it = this.currentCard;
     var scrollValue = this.currentCard;
     var activeScrollAnimation = true;
-    window.addEventListener("wheel", function () {
+    var eventScroll = window.addEventListener("wheel", function () {
       if (activeScrollAnimation == true) {
         scrollValue = _this2.currentCard;
         activeScrollAnimation = false;
@@ -47496,50 +47519,57 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "imageDescriptionMenuWrapper" },
-                [
-                  _c(
+              _vm.descriptionExist || _vm.userAccess
+                ? _c(
                     "div",
-                    {
-                      staticClass: "viewDescription",
-                      on: { click: _vm.viewDescription }
-                    },
+                    { staticClass: "imageDescriptionMenuWrapper" },
                     [
-                      _c("div", { staticClass: "animationIconDescription" }, [
-                        _c("div", { staticClass: "angle1" }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "angle2" })
+                      _c(
+                        "div",
+                        {
+                          staticClass: "viewDescription",
+                          on: { click: _vm.viewDescription }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "animationIconDescription" },
+                            [
+                              _c("div", { staticClass: "angle1" }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "angle2" })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("transition", { attrs: { name: "roll-in-top" } }, [
+                        !_vm.descriptionVisible && _vm.userAccess
+                          ? _c(
+                              "div",
+                              {
+                                staticClass: "editDescription",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editDiscription()
+                                  }
+                                }
+                              },
+                              [
+                                _c("img", {
+                                  attrs: {
+                                    src:
+                                      "./images/galery/navigation/pen-solid.svg"
+                                  }
+                                })
+                              ]
+                            )
+                          : _vm._e()
                       ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("transition", { attrs: { name: "roll-in-top" } }, [
-                    !_vm.descriptionVisible
-                      ? _c(
-                          "div",
-                          {
-                            staticClass: "editDescription",
-                            on: {
-                              click: function($event) {
-                                return _vm.editDiscription()
-                              }
-                            }
-                          },
-                          [
-                            _c("img", {
-                              attrs: {
-                                src: "./images/galery/navigation/pen-solid.svg"
-                              }
-                            })
-                          ]
-                        )
-                      : _vm._e()
-                  ])
-                ],
-                1
-              )
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           )
@@ -65465,7 +65495,7 @@ var crossToAnkle = function crossToAnkle() {
       crossWrapper.classList.add("animationIconDescription_DONE");
       rotate2();
     }
-  }, 200 / 60);
+  }, 400 / 60);
 };
 var showGraphicMenu = function showGraphicMenu() {
   var GraphicWrapper = document.querySelector(".imageDescriptionMenuWrapper");

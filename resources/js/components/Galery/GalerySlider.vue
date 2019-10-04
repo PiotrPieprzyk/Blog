@@ -79,7 +79,7 @@
 								</div>
 							</div>
 						</transition>
-						<div class="imageDescriptionMenuWrapper">
+						<div class="imageDescriptionMenuWrapper" v-if="descriptionExist || userAccess">
 							<div class="viewDescription" @click="viewDescription">
 								<div class="animationIconDescription">
 									<div class="angle1"></div>
@@ -87,7 +87,11 @@
 								</div>
 							</div>
 							<transition name="roll-in-top">
-								<div v-if="!descriptionVisible" class="editDescription" @click="editDiscription()">
+								<div
+									v-if="!descriptionVisible && userAccess"
+									class="editDescription"
+									@click="editDiscription()"
+								>
 									<img :src="'./images/galery/navigation/pen-solid.svg'" />
 								</div>
 							</transition>
@@ -123,12 +127,25 @@ import { mapState } from "vuex";
 
 export default {
 	props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp", "graphicID"],
-	computed: mapState(["graphics", "jsAnimation"]),
+	computed: {
+		graphics() {
+			return this.$store.state.graphics;
+		},
+		jsAnimation() {
+			return this.$store.state.jsAnimation;
+		},
+		authCheck() {
+			return this.$store.state.authCheck;
+		}
+	},
 	data() {
 		return {
 			descriptionVisible: true,
 			description: "",
-			editActive: false
+			editActive: false,
+			descriptionExist: true,
+			descriptionPrevent: true,
+			userAccess: false
 		};
 	},
 	methods: {
@@ -161,12 +178,11 @@ export default {
 			sizingElement.style.height = procentHeight * 100 + "%";
 		},
 		viewDescription() {
-			if (this.descriptionVisible == true) {
+			if (this.descriptionVisible == true && this.descriptionPrevent == true) {
 				axios
 					.get("/graphics/description/" + this.graphicID)
 					.then(request => {
 						this.description = request.data;
-						console.log(this.description);
 						this.storeDescription();
 						this.descriptionVisible = false;
 
@@ -181,12 +197,7 @@ export default {
 			}
 		},
 		nextDescription() {
-			if (this.descriptionVisible == false) {
-				setTimeout(() => {
-					this.viewDescription();
-					this.checkDescriptionExist();
-				}, 300);
-			}
+			this.descriptionPrevent = false;
 			setTimeout(() => {
 				this.checkDescriptionExist();
 			}, 0);
@@ -195,11 +206,8 @@ export default {
 			this.checkProportions(3);
 		},
 		previousDescription() {
-			if (this.descriptionVisible == false) {
-				setTimeout(() => {
-					this.viewDescription();
-				}, 300);
-			}
+			this.descriptionPrevent = false;
+
 			setTimeout(() => {
 				this.checkDescriptionExist();
 			}, 0);
@@ -226,14 +234,23 @@ export default {
 				.get("/graphics/description/" + this.graphicID)
 				.then(request => {
 					this.description = request.data;
-					console.log(this.description);
 					let crossWrapper = document.querySelector(
 						".animationIconDescription"
 					);
 					let ankle2 = document.querySelector(".angle2");
 					if (this.description != "") {
-						console.log("YEY");
-
+						this.descriptionExist = true;
+						this.descriptionPrevent = true;
+					} else {
+						this.descriptionExist = false;
+					}
+				})
+				.then(() => {
+					let crossWrapper = document.querySelector(
+						".animationIconDescription"
+					);
+					let ankle2 = document.querySelector(".angle2");
+					if (this.description != "") {
 						crossWrapper.classList.add("animationIconDescription_DONE");
 						ankle2.classList.add("angle2_DONE");
 					} else {
@@ -244,12 +261,26 @@ export default {
 				.catch(error => {
 					console.log(error);
 				});
+		},
+		currentUserAuth() {
+			if (this.authCheck != null) {
+				if (
+					this.listGraphicsProp[this.activeGaleryItem].user_id ==
+					this.authCheck.id
+				) {
+					this.userAccess = true;
+				} else {
+					this.userAccess = false;
+				}
+			}
 		}
 	},
 	mounted() {
+		this.descriptionPrevent = false;
 		this.checkDescriptionExist();
 
 		this.checkProportions(2);
+		this.currentUserAuth();
 	},
 	updated() {}
 };
