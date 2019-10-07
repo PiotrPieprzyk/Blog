@@ -66368,26 +66368,26 @@ function detectMouseWheelDirection(e) {
 }
 
 function handleMouseWheelDirection(direction) {
-  console.log(direction); // see the direction in the console
-
   var i;
 
   if (direction == 'down') {
     // do something, like show the next page
-    if (store.state.currentCard < 3) {
-      i = store.state.currentCard + 1;
-      store.commit("changecurrentCard", i);
+    if (router.history.current.fullPath == "/") {
+      if (store.state.currentCard < 3) {
+        i = store.state.currentCard + 1;
+        store.commit("changecurrentCard", i);
+      }
     }
   } else if (direction == 'up') {
     // do something, like show the previous page
-    if (store.state.currentCard > 0) {
-      i = store.state.currentCard - 1;
-      store.commit("changecurrentCard", i);
+    if (router.history.current.fullPath == "/") {
+      if (store.state.currentCard > 0) {
+        i = store.state.currentCard - 1;
+        store.commit("changecurrentCard", i);
+      }
     }
   } else {// this means the direction of the mouse wheel could not be determined
   }
-
-  console.log(store.state.currentCard);
 }
 
 document.onmousewheel = function (e) {

@@ -65,59 +65,59 @@ Vue.use(Vuex);
 Vue.use(VueRouter);
 
 const store = new Vuex.Store({
-    state: {
-        // homePage
-        currentCard: 0,
-        animationStatus: false,
-        loadedCard: false,
+  state: {
+    // homePage
+    currentCard: 0,
+    animationStatus: false,
+    loadedCard: false,
 
-        // auth
-        csrf: document.querySelector('meta[name="csrf-token"]').content,
-        authCheck: {},
+    // auth
+    csrf: document.querySelector('meta[name="csrf-token"]').content,
+    authCheck: {},
 
-        // profile
-        profileCardActive: '',
-        visibleProfileButton1: true,
-        visibleProfileButton2: true,
-        buttonProfileActive: false,
+    // profile
+    profileCardActive: '',
+    visibleProfileButton1: true,
+    visibleProfileButton2: true,
+    buttonProfileActive: false,
 
-        // jsAnimation
-        jsAnimation,
-        scrollEventActive: true,
+    // jsAnimation
+    jsAnimation,
+    scrollEventActive: true,
 
-        // dataBase
-        cards: [
-            {
-                id: 0, href: "image11.jpg",
-                title: "<h1 >OurBlog</h1>",
-                content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
-                buttonText: "",
-            },
-            {
-                id: 1,
-                href:
-                    "image5.jpg",
-                title: "<h1 >Graphic</h1>",
-                content: "<p>Zabawa z prostymi narzędziami</p>",
-                buttonText: "Przejdź do Galerii",
-
-
-            },
-            {
-                id: 2,
-                href: "image1.jpg",
-                title: "<h1 >Game</h1>",
-                content: "<p>lorem lorem lorem</p>",
-                buttonText: "",
+    // dataBase
+    cards: [
+      {
+        id: 0, href: "image11.jpg",
+        title: "<h1 >OurBlog</h1>",
+        content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
+        buttonText: "",
+      },
+      {
+        id: 1,
+        href:
+          "image5.jpg",
+        title: "<h1 >Graphic</h1>",
+        content: "<p>Zabawa z prostymi narzędziami</p>",
+        buttonText: "Przejdź do Galerii",
 
 
-            },
-            {
-                id: 3,
-                href: "",
-                title: "",
-                content:
-                    `
+      },
+      {
+        id: 2,
+        href: "image1.jpg",
+        title: "<h1 >Game</h1>",
+        content: "<p>lorem lorem lorem</p>",
+        buttonText: "",
+
+
+      },
+      {
+        id: 3,
+        href: "",
+        title: "",
+        content:
+          `
                 <div class="contactItems">
                     <p class="contactTitle">Spodobała się strona?</p>
                     <p class="contactText">Przy jej tworzeniu skorzystałem z współczesnych technologi</p>
@@ -130,157 +130,164 @@ const store = new Vuex.Store({
                     <p class="contactText">piotr.pieprzyk.pp@gmail.com</p>
                 </div>
                 `,
-                buttonText: "",
+        buttonText: "",
 
-            }
+      }
 
 
-        ],
-        graphics: [{
-            id: 1,
-            href: "image1.jpg"
-        },
-        {
-            id: 2,
-            href: "image2.png"
-        },
-        {
-            id: 3,
-            href: "image3.png"
-        },
-        {
-            id: 4,
-            href: "image4.jpg"
-        },
-        {
-            id: 5,
-            href: "image5.jpg"
-        },
-        {
-            id: 6,
-            href: "image6.jpg"
-        },
-        {
-            id: 7,
-            href: "image7.jpg"
-        },
-        {
-            id: 8,
-            href: "image8.png"
-        },
-        {
-            id: 9,
-            href: "image9.png"
-        },
-        {
-            id: 10,
-            href: "image10.png"
-        },
-        {
-            id: 11,
-            href: "image11.jpg"
-        },
-
-        ]
+    ],
+    graphics: [{
+      id: 1,
+      href: "image1.jpg"
     },
-    mutations: {
-        changeAnimationStatus(state, conditional) {
-            state.animationStatus = conditional;
-        },
-        loadCardStatus(state, conditional) {
-            state.loadedCard = conditional;
-        },
-        changecurrentCard(state, index) {
-            state.currentCard = index;
-        },
-        changeAuthData(state, data) {
-            state.authCheck = data;
-        },
-        changeProfileCardActive(state, card) {
-            state.profileCardActive = card;
-        },
-        changeVisibleProfileButton1(state, conditional) {
+    {
+      id: 2,
+      href: "image2.png"
+    },
+    {
+      id: 3,
+      href: "image3.png"
+    },
+    {
+      id: 4,
+      href: "image4.jpg"
+    },
+    {
+      id: 5,
+      href: "image5.jpg"
+    },
+    {
+      id: 6,
+      href: "image6.jpg"
+    },
+    {
+      id: 7,
+      href: "image7.jpg"
+    },
+    {
+      id: 8,
+      href: "image8.png"
+    },
+    {
+      id: 9,
+      href: "image9.png"
+    },
+    {
+      id: 10,
+      href: "image10.png"
+    },
+    {
+      id: 11,
+      href: "image11.jpg"
+    },
 
-            state.visibleProfileButton1 = conditional;
-        },
-        changeVisibleProfileButton2(state, conditional) {
+    ]
+  },
+  mutations: {
+    changeAnimationStatus(state, conditional) {
+      state.animationStatus = conditional;
+    },
+    loadCardStatus(state, conditional) {
+      state.loadedCard = conditional;
+    },
+    changecurrentCard(state, index) {
+      state.currentCard = index;
+    },
+    changeAuthData(state, data) {
+      state.authCheck = data;
+    },
+    changeProfileCardActive(state, card) {
+      state.profileCardActive = card;
+    },
+    changeVisibleProfileButton1(state, conditional) {
 
-            state.visibleProfileButton2 = conditional;
-        },
-        changebuttonProfileActive(state, conditional) {
+      state.visibleProfileButton1 = conditional;
+    },
+    changeVisibleProfileButton2(state, conditional) {
 
-            state.buttonProfileActive = conditional;
-        },
-        changeScrollEventActive(state, conditional) {
+      state.visibleProfileButton2 = conditional;
+    },
+    changebuttonProfileActive(state, conditional) {
 
-            state.scrollEventActive = conditional;
-        },
+      state.buttonProfileActive = conditional;
+    },
+    changeScrollEventActive(state, conditional) {
+
+      state.scrollEventActive = conditional;
+    },
 
 
-    }
+  }
 });
 
 const router = new VueRouter({
-    routes,
+  routes,
 })
 
 const app = new Vue({
-    el: '#app',
-    store,
-    router,
+  el: '#app',
+  store,
+  router,
 
 
 
 });
 
 function detectMouseWheelDirection(e) {
-    var delta = null,
-        direction = false
-        ;
-    if (!e) { // if the event is not provided, we get it from the window object
-        e = window.event;
-    }
-    if (e.wheelDelta) { // will work in most cases
-        delta = e.wheelDelta / 60;
-    } else if (e.detail) { // fallback for Firefox
-        delta = -e.detail / 2;
-    }
-    if (delta !== null) {
-        direction = delta > 0 ? 'up' : 'down';
-    }
+  var delta = null,
+    direction = false
+    ;
+  if (!e) { // if the event is not provided, we get it from the window object
+    e = window.event;
+  }
+  if (e.wheelDelta) { // will work in most cases
+    delta = e.wheelDelta / 60;
+  } else if (e.detail) { // fallback for Firefox
+    delta = -e.detail / 2;
+  }
+  if (delta !== null) {
+    direction = delta > 0 ? 'up' : 'down';
+  }
 
-    return direction;
+  return direction;
 }
 function handleMouseWheelDirection(direction) {
-    console.log(direction); // see the direction in the console
-    let i;
-    if (direction == 'down') {
-        // do something, like show the next page
-        if (store.state.currentCard < 3) {
-            i = store.state.currentCard + 1;
-            store.commit("changecurrentCard", i);
+  let i;
 
-        }
+  if (direction == 'down') {
+    // do something, like show the next page
+    if (router.history.current.fullPath == "/") {
 
-    } else if (direction == 'up') {
-        // do something, like show the previous page
-        if (store.state.currentCard > 0) {
+      if (store.state.currentCard < 3) {
+        i = store.state.currentCard + 1;
+        store.commit("changecurrentCard", i);
 
-            i = store.state.currentCard - 1;
-            store.commit("changecurrentCard", i);
-
-        }
-
-    } else {
-        // this means the direction of the mouse wheel could not be determined
+      }
     }
-    console.log(store.state.currentCard);
+
+
+  } else if (direction == 'up') {
+    // do something, like show the previous page
+    if (router.history.current.fullPath == "/") {
+
+      if (store.state.currentCard > 0) {
+
+        i = store.state.currentCard - 1;
+        store.commit("changecurrentCard", i);
+
+      }
+    }
+
+
+  } else {
+    // this means the direction of the mouse wheel could not be determined
+  }
 }
 document.onmousewheel = function (e) {
-    handleMouseWheelDirection(detectMouseWheelDirection(e));
+  handleMouseWheelDirection(detectMouseWheelDirection(e));
 };
 if (window.addEventListener) {
-    document.addEventListener('DOMMouseScroll', function (e) {
-        handleMouseWheelDirection(detectMouseWheelDirection(e));
-    });
+  document.addEventListener('DOMMouseScroll', function (e) {
+    handleMouseWheelDirection(detectMouseWheelDirection(e));
+  });
 }
