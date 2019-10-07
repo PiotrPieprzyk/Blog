@@ -41,6 +41,10 @@ Vue.component('profile-page', require('./components/Profile/ProfilePage.vue').de
 Vue.component('profile-graphic', require('./components/Profile/ProfileGraphic.vue').default);
 Vue.component('profile-game', require('./components/Profile/ProfileGame.vue').default);
 
+// Game // 
+Vue.component('GamePage', require('./components/Game/GameCard.vue').default);
+Vue.component('Game', require('./components/Game/Game.vue').default);
+
 
 // Auth //
 Vue.component('register-page', require('./components/Auth/RegisterPage.vue').default);

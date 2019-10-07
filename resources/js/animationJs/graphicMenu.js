@@ -1,49 +1,47 @@
-Math.easeOutQuart = function (t, b, c, d) {
-  t /= d;
-  t--;
-  return -c * (t * t * t * t - 1) + b;
+"use strict";
+exports.__esModule = true;
+var easeOutSine = function (t, b, c, d) {
+    return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
-Math.easeOutSine = function (t, b, c, d) {
-  return c * Math.sin(t / d * (Math.PI / 2)) + b;
-};
-Math.easeOutCos = function (t, b, c, d) {
-  return c * Math.cos(t / d * (Math.PI)) + b;
-};
-
-export let crossToAnkle = function crossToAnkle() {
-  let crossWrapper = document.querySelector('.animationIconDescription');
-  let ankle2 = document.querySelector('.angle2');
-  let rotate2 = () => {
-    let i = 60;
-    let j = 60;
-    let rotate2Interval = setInterval(() => {
-      ankle2.style.transform = "rotate(0) scale(" + Math.easeOutSine(i, -1, 2, 60) + ") translate(" + Math.easeOutSine(j, 0, 5, 60) + "px, " + Math.easeOutSine(j, 0, 5, 60) + "px) ";
-      i--;
-      j--;
-
-      if (i < 1) {
-        clearInterval(rotate2Interval);
-        ankle2.classList.add("angle2_DONE");
-        ankle2.style.transform = null;
-        crossWrapper.style.transform = null;
-      }
-    }, 600 / 60);
-  }
-
-  let k = 1;
-  let rotateInterval = setInterval(() => {
-    crossWrapper.style.transform = "rotate(" + Math.easeOutSine(k, 0, 45, 60) + "deg)";
-    k++;
-    if (k > 60) {
-      clearInterval(rotateInterval);
-      crossWrapper.classList.add("animationIconDescription_DONE");
-      rotate2();
+exports.crossToAnkle = function crossToAnkle() {
+    var crossWrapper = document.querySelector('.animationIconDescription');
+    var ankle2 = document.querySelector('.angle2');
+    var rotate2 = function () {
+        var i = 60;
+        var j = 60;
+        if (ankle2 && crossWrapper) {
+            var rotate2Interval_1 = setInterval(function () {
+                if (ankle2) {
+                    ankle2.style.transform = "rotate(0) scale(" + easeOutSine(i, -1, 2, 60) + ") translate(" + easeOutSine(j, 0, 5, 60) + "px, " + easeOutSine(j, 0, 5, 60) + "px) ";
+                }
+                i--;
+                j--;
+                if (i < 1) {
+                    clearInterval(rotate2Interval_1);
+                    if (ankle2 && crossWrapper) {
+                        ankle2.classList.add("angle2_DONE");
+                        ankle2.style.transform = '';
+                        crossWrapper.style.transform = '';
+                    }
+                }
+            }, 600 / 60);
+        }
+    };
+    var k = 1;
+    if (ankle2 && crossWrapper) {
+        var rotateInterval_1 = setInterval(function () {
+            if (ankle2 && crossWrapper) {
+                crossWrapper.style.transform = "rotate(" + easeOutSine(k, 0, 45, 60) + "deg)";
+                k++;
+                if (k > 60) {
+                    clearInterval(rotateInterval_1);
+                    crossWrapper.classList.add("animationIconDescription_DONE");
+                    rotate2();
+                }
+            }
+        }, 400 / 60);
     }
-  }, 400 / 60);
-
-}
-
-export let showGraphicMenu = function showGraphicMenu() {
-  let GraphicWrapper = document.querySelector(".imageDescriptionMenuWrapper");
-
-}
+};
+exports.showGraphicMenu = function showGraphicMenu() {
+    var GraphicWrapper = document.querySelector(".imageDescriptionMenuWrapper");
+};

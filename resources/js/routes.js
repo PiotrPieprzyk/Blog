@@ -1,20 +1,21 @@
-import StartPage from './components/StartPage/StartPage.vue'
-import Galery from './components/Galery/GaleryPage.vue'
-import Register from './components/Auth/RegisterPage.vue'
-import Profile from './components/Profile/ProfilePage.vue'
-import ProfileGraphic from './components/Profile/ProfileGraphic.vue'
-import ProfileGame from './components/Profile/ProfileGame.vue'
-
-export const routes = [
-  { path: '', component: StartPage },
-  { path: '/galery', component: Galery, props: { overflowType: 'auto' } },
-  { path: '/register', component: Register },
-  {
-    path: '/profile/:id', component: Profile, name: "profile", children: [
-      { path: '/profile/:id/graphic', component: ProfileGraphic, name: 'profileGraphic' },
-      { path: '/profile/:id/game', component: ProfileGame, name: 'profileGame' }
-
-    ]
-  }
-
+"use strict";
+exports.__esModule = true;
+var StartPage_1 = require("./components/StartPage/StartPage.vue");
+var GaleryPage_vue_1 = require("./components/Galery/GaleryPage.vue");
+var RegisterPage_vue_1 = require("./components/Auth/RegisterPage.vue");
+var ProfilePage_vue_1 = require("./components/Profile/ProfilePage.vue");
+var ProfileGraphic_vue_1 = require("./components/Profile/ProfileGraphic.vue");
+var ProfileGame_vue_1 = require("./components/Profile/ProfileGame.vue");
+var GamePage_vue_1 = require("./components/Game/GameCard.vue");
+exports.routes = [
+    { path: '', component: StartPage_1["default"] },
+    { path: '/galery', component: GaleryPage_vue_1["default"], props: { overflowType: 'auto' } },
+    { path: '/register', component: RegisterPage_vue_1["default"] },
+    {
+        path: '/profile/:id', component: ProfilePage_vue_1["default"], name: "profile", children: [
+            { path: '/profile/:id/graphic', component: ProfileGraphic_vue_1["default"], name: 'profileGraphic' },
+            { path: '/profile/:id/game', component: ProfileGame_vue_1["default"], name: 'profileGame' }
+        ]
+    },
+    { path: "/game", component: GamePage_vue_1["default"] }
 ];

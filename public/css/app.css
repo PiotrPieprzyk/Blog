@@ -11149,6 +11149,18 @@ a:hover {
   height: 100%;
 }
 
+.GamePage {
+  width: 100vw;
+  height: 100vh;
+  background: white;
+}
+
+.GamePage .GameScreenWrapper {
+  min-height: 500px;
+  min-width: 500px;
+  background: black;
+}
+
 .profileWebWrapper {
   display: flex;
   align-items: center;
