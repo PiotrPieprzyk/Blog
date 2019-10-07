@@ -8,7 +8,10 @@ import { scale_widthUP, spin_the_crossUP, scale_widthDown, spin_the_crossDown } 
 
 import { activeShadowBlock, deActiveShadowBlock } from "./animationJs/activeShadowBlock.js"
 
+
 import { errorAppear, errorDisappear } from './animationJs/errorMessage.js'
+
+import { crossToAnkle } from './animationJs/graphicMenu.js'
 export default {
   sizeUp,
   sizeDown,
@@ -19,5 +22,6 @@ export default {
   activeShadowBlock,
   deActiveShadowBlock,
   errorAppear,
-  errorDisappear
+  errorDisappear,
+  crossToAnkle
 };

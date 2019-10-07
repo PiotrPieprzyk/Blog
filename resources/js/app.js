@@ -83,6 +83,7 @@ const store = new Vuex.Store({
 
         // jsAnimation
         jsAnimation,
+        scrollEventActive: true,
 
         // dataBase
         cards: [
@@ -210,6 +211,10 @@ const store = new Vuex.Store({
 
             state.buttonProfileActive = conditional;
         },
+        changeScrollEventActive(state, conditional) {
+
+            state.scrollEventActive = conditional;
+        },
 
 
     }
@@ -228,3 +233,54 @@ const app = new Vue({
 
 });
 
+function detectMouseWheelDirection(e) {
+    var delta = null,
+        direction = false
+        ;
+    if (!e) { // if the event is not provided, we get it from the window object
+        e = window.event;
+    }
+    if (e.wheelDelta) { // will work in most cases
+        delta = e.wheelDelta / 60;
+    } else if (e.detail) { // fallback for Firefox
+        delta = -e.detail / 2;
+    }
+    if (delta !== null) {
+        direction = delta > 0 ? 'up' : 'down';
+    }
+
+    return direction;
+}
+function handleMouseWheelDirection(direction) {
+    console.log(direction); // see the direction in the console
+    let i;
+    if (direction == 'down') {
+        // do something, like show the next page
+        if (store.state.currentCard < 3) {
+            i = store.state.currentCard + 1;
+            store.commit("changecurrentCard", i);
+
+        }
+
+    } else if (direction == 'up') {
+        // do something, like show the previous page
+        if (store.state.currentCard > 0) {
+
+            i = store.state.currentCard - 1;
+            store.commit("changecurrentCard", i);
+
+        }
+
+    } else {
+        // this means the direction of the mouse wheel could not be determined
+    }
+    console.log(store.state.currentCard);
+}
+document.onmousewheel = function (e) {
+    handleMouseWheelDirection(detectMouseWheelDirection(e));
+};
+if (window.addEventListener) {
+    document.addEventListener('DOMMouseScroll', function (e) {
+        handleMouseWheelDirection(detectMouseWheelDirection(e));
+    });
+}

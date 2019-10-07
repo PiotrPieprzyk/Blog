@@ -2268,7 +2268,6 @@ __webpack_require__.r(__webpack_exports__);
       this.OnSlider = true;
       document.body.classList.remove("overflowAuto");
       this.idGraphic = graphic_id;
-      console.log(this.listGraphics);
     },
     closeSlider: function closeSlider() {
       this.OnSlider = false;
@@ -2289,16 +2288,12 @@ __webpack_require__.r(__webpack_exports__);
     document.body.classList.add("overflowAuto");
     document.body.classList.add("galeryBackground");
     axios.get("/graphics/" + 0).then(function (request) {
-      console.log(request.data);
       _this.listGraphics = request.data;
-    })["catch"](function () {
-      console.log("FAILURE!!");
-    });
+    })["catch"](function () {});
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
     document.body.classList.remove("overflowAuto");
     document.body.classList.remove("galeryBackground");
-    console.log("GALERY");
     next();
   }
 });
@@ -2416,60 +2411,183 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["GaleryImgSlot", "activeGaleryItem", "listGraphicsProp", "graphicID"],
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["graphics"]),
-  watch: {},
+  computed: {
+    graphics: function graphics() {
+      return this.$store.state.graphics;
+    },
+    jsAnimation: function jsAnimation() {
+      return this.$store.state.jsAnimation;
+    },
+    authCheck: function authCheck() {
+      return this.$store.state.authCheck;
+    }
+  },
   data: function data() {
     return {
       descriptionVisible: true,
       description: "",
-      editActive: false
+      editActive: false,
+      descriptionExist: false,
+      descriptionPrevent: true,
+      userAccess: false
     };
   },
   methods: {
+    checkProportions: function checkProportions(index) {
+      var graphic;
+
+      if (index == 1) {
+        graphic = document.querySelector(".GraphicPrevious");
+      } else if (index == 2) {
+        graphic = document.querySelector(".Graphic");
+      } else if (index == 3) {
+        graphic = document.querySelector(".GraphicNext");
+      }
+
+      var sizingElement = document.querySelector(".ProportionWrapper");
+      var wrapper = document.querySelector(".ActiveImg");
+      var widthElement = window.getComputedStyle(graphic).width;
+      var heightElement = window.getComputedStyle(graphic).height;
+      heightElement = parseInt(heightElement.slice(0, -2));
+      widthElement = parseInt(widthElement.slice(0, -2));
+      var h = window.getComputedStyle(wrapper).height;
+      var w = window.getComputedStyle(wrapper).width;
+      h = parseInt(h.slice(0, -2));
+      w = parseInt(w.slice(0, -2));
+      var proportion = widthElement / heightElement;
+      var procentWidth = proportion * heightElement / w;
+      var procentHeight = widthElement / proportion / h;
+      sizingElement.style.paddingRight = procentWidth * 100 + "%";
+      sizingElement.style.height = procentHeight * 100 + "%";
+    },
     viewDescription: function viewDescription() {
       var _this = this;
 
-      if (this.descriptionVisible == true) {
+      this.currentUserAuth();
+
+      if (this.descriptionVisible == true && this.descriptionPrevent == true) {
         axios.get("/graphics/description/" + this.graphicID).then(function (request) {
-          console.log(request.data);
           _this.description = request.data;
 
           _this.storeDescription();
 
-          _this.descriptionVisible = false;
-        })["catch"](function () {
-          console.log("FAILURE!!");
+          _this.descriptionVisible = false; //animation
+
+          _this.jsAnimation.crossToAnkle();
+        })["catch"](function (error) {
+          console.log(error);
         });
       } else {
         this.descriptionVisible = true;
       }
     },
-    storeDescription: function storeDescription() {
-      axios.post("/graphics/description/" + this.graphicID).then(function (request) {
-        console.log(request);
-      })["catch"](function () {
-        console.log("FAILURE!!");
-      });
-    },
-    editDiscription: function editDiscription() {
+    nextDescription: function nextDescription() {
       var _this2 = this;
 
+      this.descriptionPrevent = false;
+      setTimeout(function () {
+        _this2.checkDescriptionExist();
+      }, 0);
+      this.descriptionVisible = true;
+      this.editActive = false;
+      this.checkProportions(3);
+    },
+    previousDescription: function previousDescription() {
+      var _this3 = this;
+
+      this.descriptionPrevent = false;
+      setTimeout(function () {
+        _this3.checkDescriptionExist();
+      }, 0);
+      this.descriptionVisible = true;
+      this.editActive = false;
+      this.checkProportions(1);
+    },
+    storeDescription: function storeDescription() {
+      axios.post("/graphics/description/" + this.graphicID).then(function (request) {})["catch"](function () {});
+    },
+    editDiscription: function editDiscription() {
+      var _this4 = this;
+
       axios.patch("/graphics/description/" + this.graphicID, this.description).then(function (request) {
-        console.log(request);
-        _this2.editActive = !_this2.editActive;
-      })["catch"](function () {
-        console.log("FAILURE!!");
+        _this4.editActive = !_this4.editActive;
+      })["catch"](function () {});
+    },
+    checkDescriptionExist: function checkDescriptionExist() {
+      var _this5 = this;
+
+      axios.get("/graphics/description/" + this.graphicID).then(function (request) {
+        _this5.description = request.data;
+
+        if (_this5.description != "") {
+          _this5.descriptionExist = true;
+          _this5.descriptionPrevent = true;
+        } else {
+          _this5.descriptionExist = false;
+        }
+      }).then(function () {
+        if (_this5.description != "") {
+          var crossWrapper = document.querySelector(".animationIconDescription");
+          var ankle2 = document.querySelector(".angle2");
+          crossWrapper.classList.add("animationIconDescription_DONE");
+          ankle2.classList.add("angle2_DONE");
+        } else {
+          var _crossWrapper = document.querySelector(".animationIconDescription");
+
+          var _ankle = document.querySelector(".angle2");
+
+          _crossWrapper.classList.remove("animationIconDescription_DONE");
+
+          _ankle.classList.remove("angle2_DONE");
+        }
+      })["catch"](function (error) {
+        console.log(error);
       });
+    },
+    currentUserAuth: function currentUserAuth() {
+      if (this.authCheck != null) {
+        if (this.listGraphicsProp[this.activeGaleryItem].user_id == this.authCheck.id) {
+          this.userAccess = true;
+          this.descriptionPrevent = true;
+        } else {
+          this.userAccess = false;
+        }
+      }
     }
   },
   mounted: function mounted() {
-    console.log(this.listGraphicsProp);
-    console.log(this.activeGaleryItem);
-    console.log(this.listGraphicsProp.length);
-  }
+    this.descriptionPrevent = false;
+    this.checkDescriptionExist();
+    this.checkProportions(2);
+    this.currentUserAuth();
+  },
+  updated: function updated() {}
 });
 
 /***/ }),
@@ -2588,8 +2706,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! http */ "./node_modules/stream-http/index.js");
 /* harmony import */ var http__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(http__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
 //
 //
 //
@@ -2845,6 +2961,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this4 = this;
 
+    document.body.classList.add("overflowAuto");
     console.log(this.userId);
     axios.get("/graphics/" + this.userId).then(function (request) {
       console.log(request.data);
@@ -3183,11 +3300,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["cards", "loadedCard", "currentCard", "animationStatus"]),
   data: function data() {
-    return {};
+    return {
+      card: this.currentCard
+    };
+  },
+  watch: {
+    currentCard: function currentCard(oldCard, newCard) {
+      var _this = this;
+
+      console.log(oldCard);
+
+      if (!this.animationStatus) {
+        // Zmienne //
+        var activeImg = document.querySelector(".activeCard");
+        var nextImg = document.querySelector(".Image" + oldCard);
+
+        var activeImgIndex = activeImg._prevClass.substring(activeImg._prevClass.length - 1); // ActivationPagin //
+
+
+        document.querySelector(".activePagination").classList.remove("activePagination");
+        document.getElementById("pagination " + oldCard).classList.add("activePagination");
+
+        if (activeImgIndex != oldCard && !this.animationStatus) {
+          // AnimationStatus //
+          this.$store.commit("changeAnimationStatus", true);
+          this.$store.commit("loadCardStatus", false); // Change active components
+
+          activeImg.classList.remove("activeCard"); // DOWN //
+
+          if (activeImgIndex < oldCard) {
+            while (activeImgIndex < oldCard) {
+              console.log(activeImgIndex);
+              document.querySelector(".Image" + activeImgIndex).classList.remove("slide-bottom");
+              document.querySelector(".Image" + activeImgIndex).classList.remove("position-top");
+              document.querySelector(".Image" + activeImgIndex).classList.add("slide-top");
+              activeImgIndex++;
+            }
+
+            nextImg.classList.add("activeCard");
+          } // UP //
+
+
+          if (activeImgIndex > oldCard) {
+            while (activeImgIndex > oldCard) {
+              activeImgIndex--;
+              document.querySelector(".Image" + activeImgIndex).classList.remove("slide-top");
+              document.querySelector(".Image" + activeImgIndex).classList.remove("position-top");
+              document.querySelector(".Image" + activeImgIndex).classList.add("slide-bottom");
+              console.log(activeImgIndex);
+            }
+
+            nextImg.classList.add("activeCard");
+          } // AnimationStatus //
+
+
+          setTimeout(function () {
+            _this.$store.commit("changeAnimationStatus", false);
+
+            _this.$store.commit("loadCardStatus", true);
+
+            _this.$store.commit("changecurrentCard", oldCard);
+          }, 500);
+        }
+      }
+    }
   },
   methods: {
     toContact: function toContact(index) {
-      var _this = this;
+      var _this2 = this;
 
       if (!this.animationStatus) {
         // Zmienne //
@@ -3234,45 +3414,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
           setTimeout(function () {
-            _this.$store.commit("changeAnimationStatus", false);
+            _this2.$store.commit("changeAnimationStatus", false);
 
-            _this.$store.commit("loadCardStatus", true);
+            _this2.$store.commit("loadCardStatus", true);
 
-            _this.$store.commit("changecurrentCard", index);
+            _this2.$store.commit("changecurrentCard", index);
           }, 500);
         }
       }
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
-
-    var it = this.currentCard;
-    var scrollValue = this.currentCard;
-    var activeScrollAnimation = true;
-    window.addEventListener("wheel", function () {
-      if (activeScrollAnimation == true) {
-        scrollValue = _this2.currentCard;
-        activeScrollAnimation = false;
-
-        if (event.deltaY < 0 && scrollValue > 0) {
-          scrollValue--;
-
-          _this2.toContact(scrollValue);
-        } else if (event.deltaY > 0 && scrollValue < 3) {
-          scrollValue++;
-
-          _this2.toContact(scrollValue);
-        }
-
-        setTimeout(function () {
-          activeScrollAnimation = true;
-          console.log("YEY");
-        }, 700);
-      } else {
-        console.log("EHHHH");
-      }
-    });
     console.log(this.currentCard);
     document.querySelector(".Image" + this.currentCard).classList.add("activeCard");
 
@@ -47195,6 +47347,7 @@ var render = function() {
         _c("div", { staticClass: "PreviousImg" }, [
           _vm.activeGaleryItem > 0
             ? _c("img", {
+                staticClass: "GraphicPrevious",
                 attrs: {
                   src:
                     "./storage/graphicNew/" +
@@ -47205,235 +47358,267 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "ActiveImg" }, [
-          _c("div", { staticClass: "ActiveImgContent" }, [
-            _c("img", {
-              attrs: {
-                src:
-                  "./storage/graphicNew/" +
-                  _vm.listGraphicsProp[_vm.activeGaleryItem].path
-              }
-            }),
-            _vm._v(" "),
-            !_vm.descriptionVisible
-              ? _c("div", { staticClass: "GraphicDescription" }, [
-                  _c("div", { staticClass: "descriptionHeader" }, [
-                    _c("p", [_vm._v("The")]),
-                    _vm._v(" "),
-                    !_vm.editActive
-                      ? _c("div", { staticClass: "customeTitle" }, [
-                          _vm._v(_vm._s(_vm.description.title))
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.editActive
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.description.title,
-                              expression: "description.title"
-                            }
-                          ],
-                          ref: "title",
-                          staticClass: "customeTitle",
-                          attrs: {
-                            type: "text",
-                            name: "title",
-                            id: "title",
-                            placeholder: _vm.description.title
-                          },
-                          domProps: { value: _vm.description.title },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.description,
-                                "title",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "descriptionMain" }, [
-                    _c("p", [_vm._v("Content")]),
-                    _vm._v(" "),
-                    !_vm.editActive
-                      ? _c("div", { staticClass: "customeContentWrapper" }, [
-                          _vm._v(_vm._s(_vm.description.info))
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.editActive
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.description.info,
-                              expression: "description.info"
-                            }
-                          ],
-                          ref: "info",
-                          staticClass: "customeContentWrapper",
-                          attrs: {
-                            type: "text",
-                            name: "info",
-                            id: "info",
-                            placeholder: _vm.description.info
-                          },
-                          domProps: { value: _vm.description.info },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.description,
-                                "info",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "descriptionFooter" }, [
-                    _c("div", { staticClass: "creatorNickWrapper" }, [
-                      _c("p", [_vm._v("Creator:")]),
-                      _vm._v(" "),
-                      !_vm.editActive
-                        ? _c("div", { staticClass: "customNick" }, [
-                            _vm._v(_vm._s(_vm.description.creator))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.editActive
-                        ? _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.description.creator,
-                                expression: "description.creator"
-                              }
-                            ],
-                            ref: "creator",
-                            staticClass: "customNick",
-                            attrs: {
-                              type: "text",
-                              name: "creator",
-                              id: "creator",
-                              placeholder: _vm.description.creator
-                            },
-                            domProps: { value: _vm.description.creator },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+          _c(
+            "div",
+            { staticClass: "ProportionWrapper" },
+            [
+              _c(
+                "transition",
+                { attrs: { name: "flip-in-ver-right", mode: "out-in" } },
+                [
+                  _vm.descriptionVisible
+                    ? _c("img", {
+                        staticClass: "Graphic",
+                        attrs: {
+                          src:
+                            "./storage/graphicNew/" +
+                            _vm.listGraphicsProp[_vm.activeGaleryItem].path
+                        }
+                      })
+                    : _c("div", { staticClass: "GraphicDescription" }, [
+                        _c("div", { staticClass: "descriptionHeader" }, [
+                          _c("p", [_vm._v("The")]),
+                          _vm._v(" "),
+                          !_vm.editActive
+                            ? _c("div", { staticClass: "customeTitle" }, [
+                                _vm._v(_vm._s(_vm.description.title))
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editActive
+                            ? _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.description.title,
+                                    expression: "description.title"
+                                  }
+                                ],
+                                ref: "title",
+                                staticClass: "customeTitle editBorder",
+                                attrs: {
+                                  type: "text",
+                                  name: "title",
+                                  id: "title",
+                                  placeholder: _vm.description.title
+                                },
+                                domProps: { value: _vm.description.title },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.description,
+                                      "title",
+                                      $event.target.value
+                                    )
+                                  }
                                 }
-                                _vm.$set(
-                                  _vm.description,
-                                  "creator",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "dataCreateWrapper" }, [
-                      _c("p", [_vm._v("Data:")]),
-                      _vm._v(" "),
-                      !_vm.editActive
-                        ? _c("div", { staticClass: "customNick" }, [
-                            _vm._v(_vm._s(_vm.description.date))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.editActive
-                        ? _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.description.date,
-                                expression: "description.date"
-                              }
-                            ],
-                            ref: "date",
-                            staticClass: "customeDate",
-                            attrs: {
-                              type: "data",
-                              name: "date",
-                              id: "date",
-                              placeholder: _vm.description.date
-                            },
-                            domProps: { value: _vm.description.date },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                              })
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "descriptionMain" }, [
+                          _c("p", [_vm._v("Content")]),
+                          _vm._v(" "),
+                          !_vm.editActive
+                            ? _c(
+                                "div",
+                                { staticClass: "customeContentWrapper" },
+                                [_vm._v(_vm._s(_vm.description.info))]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.editActive
+                            ? _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.description.info,
+                                    expression: "description.info"
+                                  }
+                                ],
+                                ref: "info",
+                                staticClass: "customeContentWrapper editBorder",
+                                attrs: {
+                                  type: "text",
+                                  name: "info",
+                                  id: "info",
+                                  placeholder: _vm.description.info
+                                },
+                                domProps: { value: _vm.description.info },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.description,
+                                      "info",
+                                      $event.target.value
+                                    )
+                                  }
                                 }
-                                _vm.$set(
-                                  _vm.description,
-                                  "date",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        : _vm._e()
-                    ])
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "imageDescriptionMenuWrapper" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "viewDescription",
-                    on: { click: _vm.viewDescription }
-                  },
-                  [_vm._v("+")]
-                ),
-                _vm._v(" "),
-                _c("transition", { attrs: { name: "roll-in-top" } }, [
-                  !_vm.descriptionVisible
-                    ? _c(
+                              })
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "descriptionFooter" }, [
+                          _c("div", { staticClass: "creatorNickWrapper" }, [
+                            _c("p", [_vm._v("Creator:")]),
+                            _vm._v(" "),
+                            !_vm.editActive
+                              ? _c("div", { staticClass: "customNick" }, [
+                                  _vm._v(_vm._s(_vm.description.creator))
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.editActive
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.description.creator,
+                                      expression: "description.creator"
+                                    }
+                                  ],
+                                  ref: "creator",
+                                  staticClass: "customNick editBorder",
+                                  attrs: {
+                                    type: "text",
+                                    name: "creator",
+                                    id: "creator",
+                                    placeholder: _vm.description.creator
+                                  },
+                                  domProps: { value: _vm.description.creator },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.description,
+                                        "creator",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "dataCreateWrapper" }, [
+                            _c("p", [_vm._v("Data:")]),
+                            _vm._v(" "),
+                            !_vm.editActive
+                              ? _c("div", { staticClass: "customNick" }, [
+                                  _vm._v(_vm._s(_vm.description.date))
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.editActive
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.description.date,
+                                      expression: "description.date"
+                                    }
+                                  ],
+                                  ref: "date",
+                                  staticClass: "customeDate editBorder",
+                                  attrs: {
+                                    type: "data",
+                                    name: "date",
+                                    id: "date",
+                                    placeholder: _vm.description.date
+                                  },
+                                  domProps: { value: _vm.description.date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.description,
+                                        "date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              : _vm._e()
+                          ])
+                        ])
+                      ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm.descriptionExist || _vm.userAccess
+                ? _c(
+                    "div",
+                    { staticClass: "imageDescriptionMenuWrapper" },
+                    [
+                      _c(
                         "div",
                         {
-                          staticClass: "editDescription",
-                          on: {
-                            click: function($event) {
-                              return _vm.editDiscription()
-                            }
-                          }
+                          staticClass: "viewDescription",
+                          on: { click: _vm.viewDescription }
                         },
-                        [_vm._v("Edit")]
-                      )
-                    : _vm._e()
-                ])
-              ],
-              1
-            )
-          ])
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "animationIconDescription" },
+                            [
+                              _c("div", { staticClass: "angle1" }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "angle2" })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("transition", { attrs: { name: "roll-in-top" } }, [
+                        !_vm.descriptionVisible && _vm.userAccess
+                          ? _c(
+                              "div",
+                              {
+                                staticClass: "editDescription",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editDiscription()
+                                  }
+                                }
+                              },
+                              [
+                                _c("img", {
+                                  attrs: {
+                                    src:
+                                      "./images/galery/navigation/pen-solid.svg"
+                                  }
+                                })
+                              ]
+                            )
+                          : _vm._e()
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "NextImg" }, [
           _vm.activeGaleryItem < this.listGraphicsProp.length - 1
             ? _c("img", {
+                staticClass: "GraphicNext",
                 attrs: {
                   src:
                     "./storage/graphicNew/" +
@@ -47450,7 +47635,8 @@ var render = function() {
               staticClass: "arrow prev",
               on: {
                 click: function($event) {
-                  return _vm.$emit("previous")
+                  _vm.$emit("previous")
+                  _vm.previousDescription()
                 }
               }
             })
@@ -47470,7 +47656,8 @@ var render = function() {
               staticClass: "arrow next",
               on: {
                 click: function($event) {
-                  return _vm.$emit("next")
+                  _vm.$emit("next")
+                  _vm.nextDescription()
                 }
               }
             })
@@ -47626,7 +47813,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "GraphicProfile" },
+    {
+      staticClass: "GraphicProfile",
+      on: {
+        mouseover: function($event) {
+          if ($event.target !== $event.currentTarget) {
+            return null
+          }
+          return _vm.showImageMenu(-1)
+        }
+      }
+    },
     [
       _c(
         "transition",
@@ -47740,7 +47937,17 @@ var render = function() {
       _c("div", { staticClass: "yourGraphicListWrapper" }, [
         _c(
           "div",
-          { staticClass: "GaleryGraphicWrapper" },
+          {
+            staticClass: "GaleryGraphicWrapper",
+            on: {
+              mouseover: function($event) {
+                if ($event.target !== $event.currentTarget) {
+                  return null
+                }
+                return _vm.showImageMenu(-1)
+              }
+            }
+          },
           _vm._l(_vm.listGraphics, function(item, index) {
             return _c(
               "div",
@@ -47759,7 +47966,7 @@ var render = function() {
                       disabled: _vm.activeMenuImage == index
                     },
                     on: {
-                      click: function($event) {
+                      mouseover: function($event) {
                         return _vm.showImageMenu(index)
                       }
                     },
@@ -47775,16 +47982,7 @@ var render = function() {
                     _vm._v(" "),
                     _vm.activeMenuImage == index
                       ? _c("div", { staticClass: "imageMenu" }, [
-                          _c("div", { staticClass: "closeWrapper" }, [
-                            _c("button", {
-                              staticClass: "closeImageMenu",
-                              on: {
-                                click: function($event) {
-                                  return _vm.showImageMenu(-1)
-                                }
-                              }
-                            })
-                          ]),
+                          _c("div", { staticClass: "closeWrapper" }),
                           _vm._v(" "),
                           _c("div", { staticClass: "viewButton" }, [
                             _c(
@@ -65281,6 +65479,70 @@ var errorAppear = function errorAppear(element) {
 
 /***/ }),
 
+/***/ "./resources/js/animationJs/graphicMenu.js":
+/*!*************************************************!*\
+  !*** ./resources/js/animationJs/graphicMenu.js ***!
+  \*************************************************/
+/*! exports provided: crossToAnkle, showGraphicMenu */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "crossToAnkle", function() { return crossToAnkle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showGraphicMenu", function() { return showGraphicMenu; });
+Math.easeOutQuart = function (t, b, c, d) {
+  t /= d;
+  t--;
+  return -c * (t * t * t * t - 1) + b;
+};
+
+Math.easeOutSine = function (t, b, c, d) {
+  return c * Math.sin(t / d * (Math.PI / 2)) + b;
+};
+
+Math.easeOutCos = function (t, b, c, d) {
+  return c * Math.cos(t / d * Math.PI) + b;
+};
+
+var crossToAnkle = function crossToAnkle() {
+  var crossWrapper = document.querySelector('.animationIconDescription');
+  var ankle2 = document.querySelector('.angle2');
+
+  var rotate2 = function rotate2() {
+    var i = 60;
+    var j = 60;
+    var rotate2Interval = setInterval(function () {
+      ankle2.style.transform = "rotate(0) scale(" + Math.easeOutSine(i, -1, 2, 60) + ") translate(" + Math.easeOutSine(j, 0, 5, 60) + "px, " + Math.easeOutSine(j, 0, 5, 60) + "px) ";
+      i--;
+      j--;
+
+      if (i < 1) {
+        clearInterval(rotate2Interval);
+        ankle2.classList.add("angle2_DONE");
+        ankle2.style.transform = null;
+        crossWrapper.style.transform = null;
+      }
+    }, 600 / 60);
+  };
+
+  var k = 1;
+  var rotateInterval = setInterval(function () {
+    crossWrapper.style.transform = "rotate(" + Math.easeOutSine(k, 0, 45, 60) + "deg)";
+    k++;
+
+    if (k > 60) {
+      clearInterval(rotateInterval);
+      crossWrapper.classList.add("animationIconDescription_DONE");
+      rotate2();
+    }
+  }, 400 / 60);
+};
+var showGraphicMenu = function showGraphicMenu() {
+  var GraphicWrapper = document.querySelector(".imageDescriptionMenuWrapper");
+};
+
+/***/ }),
+
 /***/ "./resources/js/animationJs/scale_width.js":
 /*!*************************************************!*\
   !*** ./resources/js/animationJs/scale_width.js ***!
@@ -65725,7 +65987,7 @@ var sizeUp = function sizeUp(index, store) {
 
       var k = 1;
       var positionInterval = setInterval(function () {
-        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120, 80) + 'px';
+        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120, 40) + 'px';
         setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
         setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
         k++;
@@ -65771,7 +66033,7 @@ var sizeUp = function sizeUp(index, store) {
       var _k = 1;
 
       var _positionInterval = setInterval(function () {
-        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 120, 80) + 'px';
+        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 120, 40) + 'px';
         _setStyle.width = Math.easeInExpo(_k, parseInt(_setStyle.width.slice(0, -2)), _endWidth - parseInt(_setStyle.width.slice(0, -2)), 120) + 'px';
         _setStyle.height = Math.easeInExpo(_k, parseInt(_setStyle.height.slice(0, -2)), _endHeight - parseInt(_setStyle.height.slice(0, -2)), 120) + 'px';
         _k++;
@@ -65819,7 +66081,7 @@ var sizeUp = function sizeUp(index, store) {
       var _k2 = 1;
 
       var _positionInterval2 = setInterval(function () {
-        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 120, 80) + 'px';
+        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 120, 40) + 'px';
         _setStyle2.width = Math.easeInExpo(_k2, parseInt(_setStyle2.width.slice(0, -2)), _endWidth2 - parseInt(_setStyle2.width.slice(0, -2)), 120) + 'px';
         _setStyle2.height = Math.easeInExpo(_k2, parseInt(_setStyle2.height.slice(0, -2)), _endHeight2 - parseInt(_setStyle2.height.slice(0, -2)), 120) + 'px';
         _k2++;
@@ -65865,7 +66127,7 @@ var sizeUp = function sizeUp(index, store) {
       var _k3 = 1;
 
       var _positionInterval3 = setInterval(function () {
-        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 120, 80) + 'px';
+        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 120, 40) + 'px';
         _setStyle3.width = Math.easeInExpo(_k3, parseInt(_setStyle3.width.slice(0, -2)), _endWidth3 - parseInt(_setStyle3.width.slice(0, -2)), 120) + 'px';
         _setStyle3.height = Math.easeInExpo(_k3, parseInt(_setStyle3.height.slice(0, -2)), _endHeight3 - parseInt(_setStyle3.height.slice(0, -2)), 120) + 'px';
         _k3++;
@@ -65980,6 +66242,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     buttonProfileActive: false,
     // jsAnimation
     jsAnimation: _jsAnimation__WEBPACK_IMPORTED_MODULE_0__["default"],
+    scrollEventActive: true,
     // dataBase
     cards: [{
       id: 0,
@@ -66065,6 +66328,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     },
     changebuttonProfileActive: function changebuttonProfileActive(state, conditional) {
       state.buttonProfileActive = conditional;
+    },
+    changeScrollEventActive: function changeScrollEventActive(state, conditional) {
+      state.scrollEventActive = conditional;
     }
   }
 });
@@ -66076,6 +66342,63 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   store: store,
   router: router
 });
+
+function detectMouseWheelDirection(e) {
+  var delta = null,
+      direction = false;
+
+  if (!e) {
+    // if the event is not provided, we get it from the window object
+    e = window.event;
+  }
+
+  if (e.wheelDelta) {
+    // will work in most cases
+    delta = e.wheelDelta / 60;
+  } else if (e.detail) {
+    // fallback for Firefox
+    delta = -e.detail / 2;
+  }
+
+  if (delta !== null) {
+    direction = delta > 0 ? 'up' : 'down';
+  }
+
+  return direction;
+}
+
+function handleMouseWheelDirection(direction) {
+  console.log(direction); // see the direction in the console
+
+  var i;
+
+  if (direction == 'down') {
+    // do something, like show the next page
+    if (store.state.currentCard < 3) {
+      i = store.state.currentCard + 1;
+      store.commit("changecurrentCard", i);
+    }
+  } else if (direction == 'up') {
+    // do something, like show the previous page
+    if (store.state.currentCard > 0) {
+      i = store.state.currentCard - 1;
+      store.commit("changecurrentCard", i);
+    }
+  } else {// this means the direction of the mouse wheel could not be determined
+  }
+
+  console.log(store.state.currentCard);
+}
+
+document.onmousewheel = function (e) {
+  handleMouseWheelDirection(detectMouseWheelDirection(e));
+};
+
+if (window.addEventListener) {
+  document.addEventListener('DOMMouseScroll', function (e) {
+    handleMouseWheelDirection(detectMouseWheelDirection(e));
+  });
+}
 
 /***/ }),
 
@@ -67035,6 +67358,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animationJs/scale_width.js */ "./resources/js/animationJs/scale_width.js");
 /* harmony import */ var _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animationJs/activeShadowBlock.js */ "./resources/js/animationJs/activeShadowBlock.js");
 /* harmony import */ var _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animationJs/errorMessage.js */ "./resources/js/animationJs/errorMessage.js");
+/* harmony import */ var _animationJs_graphicMenu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./animationJs/graphicMenu.js */ "./resources/js/animationJs/graphicMenu.js");
+
 
 
 
@@ -67050,7 +67375,8 @@ __webpack_require__.r(__webpack_exports__);
   activeShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["activeShadowBlock"],
   deActiveShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["deActiveShadowBlock"],
   errorAppear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorAppear"],
-  errorDisappear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorDisappear"]
+  errorDisappear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorDisappear"],
+  crossToAnkle: _animationJs_graphicMenu_js__WEBPACK_IMPORTED_MODULE_5__["crossToAnkle"]
 });
 
 /***/ }),
