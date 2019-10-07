@@ -1,11 +1,12 @@
 "use strict";
 exports.__esModule = true;
-var StartPage_1 = require("./components/StartPage");
+var StartPage_1 = require("./components/StartPage/StartPage.vue");
 var GaleryPage_vue_1 = require("./components/Galery/GaleryPage.vue");
 var RegisterPage_vue_1 = require("./components/Auth/RegisterPage.vue");
 var ProfilePage_vue_1 = require("./components/Profile/ProfilePage.vue");
 var ProfileGraphic_vue_1 = require("./components/Profile/ProfileGraphic.vue");
 var ProfileGame_vue_1 = require("./components/Profile/ProfileGame.vue");
+var GamePage_vue_1 = require("./components/Game/GameCard.vue");
 exports.routes = [
     { path: '', component: StartPage_1["default"] },
     { path: '/galery', component: GaleryPage_vue_1["default"], props: { overflowType: 'auto' } },
@@ -15,5 +16,6 @@ exports.routes = [
             { path: '/profile/:id/graphic', component: ProfileGraphic_vue_1["default"], name: 'profileGraphic' },
             { path: '/profile/:id/game', component: ProfileGame_vue_1["default"], name: 'profileGame' }
         ]
-    }
+    },
+    { path: "/game", component: GamePage_vue_1["default"] }
 ];
