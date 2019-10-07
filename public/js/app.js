@@ -65395,23 +65395,24 @@ function extend() {
 /*!*******************************************************!*\
   !*** ./resources/js/animationJs/activeShadowBlock.js ***!
   \*******************************************************/
-/*! exports provided: activeShadowBlock, deActiveShadowBlock */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "activeShadowBlock", function() { return activeShadowBlock; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deActiveShadowBlock", function() { return deActiveShadowBlock; });
-Math.easeOutQuart = function (t, b, c, d) {
+
+
+exports.__esModule = true;
+
+var easeOutQuart = function easeOutQuart(t, b, c, d) {
   t /= d;
   t--;
   return -c * (t * t * t * t - 1) + b;
 };
 
-var activeShadowBlock = function activeShadowBlock(element) {
+exports.activeShadowBlock = function activeShadowBlock(element) {
   var k = 1;
   var shadowInterval = setInterval(function () {
-    element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + Math.easeOutQuart(k, 0, 0.1, 60) + ")";
+    element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + easeOutQuart(k, 0, 0.1, 60) + ")";
     k++;
 
     if (k > 60) {
@@ -65419,10 +65420,11 @@ var activeShadowBlock = function activeShadowBlock(element) {
     }
   }, 500 / 60);
 };
-var deActiveShadowBlock = function activeShadowBlock(element) {
+
+exports.deActiveShadowBlock = function activeShadowBlock(element) {
   var k = 60;
   var shadowInterval = setInterval(function () {
-    element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + Math.easeOutQuart(k, 0, 0.1, 60) + ")";
+    element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + easeOutQuart(k, 0, 0.1, 60) + ")";
     k--;
 
     if (k < 0) {
@@ -65437,27 +65439,28 @@ var deActiveShadowBlock = function activeShadowBlock(element) {
 /*!**************************************************!*\
   !*** ./resources/js/animationJs/errorMessage.js ***!
   \**************************************************/
-/*! exports provided: errorDisappear, errorAppear */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorDisappear", function() { return errorDisappear; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorAppear", function() { return errorAppear; });
-Math.easeOutQuart = function (t, b, c, d) {
+
+
+exports.__esModule = true;
+
+var easeOutQuart = function easeOutQuart(t, b, c, d) {
   t /= d;
   t--;
   return -c * (t * t * t * t - 1) + b;
 };
 
-Math.easeInExpo = function (t, b, c, d) {
+var easeInExpo = function easeInExpo(t, b, c, d) {
   return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
-var errorDisappear = function errorDisappear(element) {
+exports.errorDisappear = function errorDisappear(element) {
   var k = 1;
   var apperInterval = setInterval(function () {
-    element.style.top = "-" + Math.easeOutQuart(k, 0, 33, 60) + "px";
+    element.style.top = "-" + easeOutQuart(k, 0, 33, 60) + "px";
     k++;
 
     if (k > 60) {
@@ -65465,10 +65468,11 @@ var errorDisappear = function errorDisappear(element) {
     }
   }, 500 / 60);
 };
-var errorAppear = function errorAppear(element) {
+
+exports.errorAppear = function errorAppear(element) {
   var k = 60;
   var apperInterval = setInterval(function () {
-    element.style.top = "-" + Math.easeInExpo(k, 0, 33, 60) + "px";
+    element.style.top = "-" + easeInExpo(k, 0, 33, 60) + "px";
     k--;
 
     if (k < 0) {
@@ -65483,61 +65487,67 @@ var errorAppear = function errorAppear(element) {
 /*!*************************************************!*\
   !*** ./resources/js/animationJs/graphicMenu.js ***!
   \*************************************************/
-/*! exports provided: crossToAnkle, showGraphicMenu */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "crossToAnkle", function() { return crossToAnkle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showGraphicMenu", function() { return showGraphicMenu; });
-Math.easeOutQuart = function (t, b, c, d) {
-  t /= d;
-  t--;
-  return -c * (t * t * t * t - 1) + b;
-};
 
-Math.easeOutSine = function (t, b, c, d) {
+
+exports.__esModule = true;
+
+var easeOutSine = function easeOutSine(t, b, c, d) {
   return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
 
-Math.easeOutCos = function (t, b, c, d) {
-  return c * Math.cos(t / d * Math.PI) + b;
-};
-
-var crossToAnkle = function crossToAnkle() {
+exports.crossToAnkle = function crossToAnkle() {
   var crossWrapper = document.querySelector('.animationIconDescription');
   var ankle2 = document.querySelector('.angle2');
 
   var rotate2 = function rotate2() {
     var i = 60;
     var j = 60;
-    var rotate2Interval = setInterval(function () {
-      ankle2.style.transform = "rotate(0) scale(" + Math.easeOutSine(i, -1, 2, 60) + ") translate(" + Math.easeOutSine(j, 0, 5, 60) + "px, " + Math.easeOutSine(j, 0, 5, 60) + "px) ";
-      i--;
-      j--;
 
-      if (i < 1) {
-        clearInterval(rotate2Interval);
-        ankle2.classList.add("angle2_DONE");
-        ankle2.style.transform = null;
-        crossWrapper.style.transform = null;
-      }
-    }, 600 / 60);
+    if (ankle2 && crossWrapper) {
+      var rotate2Interval_1 = setInterval(function () {
+        if (ankle2) {
+          ankle2.style.transform = "rotate(0) scale(" + easeOutSine(i, -1, 2, 60) + ") translate(" + easeOutSine(j, 0, 5, 60) + "px, " + easeOutSine(j, 0, 5, 60) + "px) ";
+        }
+
+        i--;
+        j--;
+
+        if (i < 1) {
+          clearInterval(rotate2Interval_1);
+
+          if (ankle2 && crossWrapper) {
+            ankle2.classList.add("angle2_DONE");
+            ankle2.style.transform = '';
+            crossWrapper.style.transform = '';
+          }
+        }
+      }, 600 / 60);
+    }
   };
 
   var k = 1;
-  var rotateInterval = setInterval(function () {
-    crossWrapper.style.transform = "rotate(" + Math.easeOutSine(k, 0, 45, 60) + "deg)";
-    k++;
 
-    if (k > 60) {
-      clearInterval(rotateInterval);
-      crossWrapper.classList.add("animationIconDescription_DONE");
-      rotate2();
-    }
-  }, 400 / 60);
+  if (ankle2 && crossWrapper) {
+    var rotateInterval_1 = setInterval(function () {
+      if (ankle2 && crossWrapper) {
+        crossWrapper.style.transform = "rotate(" + easeOutSine(k, 0, 45, 60) + "deg)";
+        k++;
+
+        if (k > 60) {
+          clearInterval(rotateInterval_1);
+          crossWrapper.classList.add("animationIconDescription_DONE");
+          rotate2();
+        }
+      }
+    }, 400 / 60);
+  }
 };
-var showGraphicMenu = function showGraphicMenu() {
+
+exports.showGraphicMenu = function showGraphicMenu() {
   var GraphicWrapper = document.querySelector(".imageDescriptionMenuWrapper");
 };
 
@@ -65547,16 +65557,15 @@ var showGraphicMenu = function showGraphicMenu() {
 /*!*************************************************!*\
   !*** ./resources/js/animationJs/scale_width.js ***!
   \*************************************************/
-/*! exports provided: scale_widthUP, spin_the_crossUP, scale_widthDown, spin_the_crossDown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale_widthUP", function() { return scale_widthUP; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spin_the_crossUP", function() { return spin_the_crossUP; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale_widthDown", function() { return scale_widthDown; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spin_the_crossDown", function() { return spin_the_crossDown; });
-Math.easeOutQuart = function (t, b, c, d) {
+
+
+exports.__esModule = true;
+
+var easeOutQuart = function easeOutQuart(t, b, c, d) {
   t /= d;
   t--;
   return -c * (t * t * t * t - 1) + b;
@@ -65570,7 +65579,7 @@ function scale_widthUP(store) {
   var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
   var k = 1;
   var interval1 = setInterval(function () {
-    element.style.width = Math.easeOutQuart(k, 1, maxElementWidth, 60) + "px";
+    element.style.width = easeOutQuart(k, 1, maxElementWidth, 60) + "px";
     k++;
 
     if (k > 60) {
@@ -65578,12 +65587,15 @@ function scale_widthUP(store) {
     }
   }, 10);
 }
+
+exports.scale_widthUP = scale_widthUP;
+
 function spin_the_crossUP() {
   var cross = document.querySelector(".plusItem");
   cross.style.transform = 'rotate(' + 0 + 'deg)';
   var i = 1;
   var interval2 = setInterval(function () {
-    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 225, 60) + 'deg)';
+    cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 60) + 'deg)';
     i++;
 
     if (i > 60) {
@@ -65591,6 +65603,9 @@ function spin_the_crossUP() {
     }
   }, 10);
 }
+
+exports.spin_the_crossUP = spin_the_crossUP;
+
 function scale_widthDown(it) {
   var element = document.querySelector('.formNewGraphic');
   var button = document.querySelector('.addGraphicButton');
@@ -65598,7 +65613,7 @@ function scale_widthDown(it) {
   var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
   var k = 60;
   var interval3 = setInterval(function () {
-    element.style.width = Math.easeOutQuart(k, 0, maxElementWidth, 60) + "px";
+    element.style.width = easeOutQuart(k, 0, maxElementWidth, 60) + "px";
     k--;
 
     if (k < 0) {
@@ -65607,11 +65622,14 @@ function scale_widthDown(it) {
     }
   }, 10);
 }
+
+exports.scale_widthDown = scale_widthDown;
+
 function spin_the_crossDown() {
   var cross = document.querySelector(".plusItem");
   var i = 60;
   var interval4 = setInterval(function () {
-    cross.style.transform = 'rotate(' + Math.easeOutQuart(i, 0, 225, 60) + 'deg)';
+    cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 60) + 'deg)';
     i--;
 
     if (i < 0) {
@@ -65620,18 +65638,22 @@ function spin_the_crossDown() {
   }, 10);
 }
 
+exports.spin_the_crossDown = spin_the_crossDown;
+
 /***/ }),
 
 /***/ "./resources/js/animationJs/sizeDown.js":
 /*!**********************************************!*\
   !*** ./resources/js/animationJs/sizeDown.js ***!
   \**********************************************/
-/*! exports provided: sizeDown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sizeDown", function() { return sizeDown; });
+
+
+exports.__esModule = true;
+
 var viewPortProperties = function viewPortProperties() {
   // cross-brower //
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -65641,21 +65663,11 @@ var viewPortProperties = function viewPortProperties() {
 }; // Easy // 
 
 
-Math.easeOutExpo = function (t, b, c, d, x) {
-  if (t <= x) {
-    return c * Math.sin(t / d / 4 * (Math.PI / 2)) + b;
-  }
-
-  if (t > x) {
-    return (c + b) * Math.cos(Math.PI / 2 * ((t - x) / (d - x)));
-  }
-};
-
-Math.easeOutSine = function (t, b, c, d) {
+var easeOutSine = function easeOutSine(t, b, c, d) {
   return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
 
-var sizeDown = function sizeDown(index, store) {
+exports.sizeDown = function sizeDown(index, store) {
   var viewPort = viewPortProperties();
 
   if (viewPort[0] < viewPort[1]) {
@@ -65664,61 +65676,61 @@ var sizeDown = function sizeDown(index, store) {
       // variables //
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).top;
-      var setStyle = sizingElement.style;
+      var setStyle_1 = sizingElement.style;
       var widthElement = window.getComputedStyle(sizingElement).width;
       var heightElement = window.getComputedStyle(sizingElement).height;
-      var endTop;
-      var endWidth;
-      var endHeight;
-      setStyle.top = null;
-      setStyle.bottom = null;
-      setStyle.left = null;
-      setStyle.right = null; // aspectRatio
+      var endTop_1;
+      var endWidth_1;
+      var endHeight_1;
+      setStyle_1.top = null;
+      setStyle_1.bottom = null;
+      setStyle_1.left = null;
+      setStyle_1.right = null; // aspectRatio
 
       var aspectRatio = viewPort[0] / viewPort[1];
 
       if (aspectRatio <= 1 / 2) {
-        endTop = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
-        endWidth = viewPort[0] / 2;
-        endHeight = viewPort[0] / 2;
+        endTop_1 = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
+        endWidth_1 = viewPort[0] / 2;
+        endHeight_1 = viewPort[0] / 2;
       }
 
       if (aspectRatio > 1 / 2 && aspectRatio < 1) {
-        endTop = viewPort[1] / 8;
-        endWidth = viewPort[1] / 4;
-        endHeight = viewPort[1] / 4;
+        endTop_1 = viewPort[1] / 8;
+        endWidth_1 = viewPort[1] / 4;
+        endHeight_1 = viewPort[1] / 4;
       } // prepare for sizing //
 
 
-      setStyle.top = positionElement;
-      setStyle.width = widthElement;
-      setStyle.height = heightElement;
-      document.getElementById(1).classList.replace("activeProfilePage", "profileGalery"); // sizing // 
+      setStyle_1.top = positionElement;
+      setStyle_1.width = widthElement;
+      setStyle_1.height = heightElement;
+      document.getElementById('1').classList.replace("activeProfilePage", "profileGalery"); // sizing // 
 
-      var k = 80;
-      var i = 1;
-      var positionInterval = setInterval(function () {
-        setStyle.top = Math.easeOutSine(i, 0, endTop, 80, 80) + 'px';
-        setStyle.width = Math.easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
-        setStyle.height = Math.easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
-        console.log(setStyle.width);
-        console.log(setStyle.height);
-        console.log(setStyle.right);
-        k--;
-        i++;
+      var k_1 = 80;
+      var i_1 = 1;
+      var positionInterval_1 = setInterval(function () {
+        setStyle_1.top = easeOutSine(i_1, 0, endTop_1, 80) + 'px';
+        setStyle_1.width = easeOutSine(k_1, endWidth_1, viewPort[0] - endWidth_1, 80) + 'px';
+        setStyle_1.height = easeOutSine(k_1, endHeight_1, viewPort[1] - endHeight_1, 80) + 'px';
+        console.log(setStyle_1.width);
+        console.log(setStyle_1.height);
+        console.log(setStyle_1.right);
+        k_1--;
+        i_1++;
 
-        if (k == 1) {
-          clearInterval(positionInterval);
-          setStyle.width = null;
-          setStyle.height = null;
-          setStyle.top = null;
-          setStyle.bottom = null;
-          setStyle.left = null;
-          setStyle.right = null;
-          document.getElementById(2).style.zIndex = 0;
-          document.getElementById(1).classList.remove("activeProfilePage");
-          document.getElementById(2).classList.remove("deActiveProfilePage");
-          document.getElementById(1).classList.add("profileGalery");
+        if (k_1 == 1) {
+          clearInterval(positionInterval_1);
+          setStyle_1.width = null;
+          setStyle_1.height = null;
+          setStyle_1.top = null;
+          setStyle_1.bottom = null;
+          setStyle_1.left = null;
+          setStyle_1.right = null;
+          document.getElementById('2').style.zIndex = '0';
+          document.getElementById('1').classList.remove("activeProfilePage");
+          document.getElementById('2').classList.remove("deActiveProfilePage");
+          document.getElementById('1').classList.add("profileGalery");
           store.$store.commit("changeAnimationStatus", false);
         }
       }, 250 / 80);
@@ -65727,69 +65739,64 @@ var sizeDown = function sizeDown(index, store) {
 
     if (index == 2) {
       // variables //
-      var _sizingElement = document.getElementById(index);
+      var sizingElement = document.getElementById(index);
+      var positionElement = window.getComputedStyle(sizingElement).bottom;
+      var setStyle_2 = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height;
+      var endBottom_1;
+      var endWidth_2;
+      var endHeight_2;
+      setStyle_2.top = null;
+      setStyle_2.bottom = null;
+      setStyle_2.left = null;
+      setStyle_2.right = null; // aspectRatio
 
-      var _positionElement = window.getComputedStyle(_sizingElement).bottom;
-      var _setStyle = _sizingElement.style;
-      var _widthElement = window.getComputedStyle(_sizingElement).width;
-      var _heightElement = window.getComputedStyle(_sizingElement).height;
-      var endBottom;
+      var aspectRatio = viewPort[0] / viewPort[1];
 
-      var _endWidth;
-
-      var _endHeight;
-
-      _setStyle.top = null;
-      _setStyle.bottom = null;
-      _setStyle.left = null;
-      _setStyle.right = null; // aspectRatio
-
-      var _aspectRatio = viewPort[0] / viewPort[1];
-
-      if (_aspectRatio <= 1 / 2) {
-        endBottom = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
-        _endWidth = viewPort[0] / 2;
-        _endHeight = viewPort[0] / 2;
+      if (aspectRatio <= 1 / 2) {
+        endBottom_1 = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
+        endWidth_2 = viewPort[0] / 2;
+        endHeight_2 = viewPort[0] / 2;
       }
 
-      if (_aspectRatio > 1 / 2 && _aspectRatio < 1) {
-        endBottom = viewPort[1] / 8;
-        _endWidth = viewPort[1] / 4;
-        _endHeight = viewPort[1] / 4;
+      if (aspectRatio > 1 / 2 && aspectRatio < 1) {
+        endBottom_1 = viewPort[1] / 8;
+        endWidth_2 = viewPort[1] / 4;
+        endHeight_2 = viewPort[1] / 4;
       } // prepare for sizing //
 
 
-      _setStyle.width = _widthElement;
-      _setStyle.height = _heightElement;
-      _setStyle.bottom = _positionElement;
-      document.getElementById(2).classList.replace("activeProfilePage", "profileGame"); // sizing // 
+      setStyle_2.width = widthElement;
+      setStyle_2.height = heightElement;
+      setStyle_2.bottom = positionElement;
+      document.getElementById('2').classList.replace("activeProfilePage", "profileGame"); // sizing // 
 
-      var _k = 80;
-      var _i = 1;
+      var k_2 = 80;
+      var i_2 = 1;
+      var positionInterval_2 = setInterval(function () {
+        setStyle_2.bottom = easeOutSine(i_2, 0, endBottom_1, 80) + 'px';
+        setStyle_2.width = easeOutSine(k_2, endWidth_2, viewPort[0] - endWidth_2, 80) + 'px';
+        setStyle_2.height = easeOutSine(k_2, endHeight_2, viewPort[1] - endHeight_2, 80) + 'px';
+        console.log(setStyle_2.width);
+        console.log(setStyle_2.height);
+        console.log(setStyle_2.right);
+        k_2--;
+        i_2++;
 
-      var _positionInterval = setInterval(function () {
-        _setStyle.bottom = Math.easeOutSine(_i, 0, endBottom, 80, 80) + 'px';
-        _setStyle.width = Math.easeOutSine(_k, _endWidth, viewPort[0] - _endWidth, 80) + 'px';
-        _setStyle.height = Math.easeOutSine(_k, _endHeight, viewPort[1] - _endHeight, 80) + 'px';
-        console.log(_setStyle.width);
-        console.log(_setStyle.height);
-        console.log(_setStyle.right);
-        _k--;
-        _i++;
-
-        if (_k == 1) {
-          clearInterval(_positionInterval);
-          _setStyle.width = null;
-          _setStyle.height = null;
-          _setStyle.top = null;
-          _setStyle.bottom = null;
-          _setStyle.left = null;
-          _setStyle.right = null;
-          document.getElementById(1).style.zIndex = 0;
-          document.getElementById(2).classList.remove("activeProfilePage");
-          document.getElementById(1).classList.remove("deActiveProfilePage");
+        if (k_2 == 1) {
+          clearInterval(positionInterval_2);
+          setStyle_2.width = null;
+          setStyle_2.height = null;
+          setStyle_2.top = null;
+          setStyle_2.bottom = null;
+          setStyle_2.left = null;
+          setStyle_2.right = null;
+          document.getElementById('1').style.zIndex = '0';
+          document.getElementById('2').classList.remove("activeProfilePage");
+          document.getElementById('1').classList.remove("deActiveProfilePage");
           store.$store.commit("changeAnimationStatus", false);
-          document.getElementById(2).classList.add("profileGame");
+          document.getElementById('2').classList.add("profileGame");
         }
       }, 250 / 80);
     }
@@ -65799,62 +65806,57 @@ var sizeDown = function sizeDown(index, store) {
     // GraphicProfil //
     if (index == 1) {
       // variables //
-      var _sizingElement2 = document.getElementById(index);
+      var sizingElement = document.getElementById(index);
+      var positionElement = window.getComputedStyle(sizingElement).left;
+      var setStyle_3 = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height;
+      var endleft_1;
+      var endWidth_3;
+      var endHeight_3;
+      setStyle_3.top = null;
+      setStyle_3.bottom = null;
+      setStyle_3.left = null;
+      setStyle_3.right = null; // aspectRatio
 
-      var _positionElement2 = window.getComputedStyle(_sizingElement2).left;
-      var _setStyle2 = _sizingElement2.style;
-      var _widthElement2 = window.getComputedStyle(_sizingElement2).width;
-      var _heightElement2 = window.getComputedStyle(_sizingElement2).height;
-      var endleft;
+      var aspectRatio = viewPort[0] / viewPort[1];
 
-      var _endWidth2;
-
-      var _endHeight2;
-
-      _setStyle2.top = null;
-      _setStyle2.bottom = null;
-      _setStyle2.left = null;
-      _setStyle2.right = null; // aspectRatio
-
-      var _aspectRatio2 = viewPort[0] / viewPort[1];
-
-      if (_aspectRatio2 >= 1 && _aspectRatio2 < 2 / 1) {
-        endleft = viewPort[0] / 8;
-        _endWidth2 = viewPort[0] / 4;
-        _endHeight2 = viewPort[0] / 4;
+      if (aspectRatio >= 1 && aspectRatio < 2 / 1) {
+        endleft_1 = viewPort[0] / 8;
+        endWidth_3 = viewPort[0] / 4;
+        endHeight_3 = viewPort[0] / 4;
       }
 
-      if (_aspectRatio2 > 2 / 1) {
-        endleft = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
-        _endWidth2 = viewPort[1] / 2;
-        _endHeight2 = viewPort[1] / 2;
+      if (aspectRatio > 2 / 1) {
+        endleft_1 = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
+        endWidth_3 = viewPort[1] / 2;
+        endHeight_3 = viewPort[1] / 2;
       } // prepare for sizing //
 
 
-      _setStyle2.left = _positionElement2;
-      _setStyle2.width = _widthElement2;
-      _setStyle2.height = _heightElement2;
-      document.getElementById(1).classList.replace("activeProfilePage", "profileGalery"); // sizing //
+      setStyle_3.left = positionElement;
+      setStyle_3.width = widthElement;
+      setStyle_3.height = heightElement;
+      document.getElementById('1').classList.replace("activeProfilePage", "profileGalery"); // sizing //
 
-      var _k2 = 80;
-      var _i2 = 1;
+      var k_3 = 80;
+      var i_3 = 1;
+      var positionInterval_3 = setInterval(function () {
+        setStyle_3.left = easeOutSine(i_3, 0, endleft_1, 80) + 'px';
+        setStyle_3.width = easeOutSine(k_3, endWidth_3, viewPort[0] - endWidth_3, 80) + 'px';
+        setStyle_3.height = easeOutSine(k_3, endHeight_3, viewPort[1] - endHeight_3, 80) + 'px';
+        k_3--;
+        i_3++;
 
-      var _positionInterval2 = setInterval(function () {
-        _setStyle2.left = Math.easeOutSine(_i2, 0, endleft, 80) + 'px';
-        _setStyle2.width = Math.easeOutSine(_k2, _endWidth2, viewPort[0] - _endWidth2, 80) + 'px';
-        _setStyle2.height = Math.easeOutSine(_k2, _endHeight2, viewPort[1] - _endHeight2, 80) + 'px';
-        _k2--;
-        _i2++;
-
-        if (_k2 == 1) {
-          clearInterval(_positionInterval2);
-          _setStyle2.width = null;
-          _setStyle2.height = null;
-          _setStyle2.top = null;
-          _setStyle2.bottom = null;
-          _setStyle2.left = null;
-          _setStyle2.right = null;
-          document.getElementById(2).style.zIndex = 0;
+        if (k_3 == 1) {
+          clearInterval(positionInterval_3);
+          setStyle_3.width = null;
+          setStyle_3.height = null;
+          setStyle_3.top = null;
+          setStyle_3.bottom = null;
+          setStyle_3.left = null;
+          setStyle_3.right = null;
+          document.getElementById('2').style.zIndex = '0';
           store.$store.commit("changeAnimationStatus", false);
         }
       }, 250 / 80);
@@ -65863,65 +65865,60 @@ var sizeDown = function sizeDown(index, store) {
 
     if (index == 2) {
       // variables //
-      var _sizingElement3 = document.getElementById(index);
+      var sizingElement = document.getElementById(index);
+      var positionElement = window.getComputedStyle(sizingElement).right;
+      var setStyle_4 = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height;
+      var endRight_1;
+      var endWidth_4;
+      var endHeight_4;
+      setStyle_4.top = null;
+      setStyle_4.bottom = null;
+      setStyle_4.left = null;
+      setStyle_4.right = null; // aspectRatio
 
-      var _positionElement3 = window.getComputedStyle(_sizingElement3).right;
-      var _setStyle3 = _sizingElement3.style;
-      var _widthElement3 = window.getComputedStyle(_sizingElement3).width;
-      var _heightElement3 = window.getComputedStyle(_sizingElement3).height;
-      var endRight;
+      var aspectRatio = viewPort[0] / viewPort[1];
 
-      var _endWidth3;
-
-      var _endHeight3;
-
-      _setStyle3.top = null;
-      _setStyle3.bottom = null;
-      _setStyle3.left = null;
-      _setStyle3.right = null; // aspectRatio
-
-      var _aspectRatio3 = viewPort[0] / viewPort[1];
-
-      if (_aspectRatio3 >= 1 && _aspectRatio3 < 2 / 1) {
-        endRight = viewPort[0] / 8;
-        _endWidth3 = viewPort[0] / 4;
-        _endHeight3 = viewPort[0] / 4;
+      if (aspectRatio >= 1 && aspectRatio < 2 / 1) {
+        endRight_1 = viewPort[0] / 8;
+        endWidth_4 = viewPort[0] / 4;
+        endHeight_4 = viewPort[0] / 4;
       }
 
-      if (_aspectRatio3 > 2 / 1) {
-        endRight = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
-        _endWidth3 = viewPort[1] / 2;
-        _endHeight3 = viewPort[1] / 2;
+      if (aspectRatio > 2 / 1) {
+        endRight_1 = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
+        endWidth_4 = viewPort[1] / 2;
+        endHeight_4 = viewPort[1] / 2;
       } // prepare for sizing //
 
 
-      _setStyle3.right = _positionElement3;
-      _setStyle3.width = _widthElement3;
-      _setStyle3.height = _heightElement3;
-      document.getElementById(2).classList.replace("activeProfilePage", "profileGame"); // sizing //
+      setStyle_4.right = positionElement;
+      setStyle_4.width = widthElement;
+      setStyle_4.height = heightElement;
+      document.getElementById('2').classList.replace("activeProfilePage", "profileGame"); // sizing //
 
-      var _k3 = 80;
-      var _i3 = 1;
+      var k_4 = 80;
+      var i_4 = 1;
+      var positionInterval_4 = setInterval(function () {
+        setStyle_4.right = easeOutSine(i_4, 0, endRight_1, 80) + 'px';
+        setStyle_4.width = easeOutSine(k_4, endWidth_4, viewPort[0] - endWidth_4, 80) + 'px';
+        setStyle_4.height = easeOutSine(k_4, endHeight_4, viewPort[1] - endHeight_4, 80) + 'px';
+        console.log(setStyle_4.width);
+        console.log(setStyle_4.height);
+        console.log("RIGHT " + setStyle_4.right);
+        k_4--;
+        i_4++;
 
-      var _positionInterval3 = setInterval(function () {
-        _setStyle3.right = Math.easeOutSine(_i3, 0, endRight, 80) + 'px';
-        _setStyle3.width = Math.easeOutSine(_k3, _endWidth3, viewPort[0] - _endWidth3, 80) + 'px';
-        _setStyle3.height = Math.easeOutSine(_k3, _endHeight3, viewPort[1] - _endHeight3, 80) + 'px';
-        console.log(_setStyle3.width);
-        console.log(_setStyle3.height);
-        console.log("RIGHT " + _setStyle3.right);
-        _k3--;
-        _i3++;
-
-        if (_k3 == 1) {
-          clearInterval(_positionInterval3);
-          _setStyle3.width = null;
-          _setStyle3.height = null;
-          _setStyle3.top = null;
-          _setStyle3.bottom = null;
-          _setStyle3.left = null;
-          _setStyle3.right = null;
-          document.getElementById(1).style.zIndex = 0;
+        if (k_4 == 1) {
+          clearInterval(positionInterval_4);
+          setStyle_4.width = null;
+          setStyle_4.height = null;
+          setStyle_4.top = null;
+          setStyle_4.bottom = null;
+          setStyle_4.left = null;
+          setStyle_4.right = null;
+          document.getElementById('1').style.zIndex = '0';
           store.$store.commit("changeAnimationStatus", false);
         }
       }, 250 / 80);
@@ -65935,12 +65932,14 @@ var sizeDown = function sizeDown(index, store) {
 /*!********************************************!*\
   !*** ./resources/js/animationJs/sizeUp.js ***!
   \********************************************/
-/*! exports provided: sizeUp */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sizeUp", function() { return sizeUp; });
+
+
+exports.__esModule = true;
+
 var viewPortProperties = function viewPortProperties() {
   // cross-brower //
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -65950,7 +65949,7 @@ var viewPortProperties = function viewPortProperties() {
 }; // Easy // 
 
 
-Math.easeOutExpo = function (t, b, c, d, x) {
+var easeOutExpo = function easeOutExpo(t, b, c, d, x) {
   if (t <= x) {
     return c * Math.sin(t / d / 4 * (Math.PI / 2)) + b;
   }
@@ -65960,52 +65959,52 @@ Math.easeOutExpo = function (t, b, c, d, x) {
   }
 };
 
-Math.easeInExpo = function (t, b, c, d) {
+var easeInExpo = function easeInExpo(t, b, c, d) {
   return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
-var sizeUp = function sizeUp(index, store) {
+exports.sizeUp = function sizeUp(index, store) {
   var viewPort = viewPortProperties();
 
   if (viewPort[0] < viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
-      document.getElementById(2).style.zIndex = -1; // variables //
+      document.getElementById('2').style.zIndex = '-1'; // variables //
 
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).top;
-      var setStyle = sizingElement.style;
+      var setStyle_1 = sizingElement.style;
       var widthElement = window.getComputedStyle(sizingElement).width;
       var heightElement = window.getComputedStyle(sizingElement).height; // prepare for sizing //
 
-      setStyle.top = positionElement;
-      setStyle.width = widthElement;
-      setStyle.height = heightElement;
-      var endTop = parseInt(setStyle.top.slice(0, -2)) + viewPort[1] / 4;
-      var endWidth = viewPort[0];
-      var endHeight = viewPort[1]; // sizing // 
+      setStyle_1.top = positionElement;
+      setStyle_1.width = widthElement;
+      setStyle_1.height = heightElement;
+      var endTop_1 = parseInt(setStyle_1.top.slice(0, -2)) + viewPort[1] / 4;
+      var endWidth_1 = viewPort[0];
+      var endHeight_1 = viewPort[1]; // sizing // 
 
-      var k = 1;
-      var positionInterval = setInterval(function () {
-        setStyle.top = Math.easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120, 40) + 'px';
-        setStyle.width = Math.easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
-        setStyle.height = Math.easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
-        k++;
+      var k_1 = 1;
+      var positionInterval_1 = setInterval(function () {
+        setStyle_1.top = easeOutExpo(k_1, parseInt(setStyle_1.top.slice(0, -2)), endTop_1 - parseInt(setStyle_1.top.slice(0, -2)), 120, 40) + 'px';
+        setStyle_1.width = easeInExpo(k_1, parseInt(setStyle_1.width.slice(0, -2)), endWidth_1 - parseInt(setStyle_1.width.slice(0, -2)), 120) + 'px';
+        setStyle_1.height = easeInExpo(k_1, parseInt(setStyle_1.height.slice(0, -2)), endHeight_1 - parseInt(setStyle_1.height.slice(0, -2)), 120) + 'px';
+        k_1++;
 
-        if (k > 120) {
-          clearInterval(positionInterval);
-          document.getElementById(1).classList.replace("profileGalery", "activeProfilePage");
+        if (k_1 > 120) {
+          clearInterval(positionInterval_1);
+          document.getElementById('1').classList.replace("profileGalery", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", true);
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", false);
             store.$store.commit("changeProfileCardActive", 1);
-            setStyle.top = null;
-            setStyle.bottom = null;
-            setStyle.left = null;
-            setStyle.right = null;
-            setStyle.width = null;
-            setStyle.height = null;
+            setStyle_1.top = null;
+            setStyle_1.bottom = null;
+            setStyle_1.left = null;
+            setStyle_1.right = null;
+            setStyle_1.width = null;
+            setStyle_1.height = null;
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
         }
@@ -66014,44 +66013,42 @@ var sizeUp = function sizeUp(index, store) {
 
 
     if (index == 2) {
-      document.getElementById(1).style.zIndex = -1; // variables //
+      document.getElementById('1').style.zIndex = '-1'; // variables //
 
-      var _sizingElement = document.getElementById(index);
+      var sizingElement = document.getElementById(index);
+      var positionElement = window.getComputedStyle(sizingElement).bottom;
+      var setStyle_2 = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height; // prepare for sizing //
 
-      var _positionElement = window.getComputedStyle(_sizingElement).bottom;
-      var _setStyle = _sizingElement.style;
-      var _widthElement = window.getComputedStyle(_sizingElement).width;
-      var _heightElement = window.getComputedStyle(_sizingElement).height; // prepare for sizing //
+      setStyle_2.width = widthElement;
+      setStyle_2.height = heightElement;
+      setStyle_2.bottom = positionElement;
+      var endBottom_1 = parseInt(setStyle_2.bottom.slice(0, -2)) + viewPort[1] / 4;
+      var endWidth_2 = viewPort[0];
+      var endHeight_2 = viewPort[1]; // sizing // 
 
-      _setStyle.width = _widthElement;
-      _setStyle.height = _heightElement;
-      _setStyle.bottom = _positionElement;
-      var endBottom = parseInt(_setStyle.bottom.slice(0, -2)) + viewPort[1] / 4;
-      var _endWidth = viewPort[0];
-      var _endHeight = viewPort[1]; // sizing // 
+      var k_2 = 1;
+      var positionInterval_2 = setInterval(function () {
+        setStyle_2.bottom = easeOutExpo(k_2, parseInt(setStyle_2.bottom.slice(0, -2)), endBottom_1 - parseInt(setStyle_2.bottom.slice(0, -2)), 120, 40) + 'px';
+        setStyle_2.width = easeInExpo(k_2, parseInt(setStyle_2.width.slice(0, -2)), endWidth_2 - parseInt(setStyle_2.width.slice(0, -2)), 120) + 'px';
+        setStyle_2.height = easeInExpo(k_2, parseInt(setStyle_2.height.slice(0, -2)), endHeight_2 - parseInt(setStyle_2.height.slice(0, -2)), 120) + 'px';
+        k_2++;
 
-      var _k = 1;
-
-      var _positionInterval = setInterval(function () {
-        _setStyle.bottom = Math.easeOutExpo(_k, parseInt(_setStyle.bottom.slice(0, -2)), endBottom - parseInt(_setStyle.bottom.slice(0, -2)), 120, 40) + 'px';
-        _setStyle.width = Math.easeInExpo(_k, parseInt(_setStyle.width.slice(0, -2)), _endWidth - parseInt(_setStyle.width.slice(0, -2)), 120) + 'px';
-        _setStyle.height = Math.easeInExpo(_k, parseInt(_setStyle.height.slice(0, -2)), _endHeight - parseInt(_setStyle.height.slice(0, -2)), 120) + 'px';
-        _k++;
-
-        if (_k > 120) {
-          clearInterval(_positionInterval);
-          document.getElementById(2).classList.replace("profileGame", "activeProfilePage");
+        if (k_2 > 120) {
+          clearInterval(positionInterval_2);
+          document.getElementById('2').classList.replace("profileGame", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", false);
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", true);
             store.$store.commit("changeProfileCardActive", 1);
-            _setStyle.top = null;
-            _setStyle.bottom = null;
-            _setStyle.left = null;
-            _setStyle.right = null;
-            _setStyle.width = null;
-            _setStyle.height = null;
+            setStyle_2.top = null;
+            setStyle_2.bottom = null;
+            setStyle_2.left = null;
+            setStyle_2.right = null;
+            setStyle_2.width = null;
+            setStyle_2.height = null;
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
         }
@@ -66062,44 +66059,42 @@ var sizeUp = function sizeUp(index, store) {
   if (viewPort[0] >= viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
-      document.getElementById(2).style.zIndex = -1; // variables //
+      document.getElementById('2').style.zIndex = '-1'; // variables //
 
-      var _sizingElement2 = document.getElementById(index);
+      var sizingElement = document.getElementById(index);
+      var positionElement = window.getComputedStyle(sizingElement).left;
+      var setStyle_3 = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height; // prepare for sizing //
 
-      var _positionElement2 = window.getComputedStyle(_sizingElement2).left;
-      var _setStyle2 = _sizingElement2.style;
-      var _widthElement2 = window.getComputedStyle(_sizingElement2).width;
-      var _heightElement2 = window.getComputedStyle(_sizingElement2).height; // prepare for sizing //
+      setStyle_3.left = positionElement;
+      setStyle_3.width = widthElement;
+      setStyle_3.height = heightElement;
+      var endleft_1 = parseInt(setStyle_3.left.slice(0, -2)) + viewPort[0] / 6;
+      var endWidth_3 = viewPort[0];
+      var endHeight_3 = viewPort[1]; // sizing //
 
-      _setStyle2.left = _positionElement2;
-      _setStyle2.width = _widthElement2;
-      _setStyle2.height = _heightElement2;
-      var endleft = parseInt(_setStyle2.left.slice(0, -2)) + viewPort[0] / 6;
-      var _endWidth2 = viewPort[0];
-      var _endHeight2 = viewPort[1]; // sizing //
+      var k_3 = 1;
+      var positionInterval_3 = setInterval(function () {
+        setStyle_3.left = easeOutExpo(k_3, parseInt(setStyle_3.left.slice(0, -2)), endleft_1 - parseInt(setStyle_3.left.slice(0, -2)), 120, 40) + 'px';
+        setStyle_3.width = easeInExpo(k_3, parseInt(setStyle_3.width.slice(0, -2)), endWidth_3 - parseInt(setStyle_3.width.slice(0, -2)), 120) + 'px';
+        setStyle_3.height = easeInExpo(k_3, parseInt(setStyle_3.height.slice(0, -2)), endHeight_3 - parseInt(setStyle_3.height.slice(0, -2)), 120) + 'px';
+        k_3++;
 
-      var _k2 = 1;
-
-      var _positionInterval2 = setInterval(function () {
-        _setStyle2.left = Math.easeOutExpo(_k2, parseInt(_setStyle2.left.slice(0, -2)), endleft - parseInt(_setStyle2.left.slice(0, -2)), 120, 40) + 'px';
-        _setStyle2.width = Math.easeInExpo(_k2, parseInt(_setStyle2.width.slice(0, -2)), _endWidth2 - parseInt(_setStyle2.width.slice(0, -2)), 120) + 'px';
-        _setStyle2.height = Math.easeInExpo(_k2, parseInt(_setStyle2.height.slice(0, -2)), _endHeight2 - parseInt(_setStyle2.height.slice(0, -2)), 120) + 'px';
-        _k2++;
-
-        if (_k2 > 120) {
-          clearInterval(_positionInterval2);
-          document.getElementById(1).classList.replace("profileGalery", "activeProfilePage");
+        if (k_3 > 120) {
+          clearInterval(positionInterval_3);
+          document.getElementById('1').classList.replace("profileGalery", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", true);
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", false);
             store.$store.commit("changeProfileCardActive", 1);
-            _setStyle2.top = null;
-            _setStyle2.bottom = null;
-            _setStyle2.left = null;
-            _setStyle2.right = null;
-            _setStyle2.width = null;
-            _setStyle2.height = null;
+            setStyle_3.top = null;
+            setStyle_3.bottom = null;
+            setStyle_3.left = null;
+            setStyle_3.right = null;
+            setStyle_3.width = null;
+            setStyle_3.height = null;
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
         }
@@ -66108,47 +66103,45 @@ var sizeUp = function sizeUp(index, store) {
 
 
     if (index == 2) {
-      document.getElementById(1).style.zIndex = -1; // variables //
+      document.getElementById('1').style.zIndex = '-1'; // variables //
 
-      var _sizingElement3 = document.getElementById(index);
+      var sizingElement = document.getElementById(index);
+      var positionElement = window.getComputedStyle(sizingElement).right;
+      var setStyle_4 = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height; // prepare for sizing //
 
-      var _positionElement3 = window.getComputedStyle(_sizingElement3).right;
-      var _setStyle3 = _sizingElement3.style;
-      var _widthElement3 = window.getComputedStyle(_sizingElement3).width;
-      var _heightElement3 = window.getComputedStyle(_sizingElement3).height; // prepare for sizing //
+      setStyle_4.right = positionElement;
+      setStyle_4.width = widthElement;
+      setStyle_4.height = heightElement;
+      var endright_1 = parseInt(setStyle_4.right.slice(0, -2)) + viewPort[0] / 6;
+      var endWidth_4 = viewPort[0];
+      var endHeight_4 = viewPort[1]; // sizing //
 
-      _setStyle3.right = _positionElement3;
-      _setStyle3.width = _widthElement3;
-      _setStyle3.height = _heightElement3;
-      var endright = parseInt(_setStyle3.right.slice(0, -2)) + viewPort[0] / 6;
-      var _endWidth3 = viewPort[0];
-      var _endHeight3 = viewPort[1]; // sizing //
+      var k_4 = 1;
+      var positionInterval_4 = setInterval(function () {
+        setStyle_4.right = easeOutExpo(k_4, parseInt(setStyle_4.right.slice(0, -2)), endright_1 - parseInt(setStyle_4.right.slice(0, -2)), 120, 40) + 'px';
+        setStyle_4.width = easeInExpo(k_4, parseInt(setStyle_4.width.slice(0, -2)), endWidth_4 - parseInt(setStyle_4.width.slice(0, -2)), 120) + 'px';
+        setStyle_4.height = easeInExpo(k_4, parseInt(setStyle_4.height.slice(0, -2)), endHeight_4 - parseInt(setStyle_4.height.slice(0, -2)), 120) + 'px';
+        k_4++;
 
-      var _k3 = 1;
-
-      var _positionInterval3 = setInterval(function () {
-        _setStyle3.right = Math.easeOutExpo(_k3, parseInt(_setStyle3.right.slice(0, -2)), endright - parseInt(_setStyle3.right.slice(0, -2)), 120, 40) + 'px';
-        _setStyle3.width = Math.easeInExpo(_k3, parseInt(_setStyle3.width.slice(0, -2)), _endWidth3 - parseInt(_setStyle3.width.slice(0, -2)), 120) + 'px';
-        _setStyle3.height = Math.easeInExpo(_k3, parseInt(_setStyle3.height.slice(0, -2)), _endHeight3 - parseInt(_setStyle3.height.slice(0, -2)), 120) + 'px';
-        _k3++;
-
-        if (_k3 > 120) {
-          clearInterval(_positionInterval3);
-          document.getElementById(2).classList.replace("profileGame", "activeProfilePage");
+        if (k_4 > 120) {
+          clearInterval(positionInterval_4);
+          document.getElementById('2').classList.replace("profileGame", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", false);
             store.$store.commit("changebuttonProfileActive", true);
             store.$store.commit("changeVisibleProfileButton2", true);
             store.$store.commit("changeProfileCardActive", 1);
-            _setStyle3.top = null;
-            _setStyle3.bottom = null;
-            _setStyle3.left = null;
-            _setStyle3.right = null;
-            _setStyle3.width = null;
-            _setStyle3.height = null;
+            setStyle_4.top = null;
+            setStyle_4.bottom = null;
+            setStyle_4.left = null;
+            setStyle_4.right = null;
+            setStyle_4.width = null;
+            setStyle_4.height = null;
           }, 200);
           store.$store.commit("changeAnimationStatus", false);
-          document.getElementById(2).classList.remove("profileGame");
+          document.getElementById('2').classList.remove("profileGame");
         }
       }, 300 / 120);
     }
@@ -66167,11 +66160,13 @@ var sizeUp = function sizeUp(index, store) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jsAnimation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./jsAnimation */ "./resources/js/jsAnimation.js");
+/* harmony import */ var _jsAnimation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_jsAnimation__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_5__);
 /**
@@ -66241,7 +66236,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     visibleProfileButton2: true,
     buttonProfileActive: false,
     // jsAnimation
-    jsAnimation: _jsAnimation__WEBPACK_IMPORTED_MODULE_0__["default"],
+    jsAnimation: _jsAnimation__WEBPACK_IMPORTED_MODULE_0___default.a,
     scrollEventActive: true,
     // dataBase
     cards: [{
@@ -67348,36 +67343,39 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************!*\
   !*** ./resources/js/jsAnimation.js ***!
   \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _animationJs_sizeUp_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animationJs/sizeUp.js */ "./resources/js/animationJs/sizeUp.js");
-/* harmony import */ var _animationJs_sizeDown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animationJs/sizeDown.js */ "./resources/js/animationJs/sizeDown.js");
-/* harmony import */ var _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animationJs/scale_width.js */ "./resources/js/animationJs/scale_width.js");
-/* harmony import */ var _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animationJs/activeShadowBlock.js */ "./resources/js/animationJs/activeShadowBlock.js");
-/* harmony import */ var _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animationJs/errorMessage.js */ "./resources/js/animationJs/errorMessage.js");
-/* harmony import */ var _animationJs_graphicMenu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./animationJs/graphicMenu.js */ "./resources/js/animationJs/graphicMenu.js");
 
 
+exports.__esModule = true;
 
+var sizeUp_js_1 = __webpack_require__(/*! ./animationJs/sizeUp.js */ "./resources/js/animationJs/sizeUp.js");
 
+var sizeDown_js_1 = __webpack_require__(/*! ./animationJs/sizeDown.js */ "./resources/js/animationJs/sizeDown.js");
 
+var scale_width_js_1 = __webpack_require__(/*! ./animationJs/scale_width.js */ "./resources/js/animationJs/scale_width.js");
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  sizeUp: _animationJs_sizeUp_js__WEBPACK_IMPORTED_MODULE_0__["sizeUp"],
-  sizeDown: _animationJs_sizeDown_js__WEBPACK_IMPORTED_MODULE_1__["sizeDown"],
-  scale_widthUP: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["scale_widthUP"],
-  scale_widthDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["scale_widthDown"],
-  spin_the_crossUP: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossUP"],
-  spin_the_crossDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossDown"],
-  activeShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["activeShadowBlock"],
-  deActiveShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["deActiveShadowBlock"],
-  errorAppear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorAppear"],
-  errorDisappear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorDisappear"],
-  crossToAnkle: _animationJs_graphicMenu_js__WEBPACK_IMPORTED_MODULE_5__["crossToAnkle"]
-});
+var activeShadowBlock_js_1 = __webpack_require__(/*! ./animationJs/activeShadowBlock.js */ "./resources/js/animationJs/activeShadowBlock.js");
+
+var errorMessage_js_1 = __webpack_require__(/*! ./animationJs/errorMessage.js */ "./resources/js/animationJs/errorMessage.js");
+
+var graphicMenu_js_1 = __webpack_require__(/*! ./animationJs/graphicMenu.js */ "./resources/js/animationJs/graphicMenu.js");
+
+exports["default"] = {
+  sizeUp: sizeUp_js_1.sizeUp,
+  sizeDown: sizeDown_js_1.sizeDown,
+  scale_widthUP: scale_width_js_1.scale_widthUP,
+  scale_widthDown: scale_width_js_1.scale_widthDown,
+  spin_the_crossUP: scale_width_js_1.spin_the_crossUP,
+  spin_the_crossDown: scale_width_js_1.spin_the_crossDown,
+  activeShadowBlock: activeShadowBlock_js_1.activeShadowBlock,
+  deActiveShadowBlock: activeShadowBlock_js_1.deActiveShadowBlock,
+  errorAppear: errorMessage_js_1.errorAppear,
+  errorDisappear: errorMessage_js_1.errorDisappear,
+  crossToAnkle: graphicMenu_js_1.crossToAnkle
+};
 
 /***/ }),
 
@@ -67385,47 +67383,49 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
   \********************************/
-/*! exports provided: routes */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routes", function() { return routes; });
-/* harmony import */ var _components_StartPage_StartPage_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/StartPage/StartPage.vue */ "./resources/js/components/StartPage/StartPage.vue");
-/* harmony import */ var _components_Galery_GaleryPage_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Galery/GaleryPage.vue */ "./resources/js/components/Galery/GaleryPage.vue");
-/* harmony import */ var _components_Auth_RegisterPage_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Auth/RegisterPage.vue */ "./resources/js/components/Auth/RegisterPage.vue");
-/* harmony import */ var _components_Profile_ProfilePage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Profile/ProfilePage.vue */ "./resources/js/components/Profile/ProfilePage.vue");
-/* harmony import */ var _components_Profile_ProfileGraphic_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Profile/ProfileGraphic.vue */ "./resources/js/components/Profile/ProfileGraphic.vue");
-/* harmony import */ var _components_Profile_ProfileGame_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Profile/ProfileGame.vue */ "./resources/js/components/Profile/ProfileGame.vue");
 
 
+exports.__esModule = true;
 
+var StartPage_1 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './components/StartPage'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
+var GaleryPage_vue_1 = __webpack_require__(/*! ./components/Galery/GaleryPage.vue */ "./resources/js/components/Galery/GaleryPage.vue");
 
+var RegisterPage_vue_1 = __webpack_require__(/*! ./components/Auth/RegisterPage.vue */ "./resources/js/components/Auth/RegisterPage.vue");
 
-var routes = [{
+var ProfilePage_vue_1 = __webpack_require__(/*! ./components/Profile/ProfilePage.vue */ "./resources/js/components/Profile/ProfilePage.vue");
+
+var ProfileGraphic_vue_1 = __webpack_require__(/*! ./components/Profile/ProfileGraphic.vue */ "./resources/js/components/Profile/ProfileGraphic.vue");
+
+var ProfileGame_vue_1 = __webpack_require__(/*! ./components/Profile/ProfileGame.vue */ "./resources/js/components/Profile/ProfileGame.vue");
+
+exports.routes = [{
   path: '',
-  component: _components_StartPage_StartPage_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  component: StartPage_1["default"]
 }, {
   path: '/galery',
-  component: _components_Galery_GaleryPage_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+  component: GaleryPage_vue_1["default"],
   props: {
     overflowType: 'auto'
   }
 }, {
   path: '/register',
-  component: _components_Auth_RegisterPage_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: RegisterPage_vue_1["default"]
 }, {
   path: '/profile/:id',
-  component: _components_Profile_ProfilePage_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  component: ProfilePage_vue_1["default"],
   name: "profile",
   children: [{
     path: '/profile/:id/graphic',
-    component: _components_Profile_ProfileGraphic_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    component: ProfileGraphic_vue_1["default"],
     name: 'profileGraphic'
   }, {
     path: '/profile/:id/game',
-    component: _components_Profile_ProfileGame_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    component: ProfileGame_vue_1["default"],
     name: 'profileGame'
   }]
 }];
