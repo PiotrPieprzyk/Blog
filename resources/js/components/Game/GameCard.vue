@@ -1,7 +1,7 @@
 <template>
 	<div class="GamePage">
 		<div class="GameScreenWrapper">
-			<Game></Game>
+			<game></game>
 		</div>
 	</div>
 </template>

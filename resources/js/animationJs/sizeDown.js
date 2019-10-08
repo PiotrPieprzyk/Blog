@@ -1,5 +1,3 @@
-"use strict";
-exports.__esModule = true;
 var viewPortProperties = function viewPortProperties() {
     // cross-brower //
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -7,21 +5,30 @@ var viewPortProperties = function viewPortProperties() {
     var arrProperties = [w, h];
     return arrProperties;
 };
+var viewPort = viewPortProperties();
 // Easy // 
 var easeOutSine = function (t, b, c, d) {
     return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
-exports.sizeDown = function sizeDown(index, store) {
-    var viewPort = viewPortProperties();
+export var sizeDown = function sizeDown(index, store) {
+    var element1 = document.getElementById('1');
+    var element2 = document.getElementById('2');
     if (viewPort[0] < viewPort[1]) {
         // GraphicProfil //
-        if (index == 1) {
+        if (index == '1') {
             // variables //
-            var sizingElement = document.getElementById(index);
-            var positionElement = window.getComputedStyle(sizingElement).top;
-            var setStyle_1 = sizingElement.style;
-            var widthElement = window.getComputedStyle(sizingElement).width;
-            var heightElement = window.getComputedStyle(sizingElement).height;
+            var animation_id_1;
+            var sizingElement = document.getElementById("" + index);
+            var positionElement = void 0;
+            var setStyle_1;
+            var widthElement = void 0;
+            var heightElement = void 0;
+            if (sizingElement) {
+                positionElement = window.getComputedStyle(sizingElement).top;
+                setStyle_1 = sizingElement.style;
+                widthElement = window.getComputedStyle(sizingElement).width;
+                heightElement = window.getComputedStyle(sizingElement).height;
+            }
             var endTop_1;
             var endWidth_1;
             var endHeight_1;
@@ -45,43 +52,58 @@ exports.sizeDown = function sizeDown(index, store) {
             setStyle_1.top = positionElement;
             setStyle_1.width = widthElement;
             setStyle_1.height = heightElement;
-            document.getElementById('1').classList.replace("activeProfilePage", "profileGalery");
+            if (element1) {
+                element1.classList.replace("activeProfilePage", "profileGalery");
+            }
             // sizing // 
-            var k_1 = 80;
+            var k_1 = 22;
             var i_1 = 1;
-            var positionInterval_1 = setInterval(function () {
-                setStyle_1.top = easeOutSine(i_1, 0, endTop_1, 80) + 'px';
-                setStyle_1.width = easeOutSine(k_1, endWidth_1, viewPort[0] - endWidth_1, 80) + 'px';
-                setStyle_1.height = easeOutSine(k_1, endHeight_1, viewPort[1] - endHeight_1, 80) + 'px';
+            var positionInterval_1 = function () {
+                setStyle_1.top = easeOutSine(i_1, 0, endTop_1, 22) + 'px';
+                setStyle_1.width = easeOutSine(k_1, endWidth_1, viewPort[0] - endWidth_1, 22) + 'px';
+                setStyle_1.height = easeOutSine(k_1, endHeight_1, viewPort[1] - endHeight_1, 22) + 'px';
                 console.log(setStyle_1.width);
                 console.log(setStyle_1.height);
                 console.log(setStyle_1.right);
                 k_1--;
                 i_1++;
                 if (k_1 == 1) {
-                    clearInterval(positionInterval_1);
+                    window.cancelAnimationFrame(animation_id_1);
                     setStyle_1.width = null;
                     setStyle_1.height = null;
                     setStyle_1.top = null;
                     setStyle_1.bottom = null;
                     setStyle_1.left = null;
                     setStyle_1.right = null;
-                    document.getElementById('2').style.zIndex = '0';
-                    document.getElementById('1').classList.remove("activeProfilePage");
-                    document.getElementById('2').classList.remove("deActiveProfilePage");
-                    document.getElementById('1').classList.add("profileGalery");
+                    if (element1 && element2) {
+                        element2.style.zIndex = '0';
+                        element1.classList.remove("activeProfilePage");
+                        element2.classList.remove("deActiveProfilePage");
+                        element1.classList.add("profileGalery");
+                    }
                     store.$store.commit("changeAnimationStatus", false);
                 }
-            }, 250 / 80);
+                else {
+                    animation_id_1 = window.requestAnimationFrame(positionInterval_1);
+                }
+            };
+            positionInterval_1();
         }
         // GameProfil //
-        if (index == 2) {
+        else {
             // variables //
-            var sizingElement = document.getElementById(index);
-            var positionElement = window.getComputedStyle(sizingElement).bottom;
-            var setStyle_2 = sizingElement.style;
-            var widthElement = window.getComputedStyle(sizingElement).width;
-            var heightElement = window.getComputedStyle(sizingElement).height;
+            var animation_id_2;
+            var sizingElement = document.getElementById("" + index);
+            var positionElement = void 0;
+            var setStyle_2;
+            var widthElement = void 0;
+            var heightElement = void 0;
+            if (sizingElement) {
+                positionElement = window.getComputedStyle(sizingElement).top;
+                setStyle_2 = sizingElement.style;
+                widthElement = window.getComputedStyle(sizingElement).width;
+                heightElement = window.getComputedStyle(sizingElement).height;
+            }
             var endBottom_1;
             var endWidth_2;
             var endHeight_2;
@@ -105,45 +127,61 @@ exports.sizeDown = function sizeDown(index, store) {
             setStyle_2.width = widthElement;
             setStyle_2.height = heightElement;
             setStyle_2.bottom = positionElement;
-            document.getElementById('2').classList.replace("activeProfilePage", "profileGame");
+            if (element2) {
+                element2.classList.replace("activeProfilePage", "profileGalery");
+            }
             // sizing // 
-            var k_2 = 80;
+            var k_2 = 22;
             var i_2 = 1;
-            var positionInterval_2 = setInterval(function () {
-                setStyle_2.bottom = easeOutSine(i_2, 0, endBottom_1, 80) + 'px';
-                setStyle_2.width = easeOutSine(k_2, endWidth_2, viewPort[0] - endWidth_2, 80) + 'px';
-                setStyle_2.height = easeOutSine(k_2, endHeight_2, viewPort[1] - endHeight_2, 80) + 'px';
+            var positionInterval_2 = function () {
+                setStyle_2.bottom = easeOutSine(i_2, 0, endBottom_1, 22) + 'px';
+                setStyle_2.width = easeOutSine(k_2, endWidth_2, viewPort[0] - endWidth_2, 22) + 'px';
+                setStyle_2.height = easeOutSine(k_2, endHeight_2, viewPort[1] - endHeight_2, 22) + 'px';
                 console.log(setStyle_2.width);
                 console.log(setStyle_2.height);
                 console.log(setStyle_2.right);
                 k_2--;
                 i_2++;
                 if (k_2 == 1) {
-                    clearInterval(positionInterval_2);
+                    window.cancelAnimationFrame(animation_id_2);
                     setStyle_2.width = null;
                     setStyle_2.height = null;
                     setStyle_2.top = null;
                     setStyle_2.bottom = null;
                     setStyle_2.left = null;
                     setStyle_2.right = null;
-                    document.getElementById('1').style.zIndex = '0';
-                    document.getElementById('2').classList.remove("activeProfilePage");
-                    document.getElementById('1').classList.remove("deActiveProfilePage");
-                    store.$store.commit("changeAnimationStatus", false);
-                    document.getElementById('2').classList.add("profileGame");
+                    if (element2 && element1) {
+                        element1.style.zIndex = '0';
+                        element2.classList.remove("activeProfilePage");
+                        element1.classList.remove("deActiveProfilePage");
+                        store.$store.commit("changeAnimationStatus", false);
+                        element2.classList.add("profileGame");
+                    }
                 }
-            }, 250 / 80);
+                else {
+                    animation_id_2 = window.requestAnimationFrame(positionInterval_2);
+                }
+            };
+            positionInterval_2();
         }
     }
+
     if (viewPort[0] >= viewPort[1]) {
         // GraphicProfil //
         if (index == 1) {
             // variables //
-            var sizingElement = document.getElementById(index);
-            var positionElement = window.getComputedStyle(sizingElement).left;
-            var setStyle_3 = sizingElement.style;
-            var widthElement = window.getComputedStyle(sizingElement).width;
-            var heightElement = window.getComputedStyle(sizingElement).height;
+            var animation_id_3;
+            var sizingElement = document.getElementById("" + index);
+            var positionElement = void 0;
+            var setStyle_3;
+            var widthElement = void 0;
+            var heightElement = void 0;
+            if (sizingElement) {
+                positionElement = window.getComputedStyle(sizingElement).top;
+                setStyle_3 = sizingElement.style;
+                widthElement = window.getComputedStyle(sizingElement).width;
+                heightElement = window.getComputedStyle(sizingElement).height;
+            }
             var endleft_1;
             var endWidth_3;
             var endHeight_3;
@@ -169,16 +207,16 @@ exports.sizeDown = function sizeDown(index, store) {
             setStyle_3.height = heightElement;
             document.getElementById('1').classList.replace("activeProfilePage", "profileGalery");
             // sizing //
-            var k_3 = 80;
+            var k_3 = 22;
             var i_3 = 1;
-            var positionInterval_3 = setInterval(function () {
-                setStyle_3.left = easeOutSine(i_3, 0, endleft_1, 80) + 'px';
-                setStyle_3.width = easeOutSine(k_3, endWidth_3, viewPort[0] - endWidth_3, 80) + 'px';
-                setStyle_3.height = easeOutSine(k_3, endHeight_3, viewPort[1] - endHeight_3, 80) + 'px';
+            var positionInterval_3 = function () {
+                setStyle_3.left = easeOutSine(i_3, 0, endleft_1, 22) + 'px';
+                setStyle_3.width = easeOutSine(k_3, endWidth_3, viewPort[0] - endWidth_3, 22) + 'px';
+                setStyle_3.height = easeOutSine(k_3, endHeight_3, viewPort[1] - endHeight_3, 22) + 'px';
                 k_3--;
                 i_3++;
                 if (k_3 == 1) {
-                    clearInterval(positionInterval_3);
+                    window.cancelAnimationFrame(animation_id_3);
                     setStyle_3.width = null;
                     setStyle_3.height = null;
                     setStyle_3.top = null;
@@ -188,11 +226,16 @@ exports.sizeDown = function sizeDown(index, store) {
                     document.getElementById('2').style.zIndex = '0';
                     store.$store.commit("changeAnimationStatus", false);
                 }
-            }, 250 / 80);
+                else {
+                    animation_id_3 = window.requestAnimationFrame(positionInterval_3);
+                }
+            };
+            positionInterval_3();
         }
         // GameProfil //
         if (index == 2) {
             // variables //
+            var animation_id_4;
             var sizingElement = document.getElementById(index);
             var positionElement = window.getComputedStyle(sizingElement).right;
             var setStyle_4 = sizingElement.style;
@@ -223,19 +266,19 @@ exports.sizeDown = function sizeDown(index, store) {
             setStyle_4.height = heightElement;
             document.getElementById('2').classList.replace("activeProfilePage", "profileGame");
             // sizing //
-            var k_4 = 80;
+            var k_4 = 22;
             var i_4 = 1;
-            var positionInterval_4 = setInterval(function () {
-                setStyle_4.right = easeOutSine(i_4, 0, endRight_1, 80) + 'px';
-                setStyle_4.width = easeOutSine(k_4, endWidth_4, viewPort[0] - endWidth_4, 80) + 'px';
-                setStyle_4.height = easeOutSine(k_4, endHeight_4, viewPort[1] - endHeight_4, 80) + 'px';
+            var positionInterval_4 = function () {
+                setStyle_4.right = easeOutSine(i_4, 0, endRight_1, 22) + 'px';
+                setStyle_4.width = easeOutSine(k_4, endWidth_4, viewPort[0] - endWidth_4, 22) + 'px';
+                setStyle_4.height = easeOutSine(k_4, endHeight_4, viewPort[1] - endHeight_4, 22) + 'px';
                 console.log(setStyle_4.width);
                 console.log(setStyle_4.height);
                 console.log("RIGHT " + setStyle_4.right);
                 k_4--;
                 i_4++;
                 if (k_4 == 1) {
-                    clearInterval(positionInterval_4);
+                    window.cancelAnimationFrame(animation_id_4);
                     setStyle_4.width = null;
                     setStyle_4.height = null;
                     setStyle_4.top = null;
@@ -245,7 +288,11 @@ exports.sizeDown = function sizeDown(index, store) {
                     document.getElementById('1').style.zIndex = '0';
                     store.$store.commit("changeAnimationStatus", false);
                 }
-            }, 250 / 80);
+                else {
+                    animation_id_4 = window.requestAnimationFrame(positionInterval_4);
+                }
+            };
+            positionInterval_4();
         }
     }
-};
+}

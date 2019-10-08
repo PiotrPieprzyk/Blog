@@ -1,15 +1,15 @@
-let easeOutQuart = function (t, b, c, d) {
+let easeOutQuart = function (t: number, b: number, c: number, d: number) {
   t /= d;
   t--;
   return -c * (t * t * t * t - 1) + b;
 };
-let easeInExpo = function (t, b, c, d) {
+let easeInExpo = function (t: number, b: number, c: number, d: number) {
   return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
 export let errorDisappear = function errorDisappear(element: { style: { top: string; }; }) {
   let k = 1;
-  let animation_id;
+  let animation_id: number;
   let apperInterval = () => {
     element.style.top = "-" + easeOutQuart(k, 0, 33, 20) + "px";
     k++;
@@ -25,7 +25,7 @@ export let errorDisappear = function errorDisappear(element: { style: { top: str
 export let errorAppear = function errorAppear(element: { style: { top: string; }; }) {
 
   let k = 20;
-  let animation_id;
+  let animation_id: number;
   let apperInterval = () => {
     element.style.top = "-" + easeInExpo(k, 0, 33, 20) + "px";
     k--;

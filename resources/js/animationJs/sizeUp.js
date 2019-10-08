@@ -1,5 +1,3 @@
-"use strict";
-exports.__esModule = true;
 var viewPortProperties = function viewPortProperties() {
     // cross-brower //
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -19,13 +17,14 @@ var easeOutExpo = function (t, b, c, d, x) {
 var easeInExpo = function (t, b, c, d) {
     return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
-exports.sizeUp = function sizeUp(index, store) {
+export var sizeUp = function sizeUp(index, store) {
     var viewPort = viewPortProperties();
     if (viewPort[0] < viewPort[1]) {
         // GraphicProfil //
         if (index == 1) {
             document.getElementById('2').style.zIndex = '-1';
             // variables //
+            var animation_id_1;
             var sizingElement = document.getElementById(index);
             var positionElement = window.getComputedStyle(sizingElement).top;
             var setStyle_1 = sizingElement.style;
@@ -40,13 +39,14 @@ exports.sizeUp = function sizeUp(index, store) {
             var endHeight_1 = viewPort[1];
             // sizing // 
             var k_1 = 1;
-            var positionInterval_1 = setInterval(function () {
-                setStyle_1.top = easeOutExpo(k_1, parseInt(setStyle_1.top.slice(0, -2)), endTop_1 - parseInt(setStyle_1.top.slice(0, -2)), 120, 40) + 'px';
-                setStyle_1.width = easeInExpo(k_1, parseInt(setStyle_1.width.slice(0, -2)), endWidth_1 - parseInt(setStyle_1.width.slice(0, -2)), 120) + 'px';
-                setStyle_1.height = easeInExpo(k_1, parseInt(setStyle_1.height.slice(0, -2)), endHeight_1 - parseInt(setStyle_1.height.slice(0, -2)), 120) + 'px';
+            var positionInterval_1 = function () {
+                setStyle_1.top = easeOutExpo(k_1, parseInt(setStyle_1.top.slice(0, -2)), endTop_1 - parseInt(setStyle_1.top.slice(0, -2)), 22, 16) + 'px';
+                setStyle_1.width = easeInExpo(k_1, parseInt(setStyle_1.width.slice(0, -2)), endWidth_1 - parseInt(setStyle_1.width.slice(0, -2)), 22) + 'px';
+                setStyle_1.height = easeInExpo(k_1, parseInt(setStyle_1.height.slice(0, -2)), endHeight_1 - parseInt(setStyle_1.height.slice(0, -2)), 22) + 'px';
                 k_1++;
-                if (k_1 > 120) {
-                    clearInterval(positionInterval_1);
+                console.log("diała");
+                if (k_1 > 22) {
+                    window.cancelAnimationFrame(animation_id_1);
                     document.getElementById('1').classList.replace("profileGalery", "activeProfilePage");
                     setTimeout(function () {
                         store.$store.commit("changeVisibleProfileButton1", true);
@@ -59,15 +59,20 @@ exports.sizeUp = function sizeUp(index, store) {
                         setStyle_1.right = null;
                         setStyle_1.width = null;
                         setStyle_1.height = null;
-                    }, 200);
+                    }, 190);
                     store.$store.commit("changeAnimationStatus", false);
                 }
-            }, 300 / 120);
+                else {
+                    animation_id_1 = window.requestAnimationFrame(positionInterval_1);
+                }
+            };
+            positionInterval_1();
         }
         // GameProfil //
         if (index == 2) {
             document.getElementById('1').style.zIndex = '-1';
             // variables //
+            var animation_id_2;
             var sizingElement = document.getElementById(index);
             var positionElement = window.getComputedStyle(sizingElement).bottom;
             var setStyle_2 = sizingElement.style;
@@ -82,13 +87,13 @@ exports.sizeUp = function sizeUp(index, store) {
             var endHeight_2 = viewPort[1];
             // sizing // 
             var k_2 = 1;
-            var positionInterval_2 = setInterval(function () {
-                setStyle_2.bottom = easeOutExpo(k_2, parseInt(setStyle_2.bottom.slice(0, -2)), endBottom_1 - parseInt(setStyle_2.bottom.slice(0, -2)), 120, 40) + 'px';
-                setStyle_2.width = easeInExpo(k_2, parseInt(setStyle_2.width.slice(0, -2)), endWidth_2 - parseInt(setStyle_2.width.slice(0, -2)), 120) + 'px';
-                setStyle_2.height = easeInExpo(k_2, parseInt(setStyle_2.height.slice(0, -2)), endHeight_2 - parseInt(setStyle_2.height.slice(0, -2)), 120) + 'px';
+            var positionInterval_2 = function () {
+                setStyle_2.bottom = easeOutExpo(k_2, parseInt(setStyle_2.bottom.slice(0, -2)), endBottom_1 - parseInt(setStyle_2.bottom.slice(0, -2)), 22, 16) + 'px';
+                setStyle_2.width = easeInExpo(k_2, parseInt(setStyle_2.width.slice(0, -2)), endWidth_2 - parseInt(setStyle_2.width.slice(0, -2)), 22) + 'px';
+                setStyle_2.height = easeInExpo(k_2, parseInt(setStyle_2.height.slice(0, -2)), endHeight_2 - parseInt(setStyle_2.height.slice(0, -2)), 22) + 'px';
                 k_2++;
-                if (k_2 > 120) {
-                    clearInterval(positionInterval_2);
+                if (k_2 > 22) {
+                    window.cancelAnimationFrame(animation_id_2);
                     document.getElementById('2').classList.replace("profileGame", "activeProfilePage");
                     setTimeout(function () {
                         store.$store.commit("changeVisibleProfileButton1", false);
@@ -101,10 +106,14 @@ exports.sizeUp = function sizeUp(index, store) {
                         setStyle_2.right = null;
                         setStyle_2.width = null;
                         setStyle_2.height = null;
-                    }, 200);
+                    }, 190);
                     store.$store.commit("changeAnimationStatus", false);
                 }
-            }, 300 / 120);
+                else {
+                    animation_id_2 = window.requestAnimationFrame(positionInterval_2);
+                }
+            };
+            positionInterval_2();
         }
     }
     if (viewPort[0] >= viewPort[1]) {
@@ -112,6 +121,7 @@ exports.sizeUp = function sizeUp(index, store) {
         if (index == 1) {
             document.getElementById('2').style.zIndex = '-1';
             // variables //
+            var animation_id_3;
             var sizingElement = document.getElementById(index);
             var positionElement = window.getComputedStyle(sizingElement).left;
             var setStyle_3 = sizingElement.style;
@@ -126,13 +136,13 @@ exports.sizeUp = function sizeUp(index, store) {
             var endHeight_3 = viewPort[1];
             // sizing //
             var k_3 = 1;
-            var positionInterval_3 = setInterval(function () {
-                setStyle_3.left = easeOutExpo(k_3, parseInt(setStyle_3.left.slice(0, -2)), endleft_1 - parseInt(setStyle_3.left.slice(0, -2)), 120, 40) + 'px';
-                setStyle_3.width = easeInExpo(k_3, parseInt(setStyle_3.width.slice(0, -2)), endWidth_3 - parseInt(setStyle_3.width.slice(0, -2)), 120) + 'px';
-                setStyle_3.height = easeInExpo(k_3, parseInt(setStyle_3.height.slice(0, -2)), endHeight_3 - parseInt(setStyle_3.height.slice(0, -2)), 120) + 'px';
+            var positionInterval_3 = function () {
+                setStyle_3.left = easeOutExpo(k_3, parseInt(setStyle_3.left.slice(0, -2)), endleft_1 - parseInt(setStyle_3.left.slice(0, -2)), 22, 16) + 'px';
+                setStyle_3.width = easeInExpo(k_3, parseInt(setStyle_3.width.slice(0, -2)), endWidth_3 - parseInt(setStyle_3.width.slice(0, -2)), 22) + 'px';
+                setStyle_3.height = easeInExpo(k_3, parseInt(setStyle_3.height.slice(0, -2)), endHeight_3 - parseInt(setStyle_3.height.slice(0, -2)), 22) + 'px';
                 k_3++;
-                if (k_3 > 120) {
-                    clearInterval(positionInterval_3);
+                if (k_3 > 22) {
+                    window.cancelAnimationFrame(animation_id_3);
                     document.getElementById('1').classList.replace("profileGalery", "activeProfilePage");
                     setTimeout(function () {
                         store.$store.commit("changeVisibleProfileButton1", true);
@@ -145,15 +155,20 @@ exports.sizeUp = function sizeUp(index, store) {
                         setStyle_3.right = null;
                         setStyle_3.width = null;
                         setStyle_3.height = null;
-                    }, 200);
+                    }, 190);
                     store.$store.commit("changeAnimationStatus", false);
                 }
-            }, 300 / 120);
+                else {
+                    animation_id_3 = window.requestAnimationFrame(positionInterval_3);
+                }
+            };
+            positionInterval_3();
         }
         // GameProfil //
         if (index == 2) {
             document.getElementById('1').style.zIndex = '-1';
             // variables //
+            var animation_id_4;
             var sizingElement = document.getElementById(index);
             var positionElement = window.getComputedStyle(sizingElement).right;
             var setStyle_4 = sizingElement.style;
@@ -168,13 +183,13 @@ exports.sizeUp = function sizeUp(index, store) {
             var endHeight_4 = viewPort[1];
             // sizing //
             var k_4 = 1;
-            var positionInterval_4 = setInterval(function () {
-                setStyle_4.right = easeOutExpo(k_4, parseInt(setStyle_4.right.slice(0, -2)), endright_1 - parseInt(setStyle_4.right.slice(0, -2)), 120, 40) + 'px';
-                setStyle_4.width = easeInExpo(k_4, parseInt(setStyle_4.width.slice(0, -2)), endWidth_4 - parseInt(setStyle_4.width.slice(0, -2)), 120) + 'px';
-                setStyle_4.height = easeInExpo(k_4, parseInt(setStyle_4.height.slice(0, -2)), endHeight_4 - parseInt(setStyle_4.height.slice(0, -2)), 120) + 'px';
+            var positionInterval_4 = function () {
+                setStyle_4.right = easeOutExpo(k_4, parseInt(setStyle_4.right.slice(0, -2)), endright_1 - parseInt(setStyle_4.right.slice(0, -2)), 22, 16) + 'px';
+                setStyle_4.width = easeInExpo(k_4, parseInt(setStyle_4.width.slice(0, -2)), endWidth_4 - parseInt(setStyle_4.width.slice(0, -2)), 22) + 'px';
+                setStyle_4.height = easeInExpo(k_4, parseInt(setStyle_4.height.slice(0, -2)), endHeight_4 - parseInt(setStyle_4.height.slice(0, -2)), 22) + 'px';
                 k_4++;
-                if (k_4 > 120) {
-                    clearInterval(positionInterval_4);
+                if (k_4 > 22) {
+                    window.cancelAnimationFrame(animation_id_4);
                     document.getElementById('2').classList.replace("profileGame", "activeProfilePage");
                     setTimeout(function () {
                         store.$store.commit("changeVisibleProfileButton1", false);
@@ -187,11 +202,15 @@ exports.sizeUp = function sizeUp(index, store) {
                         setStyle_4.right = null;
                         setStyle_4.width = null;
                         setStyle_4.height = null;
-                    }, 200);
+                    }, 190);
                     store.$store.commit("changeAnimationStatus", false);
                     document.getElementById('2').classList.remove("profileGame");
                 }
-            }, 300 / 120);
+                else {
+                    animation_id_4 = window.requestAnimationFrame(positionInterval_4);
+                }
+            };
+            positionInterval_4();
         }
     }
 };

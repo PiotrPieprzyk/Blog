@@ -2612,6 +2612,73 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["descriptionLocation", "borderPlace"],
+  // methods: {
+  // 	checkBorders(x, y) {
+  // 		console.log(y);
+  // 		console.log(x);
+  // 		let left = this.mapNavigation[y][x - 1];
+  // 		let right = this.mapNavigation[y][x + 1];
+  // 		let top;
+  // 		let bottom;
+  // 		if (this.mapNavigation[y + 1]) {
+  // 			top = this.mapNavigation[y + 1][x];
+  // 		} else {
+  // 			top = undefined;
+  // 		}
+  // 		if (this.mapNavigation[y - 1]) {
+  // 			bottom = this.mapNavigation[y - 1][x];
+  // 		} else {
+  // 			bottom = undefined;
+  // 		}
+  // 		return { left, right, top, bottom };
+  // 	}
+  // },
+  mounted: function mounted() {
+    var borders = this.borderPlace(0, 0);
+    var directionsList = "";
+
+    if (borders.left) {
+      directionsList = directionsList + "left ";
+    }
+
+    if (borders.right) {
+      directionsList = directionsList + "right ";
+    }
+
+    if (borders.top) {
+      directionsList = directionsList + "top ";
+    }
+
+    if (borders.bottom) {
+      directionsList = directionsList + "bottom ";
+    }
+
+    setTimeout(function () {
+      document.querySelector(".borders").innerHTML = document.querySelector(".borders").innerHTML + " " + directionsList;
+    }, 0);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LoginForm.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LoginForm.vue?vue&type=script&lang=js& ***!
@@ -46745,6 +46812,138 @@ function config (name) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/Game.vue?vue&type=script&lang=ts&":
+/*!**************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/Game.vue?vue&type=script&lang=ts& ***!
+  \**************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function() {
+		return {
+			uploadedPlaceElementsList: [],
+			currentCommend: "",
+			currentNavigation: {
+				x: 0,
+				y: 0
+			},
+			mapPlace: {
+				"0_0": {
+					name: "home",
+					description: "small house",
+					x: 0,
+					y: 0,
+					location: "city",
+					world: ""
+				},
+				"0_1": {
+					name: "Wood",
+					description: "smelly wood",
+					x: 1,
+					y: 0,
+					location: "wood",
+					world: ""
+				}
+			},
+			mapNavigation: {
+				"0": { 0: 1, 1: 1 }
+			}
+		};
+	},
+
+	methods: {
+		submitCommend() {
+			console.log("WORK");
+			let div = document.createElement("div");
+			div.classList.add("consoleCommend");
+			div.textContent = this.currentCommend;
+			document.querySelector(".uploadedPlaceElementsList").appendChild(div);
+			this.navigationCommend(this.currentCommend);
+			this.currentCommend = "";
+		},
+		navigationCommend(commend) {
+			let border = this.checkBorders(
+				this.currentNavigation.x,
+				this.currentNavigation.y
+			);
+			console.log(border);
+			if (commend == "left" && border.left) {
+				this.currentNavigation.x--;
+				this.getCurrentPlace(
+					this.currentNavigation.x,
+					this.currentNavigation.y
+				);
+			} else if (commend == "right" && border.right) {
+				this.currentNavigation.x++;
+				this.getCurrentPlace(
+					this.currentNavigation.x,
+					this.currentNavigation.y
+				);
+			} else if (commend == "top" && border.top) {
+				this.currentNavigation.y++;
+				this.getCurrentPlace(
+					this.currentNavigation.x,
+					this.currentNavigation.y
+				);
+			} else if (commend == "bottom" && border.bottom) {
+				this.currentNavigation.y--;
+				this.getCurrentPlace(
+					this.currentNavigation.x,
+					this.currentNavigation.y
+				);
+			} else {
+			}
+		},
+		getCurrentPlace(x, y) {
+			this.uploadedPlaceElementsList.push(this.mapPlace[y + "_" + x]);
+		},
+		checkBorders(x, y) {
+			console.log(y);
+			console.log(x);
+			let left = this.mapNavigation[y][x - 1];
+			let right = this.mapNavigation[y][x + 1];
+			let top;
+			let bottom;
+			if (this.mapNavigation[y + 1]) {
+				top = this.mapNavigation[y + 1][x];
+			} else {
+				top = undefined;
+			}
+			if (this.mapNavigation[y - 1]) {
+				bottom = this.mapNavigation[y - 1][x];
+			} else {
+				bottom = undefined;
+			}
+			return { left, right, top, bottom };
+		}
+	},
+	mounted() {
+		this.getCurrentPlace(0, 0);
+	}
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/RegisterPage.vue?vue&type=template&id=5552bd9e&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Auth/RegisterPage.vue?vue&type=template&id=5552bd9e& ***!
@@ -47708,7 +47907,63 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "screenGame" })
+  return _c("div", { staticClass: "screenGame" }, [
+    _c(
+      "div",
+      { staticClass: "uploadedPlaceElementsList" },
+      _vm._l(_vm.uploadedPlaceElementsList, function(element, index) {
+        return _c("place-element", {
+          key: index,
+          attrs: {
+            descriptionLocation: _vm.uploadedPlaceElementsList[index],
+            borderPlace: _vm.checkBorders
+          }
+        })
+      }),
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "consoleInput",
+        on: {
+          keydown: function($event) {
+            if (
+              !$event.type.indexOf("key") &&
+              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+            ) {
+              return null
+            }
+            return _vm.submitCommend($event)
+          }
+        }
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.currentCommend,
+              expression: "currentCommend"
+            }
+          ],
+          staticClass: "consoleInput",
+          attrs: { type: "text" },
+          domProps: { value: _vm.currentCommend },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.currentCommend = $event.target.value
+            }
+          }
+        })
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47733,7 +47988,41 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "GamePage" }, [
-    _c("div", { staticClass: "GameScreenWrapper" }, [_c("Game")], 1)
+    _c("div", { staticClass: "GameScreenWrapper" }, [_c("game")], 1)
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/PlaceElement.vue?vue&type=template&id=74319f37&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/PlaceElement.vue?vue&type=template&id=74319f37& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "placeElement" }, [
+    _c("div", { staticClass: "placeName" }, [
+      _vm._v(_vm._s(_vm.descriptionLocation.name))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "placeDescription" }, [
+      _vm._v(_vm._s(_vm.descriptionLocation.description))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "borders" }, [_vm._v("Możesz pójść w:")])
   ])
 }
 var staticRenderFns = []
@@ -48256,11 +48545,15 @@ var render = function() {
       { staticClass: "buttonWrapper" },
       [
         _vm.cards[_vm.currentCard].buttonText != ""
-          ? _c("router-link", { attrs: { to: "/galery" } }, [
-              _c("button", { staticClass: "buttonItem" }, [
-                _vm._v(_vm._s(_vm.cards[_vm.currentCard].buttonText))
-              ])
-            ])
+          ? _c(
+              "router-link",
+              { attrs: { to: _vm.cards[_vm.currentCard].buttonRoute } },
+              [
+                _c("button", { staticClass: "buttonItem" }, [
+                  _vm._v(_vm._s(_vm.cards[_vm.currentCard].buttonText))
+                ])
+              ]
+            )
           : _vm._e()
       ],
       1
@@ -65465,42 +65758,50 @@ function extend() {
 /*!*******************************************************!*\
   !*** ./resources/js/animationJs/activeShadowBlock.js ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: activeShadowBlock, deActiveShadowBlock */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-exports.__esModule = true;
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "activeShadowBlock", function() { return activeShadowBlock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deActiveShadowBlock", function() { return deActiveShadowBlock; });
 var easeOutQuart = function easeOutQuart(t, b, c, d) {
   t /= d;
   t--;
   return -c * (t * t * t * t - 1) + b;
 };
 
-exports.activeShadowBlock = function activeShadowBlock(element) {
+var activeShadowBlock = function activeShadowBlock(element) {
   var k = 1;
-  var shadowInterval = setInterval(function () {
+  var animation_id;
+
+  var shadowInterval = function shadowInterval() {
     element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + easeOutQuart(k, 0, 0.1, 60) + ")";
     k++;
 
     if (k > 60) {
-      clearInterval(shadowInterval);
+      window.cancelAnimationFrame(animation_id);
+    } else {
+      window.requestAnimationFrame(shadowInterval);
     }
-  }, 500 / 60);
+  };
 };
-
-exports.deActiveShadowBlock = function activeShadowBlock(element) {
+var deActiveShadowBlock = function activeShadowBlock(element) {
   var k = 60;
-  var shadowInterval = setInterval(function () {
+  var animation_id;
+
+  var shadowInterval = function shadowInterval() {
     element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + easeOutQuart(k, 0, 0.1, 60) + ")";
     k--;
 
     if (k < 0) {
-      clearInterval(shadowInterval);
+      window.cancelAnimationFrame(animation_id);
+    } else {
+      window.requestAnimationFrame(shadowInterval);
     }
-  }, 500 / 60);
+  };
+
+  shadowInterval();
 };
 
 /***/ }),
@@ -65509,14 +65810,13 @@ exports.deActiveShadowBlock = function activeShadowBlock(element) {
 /*!**************************************************!*\
   !*** ./resources/js/animationJs/errorMessage.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: errorDisappear, errorAppear */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-exports.__esModule = true;
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorDisappear", function() { return errorDisappear; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorAppear", function() { return errorAppear; });
 var easeOutQuart = function easeOutQuart(t, b, c, d) {
   t /= d;
   t--;
@@ -65527,28 +65827,39 @@ var easeInExpo = function easeInExpo(t, b, c, d) {
   return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
-exports.errorDisappear = function errorDisappear(element) {
+var errorDisappear = function errorDisappear(element) {
   var k = 1;
-  var apperInterval = setInterval(function () {
-    element.style.top = "-" + easeOutQuart(k, 0, 33, 60) + "px";
+  var animation_id;
+
+  var apperInterval = function apperInterval() {
+    element.style.top = "-" + easeOutQuart(k, 0, 33, 20) + "px";
     k++;
 
-    if (k > 60) {
-      clearInterval(apperInterval);
+    if (k > 20) {
+      window.cancelAnimationFrame(animation_id);
+    } else {
+      animation_id = window.requestAnimationFrame(apperInterval);
     }
-  }, 500 / 60);
-};
+  };
 
-exports.errorAppear = function errorAppear(element) {
-  var k = 60;
-  var apperInterval = setInterval(function () {
-    element.style.top = "-" + easeInExpo(k, 0, 33, 60) + "px";
+  apperInterval();
+};
+var errorAppear = function errorAppear(element) {
+  var k = 20;
+  var animation_id;
+
+  var apperInterval = function apperInterval() {
+    element.style.top = "-" + easeInExpo(k, 0, 33, 20) + "px";
     k--;
 
     if (k < 0) {
-      clearInterval(apperInterval);
+      window.cancelAnimationFrame(animation_id);
+    } else {
+      animation_id = window.requestAnimationFrame(apperInterval);
     }
-  }, 500 / 60);
+  };
+
+  apperInterval();
 };
 
 /***/ }),
@@ -65557,67 +65868,75 @@ exports.errorAppear = function errorAppear(element) {
 /*!*************************************************!*\
   !*** ./resources/js/animationJs/graphicMenu.js ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: crossToAnkle, showGraphicMenu */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-exports.__esModule = true;
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "crossToAnkle", function() { return crossToAnkle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showGraphicMenu", function() { return showGraphicMenu; });
 var easeOutSine = function easeOutSine(t, b, c, d) {
   return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
 
-exports.crossToAnkle = function crossToAnkle() {
+var crossToAnkle = function crossToAnkle() {
   var crossWrapper = document.querySelector('.animationIconDescription');
   var ankle2 = document.querySelector('.angle2');
 
   var rotate2 = function rotate2() {
-    var i = 60;
-    var j = 60;
+    var animation_id;
+    var i = 30;
+    var j = 30;
 
     if (ankle2 && crossWrapper) {
-      var rotate2Interval_1 = setInterval(function () {
+      var rotate2Interval_1 = function rotate2Interval_1() {
         if (ankle2) {
-          ankle2.style.transform = "rotate(0) scale(" + easeOutSine(i, -1, 2, 60) + ") translate(" + easeOutSine(j, 0, 5, 60) + "px, " + easeOutSine(j, 0, 5, 60) + "px) ";
+          ankle2.style.transform = "rotate(0) scale(" + easeOutSine(i, -1, 2, 30) + ") translate(" + easeOutSine(j, 0, 5, 30) + "px, " + easeOutSine(j, 0, 5, 30) + "px) ";
         }
 
         i--;
         j--;
 
         if (i < 1) {
-          clearInterval(rotate2Interval_1);
+          window.cancelAnimationFrame(animation_id);
 
           if (ankle2 && crossWrapper) {
             ankle2.classList.add("angle2_DONE");
             ankle2.style.transform = '';
             crossWrapper.style.transform = '';
           }
+        } else {
+          animation_id = window.requestAnimationFrame(rotate2Interval_1);
         }
-      }, 600 / 60);
+      };
+
+      rotate2Interval_1();
     }
   };
 
   var k = 1;
+  var animation_id;
 
   if (ankle2 && crossWrapper) {
-    var rotateInterval_1 = setInterval(function () {
+    var rotateInterval_1 = function rotateInterval_1() {
       if (ankle2 && crossWrapper) {
-        crossWrapper.style.transform = "rotate(" + easeOutSine(k, 0, 45, 60) + "deg)";
+        crossWrapper.style.transform = "rotate(" + easeOutSine(k, 0, 45, 20) + "deg)";
         k++;
 
-        if (k > 60) {
-          clearInterval(rotateInterval_1);
+        if (k > 20) {
+          window.cancelAnimationFrame(animation_id);
           crossWrapper.classList.add("animationIconDescription_DONE");
           rotate2();
+        } else {
+          animation_id = window.requestAnimationFrame(rotateInterval_1);
         }
       }
-    }, 400 / 60);
+    };
+
+    rotateInterval_1();
   }
 };
-
-exports.showGraphicMenu = function showGraphicMenu() {
+var showGraphicMenu = function showGraphicMenu() {
   var GraphicWrapper = document.querySelector(".imageDescriptionMenuWrapper");
 };
 
@@ -65627,14 +65946,15 @@ exports.showGraphicMenu = function showGraphicMenu() {
 /*!*************************************************!*\
   !*** ./resources/js/animationJs/scale_width.js ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: scale_widthUP, spin_the_crossUP, scale_widthDown, spin_the_crossDown */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-exports.__esModule = true;
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale_widthUP", function() { return scale_widthUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spin_the_crossUP", function() { return spin_the_crossUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scale_widthDown", function() { return scale_widthDown; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spin_the_crossDown", function() { return spin_the_crossDown; });
 var easeOutQuart = function easeOutQuart(t, b, c, d) {
   t /= d;
   t--;
@@ -65643,72 +65963,111 @@ var easeOutQuart = function easeOutQuart(t, b, c, d) {
 
 function scale_widthUP(store) {
   store.addButtonActive = true;
+  var animation_id;
   var element = document.querySelector('.formNewGraphic');
   var button = document.querySelector('.addGraphicButton');
-  var buttonWidth = window.getComputedStyle(button).width;
+  var buttonWidth;
+
+  if (button) {
+    buttonWidth = window.getComputedStyle(button).width;
+  }
+
   var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
   var k = 1;
-  var interval1 = setInterval(function () {
-    element.style.width = easeOutQuart(k, 1, maxElementWidth, 60) + "px";
-    k++;
 
-    if (k > 60) {
-      clearInterval(interval1);
+  var interval1 = function interval1() {
+    if (element) {
+      element.style.width = easeOutQuart(k, 1, maxElementWidth, 30) + "px";
+      k++;
+
+      if (k > 30) {
+        window.cancelAnimationFrame(animation_id);
+      } else {
+        animation_id = window.requestAnimationFrame(interval1);
+      }
     }
-  }, 10);
+  };
+
+  interval1();
 }
-
-exports.scale_widthUP = scale_widthUP;
-
 function spin_the_crossUP() {
   var cross = document.querySelector(".plusItem");
-  cross.style.transform = 'rotate(' + 0 + 'deg)';
+
+  if (cross) {
+    cross.style.transform = 'rotate(' + 0 + 'deg)';
+  }
+
+  var animation_id2;
   var i = 1;
-  var interval2 = setInterval(function () {
-    cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 60) + 'deg)';
-    i++;
 
-    if (i > 60) {
-      clearInterval(interval2);
+  var interval2 = function interval2() {
+    if (cross) {
+      cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
+      i++;
+
+      if (i > 30) {
+        window.cancelAnimationFrame(animation_id2);
+      } else {
+        animation_id2 = window.requestAnimationFrame(interval2);
+      }
     }
-  }, 10);
+  };
+
+  interval2();
 }
-
-exports.spin_the_crossUP = spin_the_crossUP;
-
 function scale_widthDown(it) {
+  var animation_id3;
   var element = document.querySelector('.formNewGraphic');
   var button = document.querySelector('.addGraphicButton');
-  var buttonWidth = window.getComputedStyle(button).width;
-  var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
-  var k = 60;
-  var interval3 = setInterval(function () {
-    element.style.width = easeOutQuart(k, 0, maxElementWidth, 60) + "px";
-    k--;
+  var buttonWidth;
+  var maxElementWidth;
 
-    if (k < 0) {
-      clearInterval(interval3);
-      it.addButtonActive = false;
+  if (button) {
+    buttonWidth = window.getComputedStyle(button).width;
+  }
+
+  if (buttonWidth) {
+    maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
+  }
+
+  var k = 30;
+
+  var interval3 = function interval3() {
+    if (element) {
+      element.style.width = easeOutQuart(k, 0, maxElementWidth, 30) + "px";
+      k--;
+
+      if (k < 0) {
+        window.cancelAnimationFrame(animation_id3);
+        it.addButtonActive = false;
+      } else {
+        animation_id3 = window.requestAnimationFrame(interval3);
+      }
     }
-  }, 10);
+  };
+
+  interval3();
 }
-
-exports.scale_widthDown = scale_widthDown;
-
 function spin_the_crossDown() {
   var cross = document.querySelector(".plusItem");
-  var i = 60;
-  var interval4 = setInterval(function () {
-    cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 60) + 'deg)';
-    i--;
+  var animation_id4;
+  var i = 30;
 
-    if (i < 0) {
-      clearInterval(interval4);
+  var interval4 = function interval4() {
+    if (cross) {
+      cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
+      i--;
+
+      if (i < 0) {
+        window.cancelAnimationFrame(animation_id4);
+      } else {
+        animation_id4 = window.requestAnimationFrame(interval4);
+      }
     }
-  }, 10);
-}
+  };
 
-exports.spin_the_crossDown = spin_the_crossDown;
+  interval4();
+}
 
 /***/ }),
 
@@ -65716,39 +66075,48 @@ exports.spin_the_crossDown = spin_the_crossDown;
 /*!**********************************************!*\
   !*** ./resources/js/animationJs/sizeDown.js ***!
   \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: sizeDown */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-exports.__esModule = true;
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sizeDown", function() { return sizeDown; });
 var viewPortProperties = function viewPortProperties() {
   // cross-brower //
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
   var arrProperties = [w, h];
   return arrProperties;
-}; // Easy // 
+};
 
+var viewPort = viewPortProperties(); // Easy // 
 
 var easeOutSine = function easeOutSine(t, b, c, d) {
   return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
 
-exports.sizeDown = function sizeDown(index, store) {
-  var viewPort = viewPortProperties();
+var sizeDown = function sizeDown(index, store) {
+  var element1 = document.getElementById('1');
+  var element2 = document.getElementById('2');
 
   if (viewPort[0] < viewPort[1]) {
     // GraphicProfil //
-    if (index == 1) {
+    if (index == '1') {
       // variables //
-      var sizingElement = document.getElementById(index);
-      var positionElement = window.getComputedStyle(sizingElement).top;
-      var setStyle_1 = sizingElement.style;
-      var widthElement = window.getComputedStyle(sizingElement).width;
-      var heightElement = window.getComputedStyle(sizingElement).height;
+      var animation_id_1;
+      var sizingElement = document.getElementById("" + index);
+      var positionElement = void 0;
+      var setStyle_1;
+      var widthElement = void 0;
+      var heightElement = void 0;
+
+      if (sizingElement) {
+        positionElement = window.getComputedStyle(sizingElement).top;
+        setStyle_1 = sizingElement.style;
+        widthElement = window.getComputedStyle(sizingElement).width;
+        heightElement = window.getComputedStyle(sizingElement).height;
+      }
+
       var endTop_1;
       var endWidth_1;
       var endHeight_1;
@@ -65775,14 +66143,19 @@ exports.sizeDown = function sizeDown(index, store) {
       setStyle_1.top = positionElement;
       setStyle_1.width = widthElement;
       setStyle_1.height = heightElement;
-      document.getElementById('1').classList.replace("activeProfilePage", "profileGalery"); // sizing // 
 
-      var k_1 = 80;
+      if (element1) {
+        element1.classList.replace("activeProfilePage", "profileGalery");
+      } // sizing // 
+
+
+      var k_1 = 22;
       var i_1 = 1;
-      var positionInterval_1 = setInterval(function () {
-        setStyle_1.top = easeOutSine(i_1, 0, endTop_1, 80) + 'px';
-        setStyle_1.width = easeOutSine(k_1, endWidth_1, viewPort[0] - endWidth_1, 80) + 'px';
-        setStyle_1.height = easeOutSine(k_1, endHeight_1, viewPort[1] - endHeight_1, 80) + 'px';
+
+      var positionInterval_1 = function positionInterval_1() {
+        setStyle_1.top = easeOutSine(i_1, 0, endTop_1, 22) + 'px';
+        setStyle_1.width = easeOutSine(k_1, endWidth_1, viewPort[0] - endWidth_1, 22) + 'px';
+        setStyle_1.height = easeOutSine(k_1, endHeight_1, viewPort[1] - endHeight_1, 22) + 'px';
         console.log(setStyle_1.width);
         console.log(setStyle_1.height);
         console.log(setStyle_1.right);
@@ -65790,97 +66163,133 @@ exports.sizeDown = function sizeDown(index, store) {
         i_1++;
 
         if (k_1 == 1) {
-          clearInterval(positionInterval_1);
+          window.cancelAnimationFrame(animation_id_1);
           setStyle_1.width = null;
           setStyle_1.height = null;
           setStyle_1.top = null;
           setStyle_1.bottom = null;
           setStyle_1.left = null;
           setStyle_1.right = null;
-          document.getElementById('2').style.zIndex = '0';
-          document.getElementById('1').classList.remove("activeProfilePage");
-          document.getElementById('2').classList.remove("deActiveProfilePage");
-          document.getElementById('1').classList.add("profileGalery");
+
+          if (element1 && element2) {
+            element2.style.zIndex = '0';
+            element1.classList.remove("activeProfilePage");
+            element2.classList.remove("deActiveProfilePage");
+            element1.classList.add("profileGalery");
+          }
+
           store.$store.commit("changeAnimationStatus", false);
+        } else {
+          animation_id_1 = window.requestAnimationFrame(positionInterval_1);
         }
-      }, 250 / 80);
+      };
+
+      positionInterval_1();
     } // GameProfil //
+    else {
+        // variables //
+        var animation_id_2;
+        var sizingElement = document.getElementById("" + index);
+        var positionElement = void 0;
+        var setStyle_2;
+        var widthElement = void 0;
+        var heightElement = void 0;
 
-
-    if (index == 2) {
-      // variables //
-      var sizingElement = document.getElementById(index);
-      var positionElement = window.getComputedStyle(sizingElement).bottom;
-      var setStyle_2 = sizingElement.style;
-      var widthElement = window.getComputedStyle(sizingElement).width;
-      var heightElement = window.getComputedStyle(sizingElement).height;
-      var endBottom_1;
-      var endWidth_2;
-      var endHeight_2;
-      setStyle_2.top = null;
-      setStyle_2.bottom = null;
-      setStyle_2.left = null;
-      setStyle_2.right = null; // aspectRatio
-
-      var aspectRatio = viewPort[0] / viewPort[1];
-
-      if (aspectRatio <= 1 / 2) {
-        endBottom_1 = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
-        endWidth_2 = viewPort[0] / 2;
-        endHeight_2 = viewPort[0] / 2;
-      }
-
-      if (aspectRatio > 1 / 2 && aspectRatio < 1) {
-        endBottom_1 = viewPort[1] / 8;
-        endWidth_2 = viewPort[1] / 4;
-        endHeight_2 = viewPort[1] / 4;
-      } // prepare for sizing //
-
-
-      setStyle_2.width = widthElement;
-      setStyle_2.height = heightElement;
-      setStyle_2.bottom = positionElement;
-      document.getElementById('2').classList.replace("activeProfilePage", "profileGame"); // sizing // 
-
-      var k_2 = 80;
-      var i_2 = 1;
-      var positionInterval_2 = setInterval(function () {
-        setStyle_2.bottom = easeOutSine(i_2, 0, endBottom_1, 80) + 'px';
-        setStyle_2.width = easeOutSine(k_2, endWidth_2, viewPort[0] - endWidth_2, 80) + 'px';
-        setStyle_2.height = easeOutSine(k_2, endHeight_2, viewPort[1] - endHeight_2, 80) + 'px';
-        console.log(setStyle_2.width);
-        console.log(setStyle_2.height);
-        console.log(setStyle_2.right);
-        k_2--;
-        i_2++;
-
-        if (k_2 == 1) {
-          clearInterval(positionInterval_2);
-          setStyle_2.width = null;
-          setStyle_2.height = null;
-          setStyle_2.top = null;
-          setStyle_2.bottom = null;
-          setStyle_2.left = null;
-          setStyle_2.right = null;
-          document.getElementById('1').style.zIndex = '0';
-          document.getElementById('2').classList.remove("activeProfilePage");
-          document.getElementById('1').classList.remove("deActiveProfilePage");
-          store.$store.commit("changeAnimationStatus", false);
-          document.getElementById('2').classList.add("profileGame");
+        if (sizingElement) {
+          positionElement = window.getComputedStyle(sizingElement).top;
+          setStyle_2 = sizingElement.style;
+          widthElement = window.getComputedStyle(sizingElement).width;
+          heightElement = window.getComputedStyle(sizingElement).height;
         }
-      }, 250 / 80);
-    }
+
+        var endBottom_1;
+        var endWidth_2;
+        var endHeight_2;
+        setStyle_2.top = null;
+        setStyle_2.bottom = null;
+        setStyle_2.left = null;
+        setStyle_2.right = null; // aspectRatio
+
+        var aspectRatio = viewPort[0] / viewPort[1];
+
+        if (aspectRatio <= 1 / 2) {
+          endBottom_1 = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
+          endWidth_2 = viewPort[0] / 2;
+          endHeight_2 = viewPort[0] / 2;
+        }
+
+        if (aspectRatio > 1 / 2 && aspectRatio < 1) {
+          endBottom_1 = viewPort[1] / 8;
+          endWidth_2 = viewPort[1] / 4;
+          endHeight_2 = viewPort[1] / 4;
+        } // prepare for sizing //
+
+
+        setStyle_2.width = widthElement;
+        setStyle_2.height = heightElement;
+        setStyle_2.bottom = positionElement;
+
+        if (element2) {
+          element2.classList.replace("activeProfilePage", "profileGalery");
+        } // sizing // 
+
+
+        var k_2 = 22;
+        var i_2 = 1;
+
+        var positionInterval_2 = function positionInterval_2() {
+          setStyle_2.bottom = easeOutSine(i_2, 0, endBottom_1, 22) + 'px';
+          setStyle_2.width = easeOutSine(k_2, endWidth_2, viewPort[0] - endWidth_2, 22) + 'px';
+          setStyle_2.height = easeOutSine(k_2, endHeight_2, viewPort[1] - endHeight_2, 22) + 'px';
+          console.log(setStyle_2.width);
+          console.log(setStyle_2.height);
+          console.log(setStyle_2.right);
+          k_2--;
+          i_2++;
+
+          if (k_2 == 1) {
+            window.cancelAnimationFrame(animation_id_2);
+            setStyle_2.width = null;
+            setStyle_2.height = null;
+            setStyle_2.top = null;
+            setStyle_2.bottom = null;
+            setStyle_2.left = null;
+            setStyle_2.right = null;
+
+            if (element2 && element1) {
+              element1.style.zIndex = '0';
+              element2.classList.remove("activeProfilePage");
+              element1.classList.remove("deActiveProfilePage");
+              store.$store.commit("changeAnimationStatus", false);
+              element2.classList.add("profileGame");
+            }
+          } else {
+            animation_id_2 = window.requestAnimationFrame(positionInterval_2);
+          }
+        };
+
+        positionInterval_2();
+      }
   }
 
   if (viewPort[0] >= viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
       // variables //
-      var sizingElement = document.getElementById(index);
-      var positionElement = window.getComputedStyle(sizingElement).left;
-      var setStyle_3 = sizingElement.style;
-      var widthElement = window.getComputedStyle(sizingElement).width;
-      var heightElement = window.getComputedStyle(sizingElement).height;
+      var animation_id_3;
+      var sizingElement = document.getElementById("" + index);
+      var positionElement = void 0;
+      var setStyle_3;
+      var widthElement = void 0;
+      var heightElement = void 0;
+
+      if (sizingElement) {
+        positionElement = window.getComputedStyle(sizingElement).top;
+        setStyle_3 = sizingElement.style;
+        widthElement = window.getComputedStyle(sizingElement).width;
+        heightElement = window.getComputedStyle(sizingElement).height;
+      }
+
       var endleft_1;
       var endWidth_3;
       var endHeight_3;
@@ -65909,17 +66318,18 @@ exports.sizeDown = function sizeDown(index, store) {
       setStyle_3.height = heightElement;
       document.getElementById('1').classList.replace("activeProfilePage", "profileGalery"); // sizing //
 
-      var k_3 = 80;
+      var k_3 = 22;
       var i_3 = 1;
-      var positionInterval_3 = setInterval(function () {
-        setStyle_3.left = easeOutSine(i_3, 0, endleft_1, 80) + 'px';
-        setStyle_3.width = easeOutSine(k_3, endWidth_3, viewPort[0] - endWidth_3, 80) + 'px';
-        setStyle_3.height = easeOutSine(k_3, endHeight_3, viewPort[1] - endHeight_3, 80) + 'px';
+
+      var positionInterval_3 = function positionInterval_3() {
+        setStyle_3.left = easeOutSine(i_3, 0, endleft_1, 22) + 'px';
+        setStyle_3.width = easeOutSine(k_3, endWidth_3, viewPort[0] - endWidth_3, 22) + 'px';
+        setStyle_3.height = easeOutSine(k_3, endHeight_3, viewPort[1] - endHeight_3, 22) + 'px';
         k_3--;
         i_3++;
 
         if (k_3 == 1) {
-          clearInterval(positionInterval_3);
+          window.cancelAnimationFrame(animation_id_3);
           setStyle_3.width = null;
           setStyle_3.height = null;
           setStyle_3.top = null;
@@ -65928,13 +66338,18 @@ exports.sizeDown = function sizeDown(index, store) {
           setStyle_3.right = null;
           document.getElementById('2').style.zIndex = '0';
           store.$store.commit("changeAnimationStatus", false);
+        } else {
+          animation_id_3 = window.requestAnimationFrame(positionInterval_3);
         }
-      }, 250 / 80);
+      };
+
+      positionInterval_3();
     } // GameProfil //
 
 
     if (index == 2) {
       // variables //
+      var animation_id_4;
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).right;
       var setStyle_4 = sizingElement.style;
@@ -65968,12 +66383,13 @@ exports.sizeDown = function sizeDown(index, store) {
       setStyle_4.height = heightElement;
       document.getElementById('2').classList.replace("activeProfilePage", "profileGame"); // sizing //
 
-      var k_4 = 80;
+      var k_4 = 22;
       var i_4 = 1;
-      var positionInterval_4 = setInterval(function () {
-        setStyle_4.right = easeOutSine(i_4, 0, endRight_1, 80) + 'px';
-        setStyle_4.width = easeOutSine(k_4, endWidth_4, viewPort[0] - endWidth_4, 80) + 'px';
-        setStyle_4.height = easeOutSine(k_4, endHeight_4, viewPort[1] - endHeight_4, 80) + 'px';
+
+      var positionInterval_4 = function positionInterval_4() {
+        setStyle_4.right = easeOutSine(i_4, 0, endRight_1, 22) + 'px';
+        setStyle_4.width = easeOutSine(k_4, endWidth_4, viewPort[0] - endWidth_4, 22) + 'px';
+        setStyle_4.height = easeOutSine(k_4, endHeight_4, viewPort[1] - endHeight_4, 22) + 'px';
         console.log(setStyle_4.width);
         console.log(setStyle_4.height);
         console.log("RIGHT " + setStyle_4.right);
@@ -65981,7 +66397,7 @@ exports.sizeDown = function sizeDown(index, store) {
         i_4++;
 
         if (k_4 == 1) {
-          clearInterval(positionInterval_4);
+          window.cancelAnimationFrame(animation_id_4);
           setStyle_4.width = null;
           setStyle_4.height = null;
           setStyle_4.top = null;
@@ -65990,8 +66406,12 @@ exports.sizeDown = function sizeDown(index, store) {
           setStyle_4.right = null;
           document.getElementById('1').style.zIndex = '0';
           store.$store.commit("changeAnimationStatus", false);
+        } else {
+          animation_id_4 = window.requestAnimationFrame(positionInterval_4);
         }
-      }, 250 / 80);
+      };
+
+      positionInterval_4();
     }
   }
 };
@@ -66002,14 +66422,12 @@ exports.sizeDown = function sizeDown(index, store) {
 /*!********************************************!*\
   !*** ./resources/js/animationJs/sizeUp.js ***!
   \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: sizeUp */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-exports.__esModule = true;
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sizeUp", function() { return sizeUp; });
 var viewPortProperties = function viewPortProperties() {
   // cross-brower //
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -66033,7 +66451,7 @@ var easeInExpo = function easeInExpo(t, b, c, d) {
   return c * Math.pow(2, 10 * (t / d - 1)) + b;
 };
 
-exports.sizeUp = function sizeUp(index, store) {
+var sizeUp = function sizeUp(index, store) {
   var viewPort = viewPortProperties();
 
   if (viewPort[0] < viewPort[1]) {
@@ -66041,6 +66459,7 @@ exports.sizeUp = function sizeUp(index, store) {
     if (index == 1) {
       document.getElementById('2').style.zIndex = '-1'; // variables //
 
+      var animation_id_1;
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).top;
       var setStyle_1 = sizingElement.style;
@@ -66055,14 +66474,16 @@ exports.sizeUp = function sizeUp(index, store) {
       var endHeight_1 = viewPort[1]; // sizing // 
 
       var k_1 = 1;
-      var positionInterval_1 = setInterval(function () {
-        setStyle_1.top = easeOutExpo(k_1, parseInt(setStyle_1.top.slice(0, -2)), endTop_1 - parseInt(setStyle_1.top.slice(0, -2)), 120, 40) + 'px';
-        setStyle_1.width = easeInExpo(k_1, parseInt(setStyle_1.width.slice(0, -2)), endWidth_1 - parseInt(setStyle_1.width.slice(0, -2)), 120) + 'px';
-        setStyle_1.height = easeInExpo(k_1, parseInt(setStyle_1.height.slice(0, -2)), endHeight_1 - parseInt(setStyle_1.height.slice(0, -2)), 120) + 'px';
-        k_1++;
 
-        if (k_1 > 120) {
-          clearInterval(positionInterval_1);
+      var positionInterval_1 = function positionInterval_1() {
+        setStyle_1.top = easeOutExpo(k_1, parseInt(setStyle_1.top.slice(0, -2)), endTop_1 - parseInt(setStyle_1.top.slice(0, -2)), 22, 16) + 'px';
+        setStyle_1.width = easeInExpo(k_1, parseInt(setStyle_1.width.slice(0, -2)), endWidth_1 - parseInt(setStyle_1.width.slice(0, -2)), 22) + 'px';
+        setStyle_1.height = easeInExpo(k_1, parseInt(setStyle_1.height.slice(0, -2)), endHeight_1 - parseInt(setStyle_1.height.slice(0, -2)), 22) + 'px';
+        k_1++;
+        console.log("diała");
+
+        if (k_1 > 22) {
+          window.cancelAnimationFrame(animation_id_1);
           document.getElementById('1').classList.replace("profileGalery", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", true);
@@ -66075,16 +66496,21 @@ exports.sizeUp = function sizeUp(index, store) {
             setStyle_1.right = null;
             setStyle_1.width = null;
             setStyle_1.height = null;
-          }, 200);
+          }, 190);
           store.$store.commit("changeAnimationStatus", false);
+        } else {
+          animation_id_1 = window.requestAnimationFrame(positionInterval_1);
         }
-      }, 300 / 120);
+      };
+
+      positionInterval_1();
     } // GameProfil //
 
 
     if (index == 2) {
       document.getElementById('1').style.zIndex = '-1'; // variables //
 
+      var animation_id_2;
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).bottom;
       var setStyle_2 = sizingElement.style;
@@ -66099,14 +66525,15 @@ exports.sizeUp = function sizeUp(index, store) {
       var endHeight_2 = viewPort[1]; // sizing // 
 
       var k_2 = 1;
-      var positionInterval_2 = setInterval(function () {
-        setStyle_2.bottom = easeOutExpo(k_2, parseInt(setStyle_2.bottom.slice(0, -2)), endBottom_1 - parseInt(setStyle_2.bottom.slice(0, -2)), 120, 40) + 'px';
-        setStyle_2.width = easeInExpo(k_2, parseInt(setStyle_2.width.slice(0, -2)), endWidth_2 - parseInt(setStyle_2.width.slice(0, -2)), 120) + 'px';
-        setStyle_2.height = easeInExpo(k_2, parseInt(setStyle_2.height.slice(0, -2)), endHeight_2 - parseInt(setStyle_2.height.slice(0, -2)), 120) + 'px';
+
+      var positionInterval_2 = function positionInterval_2() {
+        setStyle_2.bottom = easeOutExpo(k_2, parseInt(setStyle_2.bottom.slice(0, -2)), endBottom_1 - parseInt(setStyle_2.bottom.slice(0, -2)), 22, 16) + 'px';
+        setStyle_2.width = easeInExpo(k_2, parseInt(setStyle_2.width.slice(0, -2)), endWidth_2 - parseInt(setStyle_2.width.slice(0, -2)), 22) + 'px';
+        setStyle_2.height = easeInExpo(k_2, parseInt(setStyle_2.height.slice(0, -2)), endHeight_2 - parseInt(setStyle_2.height.slice(0, -2)), 22) + 'px';
         k_2++;
 
-        if (k_2 > 120) {
-          clearInterval(positionInterval_2);
+        if (k_2 > 22) {
+          window.cancelAnimationFrame(animation_id_2);
           document.getElementById('2').classList.replace("profileGame", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", false);
@@ -66119,10 +66546,14 @@ exports.sizeUp = function sizeUp(index, store) {
             setStyle_2.right = null;
             setStyle_2.width = null;
             setStyle_2.height = null;
-          }, 200);
+          }, 190);
           store.$store.commit("changeAnimationStatus", false);
+        } else {
+          animation_id_2 = window.requestAnimationFrame(positionInterval_2);
         }
-      }, 300 / 120);
+      };
+
+      positionInterval_2();
     }
   }
 
@@ -66131,6 +66562,7 @@ exports.sizeUp = function sizeUp(index, store) {
     if (index == 1) {
       document.getElementById('2').style.zIndex = '-1'; // variables //
 
+      var animation_id_3;
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).left;
       var setStyle_3 = sizingElement.style;
@@ -66145,14 +66577,15 @@ exports.sizeUp = function sizeUp(index, store) {
       var endHeight_3 = viewPort[1]; // sizing //
 
       var k_3 = 1;
-      var positionInterval_3 = setInterval(function () {
-        setStyle_3.left = easeOutExpo(k_3, parseInt(setStyle_3.left.slice(0, -2)), endleft_1 - parseInt(setStyle_3.left.slice(0, -2)), 120, 40) + 'px';
-        setStyle_3.width = easeInExpo(k_3, parseInt(setStyle_3.width.slice(0, -2)), endWidth_3 - parseInt(setStyle_3.width.slice(0, -2)), 120) + 'px';
-        setStyle_3.height = easeInExpo(k_3, parseInt(setStyle_3.height.slice(0, -2)), endHeight_3 - parseInt(setStyle_3.height.slice(0, -2)), 120) + 'px';
+
+      var positionInterval_3 = function positionInterval_3() {
+        setStyle_3.left = easeOutExpo(k_3, parseInt(setStyle_3.left.slice(0, -2)), endleft_1 - parseInt(setStyle_3.left.slice(0, -2)), 22, 16) + 'px';
+        setStyle_3.width = easeInExpo(k_3, parseInt(setStyle_3.width.slice(0, -2)), endWidth_3 - parseInt(setStyle_3.width.slice(0, -2)), 22) + 'px';
+        setStyle_3.height = easeInExpo(k_3, parseInt(setStyle_3.height.slice(0, -2)), endHeight_3 - parseInt(setStyle_3.height.slice(0, -2)), 22) + 'px';
         k_3++;
 
-        if (k_3 > 120) {
-          clearInterval(positionInterval_3);
+        if (k_3 > 22) {
+          window.cancelAnimationFrame(animation_id_3);
           document.getElementById('1').classList.replace("profileGalery", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", true);
@@ -66165,16 +66598,21 @@ exports.sizeUp = function sizeUp(index, store) {
             setStyle_3.right = null;
             setStyle_3.width = null;
             setStyle_3.height = null;
-          }, 200);
+          }, 190);
           store.$store.commit("changeAnimationStatus", false);
+        } else {
+          animation_id_3 = window.requestAnimationFrame(positionInterval_3);
         }
-      }, 300 / 120);
+      };
+
+      positionInterval_3();
     } // GameProfil //
 
 
     if (index == 2) {
       document.getElementById('1').style.zIndex = '-1'; // variables //
 
+      var animation_id_4;
       var sizingElement = document.getElementById(index);
       var positionElement = window.getComputedStyle(sizingElement).right;
       var setStyle_4 = sizingElement.style;
@@ -66189,14 +66627,15 @@ exports.sizeUp = function sizeUp(index, store) {
       var endHeight_4 = viewPort[1]; // sizing //
 
       var k_4 = 1;
-      var positionInterval_4 = setInterval(function () {
-        setStyle_4.right = easeOutExpo(k_4, parseInt(setStyle_4.right.slice(0, -2)), endright_1 - parseInt(setStyle_4.right.slice(0, -2)), 120, 40) + 'px';
-        setStyle_4.width = easeInExpo(k_4, parseInt(setStyle_4.width.slice(0, -2)), endWidth_4 - parseInt(setStyle_4.width.slice(0, -2)), 120) + 'px';
-        setStyle_4.height = easeInExpo(k_4, parseInt(setStyle_4.height.slice(0, -2)), endHeight_4 - parseInt(setStyle_4.height.slice(0, -2)), 120) + 'px';
+
+      var positionInterval_4 = function positionInterval_4() {
+        setStyle_4.right = easeOutExpo(k_4, parseInt(setStyle_4.right.slice(0, -2)), endright_1 - parseInt(setStyle_4.right.slice(0, -2)), 22, 16) + 'px';
+        setStyle_4.width = easeInExpo(k_4, parseInt(setStyle_4.width.slice(0, -2)), endWidth_4 - parseInt(setStyle_4.width.slice(0, -2)), 22) + 'px';
+        setStyle_4.height = easeInExpo(k_4, parseInt(setStyle_4.height.slice(0, -2)), endHeight_4 - parseInt(setStyle_4.height.slice(0, -2)), 22) + 'px';
         k_4++;
 
-        if (k_4 > 120) {
-          clearInterval(positionInterval_4);
+        if (k_4 > 22) {
+          window.cancelAnimationFrame(animation_id_4);
           document.getElementById('2').classList.replace("profileGame", "activeProfilePage");
           setTimeout(function () {
             store.$store.commit("changeVisibleProfileButton1", false);
@@ -66209,11 +66648,15 @@ exports.sizeUp = function sizeUp(index, store) {
             setStyle_4.right = null;
             setStyle_4.width = null;
             setStyle_4.height = null;
-          }, 200);
+          }, 190);
           store.$store.commit("changeAnimationStatus", false);
           document.getElementById('2').classList.remove("profileGame");
+        } else {
+          animation_id_4 = window.requestAnimationFrame(positionInterval_4);
         }
-      }, 300 / 120);
+      };
+
+      positionInterval_4();
     }
   }
 };
@@ -66230,7 +66673,6 @@ exports.sizeUp = function sizeUp(index, store) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jsAnimation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./jsAnimation */ "./resources/js/jsAnimation.js");
-/* harmony import */ var _jsAnimation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_jsAnimation__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
@@ -66274,8 +66716,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('profile-page', __webpack_r
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('profile-graphic', __webpack_require__(/*! ./components/Profile/ProfileGraphic.vue */ "./resources/js/components/Profile/ProfileGraphic.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('profile-game', __webpack_require__(/*! ./components/Profile/ProfileGame.vue */ "./resources/js/components/Profile/ProfileGame.vue")["default"]); // Game // 
 
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('GamePage', __webpack_require__(/*! ./components/Game/GameCard.vue */ "./resources/js/components/Game/GameCard.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('Game', __webpack_require__(/*! ./components/Game/Game.vue */ "./resources/js/components/Game/Game.vue")["default"]); // Auth //
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-page', __webpack_require__(/*! ./components/Game/GameCard.vue */ "./resources/js/components/Game/GameCard.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game', __webpack_require__(/*! ./components/Game/Game.vue */ "./resources/js/components/Game/Game.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('place-element', __webpack_require__(/*! ./components/Game/PlaceElement.vue */ "./resources/js/components/Game/PlaceElement.vue")["default"]); // Auth //
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('register-page', __webpack_require__(/*! ./components/Auth/RegisterPage.vue */ "./resources/js/components/Auth/RegisterPage.vue")["default"]);
 /**
@@ -66309,7 +66752,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     visibleProfileButton2: true,
     buttonProfileActive: false,
     // jsAnimation
-    jsAnimation: _jsAnimation__WEBPACK_IMPORTED_MODULE_0___default.a,
+    jsAnimation: _jsAnimation__WEBPACK_IMPORTED_MODULE_0__["default"],
     scrollEventActive: true,
     // dataBase
     cards: [{
@@ -66317,25 +66760,29 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       href: "image11.jpg",
       title: "<h1 >OurBlog</h1>",
       content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
-      buttonText: ""
+      buttonText: "",
+      buttonRoute: ""
     }, {
       id: 1,
       href: "image5.jpg",
       title: "<h1 >Graphic</h1>",
       content: "<p>Zabawa z prostymi narzędziami</p>",
-      buttonText: "Przejdź do Galerii"
+      buttonText: "Przejdź do Galerii",
+      buttonRoute: "/galery"
     }, {
       id: 2,
       href: "image1.jpg",
       title: "<h1 >Game</h1>",
-      content: "<p>lorem lorem lorem</p>",
-      buttonText: ""
+      content: "<p>Grałeś kiedyś w grę tekstową?</p>",
+      buttonText: "Chcę zagrać",
+      buttonRoute: "/game"
     }, {
       id: 3,
       href: "",
       title: "",
       content: "\n                <div class=\"contactItems\">\n                    <p class=\"contactTitle\">Spodoba\u0142a si\u0119 strona?</p>\n                    <p class=\"contactText\">Przy jej tworzeniu skorzysta\u0142em z wsp\xF3\u0142czesnych technologi</p>\n                    <div class=\"technologyList\">\n                        <img class=\"technologyItem\" src=\"./images/contactImg/Vue.png\" />\n                        <img class=\"technologyItem\" src=\"./images/contactImg/Laravel.png\" />\n                    </div>\n                    <p class=\"contactTitle\">Chcesz si\u0119 skontaktowa\u0107?</p>\n                    <p class=\"contactText\">+48 886 168 943</p>\n                    <p class=\"contactText\">piotr.pieprzyk.pp@gmail.com</p>\n                </div>\n                ",
-      buttonText: ""
+      buttonText: "",
+      buttonRoute: ""
     }],
     graphics: [{
       id: 1,
@@ -66801,15 +67248,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Game_vue_vue_type_template_id_afd91298___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Game.vue?vue&type=template&id=afd91298& */ "./resources/js/components/Game/Game.vue?vue&type=template&id=afd91298&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Game_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Game.vue?vue&type=script&lang=ts& */ "./resources/js/components/Game/Game.vue?vue&type=script&lang=ts&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Game_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Game_vue_vue_type_template_id_afd91298___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Game_vue_vue_type_template_id_afd91298___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -66823,6 +67272,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/Game/Game.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/Game.vue?vue&type=script&lang=ts&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/Game/Game.vue?vue&type=script&lang=ts& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_Game_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!./Game.vue?vue&type=script&lang=ts& */ "./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/Game.vue?vue&type=script&lang=ts&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_Game_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -66908,6 +67371,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameCard_vue_vue_type_template_id_18d0dfe4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameCard_vue_vue_type_template_id_18d0dfe4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/PlaceElement.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Game/PlaceElement.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PlaceElement.vue?vue&type=template&id=74319f37& */ "./resources/js/components/Game/PlaceElement.vue?vue&type=template&id=74319f37&");
+/* harmony import */ var _PlaceElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlaceElement.vue?vue&type=script&lang=js& */ "./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PlaceElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Game/PlaceElement.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PlaceElement.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/PlaceElement.vue?vue&type=template&id=74319f37&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Game/PlaceElement.vue?vue&type=template&id=74319f37& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PlaceElement.vue?vue&type=template&id=74319f37& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/PlaceElement.vue?vue&type=template&id=74319f37&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -67538,39 +68070,36 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************!*\
   !*** ./resources/js/jsAnimation.js ***!
   \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _animationJs_sizeUp_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animationJs/sizeUp.js */ "./resources/js/animationJs/sizeUp.js");
+/* harmony import */ var _animationJs_sizeDown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animationJs/sizeDown.js */ "./resources/js/animationJs/sizeDown.js");
+/* harmony import */ var _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animationJs/scale_width.js */ "./resources/js/animationJs/scale_width.js");
+/* harmony import */ var _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animationJs/activeShadowBlock.js */ "./resources/js/animationJs/activeShadowBlock.js");
+/* harmony import */ var _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animationJs/errorMessage.js */ "./resources/js/animationJs/errorMessage.js");
+/* harmony import */ var _animationJs_graphicMenu_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./animationJs/graphicMenu.js */ "./resources/js/animationJs/graphicMenu.js");
 
 
-exports.__esModule = true;
 
-var sizeUp_js_1 = __webpack_require__(/*! ./animationJs/sizeUp.js */ "./resources/js/animationJs/sizeUp.js");
 
-var sizeDown_js_1 = __webpack_require__(/*! ./animationJs/sizeDown.js */ "./resources/js/animationJs/sizeDown.js");
 
-var scale_width_js_1 = __webpack_require__(/*! ./animationJs/scale_width.js */ "./resources/js/animationJs/scale_width.js");
 
-var activeShadowBlock_js_1 = __webpack_require__(/*! ./animationJs/activeShadowBlock.js */ "./resources/js/animationJs/activeShadowBlock.js");
-
-var errorMessage_js_1 = __webpack_require__(/*! ./animationJs/errorMessage.js */ "./resources/js/animationJs/errorMessage.js");
-
-var graphicMenu_js_1 = __webpack_require__(/*! ./animationJs/graphicMenu.js */ "./resources/js/animationJs/graphicMenu.js");
-
-exports["default"] = {
-  sizeUp: sizeUp_js_1.sizeUp,
-  sizeDown: sizeDown_js_1.sizeDown,
-  scale_widthUP: scale_width_js_1.scale_widthUP,
-  scale_widthDown: scale_width_js_1.scale_widthDown,
-  spin_the_crossUP: scale_width_js_1.spin_the_crossUP,
-  spin_the_crossDown: scale_width_js_1.spin_the_crossDown,
-  activeShadowBlock: activeShadowBlock_js_1.activeShadowBlock,
-  deActiveShadowBlock: activeShadowBlock_js_1.deActiveShadowBlock,
-  errorAppear: errorMessage_js_1.errorAppear,
-  errorDisappear: errorMessage_js_1.errorDisappear,
-  crossToAnkle: graphicMenu_js_1.crossToAnkle
-};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  sizeUp: _animationJs_sizeUp_js__WEBPACK_IMPORTED_MODULE_0__["sizeUp"],
+  sizeDown: _animationJs_sizeDown_js__WEBPACK_IMPORTED_MODULE_1__["sizeDown"],
+  scale_widthUP: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["scale_widthUP"],
+  scale_widthDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["scale_widthDown"],
+  spin_the_crossUP: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossUP"],
+  spin_the_crossDown: _animationJs_scale_width_js__WEBPACK_IMPORTED_MODULE_2__["spin_the_crossDown"],
+  activeShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["activeShadowBlock"],
+  deActiveShadowBlock: _animationJs_activeShadowBlock_js__WEBPACK_IMPORTED_MODULE_3__["deActiveShadowBlock"],
+  errorAppear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorAppear"],
+  errorDisappear: _animationJs_errorMessage_js__WEBPACK_IMPORTED_MODULE_4__["errorDisappear"],
+  crossToAnkle: _animationJs_graphicMenu_js__WEBPACK_IMPORTED_MODULE_5__["crossToAnkle"]
+});
 
 /***/ }),
 

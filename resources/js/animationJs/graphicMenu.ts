@@ -1,4 +1,4 @@
-let easeOutSine = function (t, b, c, d) {
+let easeOutSine = function (t: number, b: number, c: number, d: number) {
   return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
 
@@ -8,7 +8,7 @@ export let crossToAnkle = function crossToAnkle() {
   let ankle2: HTMLElement | null = document.querySelector('.angle2');
 
   let rotate2 = () => {
-    let animation_id;
+    let animation_id: number;
     let i = 30;
     let j = 30;
 
@@ -40,7 +40,7 @@ export let crossToAnkle = function crossToAnkle() {
 
 
   let k = 1;
-  let animation_id;
+  let animation_id: number;
   if (ankle2 && crossWrapper) {
     let rotateInterval = () => {
       if (ankle2 && crossWrapper) {

@@ -1,64 +1,97 @@
-"use strict";
-exports.__esModule = true;
 var easeOutQuart = function (t, b, c, d) {
     t /= d;
     t--;
     return -c * (t * t * t * t - 1) + b;
 };
-function scale_widthUP(store) {
+export function scale_widthUP(store) {
     store.addButtonActive = true;
+    var animation_id;
     var element = document.querySelector('.formNewGraphic');
     var button = document.querySelector('.addGraphicButton');
-    var buttonWidth = window.getComputedStyle(button).width;
+    var buttonWidth;
+    if (button) {
+        buttonWidth = window.getComputedStyle(button).width;
+    }
     var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
     var k = 1;
-    var interval1 = setInterval(function () {
-        element.style.width = easeOutQuart(k, 1, maxElementWidth, 60) + "px";
-        k++;
-        if (k > 60) {
-            clearInterval(interval1);
+    var interval1 = function () {
+        if (element) {
+            element.style.width = easeOutQuart(k, 1, maxElementWidth, 30) + "px";
+            k++;
+            if (k > 30) {
+                window.cancelAnimationFrame(animation_id);
+            }
+            else {
+                animation_id = window.requestAnimationFrame(interval1);
+            }
         }
-    }, 10);
+    };
+    interval1();
 }
-exports.scale_widthUP = scale_widthUP;
-function spin_the_crossUP() {
+export function spin_the_crossUP() {
     var cross = document.querySelector(".plusItem");
-    cross.style.transform = 'rotate(' + 0 + 'deg)';
+    if (cross) {
+        cross.style.transform = 'rotate(' + 0 + 'deg)';
+    }
+    var animation_id2;
     var i = 1;
-    var interval2 = setInterval(function () {
-        cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 60) + 'deg)';
-        i++;
-        if (i > 60) {
-            clearInterval(interval2);
+    var interval2 = function () {
+        if (cross) {
+            cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
+            i++;
+            if (i > 30) {
+                window.cancelAnimationFrame(animation_id2);
+            }
+            else {
+                animation_id2 = window.requestAnimationFrame(interval2);
+            }
         }
-    }, 10);
+    };
+    interval2();
 }
-exports.spin_the_crossUP = spin_the_crossUP;
-function scale_widthDown(it) {
+export function scale_widthDown(it) {
+    var animation_id3;
     var element = document.querySelector('.formNewGraphic');
     var button = document.querySelector('.addGraphicButton');
-    var buttonWidth = window.getComputedStyle(button).width;
-    var maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
-    var k = 60;
-    var interval3 = setInterval(function () {
-        element.style.width = easeOutQuart(k, 0, maxElementWidth, 60) + "px";
-        k--;
-        if (k < 0) {
-            clearInterval(interval3);
-            it.addButtonActive = false;
+    var buttonWidth;
+    var maxElementWidth;
+    if (button) {
+        buttonWidth = window.getComputedStyle(button).width;
+    }
+    if (buttonWidth) {
+        maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
+    }
+    var k = 30;
+    var interval3 = function () {
+        if (element) {
+            element.style.width = easeOutQuart(k, 0, maxElementWidth, 30) + "px";
+            k--;
+            if (k < 0) {
+                window.cancelAnimationFrame(animation_id3);
+                it.addButtonActive = false;
+            }
+            else {
+                animation_id3 = window.requestAnimationFrame(interval3);
+            }
         }
-    }, 10);
+    };
+    interval3();
 }
-exports.scale_widthDown = scale_widthDown;
-function spin_the_crossDown() {
+export function spin_the_crossDown() {
     var cross = document.querySelector(".plusItem");
-    var i = 60;
-    var interval4 = setInterval(function () {
-        cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 60) + 'deg)';
-        i--;
-        if (i < 0) {
-            clearInterval(interval4);
+    var animation_id4;
+    var i = 30;
+    var interval4 = function () {
+        if (cross) {
+            cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
+            i--;
+            if (i < 0) {
+                window.cancelAnimationFrame(animation_id4);
+            }
+            else {
+                animation_id4 = window.requestAnimationFrame(interval4);
+            }
         }
-    }, 10);
+    };
+    interval4();
 }
-exports.spin_the_crossDown = spin_the_crossDown;

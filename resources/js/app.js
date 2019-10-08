@@ -42,8 +42,9 @@ Vue.component('profile-graphic', require('./components/Profile/ProfileGraphic.vu
 Vue.component('profile-game', require('./components/Profile/ProfileGame.vue').default);
 
 // Game // 
-Vue.component('GamePage', require('./components/Game/GameCard.vue').default);
-Vue.component('Game', require('./components/Game/Game.vue').default);
+Vue.component('game-page', require('./components/Game/GameCard.vue').default);
+Vue.component('game', require('./components/Game/Game.vue').default);
+Vue.component('place-element', require('./components/Game/PlaceElement.vue').default);
 
 
 // Auth //
@@ -96,6 +97,7 @@ const store = new Vuex.Store({
         title: "<h1 >OurBlog</h1>",
         content: "<p>Jak połączyć sztukę i programowanie?</br> Sprawdź jak my to robimy!</p>",
         buttonText: "",
+        buttonRoute: "",
       },
       {
         id: 1,
@@ -104,16 +106,16 @@ const store = new Vuex.Store({
         title: "<h1 >Graphic</h1>",
         content: "<p>Zabawa z prostymi narzędziami</p>",
         buttonText: "Przejdź do Galerii",
-
+        buttonRoute: "/galery",
 
       },
       {
         id: 2,
         href: "image1.jpg",
         title: "<h1 >Game</h1>",
-        content: "<p>lorem lorem lorem</p>",
-        buttonText: "",
-
+        content: "<p>Grałeś kiedyś w grę tekstową?</p>",
+        buttonText: "Chcę zagrać",
+        buttonRoute: "/game",
 
       },
       {
@@ -135,7 +137,7 @@ const store = new Vuex.Store({
                 </div>
                 `,
         buttonText: "",
-
+        buttonRoute: "",
       }
 
 
