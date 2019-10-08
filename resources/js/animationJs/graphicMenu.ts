@@ -8,20 +8,21 @@ export let crossToAnkle = function crossToAnkle() {
   let ankle2: HTMLElement | null = document.querySelector('.angle2');
 
   let rotate2 = () => {
-    let i = 60;
-    let j = 60;
+    let animation_id;
+    let i = 30;
+    let j = 30;
 
     if (ankle2 && crossWrapper) {
-      let rotate2Interval = setInterval(() => {
+      let rotate2Interval = () => {
         if (ankle2) {
-          ankle2.style.transform = "rotate(0) scale(" + easeOutSine(i, -1, 2, 60) + ") translate(" + easeOutSine(j, 0, 5, 60) + "px, " + easeOutSine(j, 0, 5, 60) + "px) ";
+          ankle2.style.transform = "rotate(0) scale(" + easeOutSine(i, -1, 2, 30) + ") translate(" + easeOutSine(j, 0, 5, 30) + "px, " + easeOutSine(j, 0, 5, 30) + "px) ";
         }
 
         i--;
         j--;
 
         if (i < 1) {
-          clearInterval(rotate2Interval);
+          window.cancelAnimationFrame(animation_id);
 
           if (ankle2 && crossWrapper) {
             ankle2.classList.add("angle2_DONE");
@@ -29,26 +30,34 @@ export let crossToAnkle = function crossToAnkle() {
             crossWrapper.style.transform = '';
           }
         }
-      }, 600 / 60);
+        else {
+          animation_id = window.requestAnimationFrame(rotate2Interval);
+        }
+      }
+      rotate2Interval();
     }
   }
 
 
   let k = 1;
-
+  let animation_id;
   if (ankle2 && crossWrapper) {
-    let rotateInterval = setInterval(() => {
+    let rotateInterval = () => {
       if (ankle2 && crossWrapper) {
 
-        crossWrapper.style.transform = "rotate(" + easeOutSine(k, 0, 45, 60) + "deg)";
+        crossWrapper.style.transform = "rotate(" + easeOutSine(k, 0, 45, 20) + "deg)";
         k++;
-        if (k > 60) {
-          clearInterval(rotateInterval);
+        if (k > 20) {
+          window.cancelAnimationFrame(animation_id);
           crossWrapper.classList.add("animationIconDescription_DONE");
           rotate2();
         }
+        else {
+          animation_id = window.requestAnimationFrame(rotateInterval);
+        }
       }
-    }, 400 / 60);
+    }
+    rotateInterval();
 
   }
 
