@@ -16,9 +16,9 @@ export function scale_widthUP(store) {
   let maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
   let k = 1;
   let interval1 = () => {
-    element.style.width = easeOutQuart(k, 1, maxElementWidth, 60) + "px";
+    element.style.width = easeOutQuart(k, 1, maxElementWidth, 30) + "px";
     k++;
-    if (k > 60) {
+    if (k > 30) {
       window.cancelAnimationFrame(animation_id);
     }
     else {
@@ -36,9 +36,9 @@ export function spin_the_crossUP() {
 
   let i = 1;
   let interval2 = () => {
-    cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 60) + 'deg)';
+    cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
     i++;
-    if (i > 60) {
+    if (i > 30) {
       window.cancelAnimationFrame(animation_id2);
     }
     else {
@@ -54,9 +54,9 @@ export function scale_widthDown(it) {
   let button: HTMLElement | null = document.querySelector('.addGraphicButton');
   let buttonWidth = window.getComputedStyle(button).width;
   let maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
-  let k = 60;
+  let k = 30;
   let interval3 = () => {
-    element.style.width = easeOutQuart(k, 0, maxElementWidth, 60) + "px";
+    element.style.width = easeOutQuart(k, 0, maxElementWidth, 30) + "px";
     k--;
     if (k < 0) {
       window.cancelAnimationFrame(animation_id3);
@@ -73,9 +73,9 @@ export function scale_widthDown(it) {
 export function spin_the_crossDown() {
   let cross: HTMLElement | null = document.querySelector(".plusItem");
   let animation_id4;
-  let i = 60;
+  let i = 30;
   let interval4 = () => {
-    cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 60) + 'deg)';
+    cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
     i--;
     if (i < 0) {
       window.cancelAnimationFrame(animation_id4);
