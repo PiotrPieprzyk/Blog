@@ -28,6 +28,7 @@ export let sizeUp = function sizeUp(index, store) {
       document.getElementById('2').style.zIndex = '-1';
 
       // variables //
+      let animation_id;
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).top;
       let setStyle = sizingElement.style;
@@ -44,13 +45,15 @@ export let sizeUp = function sizeUp(index, store) {
 
       // sizing // 
       let k = 1;
-      let positionInterval = setInterval(() => {
-        setStyle.top = easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 120, 40) + 'px';
-        setStyle.width = easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
-        setStyle.height = easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
+      let positionInterval = () => {
+        setStyle.top = easeOutExpo(k, parseInt(setStyle.top.slice(0, -2)), endTop - parseInt(setStyle.top.slice(0, -2)), 22, 16) + 'px';
+        setStyle.width = easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 22) + 'px';
+        setStyle.height = easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 22) + 'px';
         k++;
-        if (k > 120) {
-          clearInterval(positionInterval);
+        console.log("diała");
+
+        if (k > 22) {
+          window.cancelAnimationFrame(animation_id);
           document.getElementById('1').classList.replace("profileGalery", "activeProfilePage");
           setTimeout(() => {
             store.$store.commit("changeVisibleProfileButton1", true);
@@ -63,18 +66,22 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.right = null;
             setStyle.width = null;
             setStyle.height = null;
-          }, 200);
+          }, 190);
 
           store.$store.commit("changeAnimationStatus", false);
-
         }
-      }, 300 / 120);
+        else {
+          animation_id = window.requestAnimationFrame(positionInterval);
+        }
+      };
+      positionInterval();
     }
     // GameProfil //
     if (index == 2) {
       document.getElementById('1').style.zIndex = '-1';
 
       // variables //
+      let animation_id;
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).bottom;
       let setStyle = sizingElement.style;
@@ -90,13 +97,13 @@ export let sizeUp = function sizeUp(index, store) {
 
       // sizing // 
       let k = 1;
-      let positionInterval = setInterval(() => {
-        setStyle.bottom = easeOutExpo(k, parseInt(setStyle.bottom.slice(0, -2)), endBottom - parseInt(setStyle.bottom.slice(0, -2)), 120, 40) + 'px';
-        setStyle.width = easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
-        setStyle.height = easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
+      let positionInterval = () => {
+        setStyle.bottom = easeOutExpo(k, parseInt(setStyle.bottom.slice(0, -2)), endBottom - parseInt(setStyle.bottom.slice(0, -2)), 22, 16) + 'px';
+        setStyle.width = easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 22) + 'px';
+        setStyle.height = easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 22) + 'px';
         k++;
-        if (k > 120) {
-          clearInterval(positionInterval);
+        if (k > 22) {
+          window.cancelAnimationFrame(animation_id);
 
           document.getElementById('2').classList.replace("profileGame", "activeProfilePage");
           setTimeout(() => {
@@ -110,12 +117,16 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.right = null;
             setStyle.width = null;
             setStyle.height = null;
-          }, 200);
+          }, 190);
           store.$store.commit("changeAnimationStatus", false);
 
 
         }
-      }, 300 / 120);
+        else {
+          animation_id = window.requestAnimationFrame(positionInterval);
+        }
+      };
+      positionInterval();
     }
   }
   if (viewPort[0] >= viewPort[1]) {
@@ -124,6 +135,7 @@ export let sizeUp = function sizeUp(index, store) {
       document.getElementById('2').style.zIndex = '-1';
 
       // variables //
+      let animation_id;
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).left;
       let setStyle = sizingElement.style;
@@ -140,13 +152,13 @@ export let sizeUp = function sizeUp(index, store) {
 
       // sizing //
       let k = 1;
-      let positionInterval = setInterval(() => {
-        setStyle.left = easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 120, 40) + 'px';
-        setStyle.width = easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
-        setStyle.height = easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
+      let positionInterval = () => {
+        setStyle.left = easeOutExpo(k, parseInt(setStyle.left.slice(0, -2)), endleft - parseInt(setStyle.left.slice(0, -2)), 22, 16) + 'px';
+        setStyle.width = easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 22) + 'px';
+        setStyle.height = easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 22) + 'px';
         k++;
-        if (k > 120) {
-          clearInterval(positionInterval);
+        if (k > 22) {
+          window.cancelAnimationFrame(animation_id);
           document.getElementById('1').classList.replace("profileGalery", "activeProfilePage");
 
           setTimeout(() => {
@@ -160,14 +172,18 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.right = null;
             setStyle.width = null;
             setStyle.height = null;
-          }, 200);
+          }, 190);
           store.$store.commit("changeAnimationStatus", false);
 
 
 
 
         }
-      }, 300 / 120);
+        else {
+          animation_id = window.requestAnimationFrame(positionInterval);
+        }
+      };
+      positionInterval();
 
     }
 
@@ -176,6 +192,7 @@ export let sizeUp = function sizeUp(index, store) {
       document.getElementById('1').style.zIndex = '-1';
 
       // variables //
+      let animation_id;
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).right;
       let setStyle = sizingElement.style;
@@ -192,13 +209,13 @@ export let sizeUp = function sizeUp(index, store) {
 
       // sizing //
       let k = 1;
-      let positionInterval = setInterval(() => {
-        setStyle.right = easeOutExpo(k, parseInt(setStyle.right.slice(0, -2)), endright - parseInt(setStyle.right.slice(0, -2)), 120, 40) + 'px';
-        setStyle.width = easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 120) + 'px';
-        setStyle.height = easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 120) + 'px';
+      let positionInterval = () => {
+        setStyle.right = easeOutExpo(k, parseInt(setStyle.right.slice(0, -2)), endright - parseInt(setStyle.right.slice(0, -2)), 22, 16) + 'px';
+        setStyle.width = easeInExpo(k, parseInt(setStyle.width.slice(0, -2)), endWidth - parseInt(setStyle.width.slice(0, -2)), 22) + 'px';
+        setStyle.height = easeInExpo(k, parseInt(setStyle.height.slice(0, -2)), endHeight - parseInt(setStyle.height.slice(0, -2)), 22) + 'px';
         k++;
-        if (k > 120) {
-          clearInterval(positionInterval);
+        if (k > 22) {
+          window.cancelAnimationFrame(animation_id);
           document.getElementById('2').classList.replace("profileGame", "activeProfilePage");
           setTimeout(() => {
             store.$store.commit("changeVisibleProfileButton1", false);
@@ -211,13 +228,17 @@ export let sizeUp = function sizeUp(index, store) {
             setStyle.right = null;
             setStyle.width = null;
             setStyle.height = null;
-          }, 200);
+          }, 190);
           store.$store.commit("changeAnimationStatus", false);
           document.getElementById('2').classList.remove("profileGame");
 
 
         }
-      }, 300 / 120);
+        else {
+          animation_id = window.requestAnimationFrame(positionInterval);
+        }
+      };
+      positionInterval();
     }
   }
 }
