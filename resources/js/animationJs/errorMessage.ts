@@ -9,22 +9,32 @@ let easeInExpo = function (t, b, c, d) {
 
 export let errorDisappear = function errorDisappear(element: { style: { top: string; }; }) {
   let k = 1;
-  let apperInterval = setInterval(() => {
-    element.style.top = "-" + easeOutQuart(k, 0, 33, 60) + "px";
+  let animation_id;
+  let apperInterval = () => {
+    element.style.top = "-" + easeOutQuart(k, 0, 33, 20) + "px";
     k++;
-    if (k > 60) {
-      clearInterval(apperInterval);
+    if (k > 20) {
+      window.cancelAnimationFrame(animation_id);
     }
-  }, 500 / 60);
+    else {
+      animation_id = window.requestAnimationFrame(apperInterval);
+    }
+  };
+  apperInterval();
 }
 export let errorAppear = function errorAppear(element: { style: { top: string; }; }) {
 
-  let k = 60;
-  let apperInterval = setInterval(() => {
-    element.style.top = "-" + easeInExpo(k, 0, 33, 60) + "px";
+  let k = 20;
+  let animation_id;
+  let apperInterval = () => {
+    element.style.top = "-" + easeInExpo(k, 0, 33, 20) + "px";
     k--;
     if (k < 0) {
-      clearInterval(apperInterval);
+      window.cancelAnimationFrame(animation_id);
     }
-  }, 500 / 60);
+    else {
+      animation_id = window.requestAnimationFrame(apperInterval);
+    }
+  };
+  apperInterval();
 }
