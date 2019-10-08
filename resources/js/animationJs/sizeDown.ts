@@ -18,6 +18,7 @@ export let sizeDown = function sizeDown(index, store) {
     // GraphicProfil //
     if (index == 1) {
       // variables //
+      let animation_id;
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).top;
       let setStyle = sizingElement.style;
@@ -53,19 +54,19 @@ export let sizeDown = function sizeDown(index, store) {
       document.getElementById('1').classList.replace("activeProfilePage", "profileGalery");
 
       // sizing // 
-      let k = 80;
+      let k = 22;
       let i = 1;
-      let positionInterval = setInterval(() => {
-        setStyle.top = easeOutSine(i, 0, endTop, 80) + 'px';
-        setStyle.width = easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
-        setStyle.height = easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
+      let positionInterval = () => {
+        setStyle.top = easeOutSine(i, 0, endTop, 22) + 'px';
+        setStyle.width = easeOutSine(k, endWidth, viewPort[0] - endWidth, 22) + 'px';
+        setStyle.height = easeOutSine(k, endHeight, viewPort[1] - endHeight, 22) + 'px';
         console.log(setStyle.width);
         console.log(setStyle.height);
         console.log(setStyle.right);
         k--;
         i++;
         if (k == 1) {
-          clearInterval(positionInterval);
+          window.cancelAnimationFrame(animation_id);
           setStyle.width = null;
           setStyle.height = null;
           setStyle.top = null;
@@ -81,79 +82,91 @@ export let sizeDown = function sizeDown(index, store) {
 
 
         }
-      }, 250 / 80);
-    }
-    // GameProfil //
-    if (index == 2) {
-      // variables //
-      let sizingElement = document.getElementById(index);
-      let positionElement = window.getComputedStyle(sizingElement).bottom;
-      let setStyle = sizingElement.style;
-      let widthElement = window.getComputedStyle(sizingElement).width;
-      let heightElement = window.getComputedStyle(sizingElement).height;
-      let endBottom;
-      let endWidth;
-      let endHeight;
-
-      setStyle.top = null;
-      setStyle.bottom = null;
-      setStyle.left = null;
-      setStyle.right = null;
-
-      // aspectRatio
-      let aspectRatio = viewPort[0] / viewPort[1];
-      if (aspectRatio <= 1 / 2) {
-        endBottom = ((viewPort[1] / 2) - (viewPort[0] / 2)) / 4;
-        endWidth = viewPort[0] / 2;
-        endHeight = viewPort[0] / 2;
-      }
-      if (aspectRatio > 1 / 2 && aspectRatio < 1) {
-        endBottom = viewPort[1] / 8;
-        endWidth = viewPort[1] / 4;
-        endHeight = viewPort[1] / 4;
-      }
-
-      // prepare for sizing //
-      setStyle.width = widthElement;
-      setStyle.height = heightElement;
-      setStyle.bottom = positionElement;
-      document.getElementById('2').classList.replace("activeProfilePage", "profileGame");
-
-      // sizing // 
-      let k = 80;
-      let i = 1;
-      let positionInterval = setInterval(() => {
-        setStyle.bottom = easeOutSine(i, 0, endBottom, 80) + 'px';
-        setStyle.width = easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
-        setStyle.height = easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
-        console.log(setStyle.width);
-        console.log(setStyle.height);
-        console.log(setStyle.right);
-        k--;
-        i++;
-        if (k == 1) {
-          clearInterval(positionInterval);
-          setStyle.width = null;
-          setStyle.height = null;
-          setStyle.top = null;
-          setStyle.bottom = null;
-          setStyle.left = null;
-          setStyle.right = null;
-          document.getElementById('1').style.zIndex = '0';
-          document.getElementById('2').classList.remove("activeProfilePage");
-          document.getElementById('1').classList.remove("deActiveProfilePage");
-
-          store.$store.commit("changeAnimationStatus", false);
-          document.getElementById('2').classList.add("profileGame");
-
+        else {
+          animation_id = window.requestAnimationFrame(positionInterval);
         }
-      }, 250 / 80);
+
+      }
+      positionInterval();
+
+      // GameProfil //
+      if (index == 2) {
+        // variables //
+        let animation_id;
+        let sizingElement = document.getElementById(index);
+        let positionElement = window.getComputedStyle(sizingElement).bottom;
+        let setStyle = sizingElement.style;
+        let widthElement = window.getComputedStyle(sizingElement).width;
+        let heightElement = window.getComputedStyle(sizingElement).height;
+        let endBottom;
+        let endWidth;
+        let endHeight;
+
+        setStyle.top = null;
+        setStyle.bottom = null;
+        setStyle.left = null;
+        setStyle.right = null;
+
+        // aspectRatio
+        let aspectRatio = viewPort[0] / viewPort[1];
+        if (aspectRatio <= 1 / 2) {
+          endBottom = ((viewPort[1] / 2) - (viewPort[0] / 2)) / 4;
+          endWidth = viewPort[0] / 2;
+          endHeight = viewPort[0] / 2;
+        }
+        if (aspectRatio > 1 / 2 && aspectRatio < 1) {
+          endBottom = viewPort[1] / 8;
+          endWidth = viewPort[1] / 4;
+          endHeight = viewPort[1] / 4;
+        }
+
+        // prepare for sizing //
+        setStyle.width = widthElement;
+        setStyle.height = heightElement;
+        setStyle.bottom = positionElement;
+        document.getElementById('2').classList.replace("activeProfilePage", "profileGame");
+
+        // sizing // 
+        let k = 22;
+        let i = 1;
+        let positionInterval = () => {
+          setStyle.bottom = easeOutSine(i, 0, endBottom, 22) + 'px';
+          setStyle.width = easeOutSine(k, endWidth, viewPort[0] - endWidth, 22) + 'px';
+          setStyle.height = easeOutSine(k, endHeight, viewPort[1] - endHeight, 22) + 'px';
+          console.log(setStyle.width);
+          console.log(setStyle.height);
+          console.log(setStyle.right);
+          k--;
+          i++;
+          if (k == 1) {
+            window.cancelAnimationFrame(animation_id);
+            setStyle.width = null;
+            setStyle.height = null;
+            setStyle.top = null;
+            setStyle.bottom = null;
+            setStyle.left = null;
+            setStyle.right = null;
+            document.getElementById('1').style.zIndex = '0';
+            document.getElementById('2').classList.remove("activeProfilePage");
+            document.getElementById('1').classList.remove("deActiveProfilePage");
+
+            store.$store.commit("changeAnimationStatus", false);
+            document.getElementById('2').classList.add("profileGame");
+
+          }
+          else {
+            animation_id = window.requestAnimationFrame(positionInterval);
+          }
+        };
+        positionInterval();
+      }
     }
   }
   if (viewPort[0] >= viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
       // variables //
+      let animation_id;
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).left;
       let setStyle = sizingElement.style;
@@ -188,17 +201,18 @@ export let sizeDown = function sizeDown(index, store) {
       document.getElementById('1').classList.replace("activeProfilePage", "profileGalery");
 
       // sizing //
-      let k = 80;
+      let k = 22;
       let i = 1;
-      let positionInterval = setInterval(() => {
-        setStyle.left = easeOutSine(i, 0, endleft, 80) + 'px';
-        setStyle.width = easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
-        setStyle.height = easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
+
+      let positionInterval = () => {
+        setStyle.left = easeOutSine(i, 0, endleft, 22) + 'px';
+        setStyle.width = easeOutSine(k, endWidth, viewPort[0] - endWidth, 22) + 'px';
+        setStyle.height = easeOutSine(k, endHeight, viewPort[1] - endHeight, 22) + 'px';
 
         k--;
         i++;
         if (k == 1) {
-          clearInterval(positionInterval);
+          window.cancelAnimationFrame(animation_id);
           setStyle.width = null;
           setStyle.height = null;
           setStyle.top = null;
@@ -210,13 +224,18 @@ export let sizeDown = function sizeDown(index, store) {
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 250 / 80);
+        else {
+          animation_id = window.requestAnimationFrame(positionInterval);
+        }
+      };
+      positionInterval();
 
     }
 
     // GameProfil //
     if (index == 2) {
       // variables //
+      let animation_id;
       let sizingElement = document.getElementById(index);
       let positionElement = window.getComputedStyle(sizingElement).right;
       let setStyle = sizingElement.style;
@@ -252,12 +271,12 @@ export let sizeDown = function sizeDown(index, store) {
 
 
       // sizing //
-      let k = 80;
+      let k = 22;
       let i = 1;
-      let positionInterval = setInterval(() => {
-        setStyle.right = easeOutSine(i, 0, endRight, 80) + 'px';
-        setStyle.width = easeOutSine(k, endWidth, viewPort[0] - endWidth, 80) + 'px';
-        setStyle.height = easeOutSine(k, endHeight, viewPort[1] - endHeight, 80) + 'px';
+      let positionInterval = () => {
+        setStyle.right = easeOutSine(i, 0, endRight, 22) + 'px';
+        setStyle.width = easeOutSine(k, endWidth, viewPort[0] - endWidth, 22) + 'px';
+        setStyle.height = easeOutSine(k, endHeight, viewPort[1] - endHeight, 22) + 'px';
         console.log(setStyle.width);
         console.log(setStyle.height);
         console.log("RIGHT " + setStyle.right);
@@ -265,7 +284,7 @@ export let sizeDown = function sizeDown(index, store) {
         k--;
         i++;
         if (k == 1) {
-          clearInterval(positionInterval);
+          window.cancelAnimationFrame(animation_id);
           setStyle.width = null;
           setStyle.height = null;
           setStyle.top = null;
@@ -277,7 +296,12 @@ export let sizeDown = function sizeDown(index, store) {
           store.$store.commit("changeAnimationStatus", false);
 
         }
-      }, 250 / 80);
+        else {
+          animation_id = window.requestAnimationFrame(positionInterval);
+        }
+      };
+      positionInterval();
+
     }
   }
 }
