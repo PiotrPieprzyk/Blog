@@ -6,21 +6,32 @@ let easeOutQuart = function (t, b, c, d) {
 
 export let activeShadowBlock = function activeShadowBlock(element: { style: { boxShadow: string; }; }) {
   let k = 1;
-  let shadowInterval = setInterval(() => {
+  let animation_id;
+  let shadowInterval = () => {
     element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + easeOutQuart(k, 0, 0.1, 60) + ")";
     k++
     if (k > 60) {
-      clearInterval(shadowInterval);
+      window.cancelAnimationFrame(animation_id);
     }
-  }, 500 / 60);
+    else {
+      window.requestAnimationFrame(shadowInterval);
+
+    }
+  };
 }
 export let deActiveShadowBlock = function activeShadowBlock(element: { style: { boxShadow: string; }; }) {
   let k = 60;
-  let shadowInterval = setInterval(() => {
+  let animation_id;
+
+  let shadowInterval = () => {
     element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + easeOutQuart(k, 0, 0.1, 60) + ")";
     k--;
     if (k < 0) {
-      clearInterval(shadowInterval);
+      window.cancelAnimationFrame(animation_id);
     }
-  }, 500 / 60);
+    else {
+      window.requestAnimationFrame(shadowInterval);
+    }
+  }
+  shadowInterval();
 }
