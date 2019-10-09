@@ -6,7 +6,7 @@ var RegisterPage_vue_1 = require("./components/Auth/RegisterPage.vue");
 var ProfilePage_vue_1 = require("./components/Profile/ProfilePage.vue");
 var ProfileGraphic_vue_1 = require("./components/Profile/ProfileGraphic.vue");
 var ProfileGame_vue_1 = require("./components/Profile/ProfileGame.vue");
-var GamePage_vue_1 = require("./components/Game/GameCard.vue");
+var GamePage_vue_1 = require("./components/Game/GamePanel.vue");
 exports.routes = [
     { path: '', component: StartPage_1["default"] },
     { path: '/galery', component: GaleryPage_vue_1["default"], props: { overflowType: 'auto' } },

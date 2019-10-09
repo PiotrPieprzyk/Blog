@@ -11173,6 +11173,8 @@ a:hover {
   color: white;
   font-family: "Turret Road", cursive;
   font-size: 18px;
+  overflow: scroll;
+  max-height: calc(90vh - 50px);
 }
 
 .GamePage .GameScreenWrapper .screenGame .uploadedPlaceElementsList {
@@ -11189,6 +11191,12 @@ a:hover {
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+}
+
+.GamePage .GameScreenWrapper .screenGame .uploadedPlaceElementsList .placeElement {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 0 0;
 }
 
 .GamePage .GameScreenWrapper .screenGame .uploadedPlaceElementsList .consoleCommend {

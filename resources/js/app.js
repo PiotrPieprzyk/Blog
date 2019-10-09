@@ -43,8 +43,11 @@ Vue.component('profile-game', require('./components/Profile/ProfileGame.vue').de
 
 // Game // 
 Vue.component('game-page', require('./components/Game/GameCard.vue').default);
-Vue.component('game', require('./components/Game/Game.vue').default);
-Vue.component('place-element', require('./components/Game/PlaceElement.vue').default);
+Vue.component('game-panel', require('./components/Game/GamePanel.vue').default);
+Vue.component('location', require('./components/Game/GamePanelEl/GamePlayEl/PlaceElement.vue').default);
+Vue.component('game-menu', require('./components/Game/GamePanelEl/GameMenu.vue').default);
+Vue.component('game-play', require('./components/Game/GamePanelEl/GamePlay.vue').default);
+
 
 
 // Auth //
@@ -187,7 +190,41 @@ const store = new Vuex.Store({
       href: "image11.jpg"
     },
 
-    ]
+    ],
+    // GAME //
+    menu: false,
+    uploadedPlaceElementsList: [],
+    currentCommend: "",
+    lastCommends: [],
+    lastCommendId: -1,
+    currentNavigation: {
+      x: 0,
+      y: 0
+    },
+    mapPlace: {
+      "0_0": {
+        name: "home",
+        description: "small house",
+        x: 0,
+        y: 0,
+        location: "city",
+        world: ""
+      },
+      "0_1": {
+        name: "Wood",
+        description: "smelly wood",
+        x: 1,
+        y: 0,
+        location: "wood",
+        world: ""
+      }
+    },
+    menuElements: {
+      game: ""
+    },
+    mapNavigation: {
+      0: { 0: 1, 1: 1 }
+    }
   },
   mutations: {
     changeAnimationStatus(state, conditional) {
@@ -221,7 +258,12 @@ const store = new Vuex.Store({
 
       state.scrollEventActive = conditional;
     },
-
+    setCurrentCommend(state, value) {
+      state.currentCommend = value;
+    },
+    setMenu(state, conditional) {
+      state.menu = conditional;
+    }
 
   }
 });

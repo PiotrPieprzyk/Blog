@@ -20,6 +20,8 @@
       color: white;
       font-family: 'Turret Road', cursive;
       font-size: 18px;
+      overflow: scroll;
+      max-height: calc(90vh - 50px);
 
       .uploadedPlaceElementsList {
         display: block;
@@ -38,6 +40,12 @@
         -moz-hyphens: auto;
         -webkit-hyphens: auto;
         hyphens: auto;
+
+        .placeElement {
+          display: flex;
+          flex-direction: column;
+          margin: 20px 0 0 0;
+        }
 
         .consoleCommend {
           min-height: 10px;

@@ -13,27 +13,6 @@ export default {
 			bordersList: ""
 		};
 	},
-	// methods: {
-	// 	checkBorders(x, y) {
-	// 		console.log(y);
-	// 		console.log(x);
-	// 		let left = this.mapNavigation[y][x - 1];
-	// 		let right = this.mapNavigation[y][x + 1];
-	// 		let top;
-	// 		let bottom;
-	// 		if (this.mapNavigation[y + 1]) {
-	// 			top = this.mapNavigation[y + 1][x];
-	// 		} else {
-	// 			top = undefined;
-	// 		}
-	// 		if (this.mapNavigation[y - 1]) {
-	// 			bottom = this.mapNavigation[y - 1][x];
-	// 		} else {
-	// 			bottom = undefined;
-	// 		}
-	// 		return { left, right, top, bottom };
-	// 	}
-	// },
 	mounted() {
 		let borders = this.borderPlace(
 			this.navigationInfo.x,
