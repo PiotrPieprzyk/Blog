@@ -6,6 +6,7 @@
 				:key="index"
 				:descriptionLocation="uploadedPlaceElementsList[index]"
 				:borderPlace="checkBorders"
+				:navigationInfo="currentNavigation"
 			></place-element>
 		</div>
 		<div class="consoleInput" @keydown.enter="submitCommend">
@@ -13,7 +14,7 @@
 		</div>
 	</div>
 </template>
-<script lang="ts">
+<script>
 export default {
 	data: function() {
 		return {
@@ -42,7 +43,7 @@ export default {
 				}
 			},
 			mapNavigation: {
-				"0": { 0: 1, 1: 1 }
+				0: { 0: 1, 1: 1 }
 			}
 		};
 	},
@@ -51,9 +52,12 @@ export default {
 		submitCommend() {
 			console.log("WORK");
 			let div = document.createElement("div");
+			let list = document.querySelector(".uploadedPlaceElementsList");
 			div.classList.add("consoleCommend");
 			div.textContent = this.currentCommend;
-			document.querySelector(".uploadedPlaceElementsList").appendChild(div);
+			if (list) {
+				list.appendChild(div);
+			}
 			this.navigationCommend(this.currentCommend);
 			this.currentCommend = "";
 		},
@@ -90,8 +94,9 @@ export default {
 			} else {
 			}
 		},
-		getCurrentPlace(x, y) {
-			this.uploadedPlaceElementsList.push(this.mapPlace[y + "_" + x]);
+		getCurrentPlace(k, l) {
+			let index = l + "_" + k;
+			this.uploadedPlaceElementsList.push(this.mapPlace[index]);
 		},
 		checkBorders(x, y) {
 			console.log(y);

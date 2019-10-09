@@ -2592,6 +2592,138 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/Game.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/Game.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      uploadedPlaceElementsList: [],
+      currentCommend: "",
+      currentNavigation: {
+        x: 0,
+        y: 0
+      },
+      mapPlace: {
+        "0_0": {
+          name: "home",
+          description: "small house",
+          x: 0,
+          y: 0,
+          location: "city",
+          world: ""
+        },
+        "0_1": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 1,
+          y: 0,
+          location: "wood",
+          world: ""
+        }
+      },
+      mapNavigation: {
+        0: {
+          0: 1,
+          1: 1
+        }
+      }
+    };
+  },
+  methods: {
+    submitCommend: function submitCommend() {
+      console.log("WORK");
+      var div = document.createElement("div");
+      var list = document.querySelector(".uploadedPlaceElementsList");
+      div.classList.add("consoleCommend");
+      div.textContent = this.currentCommend;
+
+      if (list) {
+        list.appendChild(div);
+      }
+
+      this.navigationCommend(this.currentCommend);
+      this.currentCommend = "";
+    },
+    navigationCommend: function navigationCommend(commend) {
+      var border = this.checkBorders(this.currentNavigation.x, this.currentNavigation.y);
+      console.log(border);
+
+      if (commend == "left" && border.left) {
+        this.currentNavigation.x--;
+        this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
+      } else if (commend == "right" && border.right) {
+        this.currentNavigation.x++;
+        this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
+      } else if (commend == "top" && border.top) {
+        this.currentNavigation.y++;
+        this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
+      } else if (commend == "bottom" && border.bottom) {
+        this.currentNavigation.y--;
+        this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
+      } else {}
+    },
+    getCurrentPlace: function getCurrentPlace(k, l) {
+      var index = l + "_" + k;
+      this.uploadedPlaceElementsList.push(this.mapPlace[index]);
+    },
+    checkBorders: function checkBorders(x, y) {
+      console.log(y);
+      console.log(x);
+      var left = this.mapNavigation[y][x - 1];
+      var right = this.mapNavigation[y][x + 1];
+      var top;
+      var bottom;
+
+      if (this.mapNavigation[y + 1]) {
+        top = this.mapNavigation[y + 1][x];
+      } else {
+        top = undefined;
+      }
+
+      if (this.mapNavigation[y - 1]) {
+        bottom = this.mapNavigation[y - 1][x];
+      } else {
+        bottom = undefined;
+      }
+
+      return {
+        left: left,
+        right: right,
+        top: top,
+        bottom: bottom
+      };
+    }
+  },
+  mounted: function mounted() {
+    this.getCurrentPlace(0, 0);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GameCard.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/GameCard.vue?vue&type=script&lang=js& ***!
@@ -2612,10 +2744,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lant=ts&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lant=ts&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2629,7 +2761,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["descriptionLocation", "borderPlace"],
+  props: ["descriptionLocation", "borderPlace", "navigationInfo"],
+  data: function data() {
+    return {
+      bordersList: ""
+    };
+  },
   // methods: {
   // 	checkBorders(x, y) {
   // 		console.log(y);
@@ -2652,28 +2789,26 @@ __webpack_require__.r(__webpack_exports__);
   // 	}
   // },
   mounted: function mounted() {
-    var borders = this.borderPlace(0, 0);
+    var borders = this.borderPlace(this.navigationInfo.x, this.navigationInfo.y);
     var directionsList = "";
 
     if (borders.left) {
-      directionsList = directionsList + "left ";
+      directionsList = directionsList + " lewo";
     }
 
     if (borders.right) {
-      directionsList = directionsList + "right ";
+      directionsList = directionsList + " prawo";
     }
 
     if (borders.top) {
-      directionsList = directionsList + "top ";
+      directionsList = directionsList + " góra";
     }
 
     if (borders.bottom) {
-      directionsList = directionsList + "bottom ";
+      directionsList = directionsList + " dół";
     }
 
-    setTimeout(function () {
-      document.querySelector(".borders").innerHTML = document.querySelector(".borders").innerHTML + " " + directionsList;
-    }, 0);
+    this.bordersList = directionsList;
   }
 });
 
@@ -46812,138 +46947,6 @@ function config (name) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/Game.vue?vue&type=script&lang=ts&":
-/*!**************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/Game.vue?vue&type=script&lang=ts& ***!
-  \**************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-	data: function() {
-		return {
-			uploadedPlaceElementsList: [],
-			currentCommend: "",
-			currentNavigation: {
-				x: 0,
-				y: 0
-			},
-			mapPlace: {
-				"0_0": {
-					name: "home",
-					description: "small house",
-					x: 0,
-					y: 0,
-					location: "city",
-					world: ""
-				},
-				"0_1": {
-					name: "Wood",
-					description: "smelly wood",
-					x: 1,
-					y: 0,
-					location: "wood",
-					world: ""
-				}
-			},
-			mapNavigation: {
-				"0": { 0: 1, 1: 1 }
-			}
-		};
-	},
-
-	methods: {
-		submitCommend() {
-			console.log("WORK");
-			let div = document.createElement("div");
-			div.classList.add("consoleCommend");
-			div.textContent = this.currentCommend;
-			document.querySelector(".uploadedPlaceElementsList").appendChild(div);
-			this.navigationCommend(this.currentCommend);
-			this.currentCommend = "";
-		},
-		navigationCommend(commend) {
-			let border = this.checkBorders(
-				this.currentNavigation.x,
-				this.currentNavigation.y
-			);
-			console.log(border);
-			if (commend == "left" && border.left) {
-				this.currentNavigation.x--;
-				this.getCurrentPlace(
-					this.currentNavigation.x,
-					this.currentNavigation.y
-				);
-			} else if (commend == "right" && border.right) {
-				this.currentNavigation.x++;
-				this.getCurrentPlace(
-					this.currentNavigation.x,
-					this.currentNavigation.y
-				);
-			} else if (commend == "top" && border.top) {
-				this.currentNavigation.y++;
-				this.getCurrentPlace(
-					this.currentNavigation.x,
-					this.currentNavigation.y
-				);
-			} else if (commend == "bottom" && border.bottom) {
-				this.currentNavigation.y--;
-				this.getCurrentPlace(
-					this.currentNavigation.x,
-					this.currentNavigation.y
-				);
-			} else {
-			}
-		},
-		getCurrentPlace(x, y) {
-			this.uploadedPlaceElementsList.push(this.mapPlace[y + "_" + x]);
-		},
-		checkBorders(x, y) {
-			console.log(y);
-			console.log(x);
-			let left = this.mapNavigation[y][x - 1];
-			let right = this.mapNavigation[y][x + 1];
-			let top;
-			let bottom;
-			if (this.mapNavigation[y + 1]) {
-				top = this.mapNavigation[y + 1][x];
-			} else {
-				top = undefined;
-			}
-			if (this.mapNavigation[y - 1]) {
-				bottom = this.mapNavigation[y - 1][x];
-			} else {
-				bottom = undefined;
-			}
-			return { left, right, top, bottom };
-		}
-	},
-	mounted() {
-		this.getCurrentPlace(0, 0);
-	}
-});
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Auth/RegisterPage.vue?vue&type=template&id=5552bd9e&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Auth/RegisterPage.vue?vue&type=template&id=5552bd9e& ***!
@@ -47916,7 +47919,8 @@ var render = function() {
           key: index,
           attrs: {
             descriptionLocation: _vm.uploadedPlaceElementsList[index],
-            borderPlace: _vm.checkBorders
+            borderPlace: _vm.checkBorders,
+            navigationInfo: _vm.currentNavigation
           }
         })
       }),
@@ -48022,7 +48026,9 @@ var render = function() {
       _vm._v(_vm._s(_vm.descriptionLocation.description))
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "borders" }, [_vm._v("Możesz pójść w:")])
+    _c("div", { staticClass: "borders" }, [
+      _vm._v("Możesz pójść w:" + _vm._s(_vm.bordersList))
+    ])
   ])
 }
 var staticRenderFns = []
@@ -67242,14 +67248,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./resources/js/components/Game/Game.vue ***!
   \***********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Game_vue_vue_type_template_id_afd91298___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Game.vue?vue&type=template&id=afd91298& */ "./resources/js/components/Game/Game.vue?vue&type=template&id=afd91298&");
-/* harmony import */ var _Game_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Game.vue?vue&type=script&lang=ts& */ "./resources/js/components/Game/Game.vue?vue&type=script&lang=ts&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Game_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Game.vue?vue&type=script&lang=js& */ "./resources/js/components/Game/Game.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Game_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Game_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -67258,7 +67265,7 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Game_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Game_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Game_vue_vue_type_template_id_afd91298___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Game_vue_vue_type_template_id_afd91298___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -67275,17 +67282,17 @@ component.options.__file = "resources/js/components/Game/Game.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/Game/Game.vue?vue&type=script&lang=ts&":
+/***/ "./resources/js/components/Game/Game.vue?vue&type=script&lang=js&":
 /*!************************************************************************!*\
-  !*** ./resources/js/components/Game/Game.vue?vue&type=script&lang=ts& ***!
+  !*** ./resources/js/components/Game/Game.vue?vue&type=script&lang=js& ***!
   \************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_Game_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib??vue-loader-options!./Game.vue?vue&type=script&lang=ts& */ "./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/Game.vue?vue&type=script&lang=ts&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_loader_lib_index_js_vue_loader_options_Game_vue_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Game_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Game.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/Game.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Game_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -67386,7 +67393,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PlaceElement.vue?vue&type=template&id=74319f37& */ "./resources/js/components/Game/PlaceElement.vue?vue&type=template&id=74319f37&");
-/* harmony import */ var _PlaceElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlaceElement.vue?vue&type=script&lang=js& */ "./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js&");
+/* harmony import */ var _PlaceElement_vue_vue_type_script_lant_ts_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlaceElement.vue?vue&type=script&lant=ts&lang=js& */ "./resources/js/components/Game/PlaceElement.vue?vue&type=script&lant=ts&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -67396,7 +67403,7 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _PlaceElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PlaceElement_vue_vue_type_script_lant_ts_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__["render"],
   _PlaceElement_vue_vue_type_template_id_74319f37___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -67413,17 +67420,17 @@ component.options.__file = "resources/js/components/Game/PlaceElement.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/Game/PlaceElement.vue?vue&type=script&lant=ts&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/Game/PlaceElement.vue?vue&type=script&lant=ts&lang=js& ***!
+  \****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PlaceElement.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_script_lant_ts_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PlaceElement.vue?vue&type=script&lant=ts&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/PlaceElement.vue?vue&type=script&lant=ts&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_script_lant_ts_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

@@ -2,12 +2,17 @@
 	<div class="placeElement">
 		<div class="placeName">{{descriptionLocation.name}}</div>
 		<div class="placeDescription">{{descriptionLocation.description}}</div>
-		<div class="borders">Możesz pójść w:</div>
+		<div class="borders">Możesz pójść w:{{bordersList}}</div>
 	</div>
 </template>
-<script>
+<script lant="ts">
 export default {
-	props: ["descriptionLocation", "borderPlace"],
+	props: ["descriptionLocation", "borderPlace", "navigationInfo"],
+	data: function() {
+		return {
+			bordersList: ""
+		};
+	},
 	// methods: {
 	// 	checkBorders(x, y) {
 	// 		console.log(y);
@@ -30,25 +35,24 @@ export default {
 	// 	}
 	// },
 	mounted() {
-		let borders = this.borderPlace(0, 0);
+		let borders = this.borderPlace(
+			this.navigationInfo.x,
+			this.navigationInfo.y
+		);
 		let directionsList = "";
 		if (borders.left) {
-			directionsList = directionsList + "left ";
+			directionsList = directionsList + " lewo";
 		}
 		if (borders.right) {
-			directionsList = directionsList + "right ";
+			directionsList = directionsList + " prawo";
 		}
 		if (borders.top) {
-			directionsList = directionsList + "top ";
+			directionsList = directionsList + " góra";
 		}
 		if (borders.bottom) {
-			directionsList = directionsList + "bottom ";
+			directionsList = directionsList + " dół";
 		}
-
-		setTimeout(() => {
-			document.querySelector(".borders").innerHTML =
-				document.querySelector(".borders").innerHTML + " " + directionsList;
-		}, 0);
+		this.bordersList = directionsList;
 	}
 };
 </script>
