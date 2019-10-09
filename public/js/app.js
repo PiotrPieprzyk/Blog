@@ -2648,49 +2648,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["menu"]),
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["menu", "currentCommend"]),
   watch: {
-    menuCommend: function menuCommend() {
-      this.$store.commit("setCurrentCommend", this.menuCommend);
+    thisCommend: function thisCommend() {
+      this.$store.commit("setCurrentCommend", this.thisCommend);
     }
   },
   data: function data() {
     return {
       uploadedPlaceElementsList: [],
-      menuCommend: "",
+      thisCommend: "",
       lastCommends: [],
-      lastCommendId: -1
+      lastCommendId: -1,
+      menuElement: {
+        0: {
+          title: "Menu: lista komend:",
+          description: "\n  Edytor - tylko dla admina\n  Gra \n  Opcje"
+        }
+      }
     };
   },
   methods: {
     submitCommend: function submitCommend(typeNavigation) {
-      console.log("WORK");
+      // write commend
       var div = document.createElement("div");
       var list = document.querySelector(".uploadedPlaceElementsList");
       div.classList.add("consoleCommend");
-      div.textContent = this.menuCommend;
+      div.textContent = this.currentCommend;
 
       if (list) {
         list.appendChild(div);
-      }
+      } // save commend
 
-      if (typeNavigation == "menu") {
-        this.navigationCommend(this.menuCommend);
-      }
 
-      this.lastCommends.unshift(this.menuCommend);
-      this.menuCommend = "";
+      this.lastCommends.unshift(this.currentCommend);
+      this.thisCommend = ""; // auto scroll
+
       setTimeout(function () {
         document.querySelector(".screenGame").scrollTop = document.querySelector(".screenGame").scrollHeight;
-      }, 0);
-    },
-    navigationCommend: function navigationCommend(commend) {
-      console.log("DZIAŁA");
+      }, 0); // check commend
 
+      this.navigationCommend(this.currentCommend);
+    },
+    // === list commends === //
+    navigationCommend: function navigationCommend(commend) {
       switch (commend) {
-        case "game":
+        case "gra":
           this.uploadedPlaceElementsList = [];
           this.lastCommends = [];
           this.lastCommendId = -1;
@@ -2707,6 +2713,27 @@ __webpack_require__.r(__webpack_exports__);
       document.getElementById("menu").focus();
     }, 0);
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["title", "description"]
 });
 
 /***/ }),
@@ -2751,7 +2778,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["menu", "currentCommend"]),
   data: function data() {
     return {
-      gameCommend: "",
+      thisCommend: "",
       menuConditional: false,
       uploadedPlaceElementsList: [],
       currentNavigation: {
@@ -2787,8 +2814,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
-    gameCommend: function gameCommend() {
-      this.$store.commit("setCurrentCommend", this.gameCommend);
+    thisCommend: function thisCommend() {
+      this.$store.commit("setCurrentCommend", this.thisCommend);
     },
     menuConditional: function menuConditional() {
       this.$store.commit("setMenu", this.menuConditional);
@@ -2796,8 +2823,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     checkBorders: function checkBorders(x, y) {
-      console.log(y);
-      console.log(x);
       var left = this.mapNavigation[y][x - 1];
       var right = this.mapNavigation[y][x + 1];
       var top;
@@ -2827,7 +2852,7 @@ __webpack_require__.r(__webpack_exports__);
       this.uploadedPlaceElementsList.push(this.mapPlace[index]);
     },
     submitCommend: function submitCommend(typeNavigation) {
-      console.log("WORK");
+      // write Commend
       var div = document.createElement("div");
       var list = document.querySelector(".uploadedPlaceElementsList");
       div.classList.add("consoleCommend");
@@ -2835,39 +2860,34 @@ __webpack_require__.r(__webpack_exports__);
 
       if (list) {
         list.appendChild(div);
-      }
+      } // Check Navigation
 
-      if (typeNavigation == "game") {
-        this.navigationCommendGame(this.currentCommend);
-      }
 
-      if (typeNavigation == "menu") {
-        this.navigationCommend(this.currentCommend);
-      }
+      this.navigationCommendGame(this.currentCommend); // save commend
 
       this.lastCommends.unshift(this.currentCommend);
-      this.gameCommend = "";
+      this.thisCommend = ""; // AutoScrolling
+
       setTimeout(function () {
         document.querySelector(".screenGame").scrollTop = document.querySelector(".screenGame").scrollHeight;
       }, 0);
     },
+    // === that use ctrl + key === //
     showLastCommend: function showLastCommend(x) {
       if (x == 1 && this.lastCommends.length - 1 > this.lastCommendId) {
         this.lastCommendId++;
-        this.currentCommend = this.lastCommends[this.lastCommendId];
-        console.log(this.lastCommendId);
+        this.thisCommend = this.lastCommends[this.lastCommendId];
       } else if (x == 0 && this.lastCommendId > 0) {
         this.lastCommendId--;
-        this.currentCommend = this.lastCommends[this.lastCommendId];
-        console.log(this.lastCommendId);
+        this.thisCommend = this.lastCommends[this.lastCommendId];
       } else {
-        this.currentCommend = "";
+        this.thisCommend = "";
         this.lastCommendId = -1;
       }
     },
+    // === list commends === //
     navigationCommendGame: function navigationCommendGame(commend) {
       var border = this.checkBorders(this.currentNavigation.x, this.currentNavigation.y);
-      console.log(border);
 
       switch (commend) {
         case "lewo":
@@ -48110,10 +48130,10 @@ var render = function() {
     _c(
       "div",
       { staticClass: "uploadedPlaceElementsList" },
-      _vm._l(_vm.uploadedPlaceElementsList, function(element, index) {
-        return _c("place-element", {
+      _vm._l(_vm.menuElement, function(element, index) {
+        return _c("menu-element", {
           key: index,
-          attrs: { descriptionLocation: _vm.uploadedPlaceElementsList[index] }
+          attrs: { title: element.title, description: element.description }
         })
       }),
       1
@@ -48149,24 +48169,54 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.menuCommend,
-              expression: "menuCommend"
+              value: _vm.thisCommend,
+              expression: "thisCommend"
             }
           ],
           staticClass: "consoleInput",
           attrs: { id: "menu", type: "text", autofocus: "" },
-          domProps: { value: _vm.menuCommend },
+          domProps: { value: _vm.thisCommend },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.menuCommend = $event.target.value
+              _vm.thisCommend = $event.target.value
             }
           }
         })
       ]
     )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=template&id=5d80f39e&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=template&id=5d80f39e& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "placeElement" }, [
+    _c("div", { staticClass: "placeName" }, [_vm._v(_vm._s(_vm.title))]),
+    _vm._v(" "),
+    _c("div", { staticClass: "placeDescription" }, [
+      _vm._v(_vm._s(_vm.description))
+    ])
   ])
 }
 var staticRenderFns = []
@@ -48281,7 +48331,7 @@ var render = function() {
               if ($event.shiftKey || $event.altKey || $event.metaKey) {
                 return null
               }
-              _vm.gameCommend = "góra"
+              _vm.thisCommend = "góra"
             },
             function($event) {
               if (
@@ -48299,7 +48349,7 @@ var render = function() {
               if ($event.shiftKey || $event.altKey || $event.metaKey) {
                 return null
               }
-              _vm.gameCommend = "dół"
+              _vm.thisCommend = "dół"
             },
             function($event) {
               if (
@@ -48320,7 +48370,7 @@ var render = function() {
               if ($event.shiftKey || $event.altKey || $event.metaKey) {
                 return null
               }
-              _vm.gameCommend = "lewo"
+              _vm.thisCommend = "lewo"
             },
             function($event) {
               if (
@@ -48341,7 +48391,7 @@ var render = function() {
               if ($event.shiftKey || $event.altKey || $event.metaKey) {
                 return null
               }
-              _vm.gameCommend = "prawo"
+              _vm.thisCommend = "prawo"
             }
           ]
         }
@@ -48352,19 +48402,19 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.gameCommend,
-              expression: "gameCommend"
+              value: _vm.thisCommend,
+              expression: "thisCommend"
             }
           ],
           staticClass: "consoleInput",
           attrs: { id: "game", type: "text", autofocus: "" },
-          domProps: { value: _vm.gameCommend },
+          domProps: { value: _vm.thisCommend },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.gameCommend = $event.target.value
+              _vm.thisCommend = $event.target.value
             }
           }
         })
@@ -67099,11 +67149,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('profile-page', __webpack_r
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('profile-graphic', __webpack_require__(/*! ./components/Profile/ProfileGraphic.vue */ "./resources/js/components/Profile/ProfileGraphic.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('profile-game', __webpack_require__(/*! ./components/Profile/ProfileGame.vue */ "./resources/js/components/Profile/ProfileGame.vue")["default"]); // Game // 
 
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-page', __webpack_require__(/*! ./components/Game/GameCard.vue */ "./resources/js/components/Game/GameCard.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-panel', __webpack_require__(/*! ./components/Game/GamePanel.vue */ "./resources/js/components/Game/GamePanel.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-play', __webpack_require__(/*! ./components/Game/GamePanelEl/GamePlay.vue */ "./resources/js/components/Game/GamePanelEl/GamePlay.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('location', __webpack_require__(/*! ./components/Game/GamePanelEl/GamePlayEl/PlaceElement.vue */ "./resources/js/components/Game/GamePanelEl/GamePlayEl/PlaceElement.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-menu', __webpack_require__(/*! ./components/Game/GamePanelEl/GameMenu.vue */ "./resources/js/components/Game/GamePanelEl/GameMenu.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-play', __webpack_require__(/*! ./components/Game/GamePanelEl/GamePlay.vue */ "./resources/js/components/Game/GamePanelEl/GamePlay.vue")["default"]); // Auth //
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('menu-element', __webpack_require__(/*! ./components/Game/GamePanelEl/GameMenuEl/MenuElement.vue */ "./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue")["default"]); // Auth //
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('register-page', __webpack_require__(/*! ./components/Auth/RegisterPage.vue */ "./resources/js/components/Auth/RegisterPage.vue")["default"]);
 /**
@@ -67204,7 +67254,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       href: "image11.jpg"
     }],
     // GAME //
-    menu: false,
+    menu: true,
     uploadedPlaceElementsList: [],
     currentCommend: "",
     lastCommends: [],
@@ -67666,38 +67716,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Game/GameCard.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/Game/GameCard.vue ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-component.options.__file = "resources/js/components/Game/GameCard.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
 /***/ "./resources/js/components/Game/GamePanel.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/Game/GamePanel.vue ***!
@@ -67831,6 +67849,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameMenu_vue_vue_type_template_id_0ea944a9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameMenu_vue_vue_type_template_id_0ea944a9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MenuElement_vue_vue_type_template_id_5d80f39e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MenuElement.vue?vue&type=template&id=5d80f39e& */ "./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=template&id=5d80f39e&");
+/* harmony import */ var _MenuElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MenuElement.vue?vue&type=script&lang=js& */ "./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MenuElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MenuElement_vue_vue_type_template_id_5d80f39e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MenuElement_vue_vue_type_template_id_5d80f39e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuElement.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuElement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=template&id=5d80f39e&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=template&id=5d80f39e& ***!
+  \************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuElement_vue_vue_type_template_id_5d80f39e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./MenuElement.vue?vue&type=template&id=5d80f39e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue?vue&type=template&id=5d80f39e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuElement_vue_vue_type_template_id_5d80f39e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MenuElement_vue_vue_type_template_id_5d80f39e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

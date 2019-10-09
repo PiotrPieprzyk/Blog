@@ -1,60 +1,71 @@
 <template>
 	<div class="menuWrapper">
 		<div class="uploadedPlaceElementsList">
-			<place-element
-				v-for="(element,index) in uploadedPlaceElementsList"
+			<menu-element
+				v-for="(element,index) in menuElement"
 				:key="index"
-				:descriptionLocation="uploadedPlaceElementsList[index]"
-			></place-element>
+				:title="element.title"
+				:description="element.description"
+			></menu-element>
 		</div>
 		<div class="consoleInput" @keydown.enter.exact="submitCommend('menu')">
-			<input id="menu" type="text" class="consoleInput" v-model="menuCommend" autofocus />
+			<input id="menu" type="text" class="consoleInput" v-model="thisCommend" autofocus />
 		</div>
 	</div>
 </template>
 <script>
 import { mapState } from "vuex";
 export default {
-	computed: mapState(["menu"]),
+	computed: mapState(["menu", "currentCommend"]),
 	watch: {
-		menuCommend: function() {
-			this.$store.commit("setCurrentCommend", this.menuCommend);
+		thisCommend: function() {
+			this.$store.commit("setCurrentCommend", this.thisCommend);
 		}
 	},
 	data: function() {
 		return {
 			uploadedPlaceElementsList: [],
-			menuCommend: "",
+			thisCommend: "",
 			lastCommends: [],
-			lastCommendId: -1
+			lastCommendId: -1,
+			menuElement: {
+				0: {
+					title: "Menu: lista komend:",
+					description: `
+  Edytor - tylko dla admina
+  Gra 
+  Opcje`
+				}
+			}
 		};
 	},
 	methods: {
 		submitCommend(typeNavigation) {
-			console.log("WORK");
+			// write commend
 			let div = document.createElement("div");
 			let list = document.querySelector(".uploadedPlaceElementsList");
 			div.classList.add("consoleCommend");
-			div.textContent = this.menuCommend;
+			div.textContent = this.currentCommend;
 			if (list) {
 				list.appendChild(div);
 			}
-
-			if (typeNavigation == "menu") {
-				this.navigationCommend(this.menuCommend);
-			}
-			this.lastCommends.unshift(this.menuCommend);
-			this.menuCommend = "";
+			// save commend
+			this.lastCommends.unshift(this.currentCommend);
+			this.thisCommend = "";
+			// auto scroll
 			setTimeout(() => {
 				document.querySelector(
 					".screenGame"
 				).scrollTop = document.querySelector(".screenGame").scrollHeight;
 			}, 0);
+
+			// check commend
+			this.navigationCommend(this.currentCommend);
 		},
+		// === list commends === //
 		navigationCommend(commend) {
-			console.log("DZIAŁA");
 			switch (commend) {
-				case "game":
+				case "gra":
 					this.uploadedPlaceElementsList = [];
 					this.lastCommends = [];
 					this.lastCommendId = -1;

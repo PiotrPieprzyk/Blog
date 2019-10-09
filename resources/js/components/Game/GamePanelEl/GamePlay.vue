@@ -14,12 +14,12 @@
 			@keydown.enter.exact="submitCommend('game')"
 			@keydown.up.exact="showLastCommend(1)"
 			@keydown.down.exact="showLastCommend(0)"
-			@keydown.ctrl.up.exact="gameCommend='góra'"
-			@keydown.ctrl.down.exact="gameCommend='dół'"
-			@keydown.ctrl.left.exact="gameCommend='lewo'"
-			@keydown.ctrl.right.exact="gameCommend='prawo'"
+			@keydown.ctrl.up.exact="thisCommend='góra'"
+			@keydown.ctrl.down.exact="thisCommend='dół'"
+			@keydown.ctrl.left.exact="thisCommend='lewo'"
+			@keydown.ctrl.right.exact="thisCommend='prawo'"
 		>
-			<input id="game" type="text" class="consoleInput" v-model="gameCommend" autofocus />
+			<input id="game" type="text" class="consoleInput" v-model="thisCommend" autofocus />
 		</div>
 	</div>
 </template>
@@ -29,7 +29,7 @@ export default {
 	computed: mapState(["menu", "currentCommend"]),
 	data: function() {
 		return {
-			gameCommend: "",
+			thisCommend: "",
 
 			menuConditional: false,
 			uploadedPlaceElementsList: [],
@@ -63,8 +63,8 @@ export default {
 		};
 	},
 	watch: {
-		gameCommend: function() {
-			this.$store.commit("setCurrentCommend", this.gameCommend);
+		thisCommend: function() {
+			this.$store.commit("setCurrentCommend", this.thisCommend);
 		},
 		menuConditional: function() {
 			this.$store.commit("setMenu", this.menuConditional);
@@ -72,8 +72,6 @@ export default {
 	},
 	methods: {
 		checkBorders(x, y) {
-			console.log(y);
-			console.log(x);
 			let left = this.mapNavigation[y][x - 1];
 			let right = this.mapNavigation[y][x + 1];
 			let top;
@@ -95,7 +93,7 @@ export default {
 			this.uploadedPlaceElementsList.push(this.mapPlace[index]);
 		},
 		submitCommend(typeNavigation) {
-			console.log("WORK");
+			// write Commend
 			let div = document.createElement("div");
 			let list = document.querySelector(".uploadedPlaceElementsList");
 			div.classList.add("consoleCommend");
@@ -103,41 +101,39 @@ export default {
 			if (list) {
 				list.appendChild(div);
 			}
-
-			if (typeNavigation == "game") {
-				this.navigationCommendGame(this.currentCommend);
-			}
-			if (typeNavigation == "menu") {
-				this.navigationCommend(this.currentCommend);
-			}
+			// Check Navigation
+			this.navigationCommendGame(this.currentCommend);
+			// save commend
 			this.lastCommends.unshift(this.currentCommend);
-			this.gameCommend = "";
+			this.thisCommend = "";
+
+			// AutoScrolling
 			setTimeout(() => {
 				document.querySelector(
 					".screenGame"
 				).scrollTop = document.querySelector(".screenGame").scrollHeight;
 			}, 0);
 		},
+		// === that use ctrl + key === //
 		showLastCommend(x) {
 			if (x == 1 && this.lastCommends.length - 1 > this.lastCommendId) {
 				this.lastCommendId++;
-				this.currentCommend = this.lastCommends[this.lastCommendId];
-				console.log(this.lastCommendId);
+				this.thisCommend = this.lastCommends[this.lastCommendId];
 			} else if (x == 0 && this.lastCommendId > 0) {
 				this.lastCommendId--;
-				this.currentCommend = this.lastCommends[this.lastCommendId];
-				console.log(this.lastCommendId);
+				this.thisCommend = this.lastCommends[this.lastCommendId];
 			} else {
-				this.currentCommend = "";
+				this.thisCommend = "";
 				this.lastCommendId = -1;
 			}
 		},
+
+		// === list commends === //
 		navigationCommendGame(commend) {
 			let border = this.checkBorders(
 				this.currentNavigation.x,
 				this.currentNavigation.y
 			);
-			console.log(border);
 			switch (commend) {
 				case "lewo":
 					if (border.left) {

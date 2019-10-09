@@ -42,13 +42,13 @@ Vue.component('profile-graphic', require('./components/Profile/ProfileGraphic.vu
 Vue.component('profile-game', require('./components/Profile/ProfileGame.vue').default);
 
 // Game // 
-Vue.component('game-page', require('./components/Game/GameCard.vue').default);
 Vue.component('game-panel', require('./components/Game/GamePanel.vue').default);
-Vue.component('location', require('./components/Game/GamePanelEl/GamePlayEl/PlaceElement.vue').default);
-Vue.component('game-menu', require('./components/Game/GamePanelEl/GameMenu.vue').default);
+
 Vue.component('game-play', require('./components/Game/GamePanelEl/GamePlay.vue').default);
+Vue.component('location', require('./components/Game/GamePanelEl/GamePlayEl/PlaceElement.vue').default);
 
-
+Vue.component('game-menu', require('./components/Game/GamePanelEl/GameMenu.vue').default);
+Vue.component('menu-element', require('./components/Game/GamePanelEl/GameMenuEl/MenuElement.vue').default);
 
 // Auth //
 Vue.component('register-page', require('./components/Auth/RegisterPage.vue').default);
@@ -192,7 +192,7 @@ const store = new Vuex.Store({
 
     ],
     // GAME //
-    menu: false,
+    menu: true,
     uploadedPlaceElementsList: [],
     currentCommend: "",
     lastCommends: [],
