@@ -3,15 +3,17 @@
 		<div class="GaleryTitleWrapper">
 			<div class="GaleryTitle">Graphic</div>
 		</div>
-		<galery-slider
-			v-if="OnSlider"
-			@close="closeSlider()"
-			@previous="activeMinus()"
-			@next="activePlus()"
-			:activeGaleryItem="activeGaleryId"
-			:listGraphicsProp="listGraphics"
-			:graphicID="idGraphic"
-		></galery-slider>
+		<transition name="opacity" mode="out-in">
+			<galery-slider
+				v-if="OnSlider"
+				@close="closeSlider()"
+				@previous="activeMinus()"
+				@next="activePlus()"
+				:activeGaleryItem="activeGaleryId"
+				:listGraphicsProp="listGraphics"
+				:graphicID="idGraphic"
+			></galery-slider>
+		</transition>
 		<div class="GaleryGraphicWrapper">
 			<div
 				v-for="(item, index) in listGraphics"
