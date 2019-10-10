@@ -78,7 +78,8 @@ const store = new Vuex.Store({
     currentCard: 0,
     animationStatus: false,
     loadedCard: false,
-
+    //
+    headerVisible: 2,
     // auth
     csrf: document.querySelector('meta[name="csrf-token"]').content,
     authCheck: {},
@@ -263,6 +264,9 @@ const store = new Vuex.Store({
     },
     setMenu(state, conditional) {
       state.menu = conditional;
+    },
+    setHeaderVisible(state, conditional) {
+      state.headerVisible = conditional;
     }
 
   }
@@ -276,7 +280,6 @@ const app = new Vue({
   el: '#app',
   store,
   router,
-
 
 
 });
@@ -299,11 +302,23 @@ function detectMouseWheelDirection(e) {
 
   return direction;
 }
+
+let animation_active = true;
+
 function handleMouseWheelDirection(direction) {
   let i;
-
   if (direction == 'down') {
-    // do something, like show the next page
+    if (animation_active) {
+      animation_active = false;
+      store.commit("setHeaderVisible", 1);
+      console.log("DOWN SET ");
+      setTimeout(() => {
+        animation_active = true;
+      }, 1000)
+    }
+
+
+    // only on start page
     if (router.history.current.fullPath == "/") {
 
       if (store.state.currentCard < 3) {
@@ -315,7 +330,16 @@ function handleMouseWheelDirection(direction) {
 
 
   } else if (direction == 'up') {
-    // do something, like show the previous page
+    if (animation_active) {
+      animation_active = false;
+      store.commit("setHeaderVisible", 2);
+      console.log("UP SET ");
+      setTimeout(() => {
+        animation_active = true;
+      }, 1000)
+    }
+
+    // only on start page
     if (router.history.current.fullPath == "/") {
 
       if (store.state.currentCard > 0) {

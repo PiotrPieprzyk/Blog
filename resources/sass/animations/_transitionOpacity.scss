@@ -45,3 +45,38 @@
     opacity: 0;
   }
 }
+
+.hide-nav-enter {
+  top: 0;
+}
+
+.hide-nav-enter-active {
+  animation: translateY-Appear 0.3s ease-in forwards;
+}
+
+.hide-nav-leave {}
+
+.hide-nav-leave-active {
+  animation: translateY-Disapear 0.3s ease-in forwards;
+
+}
+
+@keyframes translateY-Appear {
+  from {
+    transform: translateY(-50px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes translateY-Disapear {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50px);
+  }
+}
