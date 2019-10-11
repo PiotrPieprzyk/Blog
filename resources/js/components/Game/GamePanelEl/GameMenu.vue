@@ -8,26 +8,38 @@
 				:description="element.description"
 			></menu-element>
 		</div>
-		<div class="consoleInput" @keydown.enter.exact="submitCommend('menu')">
+		<div
+			class="consoleInput"
+			@keydown.enter.exact="submitCommend"
+			@keydown.up.exact="showLastCommend(1)"
+			@keydown.down.exact="showLastCommend(0)"
+		>
 			<input id="menu" type="text" class="consoleInput" v-model="thisCommend" autofocus />
 		</div>
 	</div>
 </template>
 <script>
-import { mapState } from "vuex";
+import {
+	cleanConsole,
+	showLastCommend,
+	submitCommend,
+	dataConsole,
+	checkBorders
+} from "./mixins/CleanConsole.js";
+import { navigationCommendMenu } from "./mixins/CommendList";
 export default {
-	computed: mapState(["menu", "currentCommend"]),
-	watch: {
-		thisCommend: function() {
-			this.$store.commit("setCurrentCommend", this.thisCommend);
-		}
-	},
+	mixins: [
+		cleanConsole,
+		showLastCommend,
+		submitCommend,
+		dataConsole,
+		checkBorders,
+		navigationCommendMenu
+	],
 	data: function() {
 		return {
 			uploadedPlaceElementsList: [],
-			thisCommend: "",
-			lastCommends: [],
-			lastCommendId: -1,
+			// MENU DATA
 			menuElement: {
 				0: {
 					title: "Menu: lista komend:",
@@ -39,52 +51,8 @@ export default {
 			}
 		};
 	},
-	methods: {
-		submitCommend(typeNavigation) {
-			// write commend
-			let div = document.createElement("div");
-			let list = document.querySelector(".uploadedPlaceElementsList");
-			div.classList.add("consoleCommend");
-			div.textContent = this.currentCommend;
-			if (list) {
-				list.appendChild(div);
-			}
-			// save commend
-			this.lastCommends.unshift(this.currentCommend);
-			this.thisCommend = "";
-			// auto scroll
-			setTimeout(() => {
-				document.querySelector(
-					".screenGame"
-				).scrollTop = document.querySelector(".screenGame").scrollHeight;
-			}, 0);
-
-			// check commend
-			this.navigationCommend(this.currentCommend);
-		},
-		// === list commends === //
-		navigationCommend(commend) {
-			switch (commend) {
-				case "gra":
-					this.uploadedPlaceElementsList = [];
-					this.lastCommends = [];
-					this.lastCommendId = -1;
-					Array.prototype.forEach.call(
-						document.querySelectorAll(".consoleCommend"),
-						function(node) {
-							node.parentNode.removeChild(node);
-						}
-					);
-					this.$store.commit("setMenu", false);
-
-					break;
-			}
-		}
-	},
 	mounted() {
-		setTimeout(() => {
-			document.getElementById("menu").focus();
-		}, 0);
+		document.getElementById("menu").focus();
 	}
 };
 </script>

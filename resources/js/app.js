@@ -50,6 +50,9 @@ Vue.component('location', require('./components/Game/GamePanelEl/GamePlayEl/Plac
 Vue.component('game-menu', require('./components/Game/GamePanelEl/GameMenu.vue').default);
 Vue.component('menu-element', require('./components/Game/GamePanelEl/GameMenuEl/MenuElement.vue').default);
 
+Vue.component('game-edytor', require('./components/Game/GamePanelEl/GameEdytor.vue').default);
+
+
 // Auth //
 Vue.component('register-page', require('./components/Auth/RegisterPage.vue').default);
 
@@ -193,7 +196,7 @@ const store = new Vuex.Store({
 
     ],
     // GAME //
-    menu: true,
+    menu: 'edytor',
     uploadedPlaceElementsList: [],
     currentCommend: "",
     lastCommends: [],

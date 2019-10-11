@@ -2078,6 +2078,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 Math.easeOutQuart = function (t, b, c, d) {
@@ -2183,6 +2185,9 @@ var sizingDownDiv = function sizingDownDiv(index, defaulting, storage) {
     },
     csrf: function csrf() {
       return this.$store.state.csrf;
+    },
+    headerVisible: function headerVisible() {
+      return this.$store.state.headerVisible;
     }
   },
   methods: {
@@ -2218,6 +2223,8 @@ var sizingDownDiv = function sizingDownDiv(index, defaulting, storage) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+//
+//
 //
 //
 //
@@ -2614,11 +2621,317 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["menu"]),
   data: function data() {
     return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixins/CleanConsole.js */ "./resources/js/components/Game/GamePanelEl/mixins/CleanConsole.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["checkBorders"]],
+  data: function data() {
+    return {
+      // CURRENT LOCATION
+      currentNavigation: {
+        x: 0,
+        y: 0
+      },
+      // MAP DATA
+      mapPlace: {
+        "0_0": {
+          name: "home",
+          description: "small house",
+          x: 0,
+          y: 0,
+          location: "city",
+          world: "Dream"
+        },
+        "0_1": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 1,
+          y: 0,
+          location: "wood",
+          world: "Dream"
+        },
+        "1_0": {
+          name: "home",
+          description: "small house",
+          x: 0,
+          y: 1,
+          location: "city",
+          world: "Dream"
+        },
+        "1_1": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 1,
+          y: 1,
+          location: "wood",
+          world: "Dream"
+        },
+        "1_-1": {
+          name: "home",
+          description: "small house",
+          x: 0,
+          y: 1,
+          location: "city",
+          world: "Dream"
+        },
+        "1_2": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 2,
+          y: 1,
+          location: "wood",
+          world: "Dream"
+        },
+        "-1_0": {
+          name: "home",
+          description: "small house",
+          x: 0,
+          y: -1,
+          location: "city",
+          world: "Dream"
+        },
+        "-1_1": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 1,
+          y: -1,
+          location: "wood",
+          world: "Dream"
+        },
+        "-1_2": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 2,
+          y: -1,
+          location: "wood",
+          world: "Dream"
+        },
+        "-3_2": {
+          name: "LOL",
+          description: "smelly wood",
+          x: 2,
+          y: -1,
+          location: "wood",
+          world: "Dream"
+        }
+      },
+      // NAVIGATION MAP
+      mapNavigation: {
+        "1": {
+          "0": "home",
+          "1": "Wood",
+          "2": "Wood",
+          "-1": "home"
+        },
+        "0": {
+          "0": "home",
+          "1": "Wood"
+        },
+        "-1": {
+          "0": "home",
+          "1": "Wood",
+          "2": "Wood"
+        },
+        "-3": {
+          "2": "LOL"
+        }
+      },
+      mapGrapped: false,
+      startPositionX: 0,
+      startPositionY: 0,
+      startScale: 1,
+      sortedMapY: [],
+      sortedMapX: [[]],
+      maxMapX: 0,
+      maxMapY: 0,
+      maxGridX: "",
+      maxGridY: "",
+      minValueX: 0,
+      maxValueX: 0,
+      minValueY: 0,
+      maxValueY: 0
+    };
+  },
+  methods: {
+    checkMinMaxValueX: function checkMinMaxValueX() {
+      var _this = this;
+
+      var minXTEMP = 0;
+      var maxXTEMP = 0;
+      this.sortedMapY.forEach(function (elementY) {
+        Object.keys(_this.mapNavigation[elementY]).forEach(function (elementX) {
+          if (minXTEMP > elementX) {
+            minXTEMP = elementX;
+          }
+
+          if (maxXTEMP < elementX) {
+            maxXTEMP = elementX;
+          }
+        });
+      });
+      this.maxMapX = Math.abs(minXTEMP - maxXTEMP) + 1;
+      this.maxValueX = maxXTEMP;
+      this.minValueX = minXTEMP;
+    },
+    checkMinMaxValueY: function checkMinMaxValueY() {
+      var minYTEMP = 0;
+      var maxYTEMP = 0;
+      this.sortedMapY.forEach(function (elementY) {
+        if (minYTEMP < parseInt(elementY)) {
+          minYTEMP = parseInt(elementY);
+        }
+
+        if (maxYTEMP > parseInt(elementY)) {
+          maxYTEMP = parseInt(elementY);
+        }
+      });
+      this.maxMapY = Math.abs(minYTEMP - maxYTEMP) + 1;
+      this.minValueY = maxYTEMP;
+      this.maxValueY = minYTEMP;
+      console.log(this.maxMapY + "MAX MAP GRID ");
+      console.log(this.maxValueY + "MAX VALUE Y ");
+      console.log(this.minValueY + "MIN VALUE Y ");
+    },
+    sortingMapY: function sortingMapY() {
+      var _this2 = this;
+
+      Object.keys(this.mapNavigation).forEach(function (element) {
+        _this2.sortedMapY.push(element);
+      });
+      this.sortedMapY.sort(function (a, b) {
+        return parseInt(a) - parseInt(b);
+      });
+      this.sortedMapY.reverse();
+      console.log(this.sortedMapY);
+    },
+    sortingMapX: function sortingMapX(x) {
+      var _this3 = this;
+
+      this.sortedMapX[x] = [];
+      Object.keys(this.mapNavigation[x]).forEach(function (element) {
+        _this3.sortedMapX[x].push(element);
+      });
+      this.sortedMapX[x].sort();
+    },
+    grapMap: function grapMap() {
+      this.mapGrapped = true;
+    },
+    dropMap: function dropMap() {
+      this.mapGrapped = false;
+    },
+    moveMap: function moveMap(e) {
+      if (this.mapGrapped == true) {
+        this.startPositionX = this.startPositionX + e.movementX;
+        this.startPositionY = this.startPositionY + e.movementY;
+      }
+    },
+    scaleMap: function scaleMap(e) {
+      var direction;
+
+      if (e.deltaY < 0) {
+        this.startScale = this.startScale + 0.5;
+      } else {
+        if (this.startScale - 0.5 > 0) {
+          this.startScale = this.startScale - 0.5;
+        }
+      }
+    }
+  },
+  watch: {
+    maxMapX: function maxMapX() {
+      for (var i = 0; i < this.maxMapX; i++) {
+        this.maxGridX = this.maxGridX + "1fr ";
+      }
+    },
+    maxMapY: function maxMapY() {
+      for (var i = 0; i < this.maxMapY; i++) {
+        this.maxGridY = this.maxGridY + "1fr ";
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this4 = this;
+
+    var keysArray = Object.keys(this.mapNavigation);
+    var mapCollector = document.querySelector(".map");
+    this.sortingMapY();
+    this.sortedMapY.forEach(function (element) {
+      _this4.sortingMapX(element);
+    });
+    this.checkMinMaxValueX();
+    this.checkMinMaxValueY(); // keysArray.forEach(element => {
+    // 	let colWrapper = document.createElement("div");
+    // 	colWrapper.classList.add("colWrapper");
+    // 	Object.keys(this.mapNavigation[element]).forEach(element2 => {
+    // 		let location = document.createElement("div");
+    // 		location.id = element + "_" + element2;
+    // 		location.classList.add("location");
+    // 		colWrapper.appendChild(location);
+    // 	});
+    // 	mapCollector.appendChild(colWrapper);
+    // });
   }
 });
 
@@ -2633,7 +2946,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixins/CleanConsole.js */ "./resources/js/components/Game/GamePanelEl/mixins/CleanConsole.js");
+/* harmony import */ var _mixins_CommendList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mixins/CommendList */ "./resources/js/components/Game/GamePanelEl/mixins/CommendList.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2650,19 +2969,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["menu", "currentCommend"]),
-  watch: {
-    thisCommend: function thisCommend() {
-      this.$store.commit("setCurrentCommend", this.thisCommend);
-    }
-  },
+  mixins: [_mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["cleanConsole"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["showLastCommend"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["submitCommend"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["dataConsole"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["checkBorders"], _mixins_CommendList__WEBPACK_IMPORTED_MODULE_1__["navigationCommendMenu"]],
   data: function data() {
     return {
       uploadedPlaceElementsList: [],
-      thisCommend: "",
-      lastCommends: [],
-      lastCommendId: -1,
+      // MENU DATA
       menuElement: {
         0: {
           title: "Menu: lista komend:",
@@ -2671,47 +2984,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  methods: {
-    submitCommend: function submitCommend(typeNavigation) {
-      // write commend
-      var div = document.createElement("div");
-      var list = document.querySelector(".uploadedPlaceElementsList");
-      div.classList.add("consoleCommend");
-      div.textContent = this.currentCommend;
-
-      if (list) {
-        list.appendChild(div);
-      } // save commend
-
-
-      this.lastCommends.unshift(this.currentCommend);
-      this.thisCommend = ""; // auto scroll
-
-      setTimeout(function () {
-        document.querySelector(".screenGame").scrollTop = document.querySelector(".screenGame").scrollHeight;
-      }, 0); // check commend
-
-      this.navigationCommend(this.currentCommend);
-    },
-    // === list commends === //
-    navigationCommend: function navigationCommend(commend) {
-      switch (commend) {
-        case "gra":
-          this.uploadedPlaceElementsList = [];
-          this.lastCommends = [];
-          this.lastCommendId = -1;
-          Array.prototype.forEach.call(document.querySelectorAll(".consoleCommend"), function (node) {
-            node.parentNode.removeChild(node);
-          });
-          this.$store.commit("setMenu", false);
-          break;
-      }
-    }
-  },
   mounted: function mounted() {
-    setTimeout(function () {
-      document.getElementById("menu").focus();
-    }, 0);
+    document.getElementById("menu").focus();
   }
 });
 
@@ -2748,6 +3022,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mixins/CleanConsole.js */ "./resources/js/components/Game/GamePanelEl/mixins/CleanConsole.js");
+/* harmony import */ var _mixins_CommendList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/CommendList */ "./resources/js/components/Game/GamePanelEl/mixins/CommendList.js");
 //
 //
 //
@@ -2774,17 +3050,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["menu", "currentCommend"]),
+  mixins: [_mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_1__["cleanConsole"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_1__["showLastCommend"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_1__["submitCommend"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_1__["dataConsole"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_1__["checkBorders"], _mixins_CommendList__WEBPACK_IMPORTED_MODULE_2__["navigationCommendGame"]],
   data: function data() {
     return {
-      thisCommend: "",
-      menuConditional: false,
       uploadedPlaceElementsList: [],
+      // CURRENT LOCATION
       currentNavigation: {
         x: 0,
         y: 0
       },
+      // MAP DATA
       mapPlace: {
         "0_0": {
           name: "home",
@@ -2792,7 +3070,7 @@ __webpack_require__.r(__webpack_exports__);
           x: 0,
           y: 0,
           location: "city",
-          world: ""
+          world: "Dream"
         },
         "0_1": {
           name: "Wood",
@@ -2800,145 +3078,56 @@ __webpack_require__.r(__webpack_exports__);
           x: 1,
           y: 0,
           location: "wood",
-          world: ""
+          world: "Dream"
+        },
+        "1_0": {
+          name: "home",
+          description: "small house",
+          x: 0,
+          y: 1,
+          location: "city",
+          world: "Dream"
+        },
+        "1_1": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 1,
+          y: 1,
+          location: "wood",
+          world: "Dream"
+        },
+        "1_2": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 2,
+          y: 1,
+          location: "wood",
+          world: "Dream"
         }
       },
+      // NAVIGATION MAP
       mapNavigation: {
         0: {
           0: 1,
           1: 1
+        },
+        1: {
+          0: 1,
+          1: 1,
+          2: 1
         }
-      },
-      lastCommends: [],
-      lastCommendId: -1
+      }
     };
   },
-  watch: {
-    thisCommend: function thisCommend() {
-      this.$store.commit("setCurrentCommend", this.thisCommend);
-    },
-    menuConditional: function menuConditional() {
-      this.$store.commit("setMenu", this.menuConditional);
-    }
-  },
   methods: {
-    checkBorders: function checkBorders(x, y) {
-      var left = this.mapNavigation[y][x - 1];
-      var right = this.mapNavigation[y][x + 1];
-      var top;
-      var bottom;
-
-      if (this.mapNavigation[y + 1]) {
-        top = this.mapNavigation[y + 1][x];
-      } else {
-        top = undefined;
-      }
-
-      if (this.mapNavigation[y - 1]) {
-        bottom = this.mapNavigation[y - 1][x];
-      } else {
-        bottom = undefined;
-      }
-
-      return {
-        left: left,
-        right: right,
-        top: top,
-        bottom: bottom
-      };
-    },
     getCurrentPlace: function getCurrentPlace(k, l) {
       var index = l + "_" + k;
       this.uploadedPlaceElementsList.push(this.mapPlace[index]);
-    },
-    submitCommend: function submitCommend(typeNavigation) {
-      // write Commend
-      var div = document.createElement("div");
-      var list = document.querySelector(".uploadedPlaceElementsList");
-      div.classList.add("consoleCommend");
-      div.textContent = this.currentCommend;
-
-      if (list) {
-        list.appendChild(div);
-      } // Check Navigation
-
-
-      this.navigationCommendGame(this.currentCommend); // save commend
-
-      this.lastCommends.unshift(this.currentCommend);
-      this.thisCommend = ""; // AutoScrolling
-
-      setTimeout(function () {
-        document.querySelector(".screenGame").scrollTop = document.querySelector(".screenGame").scrollHeight;
-      }, 0);
-    },
-    // === that use ctrl + key === //
-    showLastCommend: function showLastCommend(x) {
-      if (x == 1 && this.lastCommends.length - 1 > this.lastCommendId) {
-        this.lastCommendId++;
-        this.thisCommend = this.lastCommends[this.lastCommendId];
-      } else if (x == 0 && this.lastCommendId > 0) {
-        this.lastCommendId--;
-        this.thisCommend = this.lastCommends[this.lastCommendId];
-      } else {
-        this.thisCommend = "";
-        this.lastCommendId = -1;
-      }
-    },
-    // === list commends === //
-    navigationCommendGame: function navigationCommendGame(commend) {
-      var border = this.checkBorders(this.currentNavigation.x, this.currentNavigation.y);
-
-      switch (commend) {
-        case "lewo":
-          if (border.left) {
-            this.currentNavigation.x--;
-            this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
-          }
-
-          break;
-
-        case "prawo":
-          if (border.right) {
-            this.currentNavigation.x++;
-            this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
-          }
-
-          break;
-
-        case "góra":
-          if (border.top) {
-            this.currentNavigation.y++;
-            this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
-          }
-
-          break;
-
-        case "dół":
-          if (border.bottom) {
-            this.currentNavigation.y--;
-            this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
-          }
-
-          break;
-
-        case "menu":
-          this.uploadedPlaceElementsList = [];
-          this.lastCommends = [];
-          this.lastCommendId = -1;
-          Array.prototype.forEach.call(document.querySelectorAll(".consoleCommend"), function (node) {
-            node.parentNode.removeChild(node);
-          });
-          this.menuConditional = true;
-          break;
-      }
     }
   },
   mounted: function mounted() {
     this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
-    setTimeout(function () {
-      document.getElementById("game").focus();
-    }, 0);
+    document.getElementById("game").focus();
   }
 });
 
@@ -47346,281 +47535,284 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("nav", { staticClass: "navBarOuter" }, [
-    _c(
-      "div",
-      { staticClass: "navBarWrapper" },
-      [
-        _c(
-          "router-link",
-          { staticStyle: { "z-index": "1" }, attrs: { to: "/" } },
-          [
-            _c("div", { staticClass: "logoWrapper" }, [
-              _c("p", [_vm._v("OurBlog")])
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _vm.authCheck == null
-          ? _c(
-              "div",
-              { staticClass: "buttonWrapper" },
-              [
-                _vm.loginOrRegister == 1
-                  ? _c("div", {
-                      staticClass: "closeSizing",
-                      on: {
-                        click: function($event) {
-                          return _vm.sizingDown(2)
-                        }
-                      }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "loginButton",
-                    staticStyle: { width: "60px", height: "31px" },
-                    on: {
-                      click: function($event) {
-                        return _vm.sizingUp(1)
-                      }
-                    }
-                  },
-                  [
-                    _c("p", [_vm._v("Zaloguj")]),
-                    _vm._v(" "),
-                    _c("transition", { attrs: { name: "opacity" } }, [
-                      _vm.loginOrRegister == 1
-                        ? _c(
-                            "div",
-                            { staticClass: "responsiveLoginCard" },
-                            [_c("login-form")],
-                            1
-                          )
-                        : _vm._e()
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "registerButton",
-                    staticStyle: { width: "85px" },
-                    attrs: { to: "/register" },
-                    on: {
-                      click: function($event) {
-                        return _vm.sizingDown(2)
-                      }
-                    }
-                  },
-                  [_c("p", [_vm._v("Zarejestruj")])]
-                )
-              ],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.authCheck != null
-          ? _c("div", { staticClass: "profileNavWrapper" }, [
-              _c("div", { staticClass: "profileNav" }, [
-                _c("p", { staticClass: "profileName" }, [
-                  _vm._v(_vm._s("Witaj! " + _vm.authCheck.name))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "form",
-                  {
-                    attrs: {
-                      id: "logout-form",
-                      method: "POST",
-                      action: "/logout"
-                    }
-                  },
-                  [
-                    _c("input", {
-                      attrs: { type: "hidden", name: "_token" },
-                      domProps: { value: _vm.csrf }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      { attrs: { to: "/profile/" + _vm.authCheck.id } },
-                      [_vm._v("Profil")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      { staticClass: "submitForm", attrs: { type: "submit" } },
-                      [_vm._v("Logout")]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "ToggleMenuStyle",
-            on: {
-              click: function($event) {
-                _vm.toggleMenu = !_vm.toggleMenu
-              }
-            }
-          },
-          [
-            _c("div", { staticClass: "toggleBar" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "toggleBar" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "toggleBar" })
-          ]
-        ),
-        _vm._v(" "),
-        _vm.toggleMenu == true
-          ? _c("div", { staticClass: "mobileMenyPopup" }, [
-              _vm.authCheck == null
+  return _c("transition", { attrs: { name: "hide-nav" } }, [
+    _vm.headerVisible == 2
+      ? _c("nav", { staticClass: "navBarOuter" }, [
+          _c(
+            "div",
+            { staticClass: "navBarWrapper" },
+            [
+              _c(
+                "router-link",
+                { staticStyle: { "z-index": "1" }, attrs: { to: "/" } },
+                [
+                  _c("div", { staticClass: "logoWrapper" }, [
+                    _c("p", [_vm._v("OurBlog")])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm.authCheck == null && _vm.headerVisible == 2
                 ? _c(
                     "div",
-                    { staticClass: "contentPopup" },
+                    { staticClass: "buttonWrapper" },
                     [
-                      _c("h1", [_vm._v("Logowanie")]),
+                      _vm.loginOrRegister == 1
+                        ? _c("div", {
+                            staticClass: "closeSizing",
+                            on: {
+                              click: function($event) {
+                                return _vm.sizingDown(2)
+                              }
+                            }
+                          })
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "mobileLoginWrapper" },
-                        [_c("login-form")],
+                        {
+                          staticClass: "loginButton",
+                          staticStyle: { width: "60px", height: "31px" },
+                          on: {
+                            click: function($event) {
+                              return _vm.sizingUp(1)
+                            }
+                          }
+                        },
+                        [
+                          _c("p", [_vm._v("Zaloguj")]),
+                          _vm._v(" "),
+                          _c("transition", { attrs: { name: "opacity" } }, [
+                            _vm.loginOrRegister == 1
+                              ? _c(
+                                  "div",
+                                  { staticClass: "responsiveLoginCard" },
+                                  [_c("login-form")],
+                                  1
+                                )
+                              : _vm._e()
+                          ])
+                        ],
                         1
                       ),
                       _vm._v(" "),
                       _c(
                         "router-link",
                         {
-                          staticClass: "mobileRegister",
+                          staticClass: "registerButton",
+                          staticStyle: { width: "85px" },
                           attrs: { to: "/register" },
                           on: {
                             click: function($event) {
-                              _vm.toggleMenu = !_vm.toggleMenu
+                              return _vm.sizingDown(2)
                             }
                           }
                         },
-                        [
-                          _c(
-                            "h1",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.toggleMenu = !_vm.toggleMenu
-                                }
-                              }
-                            },
-                            [_vm._v("Zarejestruj")]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", {
-                        staticClass: "close",
-                        on: {
-                          click: function($event) {
-                            _vm.toggleMenu = !_vm.toggleMenu
-                          }
-                        }
-                      })
+                        [_c("p", [_vm._v("Zarejestruj")])]
+                      )
                     ],
                     1
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.authCheck != null
-                ? _c("div", { staticClass: "contentPopup" }, [
-                    _c(
-                      "div",
-                      { staticClass: "mobileProfileNavWrapper" },
-                      [
-                        _c("p", { staticClass: "mobileProfileName" }, [
-                          _vm._v(_vm._s(_vm.authCheck.name))
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "mobileProfileButton",
-                            attrs: { to: "/profile/" + _vm.authCheck.id }
-                          },
+              _vm.authCheck != null && _vm.headerVisible == 2
+                ? _c("div", { staticClass: "profileNavWrapper" }, [
+                    _c("div", { staticClass: "profileNav" }, [
+                      _c("p", { staticClass: "profileName" }, [
+                        _vm._v(_vm._s("Witaj! " + _vm.authCheck.name))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "form",
+                        {
+                          attrs: {
+                            id: "logout-form",
+                            method: "POST",
+                            action: "/logout"
+                          }
+                        },
+                        [
+                          _c("input", {
+                            attrs: { type: "hidden", name: "_token" },
+                            domProps: { value: _vm.csrf }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            { attrs: { to: "/profile/" + _vm.authCheck.id } },
+                            [_vm._v("Profil")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "submitForm",
+                              attrs: { type: "submit" }
+                            },
+                            [_vm._v("Logout")]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "ToggleMenuStyle",
+                  on: {
+                    click: function($event) {
+                      _vm.toggleMenu = !_vm.toggleMenu
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "toggleBar" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "toggleBar" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "toggleBar" })
+                ]
+              ),
+              _vm._v(" "),
+              _vm.toggleMenu == true
+                ? _c("div", { staticClass: "mobileMenyPopup" }, [
+                    _vm.authCheck == null
+                      ? _c(
+                          "div",
+                          { staticClass: "contentPopup" },
                           [
+                            _c("h1", [_vm._v("Logowanie")]),
+                            _vm._v(" "),
                             _c(
-                              "p",
+                              "div",
+                              { staticClass: "mobileLoginWrapper" },
+                              [_c("login-form")],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
                               {
+                                staticClass: "mobileRegister",
+                                attrs: { to: "/register" },
                                 on: {
                                   click: function($event) {
                                     _vm.toggleMenu = !_vm.toggleMenu
                                   }
                                 }
                               },
-                              [_vm._v("Profil")]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "form",
-                          {
-                            staticClass: "mobileLogOutForm",
-                            attrs: {
-                              id: "logout-form",
-                              method: "POST",
-                              action: "/logout"
-                            }
-                          },
-                          [
-                            _c("input", {
-                              attrs: { type: "hidden", name: "_token" },
-                              domProps: { value: _vm.csrf }
-                            }),
+                              [
+                                _c(
+                                  "h1",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.toggleMenu = !_vm.toggleMenu
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Zarejestruj")]
+                                )
+                              ]
+                            ),
                             _vm._v(" "),
-                            _vm._m(0)
-                          ]
+                            _c("div", {
+                              staticClass: "close",
+                              on: {
+                                click: function($event) {
+                                  _vm.toggleMenu = !_vm.toggleMenu
+                                }
+                              }
+                            })
+                          ],
+                          1
                         )
-                      ],
-                      1
-                    ),
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("div", {
-                      staticClass: "close",
-                      on: {
-                        click: function($event) {
-                          _vm.toggleMenu = !_vm.toggleMenu
-                        }
-                      }
-                    })
+                    _vm.authCheck != null
+                      ? _c("div", { staticClass: "contentPopup" }, [
+                          _c(
+                            "div",
+                            { staticClass: "mobileProfileNavWrapper" },
+                            [
+                              _c("p", { staticClass: "mobileProfileName" }, [
+                                _vm._v(_vm._s(_vm.authCheck.name))
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "mobileProfileButton",
+                                  attrs: { to: "/profile/" + _vm.authCheck.id }
+                                },
+                                [
+                                  _c(
+                                    "p",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.toggleMenu = !_vm.toggleMenu
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Profil")]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "form",
+                                {
+                                  staticClass: "mobileLogOutForm",
+                                  attrs: {
+                                    id: "logout-form",
+                                    method: "POST",
+                                    action: "/logout"
+                                  }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: { type: "hidden", name: "_token" },
+                                    domProps: { value: _vm.csrf }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "mobileSubmitForm",
+                                      attrs: { type: "submit" }
+                                    },
+                                    [_c("p", [_vm._v("Logout")])]
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", {
+                            staticClass: "close",
+                            on: {
+                              click: function($event) {
+                                _vm.toggleMenu = !_vm.toggleMenu
+                              }
+                            }
+                          })
+                        ])
+                      : _vm._e()
                   ])
                 : _vm._e()
-            ])
-          : _vm._e()
-      ],
-      1
-    )
+            ],
+            1
+          )
+        ])
+      : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "mobileSubmitForm", attrs: { type: "submit" } },
-      [_c("p", [_vm._v("Logout")])]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -47648,26 +47840,33 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _vm.OnSlider
-        ? _c("galery-slider", {
-            attrs: {
-              activeGaleryItem: _vm.activeGaleryId,
-              listGraphicsProp: _vm.listGraphics,
-              graphicID: _vm.idGraphic
-            },
-            on: {
-              close: function($event) {
-                return _vm.closeSlider()
-              },
-              previous: function($event) {
-                return _vm.activeMinus()
-              },
-              next: function($event) {
-                return _vm.activePlus()
-              }
-            }
-          })
-        : _vm._e(),
+      _c(
+        "transition",
+        { attrs: { name: "opacity", mode: "out-in" } },
+        [
+          _vm.OnSlider
+            ? _c("galery-slider", {
+                attrs: {
+                  activeGaleryItem: _vm.activeGaleryId,
+                  listGraphicsProp: _vm.listGraphics,
+                  graphicID: _vm.idGraphic
+                },
+                on: {
+                  close: function($event) {
+                    return _vm.closeSlider()
+                  },
+                  previous: function($event) {
+                    return _vm.activeMinus()
+                  },
+                  next: function($event) {
+                    return _vm.activePlus()
+                  }
+                }
+              })
+            : _vm._e()
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -48095,9 +48294,11 @@ var render = function() {
         "div",
         { staticClass: "screenGame" },
         [
-          _vm.menu ? _c("game-menu") : _vm._e(),
+          _vm.menu == "menu" ? _c("game-menu") : _vm._e(),
           _vm._v(" "),
-          !_vm.menu ? _c("game-play") : _vm._e()
+          _vm.menu == "gra" ? _c("game-play") : _vm._e(),
+          _vm._v(" "),
+          _vm.menu == "edytor" ? _c("game-edytor") : _vm._e()
         ],
         1
       )
@@ -48105,6 +48306,130 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=template&id=f997b9b2&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=template&id=f997b9b2& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "edytorWrapper" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "mapWrapperOutter",
+        on: {
+          mousedown: _vm.grapMap,
+          mouseup: _vm.dropMap,
+          mousemove: _vm.moveMap,
+          wheel: _vm.scaleMap
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "map",
+            style:
+              "transform: translateX(" +
+              _vm.startPositionX +
+              "px) translateY(" +
+              _vm.startPositionY +
+              "px) scale(" +
+              _vm.startScale +
+              ") ; grid-template-rows: " +
+              _vm.maxGridY
+          },
+          _vm._l(_vm.sortedMapY, function(col) {
+            return _c(
+              "div",
+              {
+                key: col,
+                staticClass: "colWrapper",
+                style:
+                  "grid-template-columns: " +
+                  _vm.maxGridX +
+                  "; grid-row: " +
+                  (_vm.maxValueY + 1 + -parseInt(col)),
+                attrs: { id: col }
+              },
+              _vm._l(_vm.sortedMapX[col], function(location, x) {
+                return _c(
+                  "div",
+                  {
+                    key: x,
+                    staticClass: "location",
+                    style:
+                      "grid-column: " +
+                      (Math.abs(_vm.minValueX) + 1 + parseInt(location)),
+                    attrs: { id: col + "_" + location }
+                  },
+                  [
+                    _c("p", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.mapPlace[col + "_" + location]
+                            ? _vm.mapPlace[col + "_" + location].name + location
+                            : null
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.checkBorders(location, col).left
+                      ? _c("p", { staticClass: "left bridge" })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.checkBorders(location, col).right
+                      ? _c("p", { staticClass: "right bridge" })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.checkBorders(location, col).top
+                      ? _c("p", { staticClass: "top bridge" })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.checkBorders(location, col).bottom
+                      ? _c("p", { staticClass: "bottom bridge" })
+                      : _vm._e()
+                  ]
+                )
+              }),
+              0
+            )
+          }),
+          0
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "locationDescriptionsWrapper" })
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "worldsListWrapper" }, [
+      _c("div", { staticClass: "world" }, [_vm._v("Dream")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -48144,23 +48469,62 @@ var render = function() {
       {
         staticClass: "consoleInput",
         on: {
-          keydown: function($event) {
-            if (
-              !$event.type.indexOf("key") &&
-              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-            ) {
-              return null
+          keydown: [
+            function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+              ) {
+                return null
+              }
+              if (
+                $event.ctrlKey ||
+                $event.shiftKey ||
+                $event.altKey ||
+                $event.metaKey
+              ) {
+                return null
+              }
+              return _vm.submitCommend($event)
+            },
+            function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "up", 38, $event.key, ["Up", "ArrowUp"])
+              ) {
+                return null
+              }
+              if (
+                $event.ctrlKey ||
+                $event.shiftKey ||
+                $event.altKey ||
+                $event.metaKey
+              ) {
+                return null
+              }
+              return _vm.showLastCommend(1)
+            },
+            function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "down", 40, $event.key, [
+                  "Down",
+                  "ArrowDown"
+                ])
+              ) {
+                return null
+              }
+              if (
+                $event.ctrlKey ||
+                $event.shiftKey ||
+                $event.altKey ||
+                $event.metaKey
+              ) {
+                return null
+              }
+              return _vm.showLastCommend(0)
             }
-            if (
-              $event.ctrlKey ||
-              $event.shiftKey ||
-              $event.altKey ||
-              $event.metaKey
-            ) {
-              return null
-            }
-            return _vm.submitCommend("menu")
-          }
+          ]
         }
       },
       [
@@ -66520,331 +66884,317 @@ var viewPortProperties = function viewPortProperties() {
   var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
   var arrProperties = [w, h];
   return arrProperties;
+}; // Easy // 
+
+
+Math.easeOutExpo = function (t, b, c, d, x) {
+  if (t <= x) {
+    return c * Math.sin(t / d / 4 * (Math.PI / 2)) + b;
+  }
+
+  if (t > x) {
+    return (c + b) * Math.cos(Math.PI / 2 * ((t - x) / (d - x)));
+  }
 };
 
-var viewPort = viewPortProperties(); // Easy // 
-
-var easeOutSine = function easeOutSine(t, b, c, d) {
+Math.easeOutSine = function (t, b, c, d) {
   return c * Math.sin(t / d * (Math.PI / 2)) + b;
 };
 
 var sizeDown = function sizeDown(index, store) {
-  var element1 = document.getElementById('1');
-  var element2 = document.getElementById('2');
+  var viewPort = viewPortProperties();
 
   if (viewPort[0] < viewPort[1]) {
     // GraphicProfil //
-    if (index == '1') {
+    if (index == 1) {
       // variables //
-      var animation_id_1;
-      var sizingElement = document.getElementById("" + index);
-      var positionElement = void 0;
-      var setStyle_1;
-      var widthElement = void 0;
-      var heightElement = void 0;
-
-      if (sizingElement) {
-        positionElement = window.getComputedStyle(sizingElement).top;
-        setStyle_1 = sizingElement.style;
-        widthElement = window.getComputedStyle(sizingElement).width;
-        heightElement = window.getComputedStyle(sizingElement).height;
-      }
-
-      var endTop_1;
-      var endWidth_1;
-      var endHeight_1;
-      setStyle_1.top = null;
-      setStyle_1.bottom = null;
-      setStyle_1.left = null;
-      setStyle_1.right = null; // aspectRatio
+      var animation_id;
+      var sizingElement = document.getElementById(index);
+      var positionElement = window.getComputedStyle(sizingElement).top;
+      var setStyle = sizingElement.style;
+      var widthElement = window.getComputedStyle(sizingElement).width;
+      var heightElement = window.getComputedStyle(sizingElement).height;
+      var endTop;
+      var endWidth;
+      var endHeight;
+      setStyle.top = null;
+      setStyle.bottom = null;
+      setStyle.left = null;
+      setStyle.right = null; // aspectRatio
 
       var aspectRatio = viewPort[0] / viewPort[1];
 
       if (aspectRatio <= 1 / 2) {
-        endTop_1 = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
-        endWidth_1 = viewPort[0] / 2;
-        endHeight_1 = viewPort[0] / 2;
+        endTop = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
+        endWidth = viewPort[0] / 2;
+        endHeight = viewPort[0] / 2;
       }
 
       if (aspectRatio > 1 / 2 && aspectRatio < 1) {
-        endTop_1 = viewPort[1] / 8;
-        endWidth_1 = viewPort[1] / 4;
-        endHeight_1 = viewPort[1] / 4;
+        endTop = viewPort[1] / 8;
+        endWidth = viewPort[1] / 4;
+        endHeight = viewPort[1] / 4;
       } // prepare for sizing //
 
 
-      setStyle_1.top = positionElement;
-      setStyle_1.width = widthElement;
-      setStyle_1.height = heightElement;
+      setStyle.top = positionElement;
+      setStyle.width = widthElement;
+      setStyle.height = heightElement;
+      document.getElementById(1).classList.replace("activeProfilePage", "profileGalery"); // sizing // 
 
-      if (element1) {
-        element1.classList.replace("activeProfilePage", "profileGalery");
-      } // sizing // 
+      var k = 25;
+      var i = 1;
 
+      var positionInterval = function positionInterval() {
+        setStyle.top = Math.easeOutSine(i, 0, endTop, 25) + 'px';
+        setStyle.width = Math.easeOutSine(k, endWidth, viewPort[0] - endWidth, 25) + 'px';
+        setStyle.height = Math.easeOutSine(k, endHeight, viewPort[1] - endHeight, 25) + 'px';
+        console.log(setStyle.width);
+        console.log(setStyle.height);
+        console.log(setStyle.right);
+        k--;
+        i++;
 
-      var k_1 = 22;
-      var i_1 = 1;
-
-      var positionInterval_1 = function positionInterval_1() {
-        setStyle_1.top = easeOutSine(i_1, 0, endTop_1, 22) + 'px';
-        setStyle_1.width = easeOutSine(k_1, endWidth_1, viewPort[0] - endWidth_1, 22) + 'px';
-        setStyle_1.height = easeOutSine(k_1, endHeight_1, viewPort[1] - endHeight_1, 22) + 'px';
-        console.log(setStyle_1.width);
-        console.log(setStyle_1.height);
-        console.log(setStyle_1.right);
-        k_1--;
-        i_1++;
-
-        if (k_1 == 1) {
-          window.cancelAnimationFrame(animation_id_1);
-          setStyle_1.width = null;
-          setStyle_1.height = null;
-          setStyle_1.top = null;
-          setStyle_1.bottom = null;
-          setStyle_1.left = null;
-          setStyle_1.right = null;
-
-          if (element1 && element2) {
-            element2.style.zIndex = '0';
-            element1.classList.remove("activeProfilePage");
-            element2.classList.remove("deActiveProfilePage");
-            element1.classList.add("profileGalery");
-          }
-
+        if (k == 1) {
+          window.cancelAnimationFrame(animation_id);
+          setStyle.width = null;
+          setStyle.height = null;
+          setStyle.top = null;
+          setStyle.bottom = null;
+          setStyle.left = null;
+          setStyle.right = null;
+          document.getElementById(2).style.zIndex = 0;
+          document.getElementById(1).classList.remove("activeProfilePage");
+          document.getElementById(2).classList.remove("deActiveProfilePage");
+          document.getElementById(1).classList.add("profileGalery");
           store.$store.commit("changeAnimationStatus", false);
         } else {
-          animation_id_1 = window.requestAnimationFrame(positionInterval_1);
+          animation_id = window.requestAnimationFrame(positionInterval);
         }
       };
 
-      positionInterval_1();
+      positionInterval();
     } // GameProfil //
-    else {
-        // variables //
-        var animation_id_2;
-        var sizingElement = document.getElementById("" + index);
-        var positionElement = void 0;
-        var setStyle_2;
-        var widthElement = void 0;
-        var heightElement = void 0;
-
-        if (sizingElement) {
-          positionElement = window.getComputedStyle(sizingElement).top;
-          setStyle_2 = sizingElement.style;
-          widthElement = window.getComputedStyle(sizingElement).width;
-          heightElement = window.getComputedStyle(sizingElement).height;
-        }
-
-        var endBottom_1;
-        var endWidth_2;
-        var endHeight_2;
-        setStyle_2.top = null;
-        setStyle_2.bottom = null;
-        setStyle_2.left = null;
-        setStyle_2.right = null; // aspectRatio
-
-        var aspectRatio = viewPort[0] / viewPort[1];
-
-        if (aspectRatio <= 1 / 2) {
-          endBottom_1 = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
-          endWidth_2 = viewPort[0] / 2;
-          endHeight_2 = viewPort[0] / 2;
-        }
-
-        if (aspectRatio > 1 / 2 && aspectRatio < 1) {
-          endBottom_1 = viewPort[1] / 8;
-          endWidth_2 = viewPort[1] / 4;
-          endHeight_2 = viewPort[1] / 4;
-        } // prepare for sizing //
 
 
-        setStyle_2.width = widthElement;
-        setStyle_2.height = heightElement;
-        setStyle_2.bottom = positionElement;
+    if (index == 2) {
+      // variables //
+      var _animation_id;
 
-        if (element2) {
-          element2.classList.replace("activeProfilePage", "profileGalery");
-        } // sizing // 
+      var _sizingElement = document.getElementById(index);
 
+      var _positionElement = window.getComputedStyle(_sizingElement).bottom;
+      var _setStyle = _sizingElement.style;
+      var _widthElement = window.getComputedStyle(_sizingElement).width;
+      var _heightElement = window.getComputedStyle(_sizingElement).height;
+      var endBottom;
 
-        var k_2 = 22;
-        var i_2 = 1;
+      var _endWidth;
 
-        var positionInterval_2 = function positionInterval_2() {
-          setStyle_2.bottom = easeOutSine(i_2, 0, endBottom_1, 22) + 'px';
-          setStyle_2.width = easeOutSine(k_2, endWidth_2, viewPort[0] - endWidth_2, 22) + 'px';
-          setStyle_2.height = easeOutSine(k_2, endHeight_2, viewPort[1] - endHeight_2, 22) + 'px';
-          console.log(setStyle_2.width);
-          console.log(setStyle_2.height);
-          console.log(setStyle_2.right);
-          k_2--;
-          i_2++;
+      var _endHeight;
 
-          if (k_2 == 1) {
-            window.cancelAnimationFrame(animation_id_2);
-            setStyle_2.width = null;
-            setStyle_2.height = null;
-            setStyle_2.top = null;
-            setStyle_2.bottom = null;
-            setStyle_2.left = null;
-            setStyle_2.right = null;
+      _setStyle.top = null;
+      _setStyle.bottom = null;
+      _setStyle.left = null;
+      _setStyle.right = null; // aspectRatio
 
-            if (element2 && element1) {
-              element1.style.zIndex = '0';
-              element2.classList.remove("activeProfilePage");
-              element1.classList.remove("deActiveProfilePage");
-              store.$store.commit("changeAnimationStatus", false);
-              element2.classList.add("profileGame");
-            }
-          } else {
-            animation_id_2 = window.requestAnimationFrame(positionInterval_2);
-          }
-        };
+      var _aspectRatio = viewPort[0] / viewPort[1];
 
-        positionInterval_2();
+      if (_aspectRatio <= 1 / 2) {
+        endBottom = (viewPort[1] / 2 - viewPort[0] / 2) / 4;
+        _endWidth = viewPort[0] / 2;
+        _endHeight = viewPort[0] / 2;
       }
+
+      if (_aspectRatio > 1 / 2 && _aspectRatio < 1) {
+        endBottom = viewPort[1] / 8;
+        _endWidth = viewPort[1] / 4;
+        _endHeight = viewPort[1] / 4;
+      } // prepare for sizing //
+
+
+      _setStyle.width = _widthElement;
+      _setStyle.height = _heightElement;
+      _setStyle.bottom = _positionElement;
+      document.getElementById(2).classList.replace("activeProfilePage", "profileGame"); // sizing // 
+
+      var _k = 25;
+      var _i = 1;
+
+      var _positionInterval = function _positionInterval() {
+        _setStyle.bottom = Math.easeOutSine(_i, 0, endBottom, 25) + 'px';
+        _setStyle.width = Math.easeOutSine(_k, _endWidth, viewPort[0] - _endWidth, 25) + 'px';
+        _setStyle.height = Math.easeOutSine(_k, _endHeight, viewPort[1] - _endHeight, 25) + 'px';
+        console.log(_setStyle.width);
+        console.log(_setStyle.height);
+        console.log(_setStyle.right);
+        _k--;
+        _i++;
+
+        if (_k == 1) {
+          window.cancelAnimationFrame(_animation_id);
+          _setStyle.width = null;
+          _setStyle.height = null;
+          _setStyle.top = null;
+          _setStyle.bottom = null;
+          _setStyle.left = null;
+          _setStyle.right = null;
+          document.getElementById(1).style.zIndex = 0;
+          document.getElementById(2).classList.remove("activeProfilePage");
+          document.getElementById(1).classList.remove("deActiveProfilePage");
+          store.$store.commit("changeAnimationStatus", false);
+          document.getElementById(2).classList.add("profileGame");
+        } else {
+          _animation_id = window.requestAnimationFrame(_positionInterval);
+        }
+      };
+
+      _positionInterval();
+    }
   }
 
   if (viewPort[0] >= viewPort[1]) {
     // GraphicProfil //
     if (index == 1) {
       // variables //
-      var animation_id_3;
-      var sizingElement = document.getElementById("" + index);
-      var positionElement = void 0;
-      var setStyle_3;
-      var widthElement = void 0;
-      var heightElement = void 0;
+      var _animation_id2;
 
-      if (sizingElement) {
-        positionElement = window.getComputedStyle(sizingElement).top;
-        setStyle_3 = sizingElement.style;
-        widthElement = window.getComputedStyle(sizingElement).width;
-        heightElement = window.getComputedStyle(sizingElement).height;
+      var _sizingElement2 = document.getElementById(index);
+
+      var _positionElement2 = window.getComputedStyle(_sizingElement2).left;
+      var _setStyle2 = _sizingElement2.style;
+      var _widthElement2 = window.getComputedStyle(_sizingElement2).width;
+      var _heightElement2 = window.getComputedStyle(_sizingElement2).height;
+      var endleft;
+
+      var _endWidth2;
+
+      var _endHeight2;
+
+      _setStyle2.top = null;
+      _setStyle2.bottom = null;
+      _setStyle2.left = null;
+      _setStyle2.right = null; // aspectRatio
+
+      var _aspectRatio2 = viewPort[0] / viewPort[1];
+
+      if (_aspectRatio2 >= 1 && _aspectRatio2 < 2 / 1) {
+        endleft = viewPort[0] / 8;
+        _endWidth2 = viewPort[0] / 4;
+        _endHeight2 = viewPort[0] / 4;
       }
 
-      var endleft_1;
-      var endWidth_3;
-      var endHeight_3;
-      setStyle_3.top = null;
-      setStyle_3.bottom = null;
-      setStyle_3.left = null;
-      setStyle_3.right = null; // aspectRatio
-
-      var aspectRatio = viewPort[0] / viewPort[1];
-
-      if (aspectRatio >= 1 && aspectRatio < 2 / 1) {
-        endleft_1 = viewPort[0] / 8;
-        endWidth_3 = viewPort[0] / 4;
-        endHeight_3 = viewPort[0] / 4;
-      }
-
-      if (aspectRatio > 2 / 1) {
-        endleft_1 = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
-        endWidth_3 = viewPort[1] / 2;
-        endHeight_3 = viewPort[1] / 2;
+      if (_aspectRatio2 > 2 / 1) {
+        endleft = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
+        _endWidth2 = viewPort[1] / 2;
+        _endHeight2 = viewPort[1] / 2;
       } // prepare for sizing //
 
 
-      setStyle_3.left = positionElement;
-      setStyle_3.width = widthElement;
-      setStyle_3.height = heightElement;
-      document.getElementById('1').classList.replace("activeProfilePage", "profileGalery"); // sizing //
+      _setStyle2.left = _positionElement2;
+      _setStyle2.width = _widthElement2;
+      _setStyle2.height = _heightElement2;
+      document.getElementById(1).classList.replace("activeProfilePage", "profileGalery"); // sizing //
 
-      var k_3 = 22;
-      var i_3 = 1;
+      var _k2 = 25;
+      var _i2 = 1;
 
-      var positionInterval_3 = function positionInterval_3() {
-        setStyle_3.left = easeOutSine(i_3, 0, endleft_1, 22) + 'px';
-        setStyle_3.width = easeOutSine(k_3, endWidth_3, viewPort[0] - endWidth_3, 22) + 'px';
-        setStyle_3.height = easeOutSine(k_3, endHeight_3, viewPort[1] - endHeight_3, 22) + 'px';
-        k_3--;
-        i_3++;
+      var _positionInterval2 = function _positionInterval2() {
+        _setStyle2.left = Math.easeOutSine(_i2, 0, endleft, 25) + 'px';
+        _setStyle2.width = Math.easeOutSine(_k2, _endWidth2, viewPort[0] - _endWidth2, 25) + 'px';
+        _setStyle2.height = Math.easeOutSine(_k2, _endHeight2, viewPort[1] - _endHeight2, 25) + 'px';
+        _k2--;
+        _i2++;
 
-        if (k_3 == 1) {
-          window.cancelAnimationFrame(animation_id_3);
-          setStyle_3.width = null;
-          setStyle_3.height = null;
-          setStyle_3.top = null;
-          setStyle_3.bottom = null;
-          setStyle_3.left = null;
-          setStyle_3.right = null;
-          document.getElementById('2').style.zIndex = '0';
+        if (_k2 == 1) {
+          window.cancelAnimationFrame(_animation_id2);
+          _setStyle2.width = null;
+          _setStyle2.height = null;
+          _setStyle2.top = null;
+          _setStyle2.bottom = null;
+          _setStyle2.left = null;
+          _setStyle2.right = null;
+          document.getElementById(2).style.zIndex = 0;
           store.$store.commit("changeAnimationStatus", false);
         } else {
-          animation_id_3 = window.requestAnimationFrame(positionInterval_3);
+          _animation_id2 = window.requestAnimationFrame(_positionInterval2);
         }
       };
 
-      positionInterval_3();
+      _positionInterval2();
     } // GameProfil //
 
 
     if (index == 2) {
       // variables //
-      var animation_id_4;
-      var sizingElement = document.getElementById(index);
-      var positionElement = window.getComputedStyle(sizingElement).right;
-      var setStyle_4 = sizingElement.style;
-      var widthElement = window.getComputedStyle(sizingElement).width;
-      var heightElement = window.getComputedStyle(sizingElement).height;
-      var endRight_1;
-      var endWidth_4;
-      var endHeight_4;
-      setStyle_4.top = null;
-      setStyle_4.bottom = null;
-      setStyle_4.left = null;
-      setStyle_4.right = null; // aspectRatio
+      var _animation_id3;
 
-      var aspectRatio = viewPort[0] / viewPort[1];
+      var _sizingElement3 = document.getElementById(index);
 
-      if (aspectRatio >= 1 && aspectRatio < 2 / 1) {
-        endRight_1 = viewPort[0] / 8;
-        endWidth_4 = viewPort[0] / 4;
-        endHeight_4 = viewPort[0] / 4;
+      var _positionElement3 = window.getComputedStyle(_sizingElement3).right;
+      var _setStyle3 = _sizingElement3.style;
+      var _widthElement3 = window.getComputedStyle(_sizingElement3).width;
+      var _heightElement3 = window.getComputedStyle(_sizingElement3).height;
+      var endRight;
+
+      var _endWidth3;
+
+      var _endHeight3;
+
+      _setStyle3.top = null;
+      _setStyle3.bottom = null;
+      _setStyle3.left = null;
+      _setStyle3.right = null; // aspectRatio
+
+      var _aspectRatio3 = viewPort[0] / viewPort[1];
+
+      if (_aspectRatio3 >= 1 && _aspectRatio3 < 2 / 1) {
+        endRight = viewPort[0] / 8;
+        _endWidth3 = viewPort[0] / 4;
+        _endHeight3 = viewPort[0] / 4;
       }
 
-      if (aspectRatio > 2 / 1) {
-        endRight_1 = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
-        endWidth_4 = viewPort[1] / 2;
-        endHeight_4 = viewPort[1] / 2;
+      if (_aspectRatio3 > 2 / 1) {
+        endRight = (viewPort[0] / 2 - viewPort[1] / 2) / 2;
+        _endWidth3 = viewPort[1] / 2;
+        _endHeight3 = viewPort[1] / 2;
       } // prepare for sizing //
 
 
-      setStyle_4.right = positionElement;
-      setStyle_4.width = widthElement;
-      setStyle_4.height = heightElement;
-      document.getElementById('2').classList.replace("activeProfilePage", "profileGame"); // sizing //
+      _setStyle3.right = _positionElement3;
+      _setStyle3.width = _widthElement3;
+      _setStyle3.height = _heightElement3;
+      document.getElementById(2).classList.replace("activeProfilePage", "profileGame"); // sizing //
 
-      var k_4 = 22;
-      var i_4 = 1;
+      var _k3 = 25;
+      var _i3 = 1;
 
-      var positionInterval_4 = function positionInterval_4() {
-        setStyle_4.right = easeOutSine(i_4, 0, endRight_1, 22) + 'px';
-        setStyle_4.width = easeOutSine(k_4, endWidth_4, viewPort[0] - endWidth_4, 22) + 'px';
-        setStyle_4.height = easeOutSine(k_4, endHeight_4, viewPort[1] - endHeight_4, 22) + 'px';
-        console.log(setStyle_4.width);
-        console.log(setStyle_4.height);
-        console.log("RIGHT " + setStyle_4.right);
-        k_4--;
-        i_4++;
+      var _positionInterval3 = function _positionInterval3() {
+        _setStyle3.right = Math.easeOutSine(_i3, 0, endRight, 25) + 'px';
+        _setStyle3.width = Math.easeOutSine(_k3, _endWidth3, viewPort[0] - _endWidth3, 25) + 'px';
+        _setStyle3.height = Math.easeOutSine(_k3, _endHeight3, viewPort[1] - _endHeight3, 25) + 'px';
+        console.log(_setStyle3.width);
+        console.log(_setStyle3.height);
+        console.log("RIGHT " + _setStyle3.right);
+        _k3--;
+        _i3++;
 
-        if (k_4 == 1) {
-          window.cancelAnimationFrame(animation_id_4);
-          setStyle_4.width = null;
-          setStyle_4.height = null;
-          setStyle_4.top = null;
-          setStyle_4.bottom = null;
-          setStyle_4.left = null;
-          setStyle_4.right = null;
-          document.getElementById('1').style.zIndex = '0';
+        if (_k3 == 1) {
+          window.cancelAnimationFrame(_animation_id3);
+          _setStyle3.width = null;
+          _setStyle3.height = null;
+          _setStyle3.top = null;
+          _setStyle3.bottom = null;
+          _setStyle3.left = null;
+          _setStyle3.right = null;
+          document.getElementById(1).style.zIndex = 0;
           store.$store.commit("changeAnimationStatus", false);
         } else {
-          animation_id_4 = window.requestAnimationFrame(positionInterval_4);
+          _animation_id3 = window.requestAnimationFrame(_positionInterval3);
         }
       };
 
-      positionInterval_4();
+      _positionInterval3();
     }
   }
 };
@@ -67153,7 +67503,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-panel', __webpack_req
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-play', __webpack_require__(/*! ./components/Game/GamePanelEl/GamePlay.vue */ "./resources/js/components/Game/GamePanelEl/GamePlay.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('location', __webpack_require__(/*! ./components/Game/GamePanelEl/GamePlayEl/PlaceElement.vue */ "./resources/js/components/Game/GamePanelEl/GamePlayEl/PlaceElement.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-menu', __webpack_require__(/*! ./components/Game/GamePanelEl/GameMenu.vue */ "./resources/js/components/Game/GamePanelEl/GameMenu.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('menu-element', __webpack_require__(/*! ./components/Game/GamePanelEl/GameMenuEl/MenuElement.vue */ "./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue")["default"]); // Auth //
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('menu-element', __webpack_require__(/*! ./components/Game/GamePanelEl/GameMenuEl/MenuElement.vue */ "./resources/js/components/Game/GamePanelEl/GameMenuEl/MenuElement.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('game-edytor', __webpack_require__(/*! ./components/Game/GamePanelEl/GameEdytor.vue */ "./resources/js/components/Game/GamePanelEl/GameEdytor.vue")["default"]); // Auth //
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('register-page', __webpack_require__(/*! ./components/Auth/RegisterPage.vue */ "./resources/js/components/Auth/RegisterPage.vue")["default"]);
 /**
@@ -67178,6 +67529,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     currentCard: 0,
     animationStatus: false,
     loadedCard: false,
+    //
+    headerVisible: 2,
     // auth
     csrf: document.querySelector('meta[name="csrf-token"]').content,
     authCheck: {},
@@ -67254,7 +67607,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       href: "image11.jpg"
     }],
     // GAME //
-    menu: true,
+    menu: 'edytor',
     uploadedPlaceElementsList: [],
     currentCommend: "",
     lastCommends: [],
@@ -67324,6 +67677,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     },
     setMenu: function setMenu(state, conditional) {
       state.menu = conditional;
+    },
+    setHeaderVisible: function setHeaderVisible(state, conditional) {
+      state.headerVisible = conditional;
     }
   }
 });
@@ -67360,11 +67716,22 @@ function detectMouseWheelDirection(e) {
   return direction;
 }
 
+var animation_active = true;
+
 function handleMouseWheelDirection(direction) {
   var i;
 
   if (direction == 'down') {
-    // do something, like show the next page
+    if (animation_active) {
+      animation_active = false;
+      store.commit("setHeaderVisible", 1);
+      console.log("DOWN SET ");
+      setTimeout(function () {
+        animation_active = true;
+      }, 1000);
+    } // only on start page
+
+
     if (router.history.current.fullPath == "/") {
       if (store.state.currentCard < 3) {
         i = store.state.currentCard + 1;
@@ -67372,7 +67739,16 @@ function handleMouseWheelDirection(direction) {
       }
     }
   } else if (direction == 'up') {
-    // do something, like show the previous page
+    if (animation_active) {
+      animation_active = false;
+      store.commit("setHeaderVisible", 2);
+      console.log("UP SET ");
+      setTimeout(function () {
+        animation_active = true;
+      }, 1000);
+    } // only on start page
+
+
     if (router.history.current.fullPath == "/") {
       if (store.state.currentCard > 0) {
         i = store.state.currentCard - 1;
@@ -67785,6 +68161,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Game/GamePanelEl/GameEdytor.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/Game/GamePanelEl/GameEdytor.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _GameEdytor_vue_vue_type_template_id_f997b9b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GameEdytor.vue?vue&type=template&id=f997b9b2& */ "./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=template&id=f997b9b2&");
+/* harmony import */ var _GameEdytor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GameEdytor.vue?vue&type=script&lang=js& */ "./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _GameEdytor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _GameEdytor_vue_vue_type_template_id_f997b9b2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _GameEdytor_vue_vue_type_template_id_f997b9b2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Game/GamePanelEl/GameEdytor.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GameEdytor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./GameEdytor.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GameEdytor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=template&id=f997b9b2&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=template&id=f997b9b2& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameEdytor_vue_vue_type_template_id_f997b9b2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./GameEdytor.vue?vue&type=template&id=f997b9b2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Game/GamePanelEl/GameEdytor.vue?vue&type=template&id=f997b9b2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameEdytor_vue_vue_type_template_id_f997b9b2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameEdytor_vue_vue_type_template_id_f997b9b2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Game/GamePanelEl/GameMenu.vue":
 /*!***************************************************************!*\
   !*** ./resources/js/components/Game/GamePanelEl/GameMenu.vue ***!
@@ -68058,6 +68503,205 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlaceElement_vue_vue_type_template_id_65831e4f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/GamePanelEl/mixins/CleanConsole.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/Game/GamePanelEl/mixins/CleanConsole.js ***!
+  \*************************************************************************/
+/*! exports provided: cleanConsole, showLastCommend, dataConsole, submitCommend, checkBorders, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cleanConsole", function() { return cleanConsole; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showLastCommend", function() { return showLastCommend; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataConsole", function() { return dataConsole; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submitCommend", function() { return submitCommend; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkBorders", function() { return checkBorders; });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+var cleanConsole = {
+  methods: {
+    cleanConsole: function cleanConsole() {
+      this.uploadedPlaceElementsList = [];
+      this.lastCommends = [];
+      this.lastCommendId = -1;
+      Array.prototype.forEach.call(document.querySelectorAll(".consoleCommend"), function (node) {
+        node.parentNode.removeChild(node);
+      });
+    }
+  }
+};
+var showLastCommend = {
+  methods: {
+    showLastCommend: function showLastCommend(x) {
+      if (x == 1 && this.lastCommends.length - 1 > this.lastCommendId) {
+        this.lastCommendId++;
+        this.thisCommend = this.lastCommends[this.lastCommendId];
+      } else if (x == 0 && this.lastCommendId > 0) {
+        this.lastCommendId--;
+        this.thisCommend = this.lastCommends[this.lastCommendId];
+      } else {
+        this.thisCommend = "";
+        this.lastCommendId = -1;
+      }
+    }
+  }
+};
+
+var dataConsole = {
+  data: function data() {
+    return {
+      thisCommend: "",
+      lastCommends: [],
+      lastCommendId: -1
+    };
+  },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["currentCommend"]),
+  watch: {
+    thisCommend: function thisCommend() {
+      this.$store.commit("setCurrentCommend", this.thisCommend);
+    }
+  }
+};
+var submitCommend = {
+  methods: {
+    submitCommend: function submitCommend(typeNavigation) {
+      // write commend
+      var div = document.createElement("div");
+      var list = document.querySelector(".uploadedPlaceElementsList");
+      div.classList.add("consoleCommend");
+      div.textContent = this.currentCommend;
+
+      if (list) {
+        list.appendChild(div);
+      } // save commend
+
+
+      this.lastCommends.unshift(this.currentCommend);
+      this.thisCommend = ""; // auto scroll
+
+      setTimeout(function () {
+        document.querySelector(".screenGame").scrollTop = document.querySelector(".screenGame").scrollHeight;
+      }, 0); // check commend
+
+      this.navigationCommend(typeNavigation);
+    }
+  }
+};
+var checkBorders = {
+  methods: {
+    checkBorders: function checkBorders(x, y) {
+      var xNav = parseInt(x);
+      var yNav = parseInt(y);
+      var left = this.mapNavigation[yNav][xNav - 1];
+      var right = this.mapNavigation[yNav][xNav + 1];
+      var top;
+      var bottom;
+
+      if (this.mapNavigation[yNav + 1]) {
+        top = this.mapNavigation[yNav + 1][xNav];
+      } else {
+        top = undefined;
+      }
+
+      if (this.mapNavigation[yNav - 1]) {
+        bottom = this.mapNavigation[yNav - 1][xNav];
+      } else {
+        bottom = undefined;
+      }
+
+      return {
+        left: left,
+        right: right,
+        top: top,
+        bottom: bottom
+      };
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ([cleanConsole, showLastCommend, submitCommend, dataConsole]); // === that use ctrl + key === //
+
+/***/ }),
+
+/***/ "./resources/js/components/Game/GamePanelEl/mixins/CommendList.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/Game/GamePanelEl/mixins/CommendList.js ***!
+  \************************************************************************/
+/*! exports provided: navigationCommendGame, navigationCommendMenu */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navigationCommendGame", function() { return navigationCommendGame; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navigationCommendMenu", function() { return navigationCommendMenu; });
+var navigationCommendGame = {
+  methods: {
+    navigationCommend: function navigationCommend() {
+      var commend = this.currentCommend.toLowerCase();
+      var borders = this.checkBorders(this.currentNavigation.x, this.currentNavigation.y);
+
+      switch (commend) {
+        case "lewo":
+          if (borders.left) {
+            this.currentNavigation.x--;
+            this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
+          }
+
+          break;
+
+        case "prawo":
+          if (borders.right) {
+            this.currentNavigation.x++;
+            this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
+          }
+
+          break;
+
+        case "góra":
+          if (borders.top) {
+            this.currentNavigation.y++;
+            this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
+          }
+
+          break;
+
+        case "dół":
+          if (borders.bottom) {
+            this.currentNavigation.y--;
+            this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
+          }
+
+          break;
+
+        case "menu":
+          this.cleanConsole();
+          this.$store.commit("setMenu", "menu");
+          break;
+      }
+    }
+  }
+};
+var navigationCommendMenu = {
+  methods: {
+    navigationCommend: function navigationCommend() {
+      var commend = this.currentCommend.toLowerCase();
+
+      switch (commend) {
+        case "gra":
+          this.cleanConsole();
+          this.$store.commit("setMenu", "gra");
+          break;
+
+        case "edytor":
+          this.cleanConsole();
+          this.$store.commit("setMenu", "edytor");
+          break;
+      }
+    }
+  }
+};
 
 /***/ }),
 

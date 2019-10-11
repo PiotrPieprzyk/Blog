@@ -11162,19 +11162,20 @@ a:hover {
   background: black;
   height: 100vh;
   width: 100vw;
-  overflow: scroll;
   padding-top: 70px;
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  overflow: scroll;
 }
 
 .GamePage .GameScreenWrapper .screenGame {
   color: white;
   font-family: "Turret Road", cursive;
   font-size: 18px;
-  overflow: scroll;
   max-height: calc(90vh - 50px);
+  height: 100%;
+  width: 100%;
 }
 
 .GamePage .GameScreenWrapper .screenGame .uploadedPlaceElementsList {
@@ -11207,6 +11208,99 @@ a:hover {
 .GamePage .GameScreenWrapper .screenGame .consoleInput {
   display: block;
   color: white;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper {
+  min-width: calc(140vw - 60px);
+  display: flex;
+  height: 100%;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .worldsListWrapper {
+  display: block;
+  width: calc(40vw - 40px);
+  border: white 1px solid;
+  margin-right: 20px;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .worldsListWrapper .world {
+  display: block;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter {
+  display: flex;
+  width: calc(60vw - 20px);
+  border: white 1px solid;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map {
+  display: grid;
+  flex-direction: column;
+  transform: scale(2.5);
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map .colWrapper {
+  display: grid;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map .location {
+  width: 10px;
+  height: 10px;
+  background: white;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map .location p {
+  color: brown;
+  margin: 0;
+  font-size: 3px;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map .location .left {
+  left: -2px;
+  width: 3px;
+  height: 1px;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map .location .right {
+  right: -2px;
+  width: 3px;
+  height: 1px;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map .location .top {
+  width: 1px;
+  height: 3px;
+  top: -2px;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map .location .bottom {
+  width: 1px;
+  height: 3px;
+  bottom: -2px;
+}
+
+.GamePage .GameScreenWrapper .screenGame .edytorWrapper .mapWrapperOutter .map .location .bridge {
+  display: block;
+  position: absolute;
+  background: white;
+}
+
+.GamePage .GameScreenWrapper .locationDescriptionsWrapper {
+  display: block;
+  margin-left: 20px;
+  width: calc(40vw - 50px);
+  border: white 1px solid;
 }
 
 .profileWebWrapper {
@@ -11864,6 +11958,60 @@ a:hover {
   }
 }
 
+.hide-nav-enter {
+  top: 0;
+}
+
+.hide-nav-enter-active {
+  -webkit-animation: translateY-Appear 0.3s ease-in forwards;
+          animation: translateY-Appear 0.3s ease-in forwards;
+}
+
+.hide-nav-leave-active {
+  -webkit-animation: translateY-Disapear 0.3s ease-in forwards;
+          animation: translateY-Disapear 0.3s ease-in forwards;
+}
+
+@-webkit-keyframes translateY-Appear {
+  from {
+    transform: translateY(-50px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes translateY-Appear {
+  from {
+    transform: translateY(-50px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes translateY-Disapear {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes translateY-Disapear {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50px);
+  }
+}
+
 .roll-in-top-enter-active {
   -webkit-animation: roll-in-top 0.3s ease-out both;
   animation: roll-in-top 0.3s ease-out both;
@@ -12052,6 +12200,8 @@ a:hover {
   width: 100vw;
   height: 50px;
   z-index: 2;
+  position: fixed;
+  top: 0;
 }
 
 .navBarOuter .navBarWrapper {
@@ -12425,7 +12575,8 @@ a:hover {
   left: 0;
   bottom: 0;
   right: 0;
-  font-size: calc(10px + 0.5vw);
+  font-size: calc(15px + 0.2vw);
+  font-weight: 600;
 }
 
 .GalerySliderWrapper .GaleryContent {

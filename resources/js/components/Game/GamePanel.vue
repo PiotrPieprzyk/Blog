@@ -3,8 +3,9 @@
 		<div class="GameScreenWrapper">
 			<div class="screenGame">
 				<!-- GAME -->
-				<game-menu v-if="menu"></game-menu>
-				<game-play v-if="!menu"></game-play>
+				<game-menu v-if="menu == 'menu'"></game-menu>
+				<game-play v-if="menu == 'gra'"></game-play>
+				<game-edytor v-if="menu == 'edytor'"></game-edytor>
 				<!-- MENU -->
 			</div>
 		</div>
