@@ -196,7 +196,7 @@ const store = new Vuex.Store({
 
     ],
     // GAME //
-    menu: 'menu',
+    menu: 'edytor',
     uploadedPlaceElementsList: [],
     currentCommend: "",
     lastCommends: [],

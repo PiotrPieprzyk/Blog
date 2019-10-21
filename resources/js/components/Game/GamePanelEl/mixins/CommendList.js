@@ -89,6 +89,63 @@ export const navigationCommendEdytor = {
 
           break;
       }
+      if (commend) {
+        console.log(commend);
+
+        if (commend.slice(0, 4) == "newp") {
+          let comArguments = commend.split(" ");
+          if (comArguments.length == 6) {
+            let xCoOrdinate = comArguments[1];
+            let yCoOrdinate = comArguments[2];
+            let locationTemp = comArguments[3];
+            let worldName = comArguments[4];
+            let nameTemp = comArguments[5];
+            console.log("  xCoOrdinate: " + xCoOrdinate, "  yCoOrdinate: " + yCoOrdinate, "  locationTemp: " + locationTemp, "  worldName: " + worldName, 'nameTemp ' + nameTemp)
+
+            this.mapPlace[yCoOrdinate + "_" + xCoOrdinate] = {
+              name: nameTemp,
+              description: "none",
+              x: xCoOrdinate,
+              y: yCoOrdinate,
+              location: locationTemp,
+              world: worldName
+            }
+
+            console.log(this.mapNavigation[yCoOrdinate]);
+            if (!this.mapNavigation[yCoOrdinate]) {
+
+              this.mapNavigation[yCoOrdinate] = {};
+              console.log(this.mapNavigation[yCoOrdinate]);
+              this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
+              console.log(this.mapNavigation);
+
+              console.log("DZIAŁA");
+              this.sortingMapY();
+              this.sortedMapY.forEach(element => {
+                this.sortingMapX(element);
+              });
+
+              this.checkMinMaxValueX();
+              this.checkMinMaxValueY();
+            } else {
+              console.log(this.mapNavigation[yCoOrdinate]);
+              this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
+              console.log(this.mapNavigation);
+
+              console.log("DZIAŁA");
+              this.sortingMapY();
+              this.sortedMapY.forEach(element => {
+                this.sortingMapX(element);
+              });
+
+              this.checkMinMaxValueX();
+              this.checkMinMaxValueY();
+            }
+
+          }
+
+        }
+      }
     }
   }
 }

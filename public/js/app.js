@@ -2867,6 +2867,7 @@ __webpack_require__.r(__webpack_exports__);
     sortingMapY: function sortingMapY() {
       var _this2 = this;
 
+      this.sortedMapY = [];
       Object.keys(this.mapNavigation).forEach(function (element) {
         _this2.sortedMapY.push(element);
       });
@@ -2911,11 +2912,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     maxMapX: function maxMapX() {
+      this.maxGridX = "";
+
       for (var i = 0; i < this.maxMapX; i++) {
         this.maxGridX = this.maxGridX + "1fr ";
       }
     },
     maxMapY: function maxMapY() {
+      this.maxGridY = "";
+
       for (var i = 0; i < this.maxMapY; i++) {
         this.maxGridY = this.maxGridY + "1fr ";
       }
@@ -67753,7 +67758,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       href: "image11.jpg"
     }],
     // GAME //
-    menu: 'menu',
+    menu: 'edytor',
     uploadedPlaceElementsList: [],
     currentCommend: "",
     lastCommends: [],
@@ -68852,6 +68857,8 @@ var navigationCommendMenu = {
 var navigationCommendEdytor = {
   methods: {
     navigationCommend: function navigationCommend() {
+      var _this = this;
+
       var commend = this.currentCommend.toLowerCase();
 
       switch (commend) {
@@ -68864,6 +68871,57 @@ var navigationCommendEdytor = {
           this.cleanConsole();
           this.$store.commit("setMenu", "menu");
           break;
+      }
+
+      if (commend) {
+        console.log(commend);
+
+        if (commend.slice(0, 4) == "newp") {
+          var comArguments = commend.split(" ");
+
+          if (comArguments.length == 6) {
+            var xCoOrdinate = comArguments[1];
+            var yCoOrdinate = comArguments[2];
+            var locationTemp = comArguments[3];
+            var worldName = comArguments[4];
+            var nameTemp = comArguments[5];
+            console.log("  xCoOrdinate: " + xCoOrdinate, "  yCoOrdinate: " + yCoOrdinate, "  locationTemp: " + locationTemp, "  worldName: " + worldName, 'nameTemp ' + nameTemp);
+            this.mapPlace[yCoOrdinate + "_" + xCoOrdinate] = {
+              name: nameTemp,
+              description: "none",
+              x: xCoOrdinate,
+              y: yCoOrdinate,
+              location: locationTemp,
+              world: worldName
+            };
+            console.log(this.mapNavigation[yCoOrdinate]);
+
+            if (!this.mapNavigation[yCoOrdinate]) {
+              this.mapNavigation[yCoOrdinate] = {};
+              console.log(this.mapNavigation[yCoOrdinate]);
+              this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
+              console.log(this.mapNavigation);
+              console.log("DZIAŁA");
+              this.sortingMapY();
+              this.sortedMapY.forEach(function (element) {
+                _this.sortingMapX(element);
+              });
+              this.checkMinMaxValueX();
+              this.checkMinMaxValueY();
+            } else {
+              console.log(this.mapNavigation[yCoOrdinate]);
+              this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
+              console.log(this.mapNavigation);
+              console.log("DZIAŁA");
+              this.sortingMapY();
+              this.sortedMapY.forEach(function (element) {
+                _this.sortingMapX(element);
+              });
+              this.checkMinMaxValueX();
+              this.checkMinMaxValueY();
+            }
+          }
+        }
       }
     }
   }

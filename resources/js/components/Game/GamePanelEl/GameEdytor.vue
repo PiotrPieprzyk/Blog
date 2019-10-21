@@ -216,6 +216,7 @@ export default {
 			console.log(this.minValueY + "MIN VALUE Y ");
 		},
 		sortingMapY() {
+			this.sortedMapY = [];
 			Object.keys(this.mapNavigation).forEach(element => {
 				this.sortedMapY.push(element);
 			});
@@ -255,11 +256,13 @@ export default {
 	},
 	watch: {
 		maxMapX: function() {
+			this.maxGridX = "";
 			for (let i = 0; i < this.maxMapX; i++) {
 				this.maxGridX = this.maxGridX + "1fr ";
 			}
 		},
 		maxMapY: function() {
+			this.maxGridY = "";
 			for (let i = 0; i < this.maxMapY; i++) {
 				this.maxGridY = this.maxGridY + "1fr ";
 			}
