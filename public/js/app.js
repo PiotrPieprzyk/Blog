@@ -66723,9 +66723,11 @@ var activeShadowBlock = function activeShadowBlock(element) {
     if (k > 60) {
       window.cancelAnimationFrame(animation_id);
     } else {
-      window.requestAnimationFrame(shadowInterval);
+      animation_id = window.requestAnimationFrame(shadowInterval);
     }
   };
+
+  shadowInterval();
 };
 var deActiveShadowBlock = function activeShadowBlock(element) {
   var k = 60;
@@ -66738,7 +66740,7 @@ var deActiveShadowBlock = function activeShadowBlock(element) {
     if (k < 0) {
       window.cancelAnimationFrame(animation_id);
     } else {
-      window.requestAnimationFrame(shadowInterval);
+      animation_id = window.requestAnimationFrame(shadowInterval);
     }
   };
 

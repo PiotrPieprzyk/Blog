@@ -6,16 +6,19 @@ var easeOutQuart = function (t, b, c, d) {
 export var activeShadowBlock = function activeShadowBlock(element) {
     var k = 1;
     var animation_id;
+
     var shadowInterval = function () {
         element.style.boxShadow = "1px 1px 15px rgba(0, 0, 0, " + easeOutQuart(k, 0, 0.1, 60) + ")";
         k++;
         if (k > 60) {
             window.cancelAnimationFrame(animation_id);
+
         }
         else {
-            window.requestAnimationFrame(shadowInterval);
+            animation_id = window.requestAnimationFrame(shadowInterval);
         }
     };
+    shadowInterval();
 };
 export var deActiveShadowBlock = function activeShadowBlock(element) {
     var k = 60;
@@ -27,7 +30,7 @@ export var deActiveShadowBlock = function activeShadowBlock(element) {
             window.cancelAnimationFrame(animation_id);
         }
         else {
-            window.requestAnimationFrame(shadowInterval);
+            animation_id = window.requestAnimationFrame(shadowInterval);
         }
     };
     shadowInterval();
