@@ -2,6 +2,14 @@
 	<div class="edytorWrapper">
 		<div class="worldsListWrapper">
 			<div class="world">Dream</div>
+			<div
+				class="consoleInput"
+				@keydown.enter.exact="submitCommend"
+				@keydown.up.exact="showLastCommend(1)"
+				@keydown.down.exact="showLastCommend(0)"
+			>
+				<input id="menu" type="text" class="consoleInput" v-model="thisCommend" autofocus />
+			</div>
 		</div>
 		<div
 			class="mapWrapperOutter"
@@ -41,9 +49,23 @@
 	</div>
 </template>
 <script>
-import { checkBorders } from "./mixins/CleanConsole.js";
+import {
+	cleanConsole,
+	showLastCommend,
+	submitCommend,
+	dataConsole,
+	checkBorders
+} from "./mixins/CleanConsole.js";
+import { navigationCommendEdytor } from "./mixins/CommendList";
 export default {
-	mixins: [checkBorders],
+	mixins: [
+		cleanConsole,
+		showLastCommend,
+		submitCommend,
+		dataConsole,
+		checkBorders,
+		navigationCommendEdytor
+	],
 	data: function() {
 		return {
 			// CURRENT LOCATION
@@ -244,6 +266,7 @@ export default {
 		}
 	},
 	mounted() {
+		document.getElementById("menu").focus();
 		let keysArray = Object.keys(this.mapNavigation);
 		let mapCollector = document.querySelector(".map");
 		this.sortingMapY();

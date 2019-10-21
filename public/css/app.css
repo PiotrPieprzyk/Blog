@@ -10674,10 +10674,6 @@ a:hover {
 }
 
 .galeryBackground {
-  background-image: url(/images/image5.jpg?988b7f22f8670214b80cecd508673de3);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   top: 0;
   right: 0;
   bottom: 0;
@@ -11095,6 +11091,8 @@ a:hover {
   overflow-x: hidden;
   align-items: center;
   z-index: 1;
+  position: absolute;
+  top: 0;
 }
 
 .GaleryPage .GaleryTitleWrapper {
@@ -11150,12 +11148,14 @@ a:hover {
 }
 
 .GamePage {
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   background: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
 }
 
 .GamePage .GameScreenWrapper {
@@ -11166,7 +11166,6 @@ a:hover {
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  overflow: scroll;
 }
 
 .GamePage .GameScreenWrapper .screenGame {
@@ -11176,6 +11175,8 @@ a:hover {
   max-height: calc(90vh - 50px);
   height: 100%;
   width: 100%;
+  overflow-x: scroll;
+  padding-bottom: 30px;
 }
 
 .GamePage .GameScreenWrapper .screenGame .uploadedPlaceElementsList {
@@ -11294,6 +11295,7 @@ a:hover {
   display: block;
   position: absolute;
   background: white;
+  z-index: -1;
 }
 
 .GamePage .GameScreenWrapper .locationDescriptionsWrapper {
@@ -11914,9 +11916,17 @@ a:hover {
   opacity: 0;
 }
 
+.opacity-web-enter {
+  opacity: 0;
+}
+
 .opacity-web-enter-active {
   -webkit-animation: opacity-web-in 0.3s ease-in forwards;
           animation: opacity-web-in 0.3s ease-in forwards;
+}
+
+.opacity-web-leave {
+  opacity: 1;
   -webkit-animation-delay: 0.3s;
           animation-delay: 0.3s;
 }
@@ -11947,12 +11957,20 @@ a:hover {
 }
 
 @-webkit-keyframes opacity-web-out {
+  from {
+    opacity: 1;
+  }
+
   to {
     opacity: 0;
   }
 }
 
 @keyframes opacity-web-out {
+  from {
+    opacity: 1;
+  }
+
   to {
     opacity: 0;
   }

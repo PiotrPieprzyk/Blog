@@ -85,6 +85,14 @@ export default {
 					location: "wood",
 					world: "Dream"
 				},
+				"1_-1": {
+					name: "home",
+					description: "small house",
+					x: 0,
+					y: 1,
+					location: "city",
+					world: "Dream"
+				},
 				"1_2": {
 					name: "Wood",
 					description: "smelly wood",
@@ -92,12 +100,46 @@ export default {
 					y: 1,
 					location: "wood",
 					world: "Dream"
+				},
+				"-1_0": {
+					name: "home",
+					description: "small house",
+					x: 0,
+					y: -1,
+					location: "city",
+					world: "Dream"
+				},
+				"-1_1": {
+					name: "Wood",
+					description: "smelly wood",
+					x: 1,
+					y: -1,
+					location: "wood",
+					world: "Dream"
+				},
+				"-1_2": {
+					name: "Wood",
+					description: "smelly wood",
+					x: 2,
+					y: -1,
+					location: "wood",
+					world: "Dream"
+				},
+				"-3_2": {
+					name: "LOL",
+					description: "smelly wood",
+					x: 2,
+					y: -1,
+					location: "wood",
+					world: "Dream"
 				}
 			},
 			// NAVIGATION MAP
 			mapNavigation: {
-				0: { 0: 1, 1: 1 },
-				1: { 0: 1, 1: 1, 2: 1 }
+				"1": { "0": "home", "1": "Wood", "2": "Wood", "-1": "home" },
+				"0": { "0": "home", "1": "Wood" },
+				"-1": { "0": "home", "1": "Wood", "2": "Wood" },
+				"-3": { "2": "LOL" }
 			}
 		};
 	},

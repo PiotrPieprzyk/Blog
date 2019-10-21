@@ -2642,6 +2642,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixins/CleanConsole.js */ "./resources/js/components/Game/GamePanelEl/mixins/CleanConsole.js");
+/* harmony import */ var _mixins_CommendList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mixins/CommendList */ "./resources/js/components/Game/GamePanelEl/mixins/CommendList.js");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2685,8 +2694,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["checkBorders"]],
+  mixins: [_mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["cleanConsole"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["showLastCommend"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["submitCommend"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["dataConsole"], _mixins_CleanConsole_js__WEBPACK_IMPORTED_MODULE_0__["checkBorders"], _mixins_CommendList__WEBPACK_IMPORTED_MODULE_1__["navigationCommendEdytor"]],
   data: function data() {
     return {
       // CURRENT LOCATION
@@ -2914,6 +2924,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this4 = this;
 
+    document.getElementById("menu").focus();
     var keysArray = Object.keys(this.mapNavigation);
     var mapCollector = document.querySelector(".map");
     this.sortingMapY();
@@ -3096,6 +3107,14 @@ __webpack_require__.r(__webpack_exports__);
           location: "wood",
           world: "Dream"
         },
+        "1_-1": {
+          name: "home",
+          description: "small house",
+          x: 0,
+          y: 1,
+          location: "city",
+          world: "Dream"
+        },
         "1_2": {
           name: "Wood",
           description: "smelly wood",
@@ -3103,18 +3122,59 @@ __webpack_require__.r(__webpack_exports__);
           y: 1,
           location: "wood",
           world: "Dream"
+        },
+        "-1_0": {
+          name: "home",
+          description: "small house",
+          x: 0,
+          y: -1,
+          location: "city",
+          world: "Dream"
+        },
+        "-1_1": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 1,
+          y: -1,
+          location: "wood",
+          world: "Dream"
+        },
+        "-1_2": {
+          name: "Wood",
+          description: "smelly wood",
+          x: 2,
+          y: -1,
+          location: "wood",
+          world: "Dream"
+        },
+        "-3_2": {
+          name: "LOL",
+          description: "smelly wood",
+          x: 2,
+          y: -1,
+          location: "wood",
+          world: "Dream"
         }
       },
       // NAVIGATION MAP
       mapNavigation: {
-        0: {
-          0: 1,
-          1: 1
+        "1": {
+          "0": "home",
+          "1": "Wood",
+          "2": "Wood",
+          "-1": "home"
         },
-        1: {
-          0: 1,
-          1: 1,
-          2: 1
+        "0": {
+          "0": "home",
+          "1": "Wood"
+        },
+        "-1": {
+          "0": "home",
+          "1": "Wood",
+          "2": "Wood"
+        },
+        "-3": {
+          "2": "LOL"
         }
       }
     };
@@ -48328,7 +48388,100 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "edytorWrapper" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "worldsListWrapper" }, [
+      _c("div", { staticClass: "world" }, [_vm._v("Dream")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "consoleInput",
+          on: {
+            keydown: [
+              function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                if (
+                  $event.ctrlKey ||
+                  $event.shiftKey ||
+                  $event.altKey ||
+                  $event.metaKey
+                ) {
+                  return null
+                }
+                return _vm.submitCommend($event)
+              },
+              function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "up", 38, $event.key, [
+                    "Up",
+                    "ArrowUp"
+                  ])
+                ) {
+                  return null
+                }
+                if (
+                  $event.ctrlKey ||
+                  $event.shiftKey ||
+                  $event.altKey ||
+                  $event.metaKey
+                ) {
+                  return null
+                }
+                return _vm.showLastCommend(1)
+              },
+              function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "down", 40, $event.key, [
+                    "Down",
+                    "ArrowDown"
+                  ])
+                ) {
+                  return null
+                }
+                if (
+                  $event.ctrlKey ||
+                  $event.shiftKey ||
+                  $event.altKey ||
+                  $event.metaKey
+                ) {
+                  return null
+                }
+                return _vm.showLastCommend(0)
+              }
+            ]
+          }
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.thisCommend,
+                expression: "thisCommend"
+              }
+            ],
+            staticClass: "consoleInput",
+            attrs: { id: "menu", type: "text", autofocus: "" },
+            domProps: { value: _vm.thisCommend },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.thisCommend = $event.target.value
+              }
+            }
+          })
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -48420,16 +48573,7 @@ var render = function() {
     _c("div", { staticClass: "locationDescriptionsWrapper" })
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "worldsListWrapper" }, [
-      _c("div", { staticClass: "world" }, [_vm._v("Dream")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -67607,7 +67751,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       href: "image11.jpg"
     }],
     // GAME //
-    menu: 'edytor',
+    menu: 'menu',
     uploadedPlaceElementsList: [],
     currentCommend: "",
     lastCommends: [],
@@ -68629,13 +68773,14 @@ var checkBorders = {
 /*!************************************************************************!*\
   !*** ./resources/js/components/Game/GamePanelEl/mixins/CommendList.js ***!
   \************************************************************************/
-/*! exports provided: navigationCommendGame, navigationCommendMenu */
+/*! exports provided: navigationCommendGame, navigationCommendMenu, navigationCommendEdytor */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navigationCommendGame", function() { return navigationCommendGame; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navigationCommendMenu", function() { return navigationCommendMenu; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navigationCommendEdytor", function() { return navigationCommendEdytor; });
 var navigationCommendGame = {
   methods: {
     navigationCommend: function navigationCommend() {
@@ -68697,6 +68842,25 @@ var navigationCommendMenu = {
         case "edytor":
           this.cleanConsole();
           this.$store.commit("setMenu", "edytor");
+          break;
+      }
+    }
+  }
+};
+var navigationCommendEdytor = {
+  methods: {
+    navigationCommend: function navigationCommend() {
+      var commend = this.currentCommend.toLowerCase();
+
+      switch (commend) {
+        case "gra":
+          this.cleanConsole();
+          this.$store.commit("setMenu", "gra");
+          break;
+
+        case "menu":
+          this.cleanConsole();
+          this.$store.commit("setMenu", "menu");
           break;
       }
     }

@@ -15,10 +15,18 @@
   opacity: 0;
 }
 
+.opacity-web-enter {
+  opacity: 0;
+}
+
 .opacity-web-enter-active {
   animation: opacity-web-in 0.3s ease-in forwards;
-  animation-delay: 0.3s;
 
+}
+
+.opacity-web-leave {
+  opacity: 1;
+  animation-delay: 0.3s;
 }
 
 .opacity-web-leave-active {
@@ -39,7 +47,9 @@
 }
 
 @keyframes opacity-web-out {
-  from {}
+  from {
+    opacity: 1;
+  }
 
   to {
     opacity: 0;

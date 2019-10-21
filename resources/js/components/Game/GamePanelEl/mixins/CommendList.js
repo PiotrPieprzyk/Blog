@@ -72,3 +72,23 @@ export const navigationCommendMenu = {
     }
   }
 }
+export const navigationCommendEdytor = {
+  methods: {
+    navigationCommend() {
+      let commend = this.currentCommend.toLowerCase();
+
+      switch (commend) {
+        case "gra":
+          this.cleanConsole();
+          this.$store.commit("setMenu", "gra");
+
+          break;
+        case "menu":
+          this.cleanConsole();
+          this.$store.commit("setMenu", "menu");
+
+          break;
+      }
+    }
+  }
+}
