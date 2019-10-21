@@ -17,11 +17,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// graphics
 Route::get('/graphics/{user_id}', 'GraphicsController@index')->name('getGraphic');
 Route::post('/graphics', 'GraphicsController@store')->name('postGraphic');
 Route::delete('/graphics/{id}', 'GraphicsController@destroy')->name('destroyGraphic');
 
-
+// graphics descriptions
 Route::get('/graphics/description/{graphic_id}', 'DescriptionController@index')->name('getDescription');
 Route::post('/graphics/description/{graphic_id}', 'DescriptionController@store')->name('getDescription');
 Route::patch('/graphics/description/{graphic_id}', 'DescriptionController@edit')->name('getDescription');
+
+// game maps
+Route::get('maps/{name}', 'MapController@index');
+Route::post('maps/save', 'MapController@save');

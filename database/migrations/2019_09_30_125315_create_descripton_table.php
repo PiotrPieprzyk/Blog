@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateDescriptonTable extends Migration
 {
@@ -22,8 +22,6 @@ class CreateDescriptonTable extends Migration
             $table->string('info')->nullable();
             $table->string('image')->nullable();
 
-
-            
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateDescriptonTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('description');
+        Schema::dropIfExists('descriptions');
     }
 }

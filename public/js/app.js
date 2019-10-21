@@ -2693,6 +2693,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2705,109 +2707,9 @@ __webpack_require__.r(__webpack_exports__);
         y: 0
       },
       // MAP DATA
-      mapPlace: {
-        "0_0": {
-          name: "home",
-          description: "small house",
-          x: 0,
-          y: 0,
-          location: "city",
-          world: "Dream"
-        },
-        "0_1": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 1,
-          y: 0,
-          location: "wood",
-          world: "Dream"
-        },
-        "1_0": {
-          name: "home",
-          description: "small house",
-          x: 0,
-          y: 1,
-          location: "city",
-          world: "Dream"
-        },
-        "1_1": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 1,
-          y: 1,
-          location: "wood",
-          world: "Dream"
-        },
-        "1_-1": {
-          name: "home",
-          description: "small house",
-          x: 0,
-          y: 1,
-          location: "city",
-          world: "Dream"
-        },
-        "1_2": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 2,
-          y: 1,
-          location: "wood",
-          world: "Dream"
-        },
-        "-1_0": {
-          name: "home",
-          description: "small house",
-          x: 0,
-          y: -1,
-          location: "city",
-          world: "Dream"
-        },
-        "-1_1": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 1,
-          y: -1,
-          location: "wood",
-          world: "Dream"
-        },
-        "-1_2": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 2,
-          y: -1,
-          location: "wood",
-          world: "Dream"
-        },
-        "-3_2": {
-          name: "LOL",
-          description: "smelly wood",
-          x: 2,
-          y: -1,
-          location: "wood",
-          world: "Dream"
-        }
-      },
+      mapPlace: {},
       // NAVIGATION MAP
-      mapNavigation: {
-        "1": {
-          "0": "home",
-          "1": "Wood",
-          "2": "Wood",
-          "-1": "home"
-        },
-        "0": {
-          "0": "home",
-          "1": "Wood"
-        },
-        "-1": {
-          "0": "home",
-          "1": "Wood",
-          "2": "Wood"
-        },
-        "-3": {
-          "2": "LOL"
-        }
-      },
+      mapNavigation: {},
       mapGrapped: false,
       startPositionX: 0,
       startPositionY: 0,
@@ -2932,12 +2834,24 @@ __webpack_require__.r(__webpack_exports__);
     document.getElementById("menu").focus();
     var keysArray = Object.keys(this.mapNavigation);
     var mapCollector = document.querySelector(".map");
-    this.sortingMapY();
-    this.sortedMapY.forEach(function (element) {
-      _this4.sortingMapX(element);
-    });
-    this.checkMinMaxValueX();
-    this.checkMinMaxValueY(); // keysArray.forEach(element => {
+    axios.get("maps/" + "dream").then(function (request) {
+      console.log(request);
+
+      if (request != null) {
+        _this4.mapPlace = JSON.parse(request.data.descriptions);
+        _this4.mapNavigation = JSON.parse(request.data.navigation);
+
+        _this4.sortingMapY();
+
+        _this4.sortedMapY.forEach(function (element) {
+          _this4.sortingMapX(element);
+        });
+
+        _this4.checkMinMaxValueX();
+
+        _this4.checkMinMaxValueY();
+      }
+    }); // keysArray.forEach(element => {
     // 	let colWrapper = document.createElement("div");
     // 	colWrapper.classList.add("colWrapper");
     // 	Object.keys(this.mapNavigation[element]).forEach(element2 => {
@@ -48463,27 +48377,29 @@ var render = function() {
           }
         },
         [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.thisCommend,
-                expression: "thisCommend"
-              }
-            ],
-            staticClass: "consoleInput",
-            attrs: { id: "menu", type: "text", autofocus: "" },
-            domProps: { value: _vm.thisCommend },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c("form", { attrs: { autocomplete: "off" } }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.thisCommend,
+                  expression: "thisCommend"
                 }
-                _vm.thisCommend = $event.target.value
+              ],
+              staticClass: "consoleInput",
+              attrs: { id: "menu", type: "text", autofocus: "" },
+              domProps: { value: _vm.thisCommend },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.thisCommend = $event.target.value
+                }
               }
-            }
-          })
+            })
+          ])
         ]
       )
     ]),
@@ -68738,6 +68654,7 @@ var submitCommend = {
       }, 0); // check commend
 
       this.navigationCommend(typeNavigation);
+      this.lastCommendId = -1;
     }
   }
 };
@@ -68788,6 +68705,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navigationCommendGame", function() { return navigationCommendGame; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navigationCommendMenu", function() { return navigationCommendMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "navigationCommendEdytor", function() { return navigationCommendEdytor; });
+/* harmony import */ var http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! http */ "./node_modules/stream-http/index.js");
+/* harmony import */ var http__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(http__WEBPACK_IMPORTED_MODULE_0__);
+
 var navigationCommendGame = {
   methods: {
     navigationCommend: function navigationCommend() {
@@ -68870,6 +68790,21 @@ var navigationCommendEdytor = {
         case "menu":
           this.cleanConsole();
           this.$store.commit("setMenu", "menu");
+          break;
+
+        case "save":
+          var mapNavigationJSON = JSON.stringify(this.mapNavigation);
+          console.log(mapNavigationJSON);
+          var mapPlaceJSON = JSON.stringify(this.mapPlace);
+          console.log(mapPlaceJSON);
+          var dataPackage = {
+            name: "dream",
+            navigation: mapNavigationJSON,
+            descriptions: mapPlaceJSON
+          };
+          axios.post("maps/save", dataPackage).then(function (request) {
+            console.log(request);
+          });
           break;
       }
 

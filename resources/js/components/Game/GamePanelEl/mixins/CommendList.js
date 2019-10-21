@@ -1,3 +1,5 @@
+import { request } from "http";
+
 export const navigationCommendGame = {
   methods: {
     navigationCommend() {
@@ -87,6 +89,21 @@ export const navigationCommendEdytor = {
           this.cleanConsole();
           this.$store.commit("setMenu", "menu");
 
+          break;
+        case "save":
+          let mapNavigationJSON = JSON.stringify(this.mapNavigation);
+          console.log(mapNavigationJSON);
+          let mapPlaceJSON = JSON.stringify(this.mapPlace);
+          console.log(mapPlaceJSON);
+          let dataPackage = {
+            name: "dream",
+            navigation: mapNavigationJSON,
+            descriptions: mapPlaceJSON
+          }
+          axios
+            .post("maps/save", dataPackage).then(request => {
+              console.log(request);
+            })
           break;
       }
       if (commend) {

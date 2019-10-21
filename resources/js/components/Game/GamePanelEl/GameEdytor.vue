@@ -8,7 +8,9 @@
 				@keydown.up.exact="showLastCommend(1)"
 				@keydown.down.exact="showLastCommend(0)"
 			>
-				<input id="menu" type="text" class="consoleInput" v-model="thisCommend" autofocus />
+				<form autocomplete="off">
+					<input id="menu" type="text" class="consoleInput" v-model="thisCommend" autofocus />
+				</form>
 			</div>
 		</div>
 		<div
@@ -74,95 +76,9 @@ export default {
 				y: 0
 			},
 			// MAP DATA
-			mapPlace: {
-				"0_0": {
-					name: "home",
-					description: "small house",
-					x: 0,
-					y: 0,
-					location: "city",
-					world: "Dream"
-				},
-				"0_1": {
-					name: "Wood",
-					description: "smelly wood",
-					x: 1,
-					y: 0,
-					location: "wood",
-					world: "Dream"
-				},
-				"1_0": {
-					name: "home",
-					description: "small house",
-					x: 0,
-					y: 1,
-					location: "city",
-					world: "Dream"
-				},
-				"1_1": {
-					name: "Wood",
-					description: "smelly wood",
-					x: 1,
-					y: 1,
-					location: "wood",
-					world: "Dream"
-				},
-				"1_-1": {
-					name: "home",
-					description: "small house",
-					x: 0,
-					y: 1,
-					location: "city",
-					world: "Dream"
-				},
-				"1_2": {
-					name: "Wood",
-					description: "smelly wood",
-					x: 2,
-					y: 1,
-					location: "wood",
-					world: "Dream"
-				},
-				"-1_0": {
-					name: "home",
-					description: "small house",
-					x: 0,
-					y: -1,
-					location: "city",
-					world: "Dream"
-				},
-				"-1_1": {
-					name: "Wood",
-					description: "smelly wood",
-					x: 1,
-					y: -1,
-					location: "wood",
-					world: "Dream"
-				},
-				"-1_2": {
-					name: "Wood",
-					description: "smelly wood",
-					x: 2,
-					y: -1,
-					location: "wood",
-					world: "Dream"
-				},
-				"-3_2": {
-					name: "LOL",
-					description: "smelly wood",
-					x: 2,
-					y: -1,
-					location: "wood",
-					world: "Dream"
-				}
-			},
+			mapPlace: {},
 			// NAVIGATION MAP
-			mapNavigation: {
-				"1": { "0": "home", "1": "Wood", "2": "Wood", "-1": "home" },
-				"0": { "0": "home", "1": "Wood" },
-				"-1": { "0": "home", "1": "Wood", "2": "Wood" },
-				"-3": { "2": "LOL" }
-			},
+			mapNavigation: {},
 			mapGrapped: false,
 			startPositionX: 0,
 			startPositionY: 0,
@@ -272,13 +188,22 @@ export default {
 		document.getElementById("menu").focus();
 		let keysArray = Object.keys(this.mapNavigation);
 		let mapCollector = document.querySelector(".map");
-		this.sortingMapY();
-		this.sortedMapY.forEach(element => {
-			this.sortingMapX(element);
-		});
 
-		this.checkMinMaxValueX();
-		this.checkMinMaxValueY();
+		axios.get("maps/" + "dream").then(request => {
+			console.log(request);
+			if (request != null) {
+				this.mapPlace = JSON.parse(request.data.descriptions);
+				this.mapNavigation = JSON.parse(request.data.navigation);
+
+				this.sortingMapY();
+				this.sortedMapY.forEach(element => {
+					this.sortingMapX(element);
+				});
+
+				this.checkMinMaxValueX();
+				this.checkMinMaxValueY();
+			}
+		});
 		// keysArray.forEach(element => {
 		// 	let colWrapper = document.createElement("div");
 		// 	colWrapper.classList.add("colWrapper");

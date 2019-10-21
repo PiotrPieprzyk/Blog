@@ -73,6 +73,7 @@ export const submitCommend = {
 
       // check commend
       this.navigationCommend(typeNavigation);
+      this.lastCommendId = -1;
     },
   }
 }
