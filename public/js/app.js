@@ -2695,6 +2695,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2723,10 +2739,16 @@ __webpack_require__.r(__webpack_exports__);
       minValueX: 0,
       maxValueX: 0,
       minValueY: 0,
-      maxValueY: 0
+      maxValueY: 0,
+      currentDescription: {}
     };
   },
   methods: {
+    showDescription: function showDescription(index) {
+      console.log(index);
+      console.log(this.mapPlace[index]);
+      this.currentDescription = this.mapPlace[index];
+    },
     checkMinMaxValueX: function checkMinMaxValueX() {
       var _this = this;
 
@@ -2979,6 +3001,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2993,109 +3017,9 @@ __webpack_require__.r(__webpack_exports__);
         y: 0
       },
       // MAP DATA
-      mapPlace: {
-        "0_0": {
-          name: "home",
-          description: "small house",
-          x: 0,
-          y: 0,
-          location: "city",
-          world: "Dream"
-        },
-        "0_1": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 1,
-          y: 0,
-          location: "wood",
-          world: "Dream"
-        },
-        "1_0": {
-          name: "home",
-          description: "small house",
-          x: 0,
-          y: 1,
-          location: "city",
-          world: "Dream"
-        },
-        "1_1": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 1,
-          y: 1,
-          location: "wood",
-          world: "Dream"
-        },
-        "1_-1": {
-          name: "home",
-          description: "small house",
-          x: 0,
-          y: 1,
-          location: "city",
-          world: "Dream"
-        },
-        "1_2": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 2,
-          y: 1,
-          location: "wood",
-          world: "Dream"
-        },
-        "-1_0": {
-          name: "home",
-          description: "small house",
-          x: 0,
-          y: -1,
-          location: "city",
-          world: "Dream"
-        },
-        "-1_1": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 1,
-          y: -1,
-          location: "wood",
-          world: "Dream"
-        },
-        "-1_2": {
-          name: "Wood",
-          description: "smelly wood",
-          x: 2,
-          y: -1,
-          location: "wood",
-          world: "Dream"
-        },
-        "-3_2": {
-          name: "LOL",
-          description: "smelly wood",
-          x: 2,
-          y: -1,
-          location: "wood",
-          world: "Dream"
-        }
-      },
+      mapPlace: {},
       // NAVIGATION MAP
-      mapNavigation: {
-        "1": {
-          "0": "home",
-          "1": "Wood",
-          "2": "Wood",
-          "-1": "home"
-        },
-        "0": {
-          "0": "home",
-          "1": "Wood"
-        },
-        "-1": {
-          "0": "home",
-          "1": "Wood",
-          "2": "Wood"
-        },
-        "-3": {
-          "2": "LOL"
-        }
-      }
+      mapNavigation: {}
     };
   },
   methods: {
@@ -3105,8 +3029,20 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.getCurrentPlace(this.currentNavigation.x, this.currentNavigation.y);
-    document.getElementById("game").focus();
+    var _this = this;
+
+    axios.get("maps/" + "dream").then(function (request) {
+      console.log(request);
+
+      if (request != null) {
+        _this.mapPlace = JSON.parse(request.data.descriptions);
+        _this.mapNavigation = JSON.parse(request.data.navigation);
+
+        _this.getCurrentPlace(_this.currentNavigation.x, _this.currentNavigation.y);
+
+        document.getElementById("game").focus();
+      }
+    });
   }
 });
 
@@ -48307,194 +48243,229 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "edytorWrapper" }, [
-    _c("div", { staticClass: "worldsListWrapper" }, [
-      _c("div", { staticClass: "world" }, [_vm._v("Dream")]),
+    _c("div", { staticClass: "edytorPanel" }, [
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "div",
         {
-          staticClass: "consoleInput",
+          staticClass: "mapWrapperOutter",
           on: {
-            keydown: [
-              function($event) {
-                if (
-                  !$event.type.indexOf("key") &&
-                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                ) {
-                  return null
-                }
-                if (
-                  $event.ctrlKey ||
-                  $event.shiftKey ||
-                  $event.altKey ||
-                  $event.metaKey
-                ) {
-                  return null
-                }
-                return _vm.submitCommend($event)
-              },
-              function($event) {
-                if (
-                  !$event.type.indexOf("key") &&
-                  _vm._k($event.keyCode, "up", 38, $event.key, [
-                    "Up",
-                    "ArrowUp"
-                  ])
-                ) {
-                  return null
-                }
-                if (
-                  $event.ctrlKey ||
-                  $event.shiftKey ||
-                  $event.altKey ||
-                  $event.metaKey
-                ) {
-                  return null
-                }
-                return _vm.showLastCommend(1)
-              },
-              function($event) {
-                if (
-                  !$event.type.indexOf("key") &&
-                  _vm._k($event.keyCode, "down", 40, $event.key, [
-                    "Down",
-                    "ArrowDown"
-                  ])
-                ) {
-                  return null
-                }
-                if (
-                  $event.ctrlKey ||
-                  $event.shiftKey ||
-                  $event.altKey ||
-                  $event.metaKey
-                ) {
-                  return null
-                }
-                return _vm.showLastCommend(0)
-              }
-            ]
+            mousedown: _vm.grapMap,
+            mouseup: _vm.dropMap,
+            mousemove: _vm.moveMap,
+            wheel: _vm.scaleMap
           }
         },
         [
-          _c("form", { attrs: { autocomplete: "off" } }, [
-            _c("input", {
-              directives: [
+          _c(
+            "div",
+            {
+              staticClass: "map",
+              style:
+                "transform: translateX(" +
+                _vm.startPositionX +
+                "px) translateY(" +
+                _vm.startPositionY +
+                "px) scale(" +
+                _vm.startScale +
+                ") ; grid-template-rows: " +
+                _vm.maxGridY
+            },
+            _vm._l(_vm.sortedMapY, function(col) {
+              return _c(
+                "div",
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.thisCommend,
-                  expression: "thisCommend"
-                }
-              ],
-              staticClass: "consoleInput",
-              attrs: { id: "menu", type: "text", autofocus: "" },
-              domProps: { value: _vm.thisCommend },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.thisCommend = $event.target.value
-                }
-              }
-            })
-          ])
+                  key: col,
+                  staticClass: "colWrapper",
+                  style:
+                    "grid-template-columns: " +
+                    _vm.maxGridX +
+                    "; grid-row: " +
+                    (_vm.maxValueY + 1 + -parseInt(col)),
+                  attrs: { id: col }
+                },
+                _vm._l(_vm.sortedMapX[col], function(location, x) {
+                  return _c(
+                    "div",
+                    {
+                      key: x,
+                      staticClass: "location",
+                      style:
+                        "grid-column: " +
+                        (Math.abs(_vm.minValueX) + 1 + parseInt(location)),
+                      attrs: { id: col + "_" + location },
+                      on: {
+                        click: function($event) {
+                          return _vm.showDescription(col + "_" + location)
+                        }
+                      }
+                    },
+                    [
+                      _c("p", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.mapPlace[col + "_" + location]
+                              ? _vm.mapPlace[col + "_" + location].name +
+                                  location
+                              : null
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.checkBorders(location, col).left
+                        ? _c("p", { staticClass: "left bridge" })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.checkBorders(location, col).right
+                        ? _c("p", { staticClass: "right bridge" })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.checkBorders(location, col).top
+                        ? _c("p", { staticClass: "top bridge" })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.checkBorders(location, col).bottom
+                        ? _c("p", { staticClass: "bottom bridge" })
+                        : _vm._e()
+                    ]
+                  )
+                }),
+                0
+              )
+            }),
+            0
+          )
         ]
-      )
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "locationDescriptionsWrapper" }, [
+        _c("div", { staticClass: "placeName" }, [
+          _c("h3", [_vm._v("Name")]),
+          _vm._v(
+            "\n\t\t\t\t" + _vm._s(_vm.currentDescription.name) + "\n\t\t\t"
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "placeDescription" }, [
+          _c("h3", [_vm._v("Description")]),
+          _vm._v(
+            "\n\t\t\t\t" +
+              _vm._s(_vm.currentDescription.description) +
+              "\n\t\t\t"
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "placeLocation" }, [
+          _c("h3", [_vm._v("Location")]),
+          _vm._v(
+            "\n\t\t\t\t" + _vm._s(_vm.currentDescription.location) + "\n\t\t\t"
+          )
+        ])
+      ])
     ]),
     _vm._v(" "),
     _c(
       "div",
       {
-        staticClass: "mapWrapperOutter",
+        staticClass: "consoleInput",
         on: {
-          mousedown: _vm.grapMap,
-          mouseup: _vm.dropMap,
-          mousemove: _vm.moveMap,
-          wheel: _vm.scaleMap
+          keydown: [
+            function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+              ) {
+                return null
+              }
+              if (
+                $event.ctrlKey ||
+                $event.shiftKey ||
+                $event.altKey ||
+                $event.metaKey
+              ) {
+                return null
+              }
+              return _vm.submitCommend($event)
+            },
+            function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "up", 38, $event.key, ["Up", "ArrowUp"])
+              ) {
+                return null
+              }
+              if (
+                $event.ctrlKey ||
+                $event.shiftKey ||
+                $event.altKey ||
+                $event.metaKey
+              ) {
+                return null
+              }
+              return _vm.showLastCommend(1)
+            },
+            function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "down", 40, $event.key, [
+                  "Down",
+                  "ArrowDown"
+                ])
+              ) {
+                return null
+              }
+              if (
+                $event.ctrlKey ||
+                $event.shiftKey ||
+                $event.altKey ||
+                $event.metaKey
+              ) {
+                return null
+              }
+              return _vm.showLastCommend(0)
+            }
+          ]
         }
       },
       [
-        _c(
-          "div",
-          {
-            staticClass: "map",
-            style:
-              "transform: translateX(" +
-              _vm.startPositionX +
-              "px) translateY(" +
-              _vm.startPositionY +
-              "px) scale(" +
-              _vm.startScale +
-              ") ; grid-template-rows: " +
-              _vm.maxGridY
-          },
-          _vm._l(_vm.sortedMapY, function(col) {
-            return _c(
-              "div",
+        _c("form", { attrs: { autocomplete: "off" } }, [
+          _c("input", {
+            directives: [
               {
-                key: col,
-                staticClass: "colWrapper",
-                style:
-                  "grid-template-columns: " +
-                  _vm.maxGridX +
-                  "; grid-row: " +
-                  (_vm.maxValueY + 1 + -parseInt(col)),
-                attrs: { id: col }
-              },
-              _vm._l(_vm.sortedMapX[col], function(location, x) {
-                return _c(
-                  "div",
-                  {
-                    key: x,
-                    staticClass: "location",
-                    style:
-                      "grid-column: " +
-                      (Math.abs(_vm.minValueX) + 1 + parseInt(location)),
-                    attrs: { id: col + "_" + location }
-                  },
-                  [
-                    _c("p", [
-                      _vm._v(
-                        _vm._s(
-                          _vm.mapPlace[col + "_" + location]
-                            ? _vm.mapPlace[col + "_" + location].name + location
-                            : null
-                        )
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm.checkBorders(location, col).left
-                      ? _c("p", { staticClass: "left bridge" })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.checkBorders(location, col).right
-                      ? _c("p", { staticClass: "right bridge" })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.checkBorders(location, col).top
-                      ? _c("p", { staticClass: "top bridge" })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.checkBorders(location, col).bottom
-                      ? _c("p", { staticClass: "bottom bridge" })
-                      : _vm._e()
-                  ]
-                )
-              }),
-              0
-            )
-          }),
-          0
-        )
+                name: "model",
+                rawName: "v-model",
+                value: _vm.thisCommend,
+                expression: "thisCommend"
+              }
+            ],
+            staticClass: "consoleInput",
+            attrs: { id: "menu", type: "text", autofocus: "" },
+            domProps: { value: _vm.thisCommend },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.thisCommend = $event.target.value
+              }
+            }
+          })
+        ])
       ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "locationDescriptionsWrapper" })
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "worldsListWrapper" }, [
+      _c("div", { staticClass: "world" }, [_vm._v("Dream")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -48826,27 +48797,29 @@ var render = function() {
         }
       },
       [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.thisCommend,
-              expression: "thisCommend"
-            }
-          ],
-          staticClass: "consoleInput",
-          attrs: { id: "game", type: "text", autofocus: "" },
-          domProps: { value: _vm.thisCommend },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("form", { attrs: { autocomplete: "off" } }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.thisCommend,
+                expression: "thisCommend"
               }
-              _vm.thisCommend = $event.target.value
+            ],
+            staticClass: "consoleInput",
+            attrs: { id: "game", type: "text", autofocus: "" },
+            domProps: { value: _vm.thisCommend },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.thisCommend = $event.target.value
+              }
             }
-          }
-        })
+          })
+        ])
       ]
     )
   ])

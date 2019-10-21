@@ -1,53 +1,69 @@
 <template>
 	<div class="edytorWrapper">
-		<div class="worldsListWrapper">
-			<div class="world">Dream</div>
-			<div
-				class="consoleInput"
-				@keydown.enter.exact="submitCommend"
-				@keydown.up.exact="showLastCommend(1)"
-				@keydown.down.exact="showLastCommend(0)"
-			>
-				<form autocomplete="off">
-					<input id="menu" type="text" class="consoleInput" v-model="thisCommend" autofocus />
-				</form>
+		<div class="edytorPanel">
+			<div class="worldsListWrapper">
+				<div class="world">Dream</div>
 			</div>
-		</div>
-		<div
-			class="mapWrapperOutter"
-			@mousedown="grapMap"
-			@mouseup="dropMap"
-			@mousemove="moveMap"
-			@wheel="scaleMap"
-		>
 			<div
-				class="map"
-				:style="'transform: translateX('+startPositionX+'px) translateY('+startPositionY+'px) scale('+startScale+') ; grid-template-rows: '+maxGridY"
+				class="mapWrapperOutter"
+				@mousedown="grapMap"
+				@mouseup="dropMap"
+				@mousemove="moveMap"
+				@wheel="scaleMap"
 			>
 				<div
-					class="colWrapper"
-					v-for="(col) in sortedMapY"
-					:key="col"
-					:id="col"
-					:style="'grid-template-columns: '+maxGridX  +'; grid-row: '+((maxValueY)+1+(-parseInt(col)))"
+					class="map"
+					:style="'transform: translateX('+startPositionX+'px) translateY('+startPositionY+'px) scale('+startScale+') ; grid-template-rows: '+maxGridY"
 				>
 					<div
-						:id="col+'_'+location"
-						class="location"
-						v-for="(location, x) in sortedMapX[col]"
-						:key="x"
-						:style="'grid-column: '+ (Math.abs(minValueX)+1+parseInt(location))"
+						class="colWrapper"
+						v-for="(col) in sortedMapY"
+						:key="col"
+						:id="col"
+						:style="'grid-template-columns: '+maxGridX  +'; grid-row: '+((maxValueY)+1+(-parseInt(col)))"
 					>
-						<p>{{mapPlace[col+"_"+location]? mapPlace[col+"_"+location].name +location: null }}</p>
-						<p class="left bridge" v-if="checkBorders(location,col).left"></p>
-						<p class="right bridge" v-if="checkBorders(location,col).right"></p>
-						<p class="top bridge" v-if="checkBorders(location,col).top"></p>
-						<p class="bottom bridge" v-if="checkBorders(location,col).bottom"></p>
+						<div
+							:id="col+'_'+location"
+							class="location"
+							v-for="(location, x) in sortedMapX[col]"
+							:key="x"
+							:style="'grid-column: '+ (Math.abs(minValueX)+1+parseInt(location))"
+							@click="showDescription(col+'_'+location)"
+						>
+							<p>{{mapPlace[col+"_"+location]? mapPlace[col+"_"+location].name +location: null }}</p>
+							<p class="left bridge" v-if="checkBorders(location,col).left"></p>
+							<p class="right bridge" v-if="checkBorders(location,col).right"></p>
+							<p class="top bridge" v-if="checkBorders(location,col).top"></p>
+							<p class="bottom bridge" v-if="checkBorders(location,col).bottom"></p>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="locationDescriptionsWrapper">
+				<div class="placeName">
+					<h3>Name</h3>
+					{{currentDescription.name}}
+				</div>
+				<div class="placeDescription">
+					<h3>Description</h3>
+					{{currentDescription.description}}
+				</div>
+				<div class="placeLocation">
+					<h3>Location</h3>
+					{{currentDescription.location}}
+				</div>
+			</div>
 		</div>
-		<div class="locationDescriptionsWrapper"></div>
+		<div
+			class="consoleInput"
+			@keydown.enter.exact="submitCommend"
+			@keydown.up.exact="showLastCommend(1)"
+			@keydown.down.exact="showLastCommend(0)"
+		>
+			<form autocomplete="off">
+				<input id="menu" type="text" class="consoleInput" v-model="thisCommend" autofocus />
+			</form>
+		</div>
 	</div>
 </template>
 <script>
@@ -92,10 +108,16 @@ export default {
 			minValueX: 0,
 			maxValueX: 0,
 			minValueY: 0,
-			maxValueY: 0
+			maxValueY: 0,
+			currentDescription: {}
 		};
 	},
 	methods: {
+		showDescription(index) {
+			console.log(index);
+			console.log(this.mapPlace[index]);
+			this.currentDescription = this.mapPlace[index];
+		},
 		checkMinMaxValueX() {
 			let minXTEMP = 0;
 			let maxXTEMP = 0;
