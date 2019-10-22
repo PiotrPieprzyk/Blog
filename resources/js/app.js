@@ -138,6 +138,9 @@ const store = new Vuex.Store({
                         <img class="technologyItem" src="./images/contactImg/Vue.png" />
                         <img class="technologyItem" src="./images/contactImg/Laravel.png" />
                     </div>
+                    <div class="ContaktMobileInfo">
+                      <div class="arrow"></div>
+                    </div>
                     <p class="contactTitle">Chcesz się skontaktować?</p>
                     <p class="contactText">+48 886 168 943</p>
                     <p class="contactText">piotr.pieprzyk.pp@gmail.com</p>

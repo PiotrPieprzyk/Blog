@@ -2854,12 +2854,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this4 = this;
 
     document.getElementById("menu").focus();
-    var keysArray = Object.keys(this.mapNavigation);
-    var mapCollector = document.querySelector(".map");
     axios.get("maps/" + "dream").then(function (request) {
       console.log(request);
 
-      if (request != null) {
+      if (request.data) {
         _this4.mapPlace = JSON.parse(request.data.descriptions);
         _this4.mapNavigation = JSON.parse(request.data.navigation);
 
@@ -3034,7 +3032,7 @@ __webpack_require__.r(__webpack_exports__);
     axios.get("maps/" + "dream").then(function (request) {
       console.log(request);
 
-      if (request != null) {
+      if (request.data) {
         _this.mapPlace = JSON.parse(request.data.descriptions);
         _this.mapNavigation = JSON.parse(request.data.navigation);
 
@@ -3333,10 +3331,12 @@ __webpack_require__.r(__webpack_exports__);
       if (id == -1) {
         setTimeout(function () {
           _this.activeMenuImage = id;
-        }, 1);
+        }, 20);
       } else {
-        this.activeMenuImage = id;
-        console.log(this.activeMenuImage);
+        setTimeout(function () {
+          _this.activeMenuImage = id;
+          console.log(_this.activeMenuImage);
+        }, 20);
       }
     },
     activeMinus: function activeMinus() {
@@ -49010,7 +49010,7 @@ var render = function() {
     {
       staticClass: "GraphicProfile",
       on: {
-        mouseover: function($event) {
+        click: function($event) {
           if ($event.target !== $event.currentTarget) {
             return null
           }
@@ -49134,7 +49134,7 @@ var render = function() {
           {
             staticClass: "GaleryGraphicWrapper",
             on: {
-              mouseover: function($event) {
+              click: function($event) {
                 if ($event.target !== $event.currentTarget) {
                   return null
                 }
@@ -66814,10 +66814,10 @@ function scale_widthUP(store) {
 
   var interval1 = function interval1() {
     if (element) {
-      element.style.width = easeOutQuart(k, 1, maxElementWidth, 30) + "px";
+      element.style.width = easeOutQuart(k, 1, maxElementWidth, 45) + "px";
       k++;
 
-      if (k > 30) {
+      if (k > 45) {
         window.cancelAnimationFrame(animation_id);
       } else {
         animation_id = window.requestAnimationFrame(interval1);
@@ -66839,10 +66839,10 @@ function spin_the_crossUP() {
 
   var interval2 = function interval2() {
     if (cross) {
-      cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
+      cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 45) + 'deg)';
       i++;
 
-      if (i > 30) {
+      if (i > 45) {
         window.cancelAnimationFrame(animation_id2);
       } else {
         animation_id2 = window.requestAnimationFrame(interval2);
@@ -66867,11 +66867,11 @@ function scale_widthDown(it) {
     maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
   }
 
-  var k = 30;
+  var k = 45;
 
   var interval3 = function interval3() {
     if (element) {
-      element.style.width = easeOutQuart(k, 0, maxElementWidth, 30) + "px";
+      element.style.width = easeOutQuart(k, 0, maxElementWidth, 45) + "px";
       k--;
 
       if (k < 0) {
@@ -66888,11 +66888,11 @@ function scale_widthDown(it) {
 function spin_the_crossDown() {
   var cross = document.querySelector(".plusItem");
   var animation_id4;
-  var i = 30;
+  var i = 45;
 
   var interval4 = function interval4() {
     if (cross) {
-      cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
+      cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 45) + 'deg)';
       i--;
 
       if (i < 0) {
@@ -67608,7 +67608,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       id: 3,
       href: "",
       title: "",
-      content: "\n                <div class=\"contactItems\">\n                    <p class=\"contactTitle\">Spodoba\u0142a si\u0119 strona?</p>\n                    <p class=\"contactText\">Przy jej tworzeniu skorzysta\u0142em z wsp\xF3\u0142czesnych technologi</p>\n                    <div class=\"technologyList\">\n                        <img class=\"technologyItem\" src=\"./images/contactImg/Vue.png\" />\n                        <img class=\"technologyItem\" src=\"./images/contactImg/Laravel.png\" />\n                    </div>\n                    <p class=\"contactTitle\">Chcesz si\u0119 skontaktowa\u0107?</p>\n                    <p class=\"contactText\">+48 886 168 943</p>\n                    <p class=\"contactText\">piotr.pieprzyk.pp@gmail.com</p>\n                </div>\n                ",
+      content: "\n                <div class=\"contactItems\">\n                    <p class=\"contactTitle\">Spodoba\u0142a si\u0119 strona?</p>\n                    <p class=\"contactText\">Przy jej tworzeniu skorzysta\u0142em z wsp\xF3\u0142czesnych technologi</p>\n                    <div class=\"technologyList\">\n                        <img class=\"technologyItem\" src=\"./images/contactImg/Vue.png\" />\n                        <img class=\"technologyItem\" src=\"./images/contactImg/Laravel.png\" />\n                    </div>\n                    <div class=\"ContaktMobileInfo\">\n                      <div class=\"arrow\"></div>\n                    </div>\n                    <p class=\"contactTitle\">Chcesz si\u0119 skontaktowa\u0107?</p>\n                    <p class=\"contactText\">+48 886 168 943</p>\n                    <p class=\"contactText\">piotr.pieprzyk.pp@gmail.com</p>\n                </div>\n                ",
       buttonText: "",
       buttonRoute: ""
     }],
@@ -68793,40 +68793,45 @@ var navigationCommendEdytor = {
             var locationTemp = comArguments[3];
             var worldName = comArguments[4];
             var nameTemp = comArguments[5];
-            console.log("  xCoOrdinate: " + xCoOrdinate, "  yCoOrdinate: " + yCoOrdinate, "  locationTemp: " + locationTemp, "  worldName: " + worldName, 'nameTemp ' + nameTemp);
-            this.mapPlace[yCoOrdinate + "_" + xCoOrdinate] = {
-              name: nameTemp,
-              description: "none",
-              x: xCoOrdinate,
-              y: yCoOrdinate,
-              location: locationTemp,
-              world: worldName
-            };
-            console.log(this.mapNavigation[yCoOrdinate]);
 
-            if (!this.mapNavigation[yCoOrdinate]) {
-              this.mapNavigation[yCoOrdinate] = {};
+            if (xCoOrdinate && yCoOrdinate && locationTemp && worldName && nameTemp) {
+              console.log("  xCoOrdinate: " + xCoOrdinate, "  yCoOrdinate: " + yCoOrdinate, "  locationTemp: " + locationTemp, "  worldName: " + worldName, 'nameTemp ' + nameTemp);
+              this.mapPlace[yCoOrdinate + "_" + xCoOrdinate] = {
+                name: nameTemp,
+                description: "none",
+                x: xCoOrdinate,
+                y: yCoOrdinate,
+                location: locationTemp,
+                world: worldName
+              };
               console.log(this.mapNavigation[yCoOrdinate]);
-              this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
-              console.log(this.mapNavigation);
-              console.log("DZIAŁA");
-              this.sortingMapY();
-              this.sortedMapY.forEach(function (element) {
-                _this.sortingMapX(element);
-              });
-              this.checkMinMaxValueX();
-              this.checkMinMaxValueY();
+
+              if (!this.mapNavigation[yCoOrdinate]) {
+                this.mapNavigation[yCoOrdinate] = {};
+                console.log(this.mapNavigation[yCoOrdinate]);
+                this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
+                console.log(this.mapNavigation);
+                console.log("DZIAŁA");
+                this.sortingMapY();
+                this.sortedMapY.forEach(function (element) {
+                  _this.sortingMapX(element);
+                });
+                this.checkMinMaxValueX();
+                this.checkMinMaxValueY();
+              } else {
+                console.log(this.mapNavigation[yCoOrdinate]);
+                this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
+                console.log(this.mapNavigation);
+                console.log("DZIAŁA");
+                this.sortingMapY();
+                this.sortedMapY.forEach(function (element) {
+                  _this.sortingMapX(element);
+                });
+                this.checkMinMaxValueX();
+                this.checkMinMaxValueY();
+              }
             } else {
-              console.log(this.mapNavigation[yCoOrdinate]);
-              this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
-              console.log(this.mapNavigation);
-              console.log("DZIAŁA");
-              this.sortingMapY();
-              this.sortedMapY.forEach(function (element) {
-                _this.sortingMapX(element);
-              });
-              this.checkMinMaxValueX();
-              this.checkMinMaxValueY();
+              console.log("Nieprawidłowa komenda");
             }
           }
         }

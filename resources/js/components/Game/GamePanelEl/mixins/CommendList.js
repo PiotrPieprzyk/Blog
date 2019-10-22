@@ -117,47 +117,53 @@ export const navigationCommendEdytor = {
             let locationTemp = comArguments[3];
             let worldName = comArguments[4];
             let nameTemp = comArguments[5];
-            console.log("  xCoOrdinate: " + xCoOrdinate, "  yCoOrdinate: " + yCoOrdinate, "  locationTemp: " + locationTemp, "  worldName: " + worldName, 'nameTemp ' + nameTemp)
+            if (xCoOrdinate && yCoOrdinate && locationTemp && worldName && nameTemp) {
+              console.log("  xCoOrdinate: " + xCoOrdinate, "  yCoOrdinate: " + yCoOrdinate, "  locationTemp: " + locationTemp, "  worldName: " + worldName, 'nameTemp ' + nameTemp)
 
-            this.mapPlace[yCoOrdinate + "_" + xCoOrdinate] = {
-              name: nameTemp,
-              description: "none",
-              x: xCoOrdinate,
-              y: yCoOrdinate,
-              location: locationTemp,
-              world: worldName
+              this.mapPlace[yCoOrdinate + "_" + xCoOrdinate] = {
+                name: nameTemp,
+                description: "none",
+                x: xCoOrdinate,
+                y: yCoOrdinate,
+                location: locationTemp,
+                world: worldName
+              }
+
+              console.log(this.mapNavigation[yCoOrdinate]);
+              if (!this.mapNavigation[yCoOrdinate]) {
+
+                this.mapNavigation[yCoOrdinate] = {};
+                console.log(this.mapNavigation[yCoOrdinate]);
+                this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
+                console.log(this.mapNavigation);
+
+                console.log("DZIAŁA");
+                this.sortingMapY();
+                this.sortedMapY.forEach(element => {
+                  this.sortingMapX(element);
+                });
+
+                this.checkMinMaxValueX();
+                this.checkMinMaxValueY();
+              } else {
+                console.log(this.mapNavigation[yCoOrdinate]);
+                this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
+                console.log(this.mapNavigation);
+
+                console.log("DZIAŁA");
+                this.sortingMapY();
+                this.sortedMapY.forEach(element => {
+                  this.sortingMapX(element);
+                });
+
+                this.checkMinMaxValueX();
+                this.checkMinMaxValueY();
+              }
+            }
+            else {
+              console.log("Nieprawidłowa komenda");
             }
 
-            console.log(this.mapNavigation[yCoOrdinate]);
-            if (!this.mapNavigation[yCoOrdinate]) {
-
-              this.mapNavigation[yCoOrdinate] = {};
-              console.log(this.mapNavigation[yCoOrdinate]);
-              this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
-              console.log(this.mapNavigation);
-
-              console.log("DZIAŁA");
-              this.sortingMapY();
-              this.sortedMapY.forEach(element => {
-                this.sortingMapX(element);
-              });
-
-              this.checkMinMaxValueX();
-              this.checkMinMaxValueY();
-            } else {
-              console.log(this.mapNavigation[yCoOrdinate]);
-              this.mapNavigation[yCoOrdinate][xCoOrdinate] = nameTemp;
-              console.log(this.mapNavigation);
-
-              console.log("DZIAŁA");
-              this.sortingMapY();
-              this.sortedMapY.forEach(element => {
-                this.sortingMapX(element);
-              });
-
-              this.checkMinMaxValueX();
-              this.checkMinMaxValueY();
-            }
 
           }
 

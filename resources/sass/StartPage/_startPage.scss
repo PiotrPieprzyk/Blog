@@ -201,7 +201,6 @@
           flex-direction: column;
           align-items: center;
           font-size: 1.6em;
-
           padding: 20px 0;
 
           @media (min-width: 1300px) {
@@ -209,9 +208,68 @@
 
           }
 
+          @media (max-height: 400px) {
+            overflow: scroll;
+
+          }
+
           .contactTitle {
             margin: 0;
+
+            &::after {
+              content: '';
+              width: 1px;
+              height: 1px;
+
+            }
           }
+
+          // arrow 
+
+          .ContaktMobileInfo {
+            position: absolute;
+            display: flex;
+            right: 60px;
+            transform: scale(0.6);
+
+            @media (min-height: 450px) and (max-width: 400px) {
+              display: none;
+            }
+
+            p {
+              color: white;
+              margin: 0;
+            }
+
+
+
+            .arrow {
+              display: inline-block;
+              position: absolute;
+              width: 20px;
+              height: 20px;
+              background: transparent;
+              text-indent: -9999px;
+              border-top: 2px solid #bfbfbf;
+              border-left: 2px solid #bfbfbf;
+              text-decoration: none;
+              color: transparent;
+              right: -40px;
+              transform: rotate(-135deg);
+              margin-top: 5px;
+            }
+
+            .arrow:before {
+              display: block;
+              height: 200%;
+              width: 200%;
+              margin-left: -50%;
+              margin-top: -50%;
+              content: "";
+              transform: rotate(45deg);
+            }
+          }
+
 
           .contactText {
             font-size: .75em;

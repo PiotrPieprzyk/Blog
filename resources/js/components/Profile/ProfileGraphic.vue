@@ -1,5 +1,5 @@
 <template>
-	<div class="GraphicProfile" @mouseover.self="showImageMenu(-1)">
+	<div class="GraphicProfile" @click.self="showImageMenu(-1)">
 		<!-- Modal -->
 		<transition name="opacity">
 			<galery-slider
@@ -45,7 +45,7 @@
 		</div>
 
 		<div class="yourGraphicListWrapper">
-			<div class="GaleryGraphicWrapper" @mouseover.self="showImageMenu(-1)">
+			<div class="GaleryGraphicWrapper" @click.self="showImageMenu(-1)">
 				<div
 					v-for="(item, index) in listGraphics"
 					:key="index"
@@ -120,10 +120,12 @@ export default {
 			if (id == -1) {
 				setTimeout(() => {
 					this.activeMenuImage = id;
-				}, 1);
+				}, 20);
 			} else {
-				this.activeMenuImage = id;
-				console.log(this.activeMenuImage);
+				setTimeout(() => {
+					this.activeMenuImage = id;
+					console.log(this.activeMenuImage);
+				}, 20);
 			}
 		},
 		activeMinus() {

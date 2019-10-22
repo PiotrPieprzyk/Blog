@@ -10906,8 +10906,64 @@ a:hover {
   }
 }
 
+@media (max-height: 400px) {
+  .webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems {
+    overflow: scroll;
+  }
+}
+
 .webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .contactTitle {
   margin: 0;
+}
+
+.webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .contactTitle::after {
+  content: "";
+  width: 1px;
+  height: 1px;
+}
+
+.webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .ContaktMobileInfo {
+  position: absolute;
+  display: flex;
+  right: 60px;
+  transform: scale(0.6);
+}
+
+@media (min-height: 450px) and (max-width: 400px) {
+  .webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .ContaktMobileInfo {
+    display: none;
+  }
+}
+
+.webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .ContaktMobileInfo p {
+  color: white;
+  margin: 0;
+}
+
+.webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .ContaktMobileInfo .arrow {
+  display: inline-block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  text-indent: -9999px;
+  border-top: 2px solid #bfbfbf;
+  border-left: 2px solid #bfbfbf;
+  text-decoration: none;
+  color: transparent;
+  right: -40px;
+  transform: rotate(-135deg);
+  margin-top: 5px;
+}
+
+.webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .ContaktMobileInfo .arrow:before {
+  display: block;
+  height: 200%;
+  width: 200%;
+  margin-left: -50%;
+  margin-top: -50%;
+  content: "";
+  transform: rotate(45deg);
 }
 
 .webClass .startWebWrapper .startWebWrapperContent .wrapperContent .contactItems .contactText {
@@ -11750,6 +11806,12 @@ a:hover {
   position: relative;
 }
 
+@media (max-height: 400px) {
+  .registerWeb .registerCard {
+    transform: scale(0.7);
+  }
+}
+
 @media (max-width: 500px) {
   .registerWeb .registerCard {
     border: none;
@@ -11825,7 +11887,7 @@ a:hover {
   background-color: #fff0;
   color: white;
   border-bottom: white solid 2px;
-  height: 30px;
+  height: 35px;
   text-align: center;
   font-size: 0.8em;
   padding-bottom: 10px;

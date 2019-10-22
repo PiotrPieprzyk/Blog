@@ -208,12 +208,10 @@ export default {
 	},
 	mounted() {
 		document.getElementById("menu").focus();
-		let keysArray = Object.keys(this.mapNavigation);
-		let mapCollector = document.querySelector(".map");
 
 		axios.get("maps/" + "dream").then(request => {
 			console.log(request);
-			if (request != null) {
+			if (request.data) {
 				this.mapPlace = JSON.parse(request.data.descriptions);
 				this.mapNavigation = JSON.parse(request.data.navigation);
 

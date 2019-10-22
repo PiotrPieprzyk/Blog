@@ -68,7 +68,7 @@ export default {
 	mounted() {
 		axios.get("maps/" + "dream").then(request => {
 			console.log(request);
-			if (request != null) {
+			if (request.data) {
 				this.mapPlace = JSON.parse(request.data.descriptions);
 				this.mapNavigation = JSON.parse(request.data.navigation);
 

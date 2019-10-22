@@ -16,9 +16,9 @@ export function scale_widthUP(store) {
     var k = 1;
     var interval1 = function () {
         if (element) {
-            element.style.width = easeOutQuart(k, 1, maxElementWidth, 30) + "px";
+            element.style.width = easeOutQuart(k, 1, maxElementWidth, 45) + "px";
             k++;
-            if (k > 30) {
+            if (k > 45) {
                 window.cancelAnimationFrame(animation_id);
             }
             else {
@@ -37,9 +37,9 @@ export function spin_the_crossUP() {
     var i = 1;
     var interval2 = function () {
         if (cross) {
-            cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
+            cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 45) + 'deg)';
             i++;
-            if (i > 30) {
+            if (i > 45) {
                 window.cancelAnimationFrame(animation_id2);
             }
             else {
@@ -61,10 +61,10 @@ export function scale_widthDown(it) {
     if (buttonWidth) {
         maxElementWidth = parseInt(buttonWidth.slice(0, -2)) * 0.7;
     }
-    var k = 30;
+    var k = 45;
     var interval3 = function () {
         if (element) {
-            element.style.width = easeOutQuart(k, 0, maxElementWidth, 30) + "px";
+            element.style.width = easeOutQuart(k, 0, maxElementWidth, 45) + "px";
             k--;
             if (k < 0) {
                 window.cancelAnimationFrame(animation_id3);
@@ -80,10 +80,10 @@ export function scale_widthDown(it) {
 export function spin_the_crossDown() {
     var cross = document.querySelector(".plusItem");
     var animation_id4;
-    var i = 30;
+    var i = 45;
     var interval4 = function () {
         if (cross) {
-            cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 30) + 'deg)';
+            cross.style.transform = 'rotate(' + easeOutQuart(i, 0, 225, 45) + 'deg)';
             i--;
             if (i < 0) {
                 window.cancelAnimationFrame(animation_id4);
